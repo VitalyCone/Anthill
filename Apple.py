@@ -12,6 +12,7 @@ class Apple:
         self.apples = None
         self.anthill = anthill
         self.ants = None
+        self.spiders = None
         self.distance = ((self.anthill.geo[0]-self.geo[0])**2 + (self.anthill.geo[1]-self.geo[1])**2)**0.5
     
     def body(self):
@@ -41,11 +42,25 @@ class Apple:
         floor1 = [self.distance,normal_speed]
         speed = normal_speed * quantity_ants / normal_weight
         return speed
-    
+    def get_anthill(self, scene):
+        for anthill in scene:
+            if anthill.name == 'Anthill':
+                return anthill
+        return self.anthill
+
+    def get_spiders(self, scene):
+        spiders = []
+        for spider in scene:
+            if spider.name == 'Spider':
+                spiders.append(spider)
+        return spiders
+
     def move(self, scene):
         self.scene = scene
         self.apples = self.get_apples(self.scene)  #диспетчер переопределяет сцену
         self.ants = self.get_ants(self.scene)
+        self.spiders = self.get_spiders(self.scene)
+        self.anthill = self.get_anthill(self.scene)
 
         distance = ((self.anthill.geo[0]-self.geo[0])**2 + (self.anthill.geo[1]-self.geo[1])**2)**0.5
         speed = self.find_travel_speed()
@@ -60,4 +75,4 @@ class Apple:
 
         self.geo[0]+=vector[0]*speed
         self.geo[1]+=vector[1]*speed
-        return self.scene
+        return self.apples + self.ants + self.spiders + [self.anthill]

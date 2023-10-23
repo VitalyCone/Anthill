@@ -37,7 +37,7 @@ end = pygame.font.Font(pygame.font.match_font('verdana'), size = 100)
 
 lastcallback = time.time()
 
-def modify_scene(scene):
+def modify_scene(scene): #метод, обрабатывающий измененную сцену, после хода агента
         mapples = []
         mants = []
         mspiders = []
@@ -92,14 +92,13 @@ while running:
         display.blit(anthill_write,(10,810)) 
 
         for ant_index, ant in enumerate(ants):
-            scene = ant.move(ants + spiders + apples)
-            modify_scene(scene)
+            scene = ant.move(ants + spiders + apples) #теперь в параметрах, при ходе, каждому агенту передается сцена(массив из объектов-агентов)
+            modify_scene(scene)   #изменение сцены, после хода агента                      #(добавить муравейник)
             pygame.draw.rect(display, 'Black', ant.body())
         
         for spider_index, spider in enumerate(spiders):
-            scene = spider.move(ants + spiders + apples)
+            scene = spider.move(ants + spiders + apples) #то же самое, что и в коде ходов муравьев
             modify_scene(scene)
-            lastcallback = time.time()
             spider.run()
             pygame.draw.rect(display, 'Brown', spider.body())
                 
