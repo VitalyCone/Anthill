@@ -28,7 +28,7 @@ class Ant:
             self.r = 50  # Радиус зрения муравья
         self.intravel = False
         self.power = 1500
-        self.energy = 1
+        self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
         self.apples = self.get_apples(self.scene)  # Вообще все яблоки
         self.anthill = anthill  # Муравейник
@@ -209,6 +209,10 @@ class Ant:
         self.state = self.self_determination(self.state, self.ants, self.spiders, self.apples)
 
         self.live_by_self_determination(self.geo, self.state, self.ants, self.spiders, self.apples)
+
+        self.energy -= 0.001
+        if self.energy <=0:
+            self.die(self)
 
         for agent in self.scene:
             full_scene.append(
