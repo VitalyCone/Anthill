@@ -218,28 +218,37 @@ class Ant:
     def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
 
-    def accept_message(self, param, obj):  # Функция принятия сообщения. 0 - принятия просьбы о помощи
+    def accept_message(self, ant_sender, param, obj):  # Функция принятия сообщения. 0 - принятия просьбы о помощи
         if param == 0:
             if self.charachter == 0:
                 if self.state[0] != 2 and self.get_distance(obj) <= self.r * 3:
-                    self.state = [2, obj]
+                    return [2, obj]
                 elif obj in self.spiders:
-                    self.state = [4, obj]
+                    return [4, obj]
             elif self.charachter == 1:
                 if self.state[0] != 2 and self.get_distance(obj) <= self.r * 3:
-                    self.state = [2, obj]
+                    return [2, obj]
                 elif obj in self.spiders:
-                    self.state = [4, obj]
+                    return [4, obj]
+        else:
+            return self.state
+
+    def send_message(self, ant_sender, ant_recipient, param, obj):
+        consensus = ant_recipient.accept_message(ant_sender, param, obj)
+        return consensus
 
     def send_message_to_radius(self, param, ants,
                                obj=0):  # Функция разослать сообщение всем в радиусе. param = 0 - помогите убить паука
-        if param == 0:
-            if len(ants) > 3:
-                for ant in ants:
-                    ant.accept_message(param, obj)
-                return True
-            else:
-                return False
+        if param == 0:    
+            a = 0
+            for ant in ants:
+                f = self.send_message(self, ant, param, obj)
+                if f[0] == 2:
+                    a+=1
+            if a>5:
+                return [2, obj] 
+            else: return [4, obj] 
+        else: return self.state      
 
     def get_scene(self, scene):  # возвращает обьекты из сцены, в радиусе обзора паука
         scene1 = []
