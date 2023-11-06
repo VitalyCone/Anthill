@@ -8,7 +8,8 @@ class Spider:
         self.name = __class__.__name__  # в каждом классе определил переменную-имя класса, чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
         self.geo = [random.randint(10, 990), random.randint(10, 990)]
         self.speed = 6
-        self.u = math.pi * 3 / 2  # угол направления паука-вектора
+        self.u = random.uniform(0, 2 * math.pi)
+        self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
         self.gamma = math.pi / 6  # угол в радиусе которого допускается отклонение
         self.r = 50  # радиус обзора муравья
         self.energy = 1  # энергия муравья/паука, пока что у всех она -- 1
@@ -17,7 +18,7 @@ class Spider:
         self.my_ant = None
         # рядом паук-конкурент   #рядом много муравьев   #угол поворота близок к исходному
         self.array_of_key = [-0.2, 0.3, 0.2,
-                             0.6]  # коэфициенты потребностей(переписать их, чтобы сумма была равна единице)
+                             1]  # коэфициенты потребностей(переписать их, чтобы сумма была равна единице)
 
     def body(self):
         s = random.randint(14, 20)
@@ -59,10 +60,10 @@ class Spider:
             needs.append(1)
         else:  # если угол предлагаемого поворота входит в допустимое отклонение угла от направления вектора, паук доволен(если пауку меньше надо поворачиваться, он доволен)
             needs.append(0)
-        if (geo[0] < 0 or geo[0] > 995) or (geo[1] < 0 or geo[1] > 995):
-            needs.append(0)  # если паук в результате перемещения не выходит за границы карты, он доволен
+        if (geo[0] > 10 and geo[0] < 990) and (geo[1] > 10 and geo[1] < 990):
+            needs.append(1)  # если паук в результате перемещения не выходит за границы карты, он доволен
         else:
-            needs.append(1)
+            needs.append(0)
         for i in range(0, len(self.array_of_key)):
             sum_of_needs += needs[i] * self.array_of_key[
                 i]  # рассчет удовлетворенности паука, учитывая весовые коэфициенты каждого параметра.
@@ -124,6 +125,8 @@ class Spider:
             a = 0
             while a < math.pi * 2:  # вычисляем лучшие углы поворота, при помощи метода get_need()
                 a += 0.01
+                # geo = [self.geo[0] + self.speed * math.cos(a), self.geo[1] + self.speed * math.sin(a)]
+                # if (geo[0] > 5 and geo[0] < 995) and (geo[1] > 5 and geo[1] < 995):
                 move1 = self.get_need(a)
                 if move1[0] > best_move[0]:
                     best_move = move1
@@ -134,6 +137,8 @@ class Spider:
             choice = random.choice(
                 best_moves)  # если лучших ходов несколько, то выбираем случайный(чем больше параметров, тем меньше вероятность выбора случайного направления)
             self.u = choice[2]
+            self.u_trig[0] = math.sin(self.u)
+            self.u_trig[1] = math.cos(self.u)
             self.chasing = choice[1]
         else:  # если же вокруг паука есть муравьи - он начинает охоту
             self.chasing = True
@@ -144,8 +149,9 @@ class Spider:
                     best_ant = ant
             self.my_ant = best_ant
             distance = self.get_distance(self.my_ant)
-            self.u = math.acos((self.my_ant.geo[0] - self.geo[
-                0]) / distance)  # назначается угол-направление в сторону лучшего муравья.
+            self.u_trig[0] = (self.my_ant.geo[1] - self.geo[1]) / distance
+            self.u_trig[1] = (self.my_ant.geo[0] - self.geo[0]) / distance
+            self.u = math.acos((self.my_ant.geo[0] - self.geo[0]) / distance)  # назначается угол-направление в сторону лучшего муравья.
             for spider in self.get_spiders(self.scene):
                 if self.my_ant != None and spider.my_ant != None:
                     if spider.my_ant == self.my_ant:
@@ -187,5 +193,6 @@ class Spider:
             f = 1
 
     def run(self):  # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
-        self.geo[0] += self.speed * math.cos(self.u)
-        self.geo[1] += self.speed * math.sin(self.u)
+        self.geo[0] += self.speed * self.u_trig[1]
+        self.geo[1] += self.speed * self.u_trig[0]
+
