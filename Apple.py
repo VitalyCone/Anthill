@@ -1,3 +1,4 @@
+import math
 import random
 import pygame
 
@@ -14,6 +15,7 @@ class Apple:
         self.anthill = anthill
         self.ants = None
         self.spiders = None
+        self.speed = 0
         self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
 
     def body(self):
@@ -67,7 +69,7 @@ class Apple:
         self.anthill = self.get_anthill(self.scene)
 
         distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
-        speed = self.find_travel_speed()
+        self.speed = self.find_travel_speed()
 
         try:
             vector = ((self.anthill.geo[0] - self.geo[0]) / distance, (self.anthill.geo[1] - self.geo[1]) / distance)
@@ -76,6 +78,8 @@ class Apple:
 
         if distance <= 15:
             self.die(self)
-        self.geo[0] += vector[0] * speed
-        self.geo[1] += vector[1] * speed
+        self.geo[0] += vector[0] * self.speed
+        self.geo[1] += vector[1] * self.speed
         return self.apples + self.ants + self.spiders + [self.anthill]
+    def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
+            return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
