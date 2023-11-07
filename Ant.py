@@ -62,6 +62,9 @@ class Ant:
             if anthill.name == 'Anthill':
                 anthill_1 = anthill
         return anthill_1
+    
+    def add_ant(self,scene, anthill):
+        return Ant(scene, anthill)
 
     def body(self):  # Построение тела на карте
         if self.charachter == 0:  # Трус - чуть поменьше

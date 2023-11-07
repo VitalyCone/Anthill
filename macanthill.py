@@ -19,14 +19,15 @@ clock = pygame.time.Clock()
 running = True
 pause = False
 
-anthill = Anthill()
+input_anthills = 1
 input_apple = 15  # int(input('Введите количество яблок (~6): '))
 input_apple_hp = 1000  # int(input('Введите количество жизней яблок (~1000): '))
-apples = [Apple(anthill) for i in range(input_apple)]
-input_ant = 600  # int(input('Введите количество муравьев (~300): '))
+anthills = [Anthill(input_apple_hp, input_apple, 0) for i in range(input_anthills)]
+apples = [Apple(anthills[0]) for i in range(input_apple)]
+input_ant = 100  # int(input('Введите количество муравьев (~300): '))
 input_ant_speed = 3  # int(input('Введите скорость муравьев (~2): '))
-ants = [Ant(apples, anthill) for i in range(input_ant)]
-input_spdr = 30  # int(input('Введите количество пауков (~3): '))
+ants = [Ant(apples, anthills[0]) for i in range(input_ant)]
+input_spdr = 10  # int(input('Введите количество пауков (~3): '))
 input_spdr_speed = 5  # int(input('Введите скорость пауков ~(3): '))
 spiders = [Spider(ants + apples) for i in range(input_spdr)]
 pygame.display.toggle_fullscreen()
@@ -83,14 +84,18 @@ while running:
             apples.append(Apple())
             for el in ants:
                 el.isready = False
-            anthill.exit = False
+            anthills[0].exit = False
             pause = False
 
     if not pause:
         display.fill((102, 255, 102))
-        pygame.draw.rect(display, (153, 76, 0), anthill.body())
-        anthill_write = anthill.anth_font.render("Anthill", True, 'white')
-        display.blit(anthill_write, (10, 810))
+
+        for anthill_index, anthill in enumerate(anthills):
+            anthill_write = anthill.anth_font.render("Anthill", True, 'white')
+            display.blit(anthill_write,(10,810))
+            scene = anthill.move(ants+spiders+apples+anthills)
+            modify_scene(scene)
+            pygame.draw.rect(display, "Brown" ,anthill.body())
 
         for ant_index, ant in enumerate(ants):
             scene = ant.move(
@@ -109,7 +114,7 @@ while running:
             pygame.draw.rect(display, 'red', apple.body())
 
         if not apples:
-            anthill.exit = True
+            anthills[0].exit = True
             win = end.render("THE ANTS WON", True, 'Black')
             display.blit(win, (50, 490))
             # if len([ant for ant in ants if ant.isready==True]) == len(ants):

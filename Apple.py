@@ -35,8 +35,10 @@ class Apple:
         return apples
 
     def die(self, apple):
-        apple.travelset = set()
         self.apples.remove(apple)
+        self.anthill.get_food_apple()
+        self.scene.remove(apple)
+
 
     def find_travel_speed(self):
         quantity_ants = len(self.travelset)
