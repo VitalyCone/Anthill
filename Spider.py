@@ -1,6 +1,7 @@
 import random
 import math
 import pygame
+from SearchState import SearchState
 
 
 class Spider:
@@ -8,17 +9,20 @@ class Spider:
         self.name = __class__.__name__  # в каждом классе определил переменную-имя класса, чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
         self.geo = [random.randint(10, 990), random.randint(10, 990)]
         self.speed = 6
-        self.u = random.uniform(0, 2 * math.pi)
+        self.u = 0.57#random.uniform(0, 2 * math.pi)
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
-        self.gamma = math.pi / 6  # угол в радиусе которого допускается отклонение
+        self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
         self.r = 50  # радиус обзора муравья
         self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
         self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
         self.chasing = False  # булевое значение, которое контролирует переход между состояниями(изначально - паук не преследует никакого муравья)
         self.my_ant = None
         # рядом паук-конкурент   #рядом много муравьев   #угол поворота близок к исходному
-        self.array_of_key = [-0.2, 0.3, 0.2,
-                             1]  # коэфициенты потребностей(переписать их, чтобы сумма была равна единице)
+        self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # коэфициенты потребностей(переписать их, чтобы сумма была равна единице)
+        self.friends = []
+        self.enemies = ["Spider"]
+        self.preys = ["Ant"]
+        self.searchState = SearchState(self)
 
     def body(self):
         s = random.randint(14, 20)
@@ -56,7 +60,7 @@ class Spider:
             needs.append(1)  # если рядом много муравьев(сейчас больше 5), то паук доволен
         else:
             needs.append(0)
-        if (abs(self.u - u) <= self.gamma):
+        if (abs(self.u - u) <= self.error):
             needs.append(1)
         else:  # если угол предлагаемого поворота входит в допустимое отклонение угла от направления вектора, паук доволен(если пауку меньше надо поворачиваться, он доволен)
             needs.append(0)
@@ -64,8 +68,8 @@ class Spider:
             needs.append(1)  # если паук в результате перемещения не выходит за границы карты, он доволен
         else:
             needs.append(0)
-        for i in range(0, len(self.array_of_key)):
-            sum_of_needs += needs[i] * self.array_of_key[
+        for i in range(0, len(self.weights)):
+            sum_of_needs += needs[i] * self.weights[
                 i]  # рассчет удовлетворенности паука, учитывая весовые коэфициенты каждого параметра.
         return [sum_of_needs, chasing, u]
 
@@ -120,27 +124,33 @@ class Spider:
         if len(ants) == 0:  # если вокруг паука нет муравьев, то он продолжает находиться в состоянии поиска
             self.chasing = False
             self.my_ant = None
-            best_moves = []
-            best_move = self.get_need(0)
-            best_moves.append(best_move)
-            a = 0
-            while a < math.pi * 2:  # вычисляем лучшие углы поворота, при помощи метода get_need()
-                a += 0.01
-                # geo = [self.geo[0] + self.speed * math.cos(a), self.geo[1] + self.speed * math.sin(a)]
-                # if (geo[0] > 5 and geo[0] < 995) and (geo[1] > 5 and geo[1] < 995):
-                move1 = self.get_need(a)
-                if move1[0] > best_move[0]:
-                    best_move = move1
-                    best_moves.clear()
-                    best_moves.append(move1)
-                elif move1[0] == best_move[0]:
-                    best_moves.append(move1)
-            choice = random.choice(
-                best_moves)  # если лучших ходов несколько, то выбираем случайный(чем больше параметров, тем меньше вероятность выбора случайного направления)
-            self.u = choice[2]
-            self.u_trig[0] = math.sin(self.u)
-            self.u_trig[1] = math.cos(self.u)
-            self.chasing = choice[1]
+
+
+            # best_moves = []
+            # best_move = self.get_need(0)
+            # best_moves.append(best_move)
+            # a = 0
+            # while a < math.pi * 2:  # вычисляем лучшие углы поворота, при помощи метода get_need()
+            #     a += 0.01
+            #     # geo = [self.geo[0] + self.speed * math.cos(a), self.geo[1] + self.speed * math.sin(a)]
+            #     # if (geo[0] > 5 and geo[0] < 995) and (geo[1] > 5 and geo[1] < 995):
+            #     move1 = self.get_need(a)
+            #     if move1[0] > best_move[0]:
+            #         best_move = move1
+            #         best_moves.clear()
+            #         best_moves.append(move1)
+            #     elif move1[0] == best_move[0]:
+            #         best_moves.append(move1)
+            # choice = random.choice(
+            #     best_moves)  # если лучших ходов несколько, то выбираем случайный(чем больше параметров, тем меньше вероятность выбора случайного направления)
+            # self.u = choice[2]
+            # self.u_trig[0] = math.sin(self.u)
+            # self.u_trig[1] = math.cos(self.u)
+            # self.chasing = choice[1]
+
+            self.u = self.searchState.move(self)
+            self.u_trig = [math.sin(self.u), math.cos(self.u)]
+
         else:  # если же вокруг паука есть муравьи - он начинает охоту
             self.chasing = True
             best_ant = ants[0]

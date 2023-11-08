@@ -22,7 +22,7 @@ class Anthill:
         self.spiders = []
         self.food_apple = 0
         self.s = 0
-        self.del_livelihood = 0
+        self.del_livelihood = 200
         self.pot_ant = 5
         self.pot_ants = len(self.ants)*self.pot_ant
         
@@ -92,14 +92,14 @@ class Anthill:
                 if ((self.livelihood - self.pot_ants) // 10) > 0:
                     k = 0
                     print(len(self.ants),'/////////////')
-                    for i in range((self.livelihood - self.pot_ants) // 10):
-                        k += 1
-                        ANT = self.ants[0].add_ant(scene, self.anthills[0])
-                        self.ants.append(ANT)
-                        print(len(self.ants), '!!!!!!!!!!!!')
-                        print(k,'67')
-                        if k > ((self.livelihood - self.pot_ants) // 10):
-                            break       
+                    # for i in range((self.livelihood - self.pot_ants) // 10):
+                    #     k += 1
+                    #     ANT = self.ants[0].add_ant(scene, self.anthills[0])
+                    #     self.ants.append(ANT)
+                    #     print(len(self.ants), '!!!!!!!!!!!!')
+                    #     print(k,'67')
+                    #     if k > ((self.livelihood - self.pot_ants) // 10):
+                    #         break       
                 if self.del_livelihood != 0:
                     self.height += self.del_livelihood//40
                     self.long += self.del_livelihood//40
