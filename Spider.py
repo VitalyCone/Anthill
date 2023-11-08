@@ -10,19 +10,19 @@ class Spider:
         self.geo = [random.randint(10, 990), random.randint(10, 990)]
         self.speed = 6
         self.u = 0.57#random.uniform(0, 2 * math.pi)
-        self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
-        self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
         self.r = 50  # радиус обзора муравья
         self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
         self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
         self.chasing = False  # булевое значение, которое контролирует переход между состояниями(изначально - паук не преследует никакого муравья)
         self.my_ant = None
-        # рядом паук-конкурент   #рядом много муравьев   #угол поворота близок к исходному
-        self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # коэфициенты потребностей(переписать их, чтобы сумма была равна единице)
-        self.friends = []
-        self.enemies = ["Spider"]
-        self.preys = ["Ant"]
-        self.searchState = SearchState(self)
+        self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
+        self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
+        # 1. друзья  2.враги 3.добыча 4.угол отклонения 5.внутри карты
+        self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэфициенты многофактроной целевой функции поиска
+        self.friends = [] # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
+        self.enemies = ["Spider"] # враги пауков
+        self.preys = ["Ant"]    # добыча пауков
+        self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
 
     def body(self):
         s = random.randint(14, 20)
