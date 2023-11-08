@@ -44,34 +44,34 @@ class Spider:
                 num_of_ants += 1
         return num_of_ants
 
-    def get_need(self, u):
-        chasing = False
-        geo = [self.geo[0] + self.speed * math.cos(u), self.geo[1] + self.speed * math.sin(u)]
-        sum_of_needs = 0
-        num_of_spiders = self.get_num_of_spiders_around(geo)  # получает количество пауков из сцены, в радиусе обзора
-        num_of_ants = self.get_num_of_ants_around(geo)  # получает количество муравьев из сцены, в радиусе обзора паука
-        needs = []  # энергия входит в функцию расчета удовлетворенности
-        if num_of_spiders != 0:
-            needs.append(
-                1)  # рассчет коэфициента для выбора направления из количество пауков. Есть другие пауки - 0, нет - 1
-        else:
-            needs.append(0)
-        if num_of_ants > 5:
-            needs.append(1)  # если рядом много муравьев(сейчас больше 5), то паук доволен
-        else:
-            needs.append(0)
-        if (abs(self.u - u) <= self.error):
-            needs.append(1)
-        else:  # если угол предлагаемого поворота входит в допустимое отклонение угла от направления вектора, паук доволен(если пауку меньше надо поворачиваться, он доволен)
-            needs.append(0)
-        if (geo[0] > 10 and geo[0] < 990) and (geo[1] > 10 and geo[1] < 990):
-            needs.append(1)  # если паук в результате перемещения не выходит за границы карты, он доволен
-        else:
-            needs.append(0)
-        for i in range(0, len(self.weights)):
-            sum_of_needs += needs[i] * self.weights[
-                i]  # рассчет удовлетворенности паука, учитывая весовые коэфициенты каждого параметра.
-        return [sum_of_needs, chasing, u]
+    # def get_need(self, u):
+    #     chasing = False
+    #     geo = [self.geo[0] + self.speed * math.cos(u), self.geo[1] + self.speed * math.sin(u)]
+    #     sum_of_needs = 0
+    #     num_of_spiders = self.get_num_of_spiders_around(geo)  # получает количество пауков из сцены, в радиусе обзора
+    #     num_of_ants = self.get_num_of_ants_around(geo)  # получает количество муравьев из сцены, в радиусе обзора паука
+    #     needs = []  # энергия входит в функцию расчета удовлетворенности
+    #     if num_of_spiders != 0:
+    #         needs.append(
+    #             1)  # рассчет коэфициента для выбора направления из количество пауков. Есть другие пауки - 0, нет - 1
+    #     else:
+    #         needs.append(0)
+    #     if num_of_ants > 5:
+    #         needs.append(1)  # если рядом много муравьев(сейчас больше 5), то паук доволен
+    #     else:
+    #         needs.append(0)
+    #     if (abs(self.u - u) <= self.error):
+    #         needs.append(1)
+    #     else:  # если угол предлагаемого поворота входит в допустимое отклонение угла от направления вектора, паук доволен(если пауку меньше надо поворачиваться, он доволен)
+    #         needs.append(0)
+    #     if (geo[0] > 10 and geo[0] < 990) and (geo[1] > 10 and geo[1] < 990):
+    #         needs.append(1)  # если паук в результате перемещения не выходит за границы карты, он доволен
+    #     else:
+    #         needs.append(0)
+    #     for i in range(0, len(self.weights)):
+    #         sum_of_needs += needs[i] * self.weights[
+    #             i]  # рассчет удовлетворенности паука, учитывая весовые коэфициенты каждого параметра.
+    #     return [sum_of_needs, chasing, u]
 
     def get_ants(self, scene):  # метод, возвращающий всех муравьев в зоне обзора
         ants = []
