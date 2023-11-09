@@ -34,6 +34,7 @@ class Ant:
         self.anthill = anthill  # Муравейник
         self.ants = self.get_ants(self.scene)  # Вообще все муравьи
         self.spiders = self.get_spiders(self.scene)  # Вообще все пауки
+        self.weight = 1
 
     def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
         spiders = []
@@ -171,15 +172,15 @@ class Ant:
                         self.state = [2, spiders[0]]
                     elif consensus == False:
                         self.state = [4, spiders[0]]
-                elif apples != []:
-                    try:
-                        state[1].geo = geo
-                        state[1].travelset.add(self)
-                        self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                        self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-                    except:
-                        f = 1
-                    self.scene = state[1].move(self.scene)
+                # elif apples != []:
+                # #     try:
+                #         # state[1].geo = geo
+                #         # state[1].travelset.add(self)
+                #         # self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
+                #         # self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
+                #     except:
+                # #         f = 1
+                #     self.scene = state[1].move(self.scene)
                 elif self in state[1].travelset and state[1] not in apples:
                     state[1].travelset.remove(self)
             elif state[0] == 2:

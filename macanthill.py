@@ -112,8 +112,9 @@ while running:
             pygame.draw.rect(display, 'purple', spider.body())
 
         for apple_index, apple in enumerate(apples):
-        #     scene = apple.move(scene)
-        #     modify_scene(scene)
+            scene = apple.move(ants + spiders + apples)
+            modify_scene(scene)
+            apple.run()
             pygame.draw.rect(display, 'red', apple.body())
 
         if not apples:

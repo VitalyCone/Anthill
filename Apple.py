@@ -1,5 +1,7 @@
 import random
 import pygame
+import math
+from InertiaState import InertiaState
 
 
 class Apple:
@@ -8,7 +10,6 @@ class Apple:
         self.geo = [random.randint(10, 970), random.randint(10, 970)]
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
         self.travelset = set()
-        self.weight = 15000
         self.scene = None
         self.apples = None
         self.anthill = anthill
@@ -16,6 +17,9 @@ class Apple:
         self.spiders = None
         self.energy = 1
         self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
+        self.weight = 3
+        self.speed = 0
+        self.inertiaState = InertiaState(self)
 
     def body(self):
         s = random.randint(28, 30)
@@ -37,6 +41,7 @@ class Apple:
 
     def die(self, apple):
         self.apples.remove(apple)
+        self.scene.remove(apple)
         self.anthill.get_food_apple(apple)
 
 
@@ -60,6 +65,9 @@ class Apple:
             if spider.name == 'Spider':
                 spiders.append(spider)
         return spiders
+    
+    def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
+        return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
 
     def move(self, scene):
         self.scene = scene
@@ -68,16 +76,14 @@ class Apple:
         self.spiders = self.get_spiders(self.scene)
         self.anthill = self.get_anthill(self.scene)
 
+        scene = self.inertiaState.move(self)
+
         distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
-        speed = self.find_travel_speed()
-
-        try:
-            vector = ((self.anthill.geo[0] - self.geo[0]) / distance, (self.anthill.geo[1] - self.geo[1]) / distance)
-        except:
-            vector = (0, 0)
-
         if distance <= 15:
             self.die(self)
-        self.geo[0] += vector[0] * speed
-        self.geo[1] += vector[1] * speed
-        return self.apples + self.ants + self.spiders + [self.anthill]
+        return self.scene
+    
+    def run(self):
+        self.geo[0] += self.speed * self.u_trig[1]
+        self.geo[1] += self.speed * self.u_trig[0]
+
