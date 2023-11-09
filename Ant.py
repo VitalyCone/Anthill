@@ -1,6 +1,7 @@
 import math
 import random
 import pygame
+from SearchState import SearchState
 
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
@@ -16,8 +17,6 @@ class Ant:
         # Сопротивление пауку
         self.charachter = random.randint(0, 1)  # Характер. 0 - трусливый, 1 - доблестный
         self.u = random.uniform(0, 4 * math.pi)  # Случайный угол по x
-        self.usin = random.uniform(0, 4 * math.pi)  # Случайный угол по y
-        self.gamma = math.pi / 6  # Некоторая погрешность
         self.speed = 0
         self.r = 0
         if self.charachter == 0:  # Если трус, то выше скорость, но ниже радиус обзора
@@ -35,6 +34,15 @@ class Ant:
         self.ants = self.get_ants(self.scene)  # Вообще все муравьи
         self.spiders = self.get_spiders(self.scene)  # Вообще все пауки
         self.weight = 1
+        self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
+        self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
+        # 1. друзья  2.враги 3.добыча 4.угол отклонения 5.внутри карты
+        self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэфициенты многофактроной целевой функции поиска
+        self.friends = ["Ant"] # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
+        self.enemies = ["Spider"] # враги пауков
+        self.preys = ["Apples"]    # добыча пауков
+        self.spawn = []     #обьекты для состояния спавна
+        self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
 
     def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
         spiders = []
@@ -75,6 +83,13 @@ class Ant:
         elif self.charachter == 1:  # Доблестный - чуть побольше
             s = random.randint(7, 8)
             return pygame.Rect(self.geo[0], self.geo[1], s, s)  # Идентично
+        
+    def get_nearest(self, agents):
+        nearest_agent = agents[0]
+        for agent in agents:
+            if self.get_distance(agent) < self.get_distance(nearest_agent):
+                nearest_agent = agent
+        return agent
 
     def die(self, ant):  # Смерть
         try:  # Через try/except, потому что иногда выскакивают ошибки
@@ -141,58 +156,51 @@ class Ant:
         return state
 
     def live_by_self_determination(self, geo, state, ants, spiders, apples):  # Жить по самоопределению
-        if geo[0] >= 990 or geo[0] <= 10 or geo[1] >= 990 or geo[1] <= 10:
+        if state[0] == 0:
+            if spiders != []:
+                consensus = self.send_message_to_radius(0, ants, spiders[0])
+                if consensus == True:
+                    self.state = [2, spiders[0]]
+                elif consensus == False:
+                    self.state = [4, spiders[0]]
+            elif apples != []:
+                try:
+                    self.u_trig = [(self.apples[0].geo[1] - geo[1]) / self.get_distance(apples[0]), (self.apples[0].geo[0] - geo[0]) / self.get_distance(apples[0])]
+                    self.u = math.acos((self.apples[0].geo[0] - geo[0]) / self.get_distance(apples[0]))
+                except:
+                    print("На ноль делить нельзя!")
+            else:
+                self.u = self.searchState.move(self)
+                self.u_trig = [math.sin(self.u), math.cos(self.u)]
 
-            if geo[0] >= 990: self.u = math.pi + self.u
-            if geo[0] <= 10: self.u = math.pi + self.u
-            if geo[1] >= 990: self.usin = math.pi + self.usin
-            if geo[1] <= 10: self.usin = math.pi + self.usin
-        else:
-            if state[0] == 0:
-                if spiders != []:
-                    consensus = self.send_message_to_radius(0, ants, spiders[0])
-                    if consensus == True:
-                        self.state = [2, spiders[0]]
-                    elif consensus == False:
-                        self.state = [4, spiders[0]]
-                elif apples != []:
-                    try:
-                        self.u = math.acos((self.apples[0].geo[0] - geo[0]) / self.get_distance(apples[0]))
-                        self.usin = math.asin((self.apples[0].geo[1] - geo[1]) / self.get_distance(apples[0]))
-                    except:
-                        print("На ноль делить нельзя!")
-                else:
-                    self.u = random.uniform(self.u - self.gamma, self.u + self.gamma)
-                    self.usin = random.uniform(self.usin - self.gamma, self.usin + self.gamma)
-
-            elif state[0] == 1:
-                if spiders != [] and ants != 0:
-                    consensus = self.send_message_to_radius(0, ants, spiders[0])
-                    if consensus == True:
-                        self.state = [2, spiders[0]]
-                    elif consensus == False:
-                        self.state = [4, spiders[0]]
-                # elif apples != []:
-                # #     try:
-                #         # state[1].geo = geo
-                #         # state[1].travelset.add(self)
-                #         # self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                #         # self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-                #     except:
-                # #         f = 1
-                #     self.scene = state[1].move(self.scene)
-                elif self in state[1].travelset and state[1] not in apples:
-                    state[1].travelset.remove(self)
-            elif state[0] == 2:
-                self.u = math.acos((state[1].geo[0] - geo[0]) / self.get_distance(state[1]))
-                self.usin = math.asin((state[1].geo[1] - geo[1]) / self.get_distance(state[1]))
-            elif state[0] == 3:
-                self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-                if self.get_distance(self.anthill) <= 4: self.die(self)
-            elif state[0] == 4:
-                self.u = math.pi - math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                self.usin = math.pi - math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
+        elif state[0] == 1:
+            if spiders != [] and ants != 0:
+                consensus = self.send_message_to_radius(0, ants, spiders[0])
+                if consensus == True:
+                    self.state = [2, spiders[0]]
+                elif consensus == False:
+                    self.state = [4, spiders[0]]
+            # elif apples != []:
+            # #     try:
+            #         # state[1].geo = geo
+            #         # state[1].travelset.add(self)
+            #         # self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
+            #         # self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
+            #     except:
+            # #         f = 1
+            # #     self.scene = state[1].move(self.scene)
+            # elif self in state[1].travelset and state[1] not in apples:
+            #     state[1].travelset.remove(self)
+        elif state[0] == 2:
+            self.u_trig = [(state[1].geo[1] - geo[1]) / self.get_distance(state[1]), (state[1].geo[0] - geo[0]) / self.get_distance(state[1])]
+            self.u = math.acos((state[1].geo[0] - geo[0]) / self.get_distance(state[1]))
+        elif state[0] == 3:
+            self.u_trig = [(self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill), (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)]
+            self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
+            if self.get_distance(self.anthill) <= 4: self.die(self)
+        elif state[0] == 4:
+            self.u_trig = [(self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill), (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)]
+            self.u = math.pi - math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
 
     def move(self, scene):
         full_scene = scene
@@ -200,7 +208,6 @@ class Ant:
         self.apples = self.get_apples(self.scene)
         self.ants = self.get_ants(self.scene)
         self.spiders = self.get_spiders(self.scene)
-
         for agent in self.scene:
             full_scene.remove(agent)  # получение данных из сцены и запись, только данных в области обзора паука
 
@@ -209,6 +216,11 @@ class Ant:
                    key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список пауков
         if self.apples != []:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
+            if self.apples[0] != self.get_nearest(self.apples):
+                print("Лямбда функции сасать")
+                self.apples.append(self.apples[0])
+                self.apples[0] = self.get_nearest(self.apples)
+        
 
         self.state = self.self_determination(self.state, self.ants, self.spiders, self.apples)
 
@@ -217,6 +229,7 @@ class Ant:
         self.energy -= 0.001
         if self.energy <=0:
             self.die(self)
+
 
         for agent in self.scene:
             full_scene.append(
@@ -265,5 +278,5 @@ class Ant:
         return scene1
 
     def run(self):  # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
-        self.geo[0] += self.speed * math.cos(self.u)
-        self.geo[1] += self.speed * math.sin(self.usin)
+        self.geo[0] += self.speed * self.u_trig[1]
+        self.geo[1] += self.speed * self.u_trig[0]
