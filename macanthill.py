@@ -30,7 +30,7 @@ ants = [Ant(apples, anthills[0]) for i in range(input_ant)]
 input_spdr = 10  # int(input('Введите количество пауков (~3): '))
 input_spdr_speed = 5  # int(input('Введите скорость пауков ~(3): '))
 spiders = [Spider(ants + apples) for i in range(input_spdr)]
-pygame.display.toggle_fullscreen()
+# pygame.display.toggle_fullscreen()
 end = pygame.font.Font(pygame.font.match_font('verdana'), size=100)
 
 lastcallback = time.time()
@@ -95,6 +95,7 @@ while running:
             display.blit(anthill_write,(10,810))
             scene = anthill.move(ants+spiders+apples+anthills)
             modify_scene(scene)
+            anthill.run()
             pygame.draw.rect(display, "Brown" ,anthill.body())
 
         for ant_index, ant in enumerate(ants):
@@ -111,6 +112,8 @@ while running:
             pygame.draw.rect(display, 'purple', spider.body())
 
         for apple_index, apple in enumerate(apples):
+        #     scene = apple.move(scene)
+        #     modify_scene(scene)
             pygame.draw.rect(display, 'red', apple.body())
 
         if not apples:

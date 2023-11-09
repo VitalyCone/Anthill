@@ -1,6 +1,7 @@
 from sys import displayhook
 import pygame
-
+from SpawnState import SpawnState
+from GrowthState import GrowthState
 
 class Anthill:
     def __init__(self,input_apple_hp, input_ant, del_ants):
@@ -8,6 +9,9 @@ class Anthill:
         self.input_ant = input_ant
         self.ants = del_ants
         self.name = __class__.__name__
+        self.energy = 50
+        self.last_energy = self.energy
+        self.energy_consumption = 0.01
         self.x = 100
         self.y = 800
         self.height = 50
@@ -25,9 +29,11 @@ class Anthill:
         self.del_livelihood = 200
         self.pot_ant = 5
         self.pot_ants = len(self.ants)*self.pot_ant
+        self.tic = 0
+        self.spawnState = SpawnState(self)
+        self.growthState = GrowthState(self)
         
     def body(self):
-        
         return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
        
     
@@ -60,9 +66,14 @@ class Anthill:
                 anthills.append(anthill)
         return anthills
     
-    def get_food_apple(self):
+    def get_food_apple(self, apple):
+        self.energy += apple.energy
         self.food_apple += 1
-        return self.food_apple
+
+    def run(self):
+        self.energy -= self.energy_consumption
+
+
     
     def move(self, scene):
         print('xxxxxxxxxxxxxxx') #
@@ -71,37 +82,13 @@ class Anthill:
         self.anthills = self.get_anthills(scene)
         self.ants = self.get_ants(scene)
         self.apples = self.get_apples(scene)
-        if self.height > 1:
-            self.height -= 1
-        if self.long > 1:
-            self.long -= 1
         
         
-        print(self.del_livelihood,'22')
+        scene = self.spawnState.move(self)
 
+        scene = self.growthState.move(self)
 
-        if self.food_apple >= self.s:
-            self.s += 1
-            print(self.s)
-            self.livelihood += self.input_apple_hp
-            self.del_livelihood = self.livelihood - self.del_livelihood
-            
+        self.tic += 1
 
-            if (self.livelihood > self.pot_ants):
-
-                if ((self.livelihood - self.pot_ants) // 10) > 0:
-                    k = 0
-                    print(len(self.ants),'/////////////')
-                    # for i in range((self.livelihood - self.pot_ants) // 10):
-                    #     k += 1
-                    #     ANT = self.ants[0].add_ant(scene, self.anthills[0])
-                    #     self.ants.append(ANT)
-                    #     print(len(self.ants), '!!!!!!!!!!!!')
-                    #     print(k,'67')
-                    #     if k > ((self.livelihood - self.pot_ants) // 10):
-                    #         break       
-                if self.del_livelihood != 0:
-                    self.height += self.del_livelihood//40
-                    self.long += self.del_livelihood//40
 
         return scene

@@ -1,11 +1,8 @@
-import pygame
 import math
 import random
 from State import State
 
 class SearchState(State):
-    def __init__(self, agent):
-        self.agent = agent
 
     def get_angle(self):
         trig = self.agent.u_trig

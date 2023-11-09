@@ -14,6 +14,7 @@ class Apple:
         self.anthill = anthill
         self.ants = None
         self.spiders = None
+        self.energy = 1
         self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
 
     def body(self):
@@ -36,8 +37,7 @@ class Apple:
 
     def die(self, apple):
         self.apples.remove(apple)
-        self.anthill.get_food_apple()
-        self.scene.remove(apple)
+        self.anthill.get_food_apple(apple)
 
 
     def find_travel_speed(self):

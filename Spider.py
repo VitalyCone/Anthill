@@ -22,6 +22,7 @@ class Spider:
         self.friends = [] # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
         self.enemies = ["Spider"] # враги пауков
         self.preys = ["Ant"]    # добыча пауков
+        self.spawn = []     #обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
 
     def body(self):
