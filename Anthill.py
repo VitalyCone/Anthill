@@ -1,7 +1,6 @@
-from sys import displayhook
 import pygame
-from SpawnState import SpawnState
-from GrowthState import GrowthState
+from states.SpawnState import SpawnState
+from states.GrowthState import GrowthState
 
 class Anthill:
     def __init__(self,input_apple_hp, input_ant, del_ants):

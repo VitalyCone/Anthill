@@ -1,7 +1,7 @@
 import random
 import math
 import pygame
-from SearchState import SearchState
+from states.SearchState import SearchState
 
 
 class Spider:

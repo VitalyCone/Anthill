@@ -1,7 +1,7 @@
 import random
 import pygame
 import math
-from InertiaState import InertiaState
+from states.InertiaState import InertiaState
 
 
 class Apple:

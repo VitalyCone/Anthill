@@ -1,7 +1,7 @@
 import math
 import random
 import pygame
-from SearchState import SearchState
+from states.SearchState import SearchState
 
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
@@ -234,7 +234,7 @@ class Ant:
 
 
         for agent in self.scene:
-            full_scene.append(
+            full_scene.add(
                 agent)  # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
         return full_scene
 
@@ -265,17 +265,17 @@ class Ant:
                 return False
 
     def get_scene(self, scene):  # возвращает обьекты из сцены, в радиусе обзора паука
-        scene1 = []
+        scene1 = set()
         for obj in scene:
             if obj.name == "Ant":
                 if (abs(obj.geo[0] - self.geo[0]) <= self.r * 1.5) and (abs(obj.geo[1] - self.geo[1]) <= self.r * 1.5):
-                    scene1.append(obj)
+                    scene1.add(obj)
             elif obj.name == "Apple":
                 if (abs(obj.geo[0] - self.geo[0]) <= self.r * 2) and (abs(obj.geo[1] - self.geo[1]) <= self.r * 2):
-                    scene1.append(obj)
+                    scene1.add(obj)
             else:
                 if (abs(obj.geo[0] - self.geo[0]) <= self.r) and (abs(obj.geo[1] - self.geo[1]) <= self.r):
-                    scene1.append(obj)
+                    scene1.add(obj)
 
         return scene1
 
