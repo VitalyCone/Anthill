@@ -180,17 +180,19 @@ class Ant:
                     self.state = [2, spiders[0]]
                 elif consensus == False:
                     self.state = [4, spiders[0]]
-            # elif apples != []:
-            # #     try:
-            #         # state[1].geo = geo
-            #         # state[1].travelset.add(self)
-            #         # self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-            #         # self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-            #     except:
-            # #         f = 1
-            # #     self.scene = state[1].move(self.scene)
-            # elif self in state[1].travelset and state[1] not in apples:
-            #     state[1].travelset.remove(self)
+            elif state[1] in self.anthill.get_apples(self.anthill.scene):
+                try:
+                    state[1].geo = geo
+                    state[1].travelset.add(self)
+                    self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
+                    self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
+                    self.u_trig[0] = (self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill)
+                    self.u_trig[1] = (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)
+                except:
+                    f = 1
+                self.scene = state[1].move(self.scene)
+            elif self in state[1].travelset and state[1] not in apples:
+                state[1].travelset.remove(self)
         elif state[0] == 2:
             self.u_trig = [(state[1].geo[1] - geo[1]) / self.get_distance(state[1]), (state[1].geo[0] - geo[0]) / self.get_distance(state[1])]
             self.u = math.acos((state[1].geo[0] - geo[0]) / self.get_distance(state[1]))
