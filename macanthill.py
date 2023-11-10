@@ -1,12 +1,9 @@
 import pygame
-import random
-import math
 import time
-import datetime
-from Spider import Spider
-from Ant import Ant
-from Anthill import Anthill
-from Apple import Apple
+from agents.Spider import Spider
+from agents.Ant import Ant
+from agents.Anthill import Anthill
+from agents.Apple import Apple
 
 """
 С опцией переноса яблок

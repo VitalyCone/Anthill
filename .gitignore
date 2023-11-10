@@ -4,5 +4,7 @@ Lib
 Scripts
 include
 .idea
+__pycache__
+
 
 pyvenv.cfg
