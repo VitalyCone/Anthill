@@ -37,32 +37,32 @@ class Anthill:
        
     
     def get_apples(self, scene):
-        apples = []
+        apples = set()
         for apple in scene:
             if apple.name == 'Apple':
-                apples.append(apple)
+                apples.add(apple)
         return apples
     
     def get_ants(self, scene,):  #метод, возвращающий всех муравьев в зоне обзора
-        ants = []
+        ants = set()
 
         for ant in scene:
             if ant.name == 'Ant':
-                ants.append(ant)
+                ants.add(ant)
         return ants
 
     def get_spiders(self, scene):  #метод, возвращающий всех пауков в зоне обзора
-        spiders = []
+        spiders = set()
         for spider in scene:
             if spider.name == 'Spider':
-                spiders.append(spider)
+                spiders.add(spider)
         return spiders
     
     def get_anthills(self, scene):
-        anthills = []
+        anthills = set()
         for anthill in scene:
             if anthill.name == 'Anthill':
-                anthills.append(anthill)
+                anthills.add(anthill)
         return anthills
     
     def get_food_apple(self, apple):

@@ -186,7 +186,7 @@ class Spider:
             self.die()
 
         for agent in self.scene:
-            full_scene.append(
+            full_scene.add(
                 agent)  # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
         return full_scene
 

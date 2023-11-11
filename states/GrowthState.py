@@ -7,5 +7,5 @@ class GrowthState(State):
         agent.height += (agent.energy - agent.last_energy)*10
         agent.long += (agent.energy - agent.last_energy)*10
         agent.last_energy = agent.energy 
-        agent.scene.append(agent)
+        agent.scene.add(agent)
         return agent.scene

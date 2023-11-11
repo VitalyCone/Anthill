@@ -28,22 +28,26 @@ input_spdr = 10  # int(input('Введите количество пауков (
 input_spdr_speed = 5  # int(input('Введите скорость пауков ~(3): '))
 spiders = [Spider(ants + apples) for i in range(input_spdr)]
 # pygame.display.toggle_fullscreen()
+anthills = set(anthills)
+apples = set(apples)
+ants = set(ants)
+spiders = set(spiders)
 end = pygame.font.Font(pygame.font.match_font('verdana'), size=100)
 
 lastcallback = time.time()
 
 
 def modify_scene(scene):  # метод, обрабатывающий измененную сцену, после хода агента
-    mapples = []
-    mants = []
-    mspiders = []
+    mapples = set()
+    mants = set()
+    mspiders = set()
     for agent in scene:
         if agent.name == 'Apple':
-            mapples.append(agent)
+            mapples.add(agent)
         elif agent.name == 'Ant':
-            mants.append(agent)
+            mants.add(agent)
         elif agent.name == 'Spider':
-            mspiders.append(agent)
+            mspiders.add(agent)
     global apples
     global ants
     global spiders
@@ -74,14 +78,14 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
             for i in range(10):
                 i = Ant()
-                ants.append(i)
+                ants.add(i)
             pause = False
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             apples.append(Apple())
             for el in ants:
                 el.isready = False
-            anthills[0].exit = False
+            list(anthills[0]).exit = False
             pause = False
 
     if not pause:
@@ -90,32 +94,31 @@ while running:
         for anthill_index, anthill in enumerate(anthills):
             anthill_write = anthill.anth_font.render("Anthill", True, 'white')
             display.blit(anthill_write,(10,810))
-            scene = anthill.move(ants+spiders+apples+anthills)
-            modify_scene(scene)
+            scene = anthill.move(ants | spiders | apples | anthills)
+            modify_scene(scene) 
             anthill.run()
             pygame.draw.rect(display, "Brown" ,anthill.body())
 
         for ant_index, ant in enumerate(ants):
-            scene = ant.move(
-                ants + spiders + apples)  # теперь в параметрах, при ходе, каждому агенту передается сцена(массив из объектов-агентов)
+            scene = ant.move(ants | spiders | apples)  # теперь в параметрах, при ходе, каждому агенту передается сцена(массив из объектов-агентов)
             modify_scene(scene)  # изменение сцены, после хода агента                      #(добавить муравейник)
             ant.run()
             pygame.draw.rect(display, 'Black', ant.body())
 
         for spider_index, spider in enumerate(spiders):
-            scene = spider.move(ants + spiders + apples)  # то же самое, что и в коде ходов муравьев
+            scene = spider.move(ants | spiders | apples)  # то же самое, что и в коде ходов муравьев
             modify_scene(scene)
             spider.run()
             pygame.draw.rect(display, 'purple', spider.body())
 
         for apple_index, apple in enumerate(apples):
-            scene = apple.move(ants + spiders + apples)
+            scene = apple.move(ants | spiders | apples)
             modify_scene(scene)
             apple.run()
             pygame.draw.rect(display, 'red', apple.body())
 
         if not apples:
-            anthills[0].exit = True
+            list(anthills)[0].exit = True
             win = end.render("THE ANTS WON", True, 'Black')
             display.blit(win, (50, 490))
             # if len([ant for ant in ants if ant.isready==True]) == len(ants):
