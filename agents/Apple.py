@@ -7,7 +7,7 @@ from states.InertiaState import InertiaState
 class Apple:
     def __init__(self, anthill):
         self.name = __class__.__name__
-        self.geo = [random.randint(10, 970), random.randint(10, 970)]
+        self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
         self.travelset = set()
         self.scene = None
@@ -15,14 +15,14 @@ class Apple:
         self.anthill = anthill
         self.ants = None
         self.spiders = None
-        self.energy = 1
         self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
-        self.weight = 3
+        self.weight = random.randint(1, 4)
+        self.energy = self.weight
         self.speed = 0
         self.inertiaState = InertiaState(self)
 
     def body(self):
-        s = random.randint(28, 30)
+        s = random.randint(10*self.weight, 11*self.weight)
         return pygame.Rect(self.geo[0], self.geo[1], s, s)
 
     def get_ants(self, scene):
@@ -76,10 +76,15 @@ class Apple:
         self.spiders = self.get_spiders(self.scene)
         self.anthill = self.get_anthill(self.scene)
 
-        scene = self.inertiaState.move(self)
-
+        f = self.inertiaState.move(self)
+        scene = f[0]
+        my_ants = f[1]
         distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
         if distance <= 15:
+            for ant in my_ants:
+                print(ant.energy)
+                ant.energy+=(self.energy/10)/len(my_ants)
+                print(ant.energy)
             self.die(self)
         return self.scene
     

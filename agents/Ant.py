@@ -8,7 +8,7 @@ from states.SearchState import SearchState
 class Ant:
     def __init__(self, scene, anthill):
         self.name = __class__.__name__
-        self.geo = [random.randint(10, 990), random.randint(10, 990)]  # [50,344]
+        self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
         self.isready = False
         self.state = [0, 0]  # Параметр, содержащий состояние state[0] и объект, связанный с состоянием state[1]
         # state[0] = 0 - в поиске яблока, 1 - нашел яблоко, тащит в муравейник,
@@ -19,12 +19,14 @@ class Ant:
         self.u = random.uniform(0, 4 * math.pi)  # Случайный угол по x
         self.speed = 0
         self.r = 0
+        most_apple = None
+        self.energy_consumption = 1/100
         if self.charachter == 0:  # Если трус, то выше скорость, но ниже радиус обзора
             self.speed = 4
-            self.r = 30
+            self.r = 10
         elif self.charachter == 1:  # Если доблестный, то наоборот
             self.speed = 3  # Скорость муравья
-            self.r = 50  # Радиус зрения муравья
+            self.r = 20  # Радиус зрения муравья
         self.intravel = False
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
@@ -33,7 +35,7 @@ class Ant:
         self.anthill = anthill  # Муравейник
         self.ants = self.get_ants(self.scene)  # Вообще все муравьи
         self.spiders = self.get_spiders(self.scene)  # Вообще все пауки
-        self.weight = 1
+        self.weight = 0.2
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
         self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
         # 1. друзья  2.враги 3.добыча 4.угол отклонения 5.внутри карты
@@ -164,11 +166,33 @@ class Ant:
                 elif consensus == False:
                     self.state = [4, spiders[0]]
             elif apples != []:
-                try:
-                    self.u_trig = [(self.apples[0].geo[1] - geo[1]) / self.get_distance(apples[0]), (self.apples[0].geo[0] - geo[0]) / self.get_distance(apples[0])]
-                    self.u = math.acos((self.apples[0].geo[0] - geo[0]) / self.get_distance(apples[0]))
-                except:
-                    print("На ноль делить нельзя!")
+                system_profits = []
+                for apple in apples:
+                    apples_ants = []
+                    new_speed = (apple.speed*apple.weight + self.speed*self.weight)/apple.weight
+                    for ant in ants:
+                        if (ant.get_distance(apple)<=ant.speed - apple.speed):
+                            apples_ants.append(ant)
+                    try:
+                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
+                    except:
+                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
+                    system_profit = [my_profit, apple]
+                    for ant in apples_ants:
+                        profit = self.profit(apples_ants, apple)
+                        system_profit[0]+=profit
+                    if system_profit[0]>0: system_profits.append(system_profit)
+                if system_profits!=[]:
+                    most_apple = max(system_profits, key=lambda x: x[0])[1]
+                    print(len(apples_ants))
+                    try:
+                        self.u_trig = [(most_apple.geo[1] - geo[1]) / self.get_distance(most_apple), (most_apple.geo[0] - geo[0]) / self.get_distance(most_apple)]
+                        self.u = math.acos((most_apple.geo[0] - geo[0]) / self.get_distance(most_apple))
+                    except:
+                        pass
+                else: 
+                    self.u = self.searchState.move(self)
+                    self.u_trig = [math.sin(self.u), math.cos(self.u)]
             else:
                 self.u = self.searchState.move(self)
                 self.u_trig = [math.sin(self.u), math.cos(self.u)]
@@ -219,7 +243,6 @@ class Ant:
         if self.apples != []:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
             if self.apples[0] != self.get_nearest(self.apples):
-                print("Лямбда функции сасать")
                 self.apples.append(self.apples[0])
                 self.apples[0] = self.get_nearest(self.apples)
         
@@ -263,6 +286,15 @@ class Ant:
                 return True
             else:
                 return False
+
+    def profit(self, ants, agent_resource):
+        speed = agent_resource.speed + 0.000001
+        their_profit = (agent_resource.energy/10)/len(ants) - self.get_distance(self.anthill)/speed*self.energy_consumption #Если они толкают без меня!!! 
+        
+        new_speed = (agent_resource.speed*agent_resource.weight + self.speed*self.weight)/agent_resource.weight
+        our_profit = (agent_resource.energy/10)/(len(ants)+1) - self.get_distance(self.anthill)/new_speed*self.energy_consumption #Если они толкали со мной
+        return our_profit - their_profit
+    
 
     def get_scene(self, scene):  # возвращает обьекты из сцены, в радиусе обзора паука
         scene1 = set()

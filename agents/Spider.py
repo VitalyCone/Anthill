@@ -7,10 +7,10 @@ from states.SearchState import SearchState
 class Spider:
     def __init__(self, scene):
         self.name = __class__.__name__  # в каждом классе определил переменную-имя класса, чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
-        self.geo = [random.randint(10, 990), random.randint(10, 990)]
+        self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.speed = 6
         self.u = 0.57#random.uniform(0, 2 * math.pi)
-        self.r = 50  # радиус обзора муравья
+        self.r = 20  # радиус обзора муравья
         self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
         self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
         self.chasing = False  # булевое значение, которое контролирует переход между состояниями(изначально - паук не преследует никакого муравья)
@@ -179,7 +179,7 @@ class Spider:
                     self.my_ant = None
                     self.chasing = False  # муравей погибает и паук снова переходит в стадию поиска
             except:
-                print("ашипка")
+                pass
         
         self.energy -= 0.001
         if self.energy <=0:

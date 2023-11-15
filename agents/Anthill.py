@@ -12,7 +12,7 @@ class Anthill:
         self.last_energy = self.energy
         self.energy_consumption = 0.01
         self.x = 100
-        self.y = 800
+        self.y = 400
         self.height = 50
         self.long = 50
         self.livelihood = 1000 #запасы пропитания
@@ -31,6 +31,7 @@ class Anthill:
         self.tic = 0
         self.spawnState = SpawnState(self)
         self.growthState = GrowthState(self)
+        self.all = False
         
     def body(self):
         return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
@@ -75,16 +76,19 @@ class Anthill:
 
     
     def move(self, scene):
-        print('xxxxxxxxxxxxxxx') #
         full_scene = scene
         self.scene = scene
         self.anthills = self.get_anthills(scene)
         self.ants = self.get_ants(scene)
         self.apples = self.get_apples(scene)
-        
-        
-        scene = self.spawnState.move(self)
-
+        i = 0
+        for a in self.ants:
+            if a.state[0]==4:
+                i+=1
+        if i>0:
+            scene = self.spawnState.move(self, True)
+        else:
+            scene = self.spawnState.move(self)
         scene = self.growthState.move(self)
 
         self.tic += 1

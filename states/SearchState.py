@@ -45,7 +45,7 @@ class SearchState(State):
     
     def get_k_in_scope(self, u):
         geo = self.get_geo(u)
-        if (geo[0] > 10 and geo[0] < 990) and (geo[1] > 10 and geo[1] < 990):
+        if (geo[0] > 10 and geo[0] < 490) and (geo[1] > 10 and geo[1] < 490):
             return 1
         return 0
 

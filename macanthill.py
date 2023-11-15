@@ -10,21 +10,21 @@ from agents.Apple import Apple
 """
 
 pygame.init()
-display = pygame.display.set_mode((1000, 1000))
+display = pygame.display.set_mode((500, 500))
 pygame.display.set_caption("ANTHILL")
 clock = pygame.time.Clock()
 running = True
 pause = False
 
 input_anthills = 1
-input_apple = 15  # int(input('Введите количество яблок (~6): '))
+input_apple = 3  # int(input('Введите количество яблок (~6): '))
 input_apple_hp = 1000  # int(input('Введите количество жизней яблок (~1000): '))
 anthills = [Anthill(input_apple_hp, input_apple, 0) for i in range(input_anthills)]
 apples = [Apple(anthills[0]) for i in range(input_apple)]
 input_ant = 100  # int(input('Введите количество муравьев (~300): '))
 input_ant_speed = 3  # int(input('Введите скорость муравьев (~2): '))
 ants = [Ant(apples, anthills[0]) for i in range(input_ant)]
-input_spdr = 10  # int(input('Введите количество пауков (~3): '))
+input_spdr = 3  # int(input('Введите количество пауков (~3): '))
 input_spdr_speed = 5  # int(input('Введите скорость пауков ~(3): '))
 spiders = [Spider(ants + apples) for i in range(input_spdr)]
 # pygame.display.toggle_fullscreen()
@@ -127,4 +127,4 @@ while running:
             display.blit(loose, (80, 490))
 
     pygame.display.update()
-    clock.tick(10)
+    clock.tick(30)
