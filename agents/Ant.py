@@ -3,7 +3,6 @@ import random
 import pygame
 from states.SearchState import SearchState
 
-
 #### ИИ + МОШКИ = DIGITAL МОШКИ
 class Ant:
     def __init__(self, scene, anthill):
@@ -46,6 +45,7 @@ class Ant:
         self.spawn = []     #обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
+        self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
 
     def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
         spiders = []
@@ -79,13 +79,17 @@ class Ant:
         return Ant(scene, anthill)
 
     def body(self):  # Построение тела на карте
-        if self.charachter == 0:  # Трус - чуть поменьше
-            s = random.randint(4, 5)
-            return pygame.Rect(self.geo[0], self.geo[1], s,
-                               s)  # Небольшая рандомизация размера каждый вызов даёт ощущения движения
-        elif self.charachter == 1:  # Доблестный - чуть побольше
-            s = random.randint(7, 8)
-            return pygame.Rect(self.geo[0], self.geo[1], s, s)  # Идентично
+        # if self.charachter == 0:  # Трус - чуть поменьше
+        #     s = random.randint(4, 5)
+        #     return pygame.Rect(self.geo[0], self.geo[1], s,
+        #                        s)  # Небольшая рандомизация размера каждый вызов даёт ощущения движения
+        # elif self.charachter == 1:  # Доблестный - чуть побольше
+        #     s = random.randint(7, 8)
+        #     return pygame.Rect(self.geo[0], self.geo[1], s, s)  # Идентично
+        if self.charachter == 0:
+            return pygame.transform.scale(self.ant_icon[0],(12,12))
+        if self.charachter == 1:
+            return pygame.transform.scale(self.ant_icon[1],(20,20))
         
     def get_nearest(self, agents):
         nearest_agent = agents[0]

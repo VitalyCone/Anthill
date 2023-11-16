@@ -38,20 +38,22 @@ class Anthill:
         self.growthState = GrowthState(self)
         self.all = False
         self.moving = False
-        self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
-        print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
-        print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
-        print(f'center={self.rect.center}')
+        #self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
+        self.anthill_icon = pygame.image.load("icons/anthill.png").convert_alpha()
+        # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
+        # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
+        # print(f'center={self.rect.center}')
 
     def body(self):
-        moving = self.moving
-        self.geo[0] = self.rect[0]
-        self.geo[1] = self.rect[1]
-        print(self.rect, '23223')
-        if not moving:
-            return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
-        else:
-            return pygame.Rect(display, "Blue" ,anthill.body())
+        return pygame.transform.scale(self.anthill_icon,(self.height,self.long))
+        # moving = self.moving
+        # self.geo[0] = self.rect[0]
+        # self.geo[1] = self.rect[1]
+        # print(self.rect, '23223')
+        # if not moving:
+        #     return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
+        # else:
+        #     return pygame.Rect(display, "Blue" ,anthill.body())
         
     def change_moving(self, new_moving):
         self.moving = new_moving

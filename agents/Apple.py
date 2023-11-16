@@ -3,7 +3,6 @@ import pygame
 import math
 from states.InertiaState import InertiaState
 
-
 class Apple:
     def __init__(self, anthill):
         self.name = __class__.__name__
@@ -20,10 +19,17 @@ class Apple:
         self.energy = self.weight
         self.speed = 0
         self.inertiaState = InertiaState(self)
+        self.apple_icon = pygame.image.load("icons/apple.png").convert_alpha()
 
     def body(self):
-        s = random.randint(10*self.weight, 11*self.weight)
-        return pygame.Rect(self.geo[0], self.geo[1], s, s)
+        if self.weight == 1:
+            return pygame.transform.scale(self.apple_icon,(25,25))
+        if self.weight == 2:
+            return pygame.transform.scale(self.apple_icon,(35,35))
+        if self.weight == 3:
+            return pygame.transform.scale(self.apple_icon,(45,45))
+        if self.weight == 4:
+            return pygame.transform.scale(self.apple_icon,(55,55))
 
     def get_ants(self, scene):
         ants = []
