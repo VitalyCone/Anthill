@@ -82,6 +82,8 @@ class Apple:
         distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
         if distance <= 15:
             for ant in my_ants:
+                ant.prey = None
+                ant.state[1] = None
                 print(ant.energy)
                 ant.energy+=(self.energy/10)/len(my_ants)
                 print(ant.energy)

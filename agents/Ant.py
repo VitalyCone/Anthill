@@ -45,6 +45,7 @@ class Ant:
         self.preys = ["Apples"]    # добыча пауков
         self.spawn = []     #обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
+        self.prey = None
 
     def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
         spiders = []
@@ -135,14 +136,35 @@ class Ant:
                     self.state = [2, spiders[0]]
                 elif consensus == False:
                     self.state = [4, spiders[0]]
-            elif apples != []:  # Если пауков нет -> если есть яблоки
-                if state[1] not in apples or self.get_distance(
-                        apples[0]) > 20:  # Если до яблока больше 20 пикселей, или яблока нет в радиусе,
-                    return [0, 0]  # то возвращается обычное блуждание
-                else:
-                    return [1, apples[0]]  # А если нет, то возвращается параметр к тасканию яблока и  яблоко
+
+
+            elif apples != [] and self.prey!=None:  # Если пауков нет -> если есть яблоки
+                return [1, self.prey]  # А если нет, то возвращается параметр к тасканию яблока и  яблоко
+            elif apples !=[] and self.prey==None:
+                system_profits = []
+                for apple in apples:
+                    apples_ants = []
+                    new_speed = (apple.speed*apple.weight + self.speed*self.weight)/apple.weight
+                    for ant in ants:
+                        if (ant.get_distance(apple)<=ant.speed - apple.speed):
+                            apples_ants.append(ant)
+                    try:
+                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
+                    except:
+                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
+                    system_profit = [my_profit, apple]
+                    for ant in apples_ants:
+                        profit = self.profit(apples_ants, apple)
+                        system_profit[0]+=profit
+                    if system_profit[0]>0: system_profits.append(system_profit)
+                if system_profits!=[]:
+                    most_apple = max(system_profits, key=lambda x: x[0])[1]
+                    print(len(apples_ants))
+                    return [1, most_apple]  # А если нет, то возвращается параметр к тасканию яблока и  яблоко
+                    
             else:
                 return [0, 0]  # если ничего из этого не прошло, то просто поиск яблока
+
 
         if state[0] == 0:  # Если состояние - простой поиск яблока
             if len(ants) < 5 and spiders != []:  # Если нет муравьев  и есть пауки - бегство
@@ -165,7 +187,8 @@ class Ant:
                     self.state = [2, spiders[0]]
                 elif consensus == False:
                     self.state = [4, spiders[0]]
-            elif apples != []:
+            #Если вокруг есть яблоки и нет уже заданной жертвы
+            elif apples != [] and self.prey == None:
                 system_profits = []
                 for apple in apples:
                     apples_ants = []
@@ -190,33 +213,65 @@ class Ant:
                         self.u = math.acos((most_apple.geo[0] - geo[0]) / self.get_distance(most_apple))
                     except:
                         pass
+                #Если жертва уже была выбрана
+                elif self.prey!=None:
+                    try:
+                        self.u_trig = [(self.prey.geo[1] - geo[1]) / self.get_distance(self.prey), (self.prey.geo[0] - geo[0]) / self.get_distance(self.prey)]
+                        self.u = math.acos((self.prey.geo[0] - geo[0]) / self.get_distance(self.prey))
+                    except:
+                        pass
                 else: 
                     self.u = self.searchState.move(self)
                     self.u_trig = [math.sin(self.u), math.cos(self.u)]
             else:
                 self.u = self.searchState.move(self)
                 self.u_trig = [math.sin(self.u), math.cos(self.u)]
-
+        #Если яблоко уже было выбрано 
         elif state[0] == 1:
-            if spiders != [] and ants != 0:
-                consensus = self.send_message_to_radius(0, ants, spiders[0])
-                if consensus == True:
-                    self.state = [2, spiders[0]]
-                elif consensus == False:
-                    self.state = [4, spiders[0]]
-            elif state[1] in self.anthill.get_apples(self.anthill.scene):
-                try:
-                    state[1].geo = geo
-                    state[1].travelset.add(self)
-                    self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                    self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-                    self.u_trig[0] = (self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill)
-                    self.u_trig[1] = (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)
-                except:
-                    f = 1
-                self.scene = state[1].move(self.scene)
-            elif self in state[1].travelset and state[1] not in apples:
-                state[1].travelset.remove(self)
+            if self.prey!=None:
+                if state[1]!=self.prey: 
+                    state[1]=self.prey
+                    if spiders != [] and ants != 0:
+                        consensus = self.send_message_to_radius(0, ants, spiders[0])
+                        if consensus == True:
+                            self.state = [2, spiders[0]]
+                        elif consensus == False:
+                            self.state = [4, spiders[0]]
+                    elif state[1] in self.anthill.get_apples(self.anthill.scene):
+                        try:
+                            state[1].geo = geo
+                            state[1].travelset.add(self)
+                            self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
+                            self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
+                            self.u_trig[0] = (self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill)
+                            self.u_trig[1] = (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)
+                        except:
+                            f = 1
+                        self.scene = state[1].move(self.scene)
+                    elif self in state[1].travelset and state[1] not in apples:
+                        state[1].travelset.remove(self)
+            elif(self.state[1]!=None and self.prey==None):
+                if spiders != [] and ants != 0:
+                    consensus = self.send_message_to_radius(0, ants, spiders[0])
+                    if consensus == True:
+                        self.state = [2, spiders[0]]
+                    elif consensus == False:
+                        self.state = [4, spiders[0]]
+                elif state[1] in self.anthill.get_apples(self.anthill.scene):
+                    try:
+                        state[1].geo = geo
+                        state[1].travelset.add(self)
+                        self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
+                        self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
+                        self.u_trig[0] = (self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill)
+                        self.u_trig[1] = (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)
+                    except:
+                        f = 1
+                    self.scene = state[1].move(self.scene)
+                elif self in state[1].travelset and state[1] not in apples:
+                    state[1].travelset.remove(self)
+
+            
         elif state[0] == 2:
             self.u_trig = [(state[1].geo[1] - geo[1]) / self.get_distance(state[1]), (state[1].geo[0] - geo[0]) / self.get_distance(state[1])]
             self.u = math.acos((state[1].geo[0] - geo[0]) / self.get_distance(state[1]))
