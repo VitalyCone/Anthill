@@ -107,17 +107,27 @@ class Spider:
                 for i in range(0, len(fighters) - len(fighters) // 6):
                     a = random.choice(fighters)
                     a.die(a)
+                    fighters.remove(a)
             elif 3 <= len(fighters) <= 5:
                 for i in range(0, len(fighters) - len(fighters) // 4):
                     a = random.choice(fighters)
                     a.die(a)
-
+                    fighters.remove(a)
+                for i in fighters:
+                    print(i.energy)
+                    i.energy+=self.energy/len(fighters)
+                    print(i.energy)
                 print(self.name, "умер!")
                 self.die()
             elif 6 <= len(fighters):
                 for i in range(0, len(fighters) - len(fighters) // 2):
                     a = random.choice(fighters)
                     a.die(a)
+                    fighters.remove(a)
+                for i in fighters:
+                    print(i.energy)
+                    i.energy+=self.energy/len(fighters)
+                    print(i.energy)
                 print(self.name, "умер!")
                 self.die()
 
