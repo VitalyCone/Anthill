@@ -15,6 +15,7 @@ pygame.display.set_caption("ANTHILL")
 clock = pygame.time.Clock()
 running = True
 pause = False
+moving = False
 
 input_anthills = 1
 input_apple = 3  # int(input('Введите количество яблок (~6): '))
@@ -64,9 +65,39 @@ while running:
             running = False
             quit()
 
+        
+        if  event.type == pygame.MOUSEBUTTONDOWN:
+            print('tttt')
+            print(pygame.mouse.get_pos())
+            if anthill.rect.collidepoint(pygame.mouse.get_pos()):
+                moving = True
+                anthill.change_moving(moving)
+
+        elif  event.type == pygame.MOUSEBUTTONUP:
+            moving = False
+            anthill.change_moving(moving)
+            print(f'x={anthill.rect.x}, y={anthill.rect.y}, w={anthill.rect.w}, h={anthill.rect.h}')
+            print(f'left={anthill.rect.left}, top={anthill.rect.top}, right={anthill.rect.right}, bottom={anthill.rect.bottom}')
+            print(f'center={anthill.rect.center}')
+
+        elif  event.type == pygame.MOUSEMOTION and moving:
+            anthill.rect.move_ip(event.rel)
+            print(11111)
+            print(event.rel)
+        
+
+        if moving:
+            pygame.draw.rect(display, "Blue" ,anthill.body())
+
+         
+    
+        pygame.display.flip()
+
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
             print(spiders[0].geo)
             print(spiders[0].get_need(spiders[0].u))
+            print(pygame.mouse.get_pos())
             pause = True
 
         if event.type == pygame.KEYUP and event.key == pygame.K_f:

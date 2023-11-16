@@ -1,6 +1,11 @@
+from sys import displayhook
+from typing import Self
 import pygame
+import math
 from states.SpawnState import SpawnState
 from states.GrowthState import GrowthState
+from tkinter import *
+from pygame.locals import *
 
 class Anthill:
     def __init__(self,input_apple_hp, input_ant, del_ants):
@@ -32,9 +37,24 @@ class Anthill:
         self.spawnState = SpawnState(self)
         self.growthState = GrowthState(self)
         self.all = False
-        
+        self.moving = False
+        self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
+        print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
+        print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
+        print(f'center={self.rect.center}')
+
     def body(self):
-        return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
+        moving = self.moving
+        self.geo[0] = self.rect[0]
+        self.geo[1] = self.rect[1]
+        print(self.rect, '23223')
+        if not moving:
+            return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
+        else:
+            return pygame.Rect(display, "Blue" ,anthill.body())
+        
+    def change_moving(self, new_moving):
+        self.moving = new_moving
        
     
     def get_apples(self, scene):
