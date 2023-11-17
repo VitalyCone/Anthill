@@ -3,9 +3,11 @@ import pygame
 import math
 from states.InertiaState import InertiaState
 
+
 class Apple:
-    def __init__(self, anthill):
+    def __init__(self, anthill, id='0'):
         self.name = __class__.__name__
+        self.uri = self.name + id
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
         self.travelset = set()
@@ -20,6 +22,12 @@ class Apple:
         self.speed = 0
         self.inertiaState = InertiaState(self)
         self.apple_icon = pygame.image.load("icons/apple.png").convert_alpha()
+
+    def get_uri(self):
+        """
+        :return: uri
+        """
+        return self.uri
 
     def body(self):
         if self.weight == 1:

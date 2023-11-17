@@ -7,12 +7,14 @@ from states.GrowthState import GrowthState
 from tkinter import *
 from pygame.locals import *
 
+
 class Anthill:
-    def __init__(self,input_apple_hp, input_ant, del_ants):
+    def __init__(self,input_apple_hp, input_ant, del_ants, id='0'):
+        self.name = __class__.__name__
         self.input_apple_hp = input_apple_hp
+        self.uri = self.name + id
         self.input_ant = input_ant
         self.ants = del_ants
-        self.name = __class__.__name__
         self.energy = 50
         self.last_energy = self.energy
         self.energy_consumption = 0.01
@@ -20,7 +22,7 @@ class Anthill:
         self.y = 400
         self.height = 50
         self.long = 50
-        self.livelihood = 1000 #запасы пропитания
+        self.livelihood = 1000  # запасы пропитания
         self.anth_font = pygame.font.Font(pygame.font.match_font('verdana'), size = 30)
         self.exit = False
         self.geo = [self.x,self.y]
@@ -38,11 +40,17 @@ class Anthill:
         self.growthState = GrowthState(self)
         self.all = False
         self.moving = False
-        #self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
+        # self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
         self.anthill_icon = pygame.image.load("icons/anthill.png").convert_alpha()
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
+
+    def get_uri(self):
+        """
+        :return: uri
+        """
+        return self.uri
 
     def body(self):
         return pygame.transform.scale(self.anthill_icon,(self.height,self.long))

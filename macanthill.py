@@ -1,9 +1,9 @@
 import pygame
 import time
-from agents.Spider import Spider
-from agents.Ant import Ant
-from agents.Anthill import Anthill
-from agents.Apple import Apple
+from agents.Spider.Spider import Spider
+from agents.Ant.Ant import Ant
+from agents.Anthill.Anthill import Anthill
+from agents.Apple.Apple import Apple
 
 pygame.init()
 display_xy = (500,500)
@@ -92,7 +92,7 @@ while running:
             quit()
 
         
-        # if  event.type == pygame.MOUSEBUTTONDOWN:
+        # if event.type == pygame.MOUSEBUTTONDOWN:
         #     if anthill.rect.collidepoint(pygame.mouse.get_pos()):
         #         moving = True
         #         anthill.change_moving(moving)

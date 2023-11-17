@@ -5,8 +5,9 @@ from states.SearchState import SearchState
 
 
 class Spider:
-    def __init__(self, scene):
+    def __init__(self, scene, id='0'):
         self.name = __class__.__name__  # в каждом классе определил переменную-имя класса, чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
+        self.uri = self.name + id
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.speed = 6
         self.u = 0.57#random.uniform(0, 2 * math.pi)
@@ -25,6 +26,12 @@ class Spider:
         self.spawn = []     #обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.spider_icon = pygame.image.load("icons/spider.png").convert_alpha()
+
+    def get_uri(self):
+        """
+        :return: uri
+        """
+        return self.uri
 
         # TODO:Отделить переговоры от кода
 

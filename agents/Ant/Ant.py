@@ -5,8 +5,9 @@ from states.SearchState import SearchState
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
 class Ant:
-    def __init__(self, scene, anthill):
+    def __init__(self, scene, anthill, id='0'):
         self.name = __class__.__name__
+        self.uri = self.name + id
         self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
         self.isready = False
         self.state = [0, 0]  # Параметр, содержащий состояние state[0] и объект, связанный с состоянием state[1]
@@ -46,6 +47,12 @@ class Ant:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
+
+    def get_uri(self):
+        """
+        :return: uri
+        """
+        return self.uri
 
 
     # TODO: Вычистить код, убрать дублирующие переменные и дублирующие проверки

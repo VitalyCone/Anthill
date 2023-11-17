@@ -1,1 +1,2 @@
 pygame<3.0
+thespian~=3.10.7
