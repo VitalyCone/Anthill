@@ -26,13 +26,15 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.spider_icon = pygame.image.load("icons/spider.png").convert_alpha()
 
+        # TODO:Отделить переговоры от кода
+
     def body(self):
         # s = random.randint(14, 20)
         # return pygame.Rect(self.geo[0], self.geo[1], s, s)
         return pygame.transform.scale(self.spider_icon,(30,30))
 
-    def get_num_of_spiders_around(self,
-                                  geo):  # метод, который обрабатывает сцену, и ищет в ней количество пауков, в радиусе от заданных координат
+    def get_num_of_spiders_around(self, geo):
+        # метод, который обрабатывает сцену, и ищет в ней количество пауков, в радиусе от заданных координат
         num_of_spiders = 0
         for spider in self.scene:
             if spider.name == Spider and (abs(geo[0] - spider.geo[0]) <= self.r) and (

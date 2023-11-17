@@ -47,6 +47,9 @@ class Ant:
         self.prey = None
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
 
+
+    # TODO: Вычистить код, убрать дублирующие переменные и дублирующие проверки
+
     def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
         spiders = []
         for spider in scene:
