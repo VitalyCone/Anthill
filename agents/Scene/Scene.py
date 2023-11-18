@@ -31,6 +31,13 @@ class Scene:
                     return entity
         return None
 
+    def get_all_entities(self):
+        """
+        Возвращает все сущности в сцене
+        :return entities_list -> list:
+        """
+        return self.entities.values()
+
     def remove_entity_by_uri(self, uri):
         """
         Удаляет сущность по URI.

@@ -41,14 +41,18 @@ class Ant:
         self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
         # 1. друзья 2.враги 3.добыча 4.угол отклонения 5.внутри карты
         self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэфициенты многофактроной целевой функции поиска
-        self.friends = ["Ant"] # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
-        self.enemies = ["Spider"] # враги пауков
+        self.friends = ["Ant"]  # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
+        self.enemies = ["Spider"]  # враги пауков
         self.preys = ["Apples"]    # добыча пауков
-        self.spawn = []     #обьекты для состояния спавна
+        self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+
+    def live(self):
+        self.move(self.scene)
+        logging.info(f'Объект {self.uri} сделал ход, местоположение: {self.geo}')
 
     def get_uri(self):
         """
@@ -326,10 +330,7 @@ class Ant:
         if self.energy <=0:
             self.die(self)
 
-        for agent in self.scene:
-            full_scene.add(agent)
-            # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
-        return full_scene
+
 
     def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)

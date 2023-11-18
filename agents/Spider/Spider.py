@@ -34,13 +34,10 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.spider_icon = pygame.image.load("icons/spider.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
-        self.live()
 
     def live(self):
-        while True:
-            self.move(self.scene)
-            self.run()
-            logging.info(f'Объект {self.uri} сделал ход')
+        self.move(self.scene)
+        logging.info(f'Объект {self.uri} сделал ход, местоположение: {self.geo}')
 
     def get_uri(self):
         """
@@ -53,7 +50,7 @@ class Spider:
     def body(self):
         # s = random.randint(14, 20)
         # return pygame.Rect(self.geo[0], self.geo[1], s, s)
-        return pygame.transform.scale(self.spider_icon,(30,30))
+        return pygame.transform.scale(self.spider_icon, (30, 30))
 
     def get_num_of_spiders_around(self, geo):
         # метод, который обрабатывает сцену, и ищет в ней количество пауков, в радиусе от заданных координат
@@ -71,35 +68,6 @@ class Spider:
                 num_of_ants += 1
         return num_of_ants
 
-    # def get_need(self, u):
-    #     chasing = False
-    #     geo = [self.geo[0] + self.speed * math.cos(u), self.geo[1] + self.speed * math.sin(u)]
-    #     sum_of_needs = 0
-    #     num_of_spiders = self.get_num_of_spiders_around(geo)  # получает количество пауков из сцены, в радиусе обзора
-    #     num_of_ants = self.get_num_of_ants_around(geo)  # получает количество муравьев из сцены, в радиусе обзора паука
-    #     needs = []  # энергия входит в функцию расчета удовлетворенности
-    #     if num_of_spiders != 0:
-    #         needs.append(
-    #             1)  # рассчет коэфициента для выбора направления из количество пауков. Есть другие пауки - 0, нет - 1
-    #     else:
-    #         needs.append(0)
-    #     if num_of_ants > 5:
-    #         needs.append(1)  # если рядом много муравьев(сейчас больше 5), то паук доволен
-    #     else:
-    #         needs.append(0)
-    #     if (abs(self.u - u) <= self.error):
-    #         needs.append(1)
-    #     else:  # если угол предлагаемого поворота входит в допустимое отклонение угла от направления вектора, паук доволен(если пауку меньше надо поворачиваться, он доволен)
-    #         needs.append(0)
-    #     if (geo[0] > 10 and geo[0] < 990) and (geo[1] > 10 and geo[1] < 990):
-    #         needs.append(1)  # если паук в результате перемещения не выходит за границы карты, он доволен
-    #     else:
-    #         needs.append(0)
-    #     for i in range(0, len(self.weights)):
-    #         sum_of_needs += needs[i] * self.weights[
-    #             i]  # рассчет удовлетворенности паука, учитывая весовые коэфициенты каждого параметра.
-    #     return [sum_of_needs, chasing, u]
-
     def get_ants(self, scene):  # метод, возвращающий всех муравьев в зоне обзора
         ants = []
         for ant in scene:
@@ -114,7 +82,7 @@ class Spider:
                 spiders.append(spider)
         return spiders
 
-    def move(self, scene):  # метод для рассчета действий для хода муравья
+    def move(self, scene):  # метод для рассчёта действий для хода муравья
         full_scene = scene
         self.scene = self.get_scene(scene)
         for agent in self.scene:
@@ -141,7 +109,7 @@ class Spider:
                     fighters.remove(a)
                 for i in fighters:
                     print(i.energy)
-                    i.energy+=self.energy/len(fighters)
+                    i.energy += self.energy/len(fighters)
                     print(i.energy)
                 print(self.name, "умер!")
                 self.die()
@@ -152,7 +120,7 @@ class Spider:
                     fighters.remove(a)
                 for i in fighters:
                     print(i.energy)
-                    i.energy+=self.energy/len(fighters)
+                    i.energy += self.energy/len(fighters)
                     print(i.energy)
                 print(self.name, "умер!")
                 self.die()
@@ -221,11 +189,6 @@ class Spider:
         if self.energy <=0:
             self.die()
 
-        for agent in self.scene:
-            full_scene.append(
-                agent)  # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
-        return full_scene
-
     def get_energy(self, obj):  # возвращает энергию, полученную пауком.
         return self.energy + obj.energy - self.get_distance(obj) / (self.speed - obj.speed) * 0.01
 
@@ -245,7 +208,7 @@ class Spider:
         except:
             f = 1
 
-    def run(self):  # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
+    def run(self):
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
 

@@ -322,7 +322,7 @@ while running:
                 menu_back = True
                 settings = True
         else:
-            display.blit(sett,(0,25))
+            display.blit(sett, (0, 25))
         
         # if pause_ingame.get_rect(topleft = (0,50)).collidepoint(mouse):
         #     display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'White'),(0,50))
@@ -341,7 +341,7 @@ while running:
             if anthill.body().get_rect(topleft = anthill.geo).collidepoint(mouse):
                 if pygame.mouse.get_pressed()[0]:
                     anthill.geo = pygame.mouse.get_pos()
-            display.blit(anthill.body(),anthill.geo)
+            display.blit(anthill.body(), anthill.geo)
 
         for ant_index, ant in enumerate(ants):
             scene = ant.move(ants | spiders | apples)  # теперь в параметрах, при ходе, каждому агенту передается сцена(массив из объектов-агентов)

@@ -8,3 +8,5 @@ class MessageType(Enum):
     """
     # Инициализация агента
     INIT_MESSAGE = 'Инициализация'
+    GIVE_CONTROL = 'Передать управление'
+    RETURN_CONTROL = 'Вернуть управление'

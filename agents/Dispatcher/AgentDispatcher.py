@@ -1,18 +1,21 @@
 """Содержит класс диспетчера агентов"""
 import logging
 
+from Game import Game
+
 from thespian.actors import ActorSystem
 
-from agents.Ant.Ant import Ant
+from agents.Ant.AntAgent import AntAgent
 from agents.Spider.Spider import Spider
+from agents.Spider.SpiderAgent import SpiderAgent
 
 from Messages.Messages import MessageType
 from agents.ReferenceBook.ReferenceBook import ReferenceBook
 
 # В зависимости от типа сущности мы выбираем класс агента
 TYPES_AGENTS = {
-    'Ant': Ant,
-    'Spider': Spider,
+    'Spider': SpiderAgent,
+    'Ant': AntAgent,
 }
 
 
@@ -26,6 +29,15 @@ class AgentDispatcher:
         self.reference_book = ReferenceBook()
         self.scene = scene
 
+    def run_planning(self):
+        """
+        Запускает игру
+        """
+        for entity in self.reference_book.agents_entities:
+            agent = self.reference_book.get_address(entity)
+            move_message = (MessageType.GIVE_CONTROL, self)
+            self.actor_system.tell(agent, move_message)
+
     def add_entity(self, entity):
         """
         Добавляет сущность в сцену, создает агента и отправляет ему сообщение об инициализации
@@ -34,7 +46,11 @@ class AgentDispatcher:
         """
         entity_type = entity.name
         self.scene.entities[entity_type].append(entity)
-        return True
+        agent_type = TYPES_AGENTS.get(entity_type)
+        if agent_type:
+            self.create_agent(agent_type, entity)
+            return True
+        return False
         # TODO: Добавить агентов к сущностям
         # entity_type = entity.get_type()
         # agent_type = TYPES_AGENTS.get(entity_type)

@@ -35,6 +35,8 @@ class Apple:
         self.uri = self.name + str(_id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
+        self.u = random.uniform(0, 4 * math.pi)
+        self.u_trig = [math.sin(self.u), math.cos(self.u)]
         self.travelset = set()
         self.scene = None
         self.apples = None
