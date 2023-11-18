@@ -11,7 +11,7 @@ from agents.ReferenceBook.ReferenceBook import ReferenceBook
 
 # В зависимости от типа сущности мы выбираем класс агента
 TYPES_AGENTS = {
-    'ANT': Ant,
+    'Ant': Ant,
     'Spider': Spider,
 }
 
@@ -32,14 +32,18 @@ class AgentDispatcher:
         :param entity:
         :return:
         """
-        entity_type = entity.get_type()
-        agent_type = TYPES_AGENTS.get(entity_type)
-        if not agent_type:
-            logging.warning(f'Для сущности типа {entity_type} не указан агент')
-            return False
+        entity_type = entity.name
         self.scene.entities[entity_type].append(entity)
-        self.create_agent(agent_type, entity)
         return True
+        # TODO: Добавить агентов к сущностям
+        # entity_type = entity.get_type()
+        # agent_type = TYPES_AGENTS.get(entity_type)
+        # if not agent_type:
+        #     logging.warning(f'Для сущности типа {entity_type} не указан агент')
+        #     return False
+        # self.scene.entities[entity_type].append(entity)
+        # self.create_agent(agent_type, entity)
+        # return True
 
     def create_agent(self, agent_class, entity):
         """

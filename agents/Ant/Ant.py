@@ -1,13 +1,14 @@
 import math
 import random
 import pygame
+import logging
 from states.SearchState import SearchState
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
 class Ant:
     def __init__(self, scene, anthill, id='0'):
         self.name = __class__.__name__
-        self.uri = self.name + id
+        self.uri = self.name + str(id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
         self.isready = False
         self.state = [0, 0]  # Параметр, содержащий состояние state[0] и объект, связанный с состоянием state[1]
@@ -38,7 +39,7 @@ class Ant:
         self.weight = 0.2
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
         self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
-        # 1. друзья  2.враги 3.добыча 4.угол отклонения 5.внутри карты
+        # 1. друзья 2.враги 3.добыча 4.угол отклонения 5.внутри карты
         self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэфициенты многофактроной целевой функции поиска
         self.friends = ["Ant"] # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
         self.enemies = ["Spider"] # враги пауков
@@ -47,6 +48,7 @@ class Ant:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
+        logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def get_uri(self):
         """
@@ -135,8 +137,8 @@ class Ant:
                 return [0, 0]  # искать яблоки
 
         if state[0] == 2:  # Если параметр равен 2, то идет проверка, а существует ли еще такой паук в радиусе
-            if self.charachter == 0 and state[
-                1] not in spiders:  # Разделение я думал с небольшим потенциалом, "на вырост" то есть
+            if self.charachter == 0 and state[1] not in spiders:
+                # Разделение я думал с небольшим потенциалом, "на вырост" то есть
                 return [0, 0]
             elif self.charachter == 1 and state[1] not in spiders:
                 return [0, 0]
@@ -324,10 +326,9 @@ class Ant:
         if self.energy <=0:
             self.die(self)
 
-
         for agent in self.scene:
-            full_scene.add(
-                agent)  # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
+            full_scene.add(agent)
+            # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
         return full_scene
 
     def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
@@ -358,14 +359,15 @@ class Ant:
 
     def profit(self, ants, agent_resource):
         speed = agent_resource.speed + 0.000001
-        their_profit = (agent_resource.energy/10)/len(ants) - self.get_distance(self.anthill)/speed*self.energy_consumption #Если они толкают без меня!!! 
+        their_profit = (agent_resource.energy/10)/len(ants) - self.get_distance(self.anthill)/speed*self.energy_consumption
+        # Если они толкают без меня!!!
         
         new_speed = (agent_resource.speed*agent_resource.weight + self.speed*self.weight)/agent_resource.weight
         our_profit = (agent_resource.energy/10)/(len(ants)+1) - self.get_distance(self.anthill)/new_speed*self.energy_consumption #Если они толкали со мной
         return our_profit - their_profit
-    
 
-    def get_scene(self, scene):  # возвращает обьекты из сцены, в радиусе обзора паука
+    def get_scene(self, scene):
+        # возвращает обьекты из сцены, в радиусе обзора паука
         scene1 = set()
         for obj in scene:
             if obj.name == "Ant":
@@ -380,6 +382,7 @@ class Ant:
 
         return scene1
 
-    def run(self):  # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
+    def run(self):
+        # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]

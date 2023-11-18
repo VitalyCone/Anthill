@@ -1,3 +1,5 @@
+import logging
+
 from sys import displayhook
 from typing import Self
 import pygame
@@ -9,10 +11,10 @@ from pygame.locals import *
 
 
 class Anthill:
-    def __init__(self,input_apple_hp, input_ant, del_ants, id='0'):
+    def __init__(self, input_apple_hp, input_ant, del_ants, id='0'):
         self.name = __class__.__name__
         self.input_apple_hp = input_apple_hp
-        self.uri = self.name + id
+        self.uri = self.name + str(id)
         self.input_ant = input_ant
         self.ants = del_ants
         self.energy = 50
@@ -45,6 +47,7 @@ class Anthill:
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
+        logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def get_uri(self):
         """

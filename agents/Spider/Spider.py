@@ -1,31 +1,46 @@
 import random
 import math
 import pygame
+import logging
+
 from states.SearchState import SearchState
 
 
 class Spider:
     def __init__(self, scene, id='0'):
-        self.name = __class__.__name__  # в каждом классе определил переменную-имя класса, чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
-        self.uri = self.name + id
+        self.name = __class__.__name__
+        # в каждом классе определил переменную-имя класса
+        # , чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
+        self.uri = self.name + str(id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.speed = 6
-        self.u = 0.57#random.uniform(0, 2 * math.pi)
+        self.u = 0.57
+        # random.uniform(0, 2 * math.pi)
         self.r = 20  # радиус обзора муравья
         self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
         self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
-        self.chasing = False  # булевое значение, которое контролирует переход между состояниями(изначально - паук не преследует никакого муравья)
+        self.chasing = False
+        # булево значение, которое контролирует переход между состояниями
+        # (изначально - паук не преследует никакого муравья)
         self.my_ant = None
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
         self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
-        # 1. друзья  2.враги 3.добыча 4.угол отклонения 5.внутри карты
-        self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэфициенты многофактроной целевой функции поиска
-        self.friends = [] # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
-        self.enemies = ["Spider"] # враги пауков
+        # 1. друзья 2.враги 3.добыча 4.угол отклонения 5.внутри карты
+        self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэффициенты многофакторной целевой функции поиска
+        self.friends = []  # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
+        self.enemies = ["Spider"]  # враги пауков
         self.preys = ["Ant"]    # добыча пауков
-        self.spawn = []     #обьекты для состояния спавна
+        self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.spider_icon = pygame.image.load("icons/spider.png").convert_alpha()
+        logging.info(f'Объект {self.uri} был успешно инициализирован')
+        self.live()
+
+    def live(self):
+        while True:
+            self.move(self.scene)
+            self.run()
+            logging.info(f'Объект {self.uri} сделал ход')
 
     def get_uri(self):
         """
@@ -207,7 +222,7 @@ class Spider:
             self.die()
 
         for agent in self.scene:
-            full_scene.add(
+            full_scene.append(
                 agent)  # после окончания хода, паук передает в сцену изменившиеся данные и возвращает ее диспетчеру вместе с ходом(простите, без элементарного диспетчера не получался нормальный паук)
         return full_scene
 

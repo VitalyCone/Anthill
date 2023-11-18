@@ -29,13 +29,13 @@ input_anthills = 1
 input_apple = 3  
 input_spdr = 3 
 input_ant = 100 
-anthills = [Anthill(input_apple_hp, input_apple, 0) for i in range(input_anthills)]
-apples = [Apple(anthills[0]) for i in range(input_apple)]
-ants = [Ant(apples, anthills[0]) for i in range(input_ant)]
-spiders = [Spider(ants + apples) for i in range(input_spdr)]
+anthills = [Anthill(input_apple_hp, input_apple, 0, i) for i in range(input_anthills)]
+apples = [Apple(anthills[0], i) for i in range(input_apple)]
+ants = [Ant(apples, anthills[0], i) for i in range(input_ant)]
+spiders = [Spider(ants + apples, i) for i in range(input_spdr)]
 
 input_spdr_speed = spiders[0].speed
-#input_ant_speed = 3
+# input_ant_speed = 3
 input_ant_power = 1500
 
 anthills = set(anthills)
