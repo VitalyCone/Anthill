@@ -35,9 +35,15 @@ class Spider:
         self.spider_icon = pygame.image.load("icons/spider.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
-    def live(self):
-        self.move(self.scene)
-        logging.info(f'Объект {self.uri} сделал ход, местоположение: {self.geo}')
+    def live(self, scene):
+        """
+        Обработка запроса на ход муравья
+        :param scene:
+        :return killed:
+        """
+        killed = self.move(scene)
+        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        return killed
 
     def get_uri(self):
         """
@@ -82,15 +88,14 @@ class Spider:
                 spiders.append(spider)
         return spiders
 
-    def move(self, scene):  # метод для рассчёта действий для хода муравья
-        full_scene = scene
-        self.scene = self.get_scene(scene)
-        for agent in self.scene:
-            full_scene.remove(agent)  # получение данных из сцены и запись, только данных в области обзора паука
+    def move(self, scene):
+        # метод для рассчёта действий для хода муравья
+        self.scene = scene
+        # получение данных из сцены и запись, только данных в области обзора паука
         ants = self.get_ants(self.scene)  # все муравьи в радиусе обзора паука
+        killed = []
 
 
-        #############
 
         fighters = []
         for ant in ants:
@@ -130,29 +135,6 @@ class Spider:
             self.chasing = False
             self.my_ant = None
 
-
-            # best_moves = []
-            # best_move = self.get_need(0)
-            # best_moves.append(best_move)
-            # a = 0
-            # while a < math.pi * 2:  # вычисляем лучшие углы поворота, при помощи метода get_need()
-            #     a += 0.01
-            #     # geo = [self.geo[0] + self.speed * math.cos(a), self.geo[1] + self.speed * math.sin(a)]
-            #     # if (geo[0] > 5 and geo[0] < 995) and (geo[1] > 5 and geo[1] < 995):
-            #     move1 = self.get_need(a)
-            #     if move1[0] > best_move[0]:
-            #         best_move = move1
-            #         best_moves.clear()
-            #         best_moves.append(move1)
-            #     elif move1[0] == best_move[0]:
-            #         best_moves.append(move1)
-            # choice = random.choice(
-            #     best_moves)  # если лучших ходов несколько, то выбираем случайный(чем больше параметров, тем меньше вероятность выбора случайного направления)
-            # self.u = choice[2]
-            # self.u_trig[0] = math.sin(self.u)
-            # self.u_trig[1] = math.cos(self.u)
-            # self.chasing = choice[1]
-
             self.u = self.searchState.move(self)
             self.u_trig = [math.sin(self.u), math.cos(self.u)]
 
@@ -179,6 +161,7 @@ class Spider:
                 if distance < (
                         self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
                     self.my_ant.die(self.my_ant)
+                    killed.append(self.my_ant.get_uri())
                     self.scene.remove(self.my_ant)
                     self.my_ant = None
                     self.chasing = False  # муравей погибает и паук снова переходит в стадию поиска
@@ -186,8 +169,10 @@ class Spider:
                 pass
         
         self.energy -= 0.001
-        if self.energy <=0:
+        if self.energy <= 0:
             self.die()
+            killed.append(self.get_uri())
+        return killed
 
     def get_energy(self, obj):  # возвращает энергию, полученную пауком.
         return self.energy + obj.energy - self.get_distance(obj) / (self.speed - obj.speed) * 0.01

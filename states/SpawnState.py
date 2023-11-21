@@ -5,10 +5,10 @@ class SpawnState(State):
     
     def move(self, agent, bool=False):
         num = agent.energy/10
-        if bool!=True:
+        if not bool:
             if agent.tic % 20 == 0:
                 for i in range(int(num)):
                     ant = list(agent.ants)[0].add_ant(agent.scene, agent)
-                    agent.scene.add(ant)
+                    agent.scene.append(ant)
         
         return agent.scene

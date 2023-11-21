@@ -1,22 +1,20 @@
-"""Содержит агента паука с обработкой сообщений и переговорами"""
+"""Содержит агента яблока с обработкой сообщений"""
 import logging
 
-from agents.ReferenceBook.ReferenceBook import ReferenceBook
-
 from agents.Base.BaseAgent import AgentBase
+from agents.Apple.Apple import Apple
+
 from Messages.Messages import MessageType
-from agents.Spider.Spider import Spider
 
 
-class SpiderAgent(AgentBase):
+class AppleAgent(AgentBase):
     """
-    Класс агента паука
+    Класс агента яблока
     """
-
     def __init__(self):
         super().__init__()
-        self.entity: Spider
-        self.name = 'Агент паука'
+        self.entity: Apple
+        self.name = 'Агент яблока'
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
 
@@ -46,3 +44,4 @@ class SpiderAgent(AgentBase):
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
+

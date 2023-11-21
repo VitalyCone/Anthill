@@ -15,6 +15,7 @@ class Anthill:
         self.name = __class__.__name__
         self.input_apple_hp = input_apple_hp
         self.uri = self.name + str(id)
+        self.r = 500
         self.input_ant = input_ant
         self.ants = del_ants
         self.energy = 50
@@ -48,6 +49,16 @@ class Anthill:
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+
+    def live(self, scene):
+        """
+        Обработка запроса на ход муравья
+        :param scene:
+        :return killed:
+        """
+        killed = self.move(scene)
+        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        return killed
 
     def get_uri(self):
         """
@@ -109,7 +120,7 @@ class Anthill:
 
     
     def move(self, scene):
-        full_scene = scene
+        killed = []
         self.scene = scene
         self.anthills = self.get_anthills(scene)
         self.ants = self.get_ants(scene)
@@ -126,5 +137,4 @@ class Anthill:
 
         self.tic += 1
 
-
-        return scene
+        return killed

@@ -50,9 +50,15 @@ class Ant:
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
-    def live(self):
-        self.move(self.scene)
-        logging.info(f'Объект {self.uri} сделал ход, местоположение: {self.geo}')
+    def live(self, scene):
+        """
+        Обработка запроса на ход муравья
+        :param scene:
+        :return killed:
+        """
+        killed = self.move(scene)
+        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        return killed
 
     def get_uri(self):
         """
@@ -304,13 +310,12 @@ class Ant:
             self.u = math.pi - math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
 
     def move(self, scene):
-        full_scene = scene
-        self.scene = self.get_scene(scene)
+        killed = []
+        self.scene = scene
         self.apples = self.get_apples(self.scene)
         self.ants = self.get_ants(self.scene)
         self.spiders = self.get_spiders(self.scene)
-        for agent in self.scene:
-            full_scene.remove(agent)  # получение данных из сцены и запись, только данных в области обзора паука
+        # получение данных из сцены и запись, только данных в области обзора паука
 
         if self.spiders != []:
             sorted(self.spiders,
@@ -327,8 +332,11 @@ class Ant:
         self.live_by_self_determination(self.geo, self.state, self.ants, self.spiders, self.apples)
 
         self.energy -= 0.001
-        if self.energy <=0:
+        if self.energy <= 0:
             self.die(self)
+            killed.append(self.get_uri())
+
+        return killed
 
 
 

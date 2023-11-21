@@ -34,6 +34,7 @@ class Apple:
         self.name = __class__.__name__
         self.uri = self.name + str(_id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
+        self.r = 50
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
         self.u = random.uniform(0, 4 * math.pi)
         self.u_trig = [math.sin(self.u), math.cos(self.u)]
@@ -50,6 +51,16 @@ class Apple:
         self.inertiaState = InertiaState(self)
         self.apple_icon = pygame.image.load("icons/apple.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+
+    def live(self, scene):
+        """
+        Обработка запроса на ход муравья
+        :param scene:
+        :return killed:
+        """
+        killed = self.move(scene)
+        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        return killed
 
     def get_uri(self):
         """
@@ -89,6 +100,7 @@ class Apple:
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
 
     def move(self, scene):
+        killed = []
         self.scene = scene
         self.apples = get_apples(self.scene)  # диспетчер переопределяет сцену
         self.ants = get_ants(self.scene)
@@ -106,7 +118,8 @@ class Apple:
                 ant.energy += (self.energy/10)/len(my_ants)
                 print(ant.energy)
             self.die(self)
-        return self.scene
+            killed.append(self)
+        return killed
     
     def run(self):
         self.geo[0] += self.speed * self.u_trig[1]

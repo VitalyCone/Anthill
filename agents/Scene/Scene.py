@@ -1,5 +1,10 @@
 """ Реализация класса сцены"""
 from collections import defaultdict
+import logging
+
+from agents.Base.BaseAgent import AgentBase
+
+from Messages.Messages import MessageType
 
 
 class Scene:
@@ -50,3 +55,4 @@ class Scene:
                     self.entities.get(key).remove(entity)
                     return True
         return False
+

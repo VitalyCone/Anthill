@@ -23,7 +23,7 @@ class InertiaState(State):
         agent.speed = speed
         agent.u_trig = [(agent.anthill.geo[1] - agent.geo[1])/agent.get_distance(agent.anthill), (agent.anthill.geo[0] - agent.geo[0])/agent.get_distance(agent.anthill)]
         agent.u = math.acos(agent.u_trig[1])    # Чтобы никаких муравейников!!! пусть летит в направлении муравьев!!!
-        agent.scene.add(agent)
+        agent.scene.append(agent)
 
         return [agent.scene, f[1]]
         # Можно вообще взять и собирать проекции скорости на оси сразу

@@ -1,13 +1,14 @@
 """Содержит класс диспетчера агентов"""
 import logging
 
-from Game import Game
 
 from thespian.actors import ActorSystem
 
 from agents.Ant.AntAgent import AntAgent
-from agents.Spider.Spider import Spider
 from agents.Spider.SpiderAgent import SpiderAgent
+from agents.Anthill.AnthillAgent import AnthillAgent
+from agents.Apple.AppleAgent import AppleAgent
+from agents.Scene.SceneAgent import SceneAgent
 
 from Messages.Messages import MessageType
 from agents.ReferenceBook.ReferenceBook import ReferenceBook
@@ -16,6 +17,9 @@ from agents.ReferenceBook.ReferenceBook import ReferenceBook
 TYPES_AGENTS = {
     'Spider': SpiderAgent,
     'Ant': AntAgent,
+    'Anthill': AnthillAgent,
+    'Apple': AppleAgent,
+    'Scene': SceneAgent,
 }
 
 
@@ -28,6 +32,7 @@ class AgentDispatcher:
         self.actor_system = ActorSystem()
         self.reference_book = ReferenceBook()
         self.scene = scene
+        self.create_agent(SceneAgent, scene)
 
     def run_planning(self):
         """
@@ -47,19 +52,11 @@ class AgentDispatcher:
         entity_type = entity.name
         self.scene.entities[entity_type].append(entity)
         agent_type = TYPES_AGENTS.get(entity_type)
+        logging.info(f'{entity} был добавлен в сцену')
         if agent_type:
             self.create_agent(agent_type, entity)
             return True
         return False
-        # TODO: Добавить агентов к сущностям
-        # entity_type = entity.get_type()
-        # agent_type = TYPES_AGENTS.get(entity_type)
-        # if not agent_type:
-        #     logging.warning(f'Для сущности типа {entity_type} не указан агент')
-        #     return False
-        # self.scene.entities[entity_type].append(entity)
-        # self.create_agent(agent_type, entity)
-        # return True
 
     def create_agent(self, agent_class, entity):
         """
@@ -73,3 +70,4 @@ class AgentDispatcher:
         init_data = {'dispatcher': self, 'scene': self.scene, 'entity': entity}
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
+        logging.info(f'{agent} сущecтва {entity} был создан')
