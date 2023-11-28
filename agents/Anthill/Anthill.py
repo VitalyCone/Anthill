@@ -17,6 +17,7 @@ class Anthill:
         self.uri = self.name + str(id)
         self.r = 500
         self.input_ant = input_ant
+        self.agent = None
         self.ants = del_ants
         self.energy = 50
         self.last_energy = self.energy

@@ -13,4 +13,4 @@ class MessageType(Enum):
     SCENE_REQUEST = 'Запрос сцены'
     SCENE_RESPONSE = 'Ответ на запрос сцены'
     ENTITY_REMOVE_REQUEST = 'Запрос на удаление существа'
-
+    SHARE_INFORMATION = 'Поделиться информацией'

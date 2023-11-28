@@ -11,6 +11,7 @@ class Ant:
         self.uri = self.name + str(id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
         self.isready = False
+        self.agent = None
         self.state = [0, 0]  # Параметр, содержащий состояние state[0] и объект, связанный с состоянием state[1]
         # state[0] = 0 - в поиске яблока, 1 - нашел яблоко, тащит в муравейник,
         # 2 - атакует паук, нужно вместе его забороть, 3 - конец игры. нужно идти с муравейнику.

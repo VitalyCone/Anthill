@@ -1,5 +1,5 @@
 """Файл для запуска игровой модели"""
-
+import datetime
 import logging
 import multiprocessing
 
@@ -50,6 +50,8 @@ if __name__ == "__main__":
         agent_dispatcher.add_entity(spider)
     rendering_process = multiprocessing.Process(target=game.render_game())
     planning_process = multiprocessing.Process(target=agent_dispatcher.run_planning())
+    start_time = datetime.datetime.now()
     while True:
+        time_interval = (datetime.datetime.now() - start_time).seconds
         agent_dispatcher.run_planning()
         game.render_game()

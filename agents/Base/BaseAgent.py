@@ -81,5 +81,6 @@ class AgentBase(ABC, Actor):
         self.scene = message[1].get('scene')
         self.dispatcher = message[1].get('dispatcher')
         self.entity = message[1].get('entity')
+        self.entity.agent = self
         self.name = self.name + ' ' + self.entity.name
         logging.info(f'{self} проинициализирован')

@@ -17,7 +17,6 @@ class InertiaState(State):
 
     def move(self, agent):
         self.agent = agent
-        agent.scene.remove(agent)
         f = self.calculate_impulce() 
         speed = f[0] / agent.weight
         agent.speed = speed

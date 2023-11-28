@@ -39,6 +39,7 @@ class Apple:
         self.u = random.uniform(0, 4 * math.pi)
         self.u_trig = [math.sin(self.u), math.cos(self.u)]
         self.travelset = set()
+        self.agent = None
         self.scene = None
         self.apples = None
         self.anthill = anthill

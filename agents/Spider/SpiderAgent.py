@@ -19,6 +19,30 @@ class SpiderAgent(AgentBase):
         self.name = 'Агент паука'
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
+        self.subscribe(MessageType.SHARE_INFORMATION, self.handle_share_information)
+
+    def send_information(self, spiders, ants):
+        """
+        Отправление информации другим паукам
+        :param spiders:
+        :param ants:
+        :return:
+        """
+        for spider in spiders:
+            message = (MessageType.SHARE_INFORMATION, ants)
+            spider_address = self.dispatcher.reference_book.get_address(spider)
+            logging.info(f'{self} поделился информацией с {spider_address}')
+            self.send(spider_address, message)
+
+    def handle_share_information(self, message, sender):
+        """
+        Обработка переданной информации о муравьях от других пауков
+        :param message:
+        :param sender:
+        :return:
+        """
+        logging.info(f'Получена информация от агента {sender}')
+        self.entity.process_information(message[1])
 
     def handle_scene_response(self, message, sender):
         """
