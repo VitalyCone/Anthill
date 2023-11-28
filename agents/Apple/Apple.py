@@ -118,7 +118,7 @@ class Apple:
                 ant.energy += (self.energy/10)/len(my_ants)
                 print(ant.energy)
             self.die(self)
-            killed.append(self)
+            killed.append(self.get_uri())
         return killed
     
     def run(self):

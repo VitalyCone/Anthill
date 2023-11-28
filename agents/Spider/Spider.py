@@ -51,8 +51,6 @@ class Spider:
         """
         return self.uri
 
-        # TODO:Отделить переговоры от кода
-
     def body(self):
         # s = random.randint(14, 20)
         # return pygame.Rect(self.geo[0], self.geo[1], s, s)
@@ -161,6 +159,7 @@ class Spider:
                 if distance < (
                         self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
                     self.my_ant.die(self.my_ant)
+                    logging.info(f'{self.my_ant} был убит {self}')
                     killed.append(self.my_ant.get_uri())
                     self.scene.remove(self.my_ant)
                     self.my_ant = None
@@ -171,6 +170,7 @@ class Spider:
         self.energy -= 0.001
         if self.energy <= 0:
             self.die()
+            logging.info(f'{self} умер')
             killed.append(self.get_uri())
         return killed
 

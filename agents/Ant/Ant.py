@@ -67,7 +67,6 @@ class Ant:
         return self.uri
 
 
-    # TODO: Вычистить код, убрать дублирующие переменные и дублирующие проверки
 
     def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
         spiders = []
@@ -125,7 +124,7 @@ class Ant:
             self.ants.remove(ant)
             self.scene.remove(ant)
         except:
-            print("Убить не получилось!")
+            logging.info(f'{self} умер')
 
     def self_determination(self, state, ants, spiders, apples):  # Самоопределение.
         # Самоопределение ответственно только за анализ ситуации и возвращение состояния муравья
