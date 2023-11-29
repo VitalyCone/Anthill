@@ -17,6 +17,8 @@ class Game:
         # input_ant_speed = 3
         self.input_ant_power = 1500
 
+        self.name = 'Game'
+
         self.text_for_settings = ''
         self.text_for_settings_inp = False
         self.text_event_enter = False
@@ -114,7 +116,7 @@ class Game:
 
             if run_game.get_rect(topleft=(0, 75)).collidepoint(mouse):
                 self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("play", True, 'White'),
-                             (0, 75))
+                            (0, 75))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = False
                     self.pause = False
@@ -303,5 +305,6 @@ class Game:
                     self.display.blit(entity.body(), entity.geo)
 
         pygame.display.update()
+        return self.pause
 
 

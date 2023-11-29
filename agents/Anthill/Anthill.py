@@ -27,7 +27,7 @@ class Anthill:
         self.height = 50
         self.long = 50
         self.livelihood = 1000  # запасы пропитания
-        self.anth_font = pygame.font.Font(pygame.font.match_font('verdana'), size = 30)
+        self.anth_font = pygame.font.Font(pygame.font.match_font('verdana'), size=30)
         self.exit = False
         self.geo = [self.x,self.y]
         self.scene = None
