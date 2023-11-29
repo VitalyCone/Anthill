@@ -14,3 +14,5 @@ class MessageType(Enum):
     SCENE_RESPONSE = 'Ответ на запрос сцены'
     ENTITY_REMOVE_REQUEST = 'Запрос на удаление существа'
     SHARE_INFORMATION = 'Поделиться информацией'
+    GAME_RENDERING_REQUEST = 'Запрос на отрисовку игрового поля'
+    GAME_RENDERING_RESPONSE = 'Ответ на запрос на отрисовку игрового поля'

@@ -14,6 +14,7 @@ class Scene:
 
     def __init__(self):
         # Сцена хранит массив из сущностей
+        self.name = 'Сцена'
         self.entities = defaultdict(list)
 
     def get_entities_by_type(self, entity_type):

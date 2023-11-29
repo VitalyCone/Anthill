@@ -32,6 +32,7 @@ if __name__ == "__main__":
     input_spdr = 3
     input_ant = 50
     # Создание агентов, добавление оных в диспетчер агентов
+    agent_dispatcher.add_game_entity(game)
     for i in range(input_anthills):
         anthill = Anthill(input_apple_hp, input_apple, 0, i)
         agent_dispatcher.add_entity(anthill)
@@ -48,10 +49,9 @@ if __name__ == "__main__":
     for i in range(input_spdr):
         spider = Spider(scene.get_entities_by_type('Spider') + scene.get_entities_by_type('Apple'), i)
         agent_dispatcher.add_entity(spider)
-    rendering_process = multiprocessing.Process(target=game.render_game())
-    planning_process = multiprocessing.Process(target=agent_dispatcher.run_planning())
+    # rendering_process = multiprocessing.Process(target=game.render_game())
+    # planning_process = multiprocessing.Process(target=agent_dispatcher.run_planning())
     start_time = datetime.datetime.now()
     while True:
         time_interval = (datetime.datetime.now() - start_time).seconds
         agent_dispatcher.run_planning()
-        game.render_game()
