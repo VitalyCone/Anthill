@@ -1,6 +1,7 @@
 """Модуль игры"""
 import pygame
 import time
+import matplotlib.pyplot as plt
 
 from agents.Scene.Scene import Scene
 
@@ -32,6 +33,9 @@ class Game:
         self.menu_back = False
         self.mouse_clicked = False
         self.pause_agents = False
+        self.graphics_isopen = False
+        self.download_bot = False
+        self.saveplt = False
 
         self.change_ant_speed = False
         self.change_spider_speed = False
@@ -40,14 +44,47 @@ class Game:
         self.change_list = [self.change_ant_speed, self.change_spider_speed, self.change_ant_power, self.change_apple_weight]
 
         self.lastcallback = time.time()
+        self.total_seconds = 0.01
+        self.sec_list = []
+        self.spider_middle_energy_per_sec = []
+        self.ant_middle_energy_per_sec = []
+        self.anthill_middle_energy_per_sec = []
+
         self.scene = start_scene
         pygame.init()
         pygame.display.set_caption("ANTHILL")
-        display_xy = (500, 500)
-        self.display = pygame.display.set_mode(display_xy)
+        self.display_xy = (500, 500)
+        self.display = pygame.display.set_mode(self.display_xy)
         self.intro_download = pygame.image.load("icons/intro_logo.png").convert_alpha()
         self.backgr_download = pygame.image.load("icons/backgr.png").convert_alpha()
         self.display.blit(pygame.transform.scale(self.backgr_download, (self.display.get_width(), self.display.get_height())), (0, 0))
+
+    def save_graphics(self,filename,xy,save_plt=False,xlabel='x',ylabel='y'):
+        """
+        Создание и сохранение графиков
+        :param filename - название файла, xy- Массивы данных по x и y, save_plt- скачать график, xlabel- название оси x, ylabel- название оси y:
+        :return:
+        """
+        plt.close()
+        x_values = xy[0]
+        y_values = xy[1]
+        plt.plot(x_values, y_values, marker=',', linestyle='-')
+
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(filename)
+        plt.savefig(f"graphics/arg.png",)
+        if save_plt:
+            plt.savefig(f"exel/{filename}.png",)
+
+    def show_graphics(self,filename,pos,xy,save_plt=False,xlabel='x',ylabel='y'):
+        """
+        Создание и сохранение графиков
+        :param filename - название файла, pos- позиция на экране, xy- Массивы данных по x и y, save_plt- скачать график, xlabel- название оси x, ylabel- название оси y:
+        :return:
+        """
+        self.save_graphics(filename,xy,save_plt,xlabel,ylabel)
+        self.display.blit(pygame.transform.scale(pygame.image.load(f"graphics/arg.png"),(500,500)).convert_alpha(),pos)
 
     def render_game(self):
         """
@@ -59,8 +96,10 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                print(self.spider_middle_energy_per_sec)
+                print(self.sec_list)
+                print(self.ant_middle_energy_per_sec)
                 quit()
-
             # if event.type == pygame.MOUSEBUTTONDOWN:
             #     if anthill.rect.collidepoint(pygame.mouse.get_pos()):
             #         moving = True
@@ -262,10 +301,14 @@ class Game:
                 #     display.blit(set_apple_weight,(100,450))
 
         if not self.pause:
-            self.display.blit(pygame.transform.scale(self.backgr_download, (self.display.get_width(), self.display.get_height())), (0, 0))
+            if self.graphics_isopen:
+                self.display.fill('white')
+            self.display.blit(pygame.transform.scale(self.backgr_download,(self.display_xy)),(0,0))
 
             sett = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("settings", True, 'Black')
             menu = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("menu", True, 'Black')
+            graphics = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'Black')
+            download_to_exel = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'Black')
             # pause_ingame = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'Black')
 
             if menu.get_rect(topleft=(0, 0)).collidepoint(mouse):
@@ -288,7 +331,36 @@ class Game:
                     self.settings = True
             else:
                 self.display.blit(sett, (0, 25))
+            
+            if graphics.get_rect(topleft = (0,50)).collidepoint(mouse):
+                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'White'),(0,50))
+                if pygame.mouse.get_pressed()[0]:
+                    if not self.graphics_isopen:
+                        self.display = pygame.display.set_mode((self.display_xy[0]*2,self.display_xy[1]*2))
+                        self.graphics_isopen = True
+                        self.download_bot = True
 
+                    else:
+                        self.display = pygame.display.set_mode(self.display_xy)
+                        self.graphics_isopen = False
+                        self.download_bot = False
+            else:
+                self.display.blit(graphics,(0,50))
+
+            if self.download_bot:
+                if download_to_exel.get_rect(topleft = (60,50)).collidepoint(mouse):
+                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'white'),(60,50))
+                    if pygame.mouse.get_pressed()[0]:
+                        self.saveplt = True
+                else:
+                    self.display.blit(download_to_exel,(60,50))
+
+            if self.graphics_isopen:
+                self.show_graphics('spider_energy',(self.display_xy[0],0),(self.sec_list,self.spider_middle_energy_per_sec),self.saveplt,'time','spiders energy')
+                self.show_graphics('anthill_energy',(0,self.display_xy[1]),(self.sec_list,self.anthill_middle_energy_per_sec),self.saveplt,'time','ants energy')
+                self.show_graphics('ant_energy',(self.display_xy[0],self.display_xy[1]),(self.sec_list,self.ant_middle_energy_per_sec),self.saveplt, 'time', 'anthill energy')
+
+            self.saveplt = False
             # if pause_ingame.get_rect(topleft = (0,50)).collidepoint(mouse):
             #     display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'White'),(0,50))
             #     if pygame.mouse.get_pressed()[0]:
@@ -303,7 +375,27 @@ class Game:
                 for entity in entities:
                     entity.run()
                     self.display.blit(entity.body(), entity.geo)
-
+            
+        seconds = int(str(self.total_seconds)[:str(self.total_seconds).find('.')])
+        if seconds not in self.sec_list:
+            if seconds != '':
+                self.sec_list.append(seconds)
+                temp_spider_energy = [0,0]
+                for spider in self.scene.get_entities_by_type("Spider"):
+                    temp_spider_energy[0] += spider.energy
+                    temp_spider_energy[1] += 1
+                self.spider_middle_energy_per_sec.append(temp_spider_energy[0]/temp_spider_energy[1])
+                temp_ant_energy = [0,0]
+                for ant in self.scene.get_entities_by_type("Ant"):
+                    temp_ant_energy[0] += ant.energy
+                    temp_ant_energy[1] += 1
+                self.ant_middle_energy_per_sec.append(temp_ant_energy[0]/temp_ant_energy[1])
+                temp_anthill_energy = [0,0]
+                for anthill in self.scene.get_entities_by_type("Anthill"):
+                    temp_anthill_energy[0] += anthill.energy
+                    temp_anthill_energy[1] += 1
+                self.anthill_middle_energy_per_sec.append(temp_anthill_energy[0]/temp_anthill_energy[1])
+        self.total_seconds = time.time()-self.lastcallback
         pygame.display.update()
         return self.pause
 
