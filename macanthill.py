@@ -1,9 +1,10 @@
 import pygame
 import time
-from agents.Spider.Spider import Spider
-from agents.Ant.Ant import Ant
-from agents.Anthill.Anthill import Anthill
-from agents.Apple.Apple import Apple
+import matplotlib.pyplot as plt
+from agents.Spider import Spider
+from agents.Ant import Ant
+from agents.Anthill import Anthill
+from agents.Apple import Apple
 
 pygame.init()
 display_xy = (500,500)
@@ -20,6 +21,8 @@ settings = False
 menu_back = False
 mouse_clicked = False
 pause_agents = False
+graphics_isopen = False
+download_bot = False
 
 intro_download = pygame.image.load("icons/intro_logo.png").convert_alpha()
 backgr_download = pygame.image.load("icons/backgr.png").convert_alpha()
@@ -29,13 +32,13 @@ input_anthills = 1
 input_apple = 3  
 input_spdr = 3 
 input_ant = 100 
-anthills = [Anthill(input_apple_hp, input_apple, 0, i) for i in range(input_anthills)]
-apples = [Apple(anthills[0], i) for i in range(input_apple)]
-ants = [Ant(apples, anthills[0], i) for i in range(input_ant)]
-spiders = [Spider(ants + apples, i) for i in range(input_spdr)]
+anthills = [Anthill(input_apple_hp, input_apple, 0) for i in range(input_anthills)]
+apples = [Apple(anthills[0]) for i in range(input_apple)]
+ants = [Ant(apples, anthills[0]) for i in range(input_ant)]
+spiders = [Spider(ants + apples) for i in range(input_spdr)]
 
 input_spdr_speed = spiders[0].speed
-# input_ant_speed = 3
+#input_ant_speed = 3
 input_ant_power = 1500
 
 anthills = set(anthills)
@@ -56,6 +59,9 @@ change_apple_weight = False
 change_list = [change_ant_speed, change_spider_speed, change_ant_power, change_apple_weight]
 
 lastcallback = time.time()
+total_seconds = 0.01
+sec_list = []
+apple_show_speed = []
 
 
 def modify_scene(scene):  # метод, обрабатывающий измененную сцену, после хода агента
@@ -76,13 +82,37 @@ def modify_scene(scene):  # метод, обрабатывающий измен�
     ants = mants
     spiders = mspiders
 
-    # TODO: При создании новой сцены-агента -- обращаться к объектам через уникальные id
+
+def save_graphics(filename,xy):
+
+
+    x_values = xy[0]
+    y_values = xy[1]
+    plt.plot(x_values, y_values, marker='o', linestyle='-')
+
+    plt.xlabel('time')
+    plt.ylabel('middle apple mass')
+    plt.title(f'{filename}')
+    plt.savefig(f"graphics/{filename}.png")
+
+def show_graphics(filename,coord,xy):
+    save_graphics(filename,xy)
+    display.blit(pygame.transform.scale(pygame.image.load(f"graphics/{filename}.png"),(500,300)).convert_alpha(),coord)
+    #pass
+
+def apples_middle_speed():
+    global apples
+    total = 0
+    if apples:
+        for apple in apples:
+            total+=apple.speed
+        total = total/len(apples)
+        return str(total)[:str(total).find('.')+4]
+    return total
 
 
 while running:
-
-    # TODO: Отделить рендеринг от переговоров и сложных функций, внутри цикла оставить только метод run()
-
+    #print(len(sec_list),len(apple_show_speed))
     mouse = pygame.mouse.get_pos()
 
     for event in pygame.event.get():
@@ -92,7 +122,7 @@ while running:
             quit()
 
         
-        # if event.type == pygame.MOUSEBUTTONDOWN:
+        # if  event.type == pygame.MOUSEBUTTONDOWN:
         #     if anthill.rect.collidepoint(pygame.mouse.get_pos()):
         #         moving = True
         #         anthill.change_moving(moving)
@@ -156,7 +186,7 @@ while running:
 
 
     if intro:
-        display.blit(pygame.transform.scale(intro_download,(display.get_width(),display.get_height())),(0,0))
+        display.blit(pygame.transform.scale(intro_download,(display_xy)),(0,0))
         antvssp = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 25).render("ANTS VS SPIDERS", True, 'Black')
         run_game = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("play", True, 'Black')
         sett = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("settings", True, 'Black')
@@ -190,7 +220,7 @@ while running:
 
 
     if settings:
-        display.blit(pygame.transform.scale(intro_download,(display.get_width(),display.get_height())),(0,0))
+        display.blit(pygame.transform.scale(intro_download,(display_xy)),(0,0))
         if menu_back:
             back_to_menu = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("back", True, 'Black')
             #set_ant_speed = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 30).render(f"ants speed: {input_ant_speed}", True, 'Black')
@@ -300,10 +330,14 @@ while running:
 
 
     if not pause:
-        display.blit(pygame.transform.scale(backgr_download,(display.get_width(),display.get_height())),(0,0))
+        if graphics_isopen:
+            display.fill('white')
+        display.blit(pygame.transform.scale(backgr_download,(display_xy)),(0,0))
 
         sett = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("settings", True, 'Black')
         menu = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("menu", True, 'Black')
+        graphics = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'Black')
+        download_to_exel = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'Black')
         #pause_ingame = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'Black')
 
         if menu.get_rect(topleft = (0,0)).collidepoint(mouse):
@@ -322,7 +356,39 @@ while running:
                 menu_back = True
                 settings = True
         else:
-            display.blit(sett, (0, 25))
+            display.blit(sett,(0,25))
+        
+        if graphics.get_rect(topleft = (0,50)).collidepoint(mouse):
+            display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'White'),(0,50))
+            if pygame.mouse.get_pressed()[0]:
+                if not graphics_isopen:
+                    display = pygame.display.set_mode((display_xy[0]*2,display_xy[1]))
+                    graphics_isopen = True
+                    download_bot = True
+
+                else:
+                    display = pygame.display.set_mode(display_xy)
+                    graphics_isopen = False
+                    download_bot = False
+        else:
+            display.blit(graphics,(0,50))
+        
+        if download_bot:
+            if download_to_exel.get_rect(topleft = (display_xy[0]*2-150,display_xy[1]-50)).collidepoint(mouse):
+                display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'green'),(display_xy[0]*2-150,display_xy[1]-50))
+                if pygame.mouse.get_pressed()[0]:
+                    plt.savefig("exel/grapgh.png")
+            else:
+                display.blit(download_to_exel,(display_xy[0]*2-150,display_xy[1]-50))
+
+        
+        if graphics_isopen:
+            if apple:
+                #sec_list.append(str(total_seconds)[:5])
+                if len(sec_list)<5:
+                    show_graphics('applegraph',(display_xy[0],0),(sec_list,apple_show_speed))
+                else:
+                    show_graphics('applegraph',(display_xy[0],0),(sec_list[:-5],apple_show_speed[:-5]))
         
         # if pause_ingame.get_rect(topleft = (0,50)).collidepoint(mouse):
         #     display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'White'),(0,50))
@@ -341,7 +407,7 @@ while running:
             if anthill.body().get_rect(topleft = anthill.geo).collidepoint(mouse):
                 if pygame.mouse.get_pressed()[0]:
                     anthill.geo = pygame.mouse.get_pos()
-            display.blit(anthill.body(), anthill.geo)
+            display.blit(anthill.body(),anthill.geo)
 
         for ant_index, ant in enumerate(ants):
             scene = ant.move(ants | spiders | apples)  # теперь в параметрах, при ходе, каждому агенту передается сцена(массив из объектов-агентов)
@@ -372,6 +438,14 @@ while running:
         if not ants and apples:
             loose = end.render("SPIDERS WON", True, 'Black')
             display.blit(loose, (80, 490))
+    #print(sec_list,apple_show_speed)
+    seconds = int(str(total_seconds)[:str(total_seconds).find('.')])
+    #print(seconds)
+    if seconds not in sec_list:
+        if seconds != '':
+            sec_list.append(seconds)
+            apple_show_speed.append(apples_middle_speed())
 
+    total_seconds = time.time()-lastcallback
     pygame.display.update()
-    clock.tick(30)
+    clock.tick(50)
