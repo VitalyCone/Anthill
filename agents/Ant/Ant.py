@@ -48,6 +48,17 @@ class Ant:
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
+
+
+        self.f = 4 #кол-во муравьев для убийства паука
+        self.k = 1/f
+        self.g = 1 #ему нужно тащить еду до дома
+        self.goal = False
+
+        self.self_agent_type = "COMBINE" #Тип агента. агент ресурс, агент заказчик, агент комбинированный.(для кого-то ресурс, для кого-то заказчик.)
+        self.agent_resource_choice = "Apple" #На замену preys предпочитаемый тип агента ресурса
+        self.agent_costumer_choice = "Anthill" #Куда относит агент ресурс. в данном случае в матку
+
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
@@ -390,6 +401,15 @@ class Ant:
                     scene1.add(obj)
 
         return scene1
+    
+    def profit(ant, ants, agent_resource):
+        #ф. расчета профита муравьев
+        speed = agent_resource.speed + 0.000001
+        their_profit = (agent_resource.energy/10)/len(ants) - ant.get_distance(ant.anthill)/speed*ant.energy_consumption
+        # Если они толкают без меня!!!
+        new_speed = (agent_resource.speed*agent_resource.weight + ant.speed*ant.weight)/agent_resource.weight
+        our_profit = (agent_resource.energy/10)/(len(ants)+1) - ant.get_distance(ant.anthill)/new_speed*ant.energy_consumption #Если они толкали со мной
+        return our_profit - their_profit
 
     def run(self):
         # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)

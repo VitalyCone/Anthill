@@ -34,7 +34,7 @@ class Apple:
         self.name = __class__.__name__
         self.uri = self.name + str(_id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
-        self.r = 50
+        self.r = 5 #тут было 50
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
         self.u = random.uniform(0, 4 * math.pi)
         self.u_trig = [math.sin(self.u), math.cos(self.u)]
@@ -51,6 +51,9 @@ class Apple:
         self.speed = 0
         self.inertiaState = InertiaState(self)
         self.apple_icon = pygame.image.load("icons/apple.png").convert_alpha()
+
+        self.self_agent_type = "RESOURCE" #Тип агента. агент ресурс, агент заказчик, агент комбинированный.(для кого-то ресурс, для кого-то заказчик.)
+
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
