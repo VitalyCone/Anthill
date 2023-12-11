@@ -50,10 +50,6 @@ class Anthill:
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
 
-        self.self_agent_type = "COSTUMER" #Тип агента. агент ресурс, агент заказчик, агент комбинированный.(для кого-то ресурс, для кого-то заказчик.)
-        self.agent_resource_choice = "Spider" #На замену preys предпочитаемый тип агента ресурса
-        self.agent_costumer_choice = "Anthill" #Куда относит агент ресурс. в данном случае в матку
-
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):

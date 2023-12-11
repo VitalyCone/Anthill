@@ -42,10 +42,6 @@ class Spider:
         self.k = 1/f
         self.g = 0 #ему не нужно тащить еду до дома
 
-        self.self_agent_type = "COMBINE" #Тип агента. агент ресурс, агент заказчик, агент комбинированный.(для кого-то ресурс, для кого-то заказчик.)
-        self.agent_resource_choice = "Ant" #На замену preys предпочитаемый тип агента ресурса
-        self.agent_costumer_choice = "Spider"
-
     def live(self, scene):
         """
         Обработка запроса на ход муравья

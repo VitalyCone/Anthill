@@ -52,8 +52,6 @@ class Apple:
         self.inertiaState = InertiaState(self)
         self.apple_icon = pygame.image.load("icons/apple.png").convert_alpha()
 
-        self.self_agent_type = "RESOURCE" #Тип агента. агент ресурс, агент заказчик, агент комбинированный.(для кого-то ресурс, для кого-то заказчик.)
-
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):

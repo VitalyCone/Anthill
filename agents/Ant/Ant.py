@@ -55,10 +55,6 @@ class Ant:
         self.g = 1 #ему нужно тащить еду до дома
         self.goal = False
 
-        self.self_agent_type = "COMBINE" #Тип агента. агент ресурс, агент заказчик, агент комбинированный.(для кого-то ресурс, для кого-то заказчик.)
-        self.agent_resource_choice = "Apple" #На замену preys предпочитаемый тип агента ресурса
-        self.agent_costumer_choice = "Anthill" #Куда относит агент ресурс. в данном случае в матку
-
         self.ant_icon = (pygame.image.load("icons/ant.png").convert_alpha(),pygame.image.load("icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 

@@ -1,12 +1,7 @@
 import math
 import random
 from states.State import State
-"""
-это не состояние в полном смысле слова.
-это вычисление наиболее полезного угла. 
 
-Марк
-"""
 class SearchState(State):
 
     def get_angle(self):
