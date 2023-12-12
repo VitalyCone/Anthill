@@ -3,6 +3,7 @@ import random
 import pygame
 import logging
 from states.SearchState import SearchState
+from Messages.Messages import MessageType
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
 class Ant:
@@ -52,10 +53,10 @@ class Ant:
         self.food_pray = None
         self.defense_prey = None
         self.group = [self]
-
-
+        #
+        #
         self.f = 4 #кол-во муравьев для убийства паука
-        self.k = 1/f
+        self.k = 1/self.f
         self.g = 1 #ему нужно тащить еду до дома
         self.goal = False
 
@@ -336,17 +337,15 @@ class Ant:
             if self.apples[0] != self.get_nearest(self.apples):
                 self.apples.append(self.apples[0])
                 self.apples[0] = self.get_nearest(self.apples)
-        
 
-        self.state = self.self_determination(self.state, self.ants, self.spiders, self.apples)
-
-        self.live_by_self_determination(self.geo, self.state, self.ants, self.spiders, self.apples)
-
+        if self.spiders!=[]:
+            self.enemy_prey = self.spiders[0]
+            self.agent.tell(self.agent, MessageType.ATTACK)
         self.energy -= 0.001
+
         if self.energy <= 0:
             self.die(self)
             killed.append(self.get_uri())
-
         return killed
 
 

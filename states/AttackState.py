@@ -16,7 +16,14 @@ class AttackState(State):
 
         """
 
-        agent.prey.energy-=agent.damage
+        agent.u_trig[0] = (agent.enemy_prey.geo[1] - agent.geo[1]) / agent.get_distance(agent.enemy_prey)
+        agent.u_trig[1] = (agent.enemy_prey.geo[0] - agent.geo[0]) / agent.get_distance(agent.enemy_prey)
+        if 5>agent.get_distance(agent.enemy_prey)>3:
+            agent.enemy_prey.energy-=agent.damage
+        elif agent.get_distance(agent.enemy_prey)<=3:
+            agent.u_trig[0] = agent.math.sin(agent.math.pi + agent.math.asin((agent.enemy_prey[1] - agent.geo[1]) / agent.get_distance(agent.enemy_prey)))
+            agent.u_trig[1] = agent.math.cos(agent.math.pi + agent.math.acos((agent.enemy_prey[0] - agent.geo[0]) / agent.get_distance(agent.enemy_prey)))
+            agent.enemy_prey.energy-=agent.damage
             
         if agent.prey.energy<=0:
             for a in agent.group:
