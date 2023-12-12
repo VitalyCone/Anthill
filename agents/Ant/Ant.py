@@ -31,7 +31,8 @@ class Ant:
             self.r = 20  # Радиус зрения муравья
         self.intravel = False
         self.power = 1500
-        self.energy = random.uniform(0.01, 1)
+        self.energy = 1
+        self.damage = 0.05
         self.scene = scene  # Сцена
         self.apples = self.get_apples(self.scene)  # Вообще все яблоки
         self.anthill = anthill  # Муравейник
@@ -47,7 +48,10 @@ class Ant:
         self.preys = ["Apples"]    # добыча пауков
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
-        self.prey = None
+        self.enemy_prey = None
+        self.food_pray = None
+        self.defense_prey = None
+        self.group = [self]
 
 
         self.f = 4 #кол-во муравьев для убийства паука

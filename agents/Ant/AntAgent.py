@@ -4,6 +4,7 @@ import logging
 from agents.Base.BaseAgent import AgentBase
 from Messages.Messages import MessageType
 from agents.Ant.Ant import Ant
+from states.AttackState import AttackState
 
 
 class AntAgent(AgentBase):
@@ -12,12 +13,15 @@ class AntAgent(AgentBase):
     """
 
     def __init__(self):
+        
         super().__init__()
         self.entity: Ant
         self.name = 'Агент муравья'
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
-
+        #новые подписки
+        self.subscribe(MessageType.ATTACK, states)
+        
     def handle_scene_response(self, message, sender):
         """
         Обработка полученной сцены
@@ -44,3 +48,5 @@ class AntAgent(AgentBase):
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
+
+    

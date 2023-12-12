@@ -19,7 +19,9 @@ class Spider:
         self.sended_objects = []
         # random.uniform(0, 2 * math.pi)
         self.r = 70  # радиус обзора паука
-        self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
+        
+        self.energy = 1  #Энергия паука. 
+        self.damage = 1
         self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
         self.chasing = False
         # булево значение, которое контролирует переход между состояниями

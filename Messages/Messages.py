@@ -16,3 +16,15 @@ class MessageType(Enum):
     SHARE_INFORMATION = 'Поделиться информацией'
     GAME_RENDERING_REQUEST = 'Запрос на отрисовку игрового поля'
     GAME_RENDERING_RESPONSE = 'Ответ на запрос на отрисовку игрового поля'
+
+    # Сообщения подписки на состояния
+
+    ATTACK = "Атаковать"
+    DEFENSE = "Защищать"
+    GROWTH = "Расти"
+    INERTIA = "Рассчитать импульс"
+    INTERECTION = "Взаимодействовать"
+    RUNAWAY = "Бежать"
+    SEARCH = "Выбирать направление"
+    SPAWN = "Появляться"
+
