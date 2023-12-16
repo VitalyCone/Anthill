@@ -9,6 +9,7 @@ from states.DefenseState import DefenseState
 from states.InterectionState import InterectionState
 from states.RunawayState import RunawayState
 
+
 class AntAgent(AgentBase):
     """
     Класс агента паука
@@ -22,10 +23,6 @@ class AntAgent(AgentBase):
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
         # Новые подписки
-        self.subscribe(MessageType.ATTACK, AttackState(self.entity))
-        self.subscribe(MessageType.DEFENSE, DefenseState(self.entity))
-        self.subscribe(MessageType.INTERECTION, InterectionState(self.entity))
-        self.subscribe(MessageType.RUNAWAY, RunawayState(self.entity))
 
     def handle_scene_response(self, message, sender):
         """
@@ -53,3 +50,10 @@ class AntAgent(AgentBase):
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
+    
+    def choose_state(self, entity, st):
+        most = [0, -100000]
+        for a in len(st):
+            if st[a][1]>most[0][1]:
+                most = st[a][1]
+        return most

@@ -34,6 +34,8 @@ class Spider:
         self.friends = []  # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
         self.enemies = ["Spider"]  # враги пауков
         self.preys = ["Ant"]    # добыча пауков
+        self.enemy = "Ant"
+        self.prey = "Ant"
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.spider_icon = pygame.image.load("icons/spider.png").convert_alpha()
@@ -41,7 +43,7 @@ class Spider:
 
 
         self.f = 1/6 #кол-во пауков для убийства муравья
-        self.k = 1/f
+        self.k = 1/self.f
         self.g = 0 #ему не нужно тащить еду до дома
 
     def live(self, scene):

@@ -1,7 +1,7 @@
 from states.State import State
 
 class InterectionState(State):
-    def Interection(agent):
+    def move(self, agent):
         """
         if state[1] in self.anthill.get_apples(self.anthill.scene):
             try:
@@ -17,7 +17,7 @@ class InterectionState(State):
         elif self in state[1].travelset and state[1] not in apples:
             state[1].travelset.remove(self)
         """
-
+        print("ВЗАИМОДЕЙСТВУЮ")
         try: 
             agent.food_pray.travelset.add(agent)
             agent.u_trig[0] = (agent.anthill.geo[1] - agent.food_pray.geo[1]) / agent.get_distance(agent.anthill)

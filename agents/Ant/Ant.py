@@ -3,6 +3,13 @@ import random
 import pygame
 import logging
 from states.SearchState import SearchState
+from states.AttackState import AttackState
+from states.DefenseState import DefenseState
+from states.InterectionState import InterectionState
+from states.RunawayState import RunawayState
+
+from utils.state_determination import state_determination
+
 from Messages.Messages import MessageType
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
@@ -48,11 +55,25 @@ class Ant:
         self.enemies = ["Spider"]  # враги пауков
         self.preys = ["Apples"]    # добыча пауков
         self.spawn = []     # обьекты для состояния спавна
+
+        self.enemy = "Spider"
+        self.prey = "Apple"
+
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
+        self.attackState = AttackState(self)
+        self.defenseState = DefenseState(self)
+        self.interectionState = InterectionState(self)
+        self.runawayState = RunawayState(self)
+
+        self.state_determination = state_determination()
+
+        states = [self.attackState, self.defenseState, self.interectionState, self.runawayState, self.searchState]
+
         self.enemy_prey = None
         self.food_pray = None
-        self.defense_prey = None
+        self.defense_prey = self.anthill
         self.group = [self]
+        self.preference = "Apple"
         #
         #
         self.f = 4 #кол-во муравьев для убийства паука
@@ -139,188 +160,6 @@ class Ant:
         except:
             logging.info(f'{self} умер')
 
-    def self_determination(self, state, ants, spiders, apples):  # Самоопределение.
-        # Самоопределение ответственно только за анализ ситуации и возвращение состояния муравья
-        # Самое первое - если есть опасность, надо либо от нее убежать,
-        # либо ее победить. Уже после идут всё остальное. Разумеется, это пока что, и
-        # в планах разработать систему удовлетворенность и противовесов.
-
-        if self.anthill.exit == True:  # Если конец игры, то возвращается значение,
-            if spiders != []:  # если таки встретился паучара, ему не сдобровать!
-                return [2, spiders[0]]
-            else:
-                return [3, 0]  # сзывающее в муравейник.
-
-        if state[0] == 4:  # Если параметр равен 4, то убегать от паука(см. комментрий к переменной state)
-            if len(ants) < 5 and spiders != []:  # Если окружающих мурававьев < 5 и список окружающих пауков не пуст, то
-                return [4, spiders[0]]  # Возвращается значение "бегство!"
-            if state[
-                1] not in spiders:  # если преследующего паука больше нет в радиусе, то отменить бегство и приняться
-                return [0, 0]  # искать яблоки
-
-        if state[0] == 2:  # Если параметр равен 2, то идет проверка, а существует ли еще такой паук в радиусе
-            if self.charachter == 0 and state[1] not in spiders:
-                # Разделение я думал с небольшим потенциалом, "на вырост" то есть
-                return [0, 0]
-            elif self.charachter == 1 and state[1] not in spiders:
-                return [0, 0]
-
-        if state[0] == 1:  # Если параметр равен 1
-            if len(ants) < 5 and spiders != []:  # Есть ли вокруг пауки и меньше ли вокруг муравьев, чем 5
-                return [4, spiders[0]]  # Если да, то возвращается статус бегство!
-            elif len(ants) > 5 and spiders != []:  # А если больше, то муравей вызывает подмогу
-                consensus = self.send_message_to_radius(0, ants, spiders[0])
-                if consensus == True:
-                    self.state = [2, spiders[0]]
-                elif consensus == False:
-                    self.state = [4, spiders[0]]
-
-
-            elif apples != [] and self.prey!=None:  # Если пауков нет -> если есть яблоки
-                return [1, self.prey]  # А если нет, то возвращается параметр к тасканию яблока и  яблоко
-            elif apples !=[] and self.prey==None:
-                system_profits = []
-                for apple in apples:
-                    apples_ants = []
-                    new_speed = (apple.speed*apple.weight + self.speed*self.weight)/apple.weight
-                    for ant in ants:
-                        if (ant.get_distance(apple)<=ant.speed - apple.speed):
-                            apples_ants.append(ant)
-                    try:
-                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
-                    except:
-                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
-                    system_profit = [my_profit, apple]
-                    for ant in apples_ants:
-                        profit = self.profit(apples_ants, apple)
-                        system_profit[0]+=profit
-                    if system_profit[0]>0: system_profits.append(system_profit)
-                if system_profits!=[]:
-                    most_apple = max(system_profits, key=lambda x: x[0])[1]
-                    print(len(apples_ants))
-                    return [1, most_apple]  # А если нет, то возвращается параметр к тасканию яблока и  яблоко
-                    
-            else:
-                return [0, 0]  # если ничего из этого не прошло, то просто поиск яблока
-
-
-        if state[0] == 0:  # Если состояние - простой поиск яблока
-            if len(ants) < 5 and spiders != []:  # Если нет муравьев  и есть пауки - бегство
-                return [4, spiders[0]]
-            elif len(ants) > 5 and spiders != []:  # Если муравьев много - призыв к бойне!
-                consensus = self.send_message_to_radius(0, ants, spiders[0])
-                if consensus == True:
-                    self.state = [2, spiders[0]]
-                elif consensus == False:
-                    self.state = [4, spiders[0]]
-            elif apples != []:  # ну авось если яблочки есть, то извольте-с его тащить
-                if self.get_distance(apples[0]) <= 5: return [1, apples[0]]
-        return state
-
-    def live_by_self_determination(self, geo, state, ants, spiders, apples):  # Жить по самоопределению
-        if state[0] == 0:
-            if spiders != []:
-                consensus = self.send_message_to_radius(0, ants, spiders[0])
-                if consensus == True:
-                    self.state = [2, spiders[0]]
-                elif consensus == False:
-                    self.state = [4, spiders[0]]
-            #Если вокруг есть яблоки и нет уже заданной жертвы
-            elif apples != [] and self.prey == None:
-                system_profits = []
-                for apple in apples:
-                    apples_ants = []
-                    new_speed = (apple.speed*apple.weight + self.speed*self.weight)/apple.weight
-                    for ant in ants:
-                        if (ant.get_distance(apple)<=ant.speed - apple.speed):
-                            apples_ants.append(ant)
-                    try:
-                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
-                    except:
-                        my_profit = ((apple.energy/10)/(len(apples_ants)+1)) - self.get_distance(self.anthill)/new_speed*self.energy_consumption
-                    system_profit = [my_profit, apple]
-                    for ant in apples_ants:
-                        profit = self.profit(apples_ants, apple)
-                        system_profit[0]+=profit
-                    if system_profit[0]>0: system_profits.append(system_profit)
-                if system_profits!=[]:
-                    most_apple = max(system_profits, key=lambda x: x[0])[1]
-                    print(len(apples_ants))
-                    try:
-                        self.u_trig = [(most_apple.geo[1] - geo[1]) / self.get_distance(most_apple), (most_apple.geo[0] - geo[0]) / self.get_distance(most_apple)]
-                        self.u = math.acos((most_apple.geo[0] - geo[0]) / self.get_distance(most_apple))
-                    except:
-                        pass
-                #Если жертва уже была выбрана
-                elif self.prey!=None:
-                    try:
-                        self.u_trig = [(self.prey.geo[1] - geo[1]) / self.get_distance(self.prey), (self.prey.geo[0] - geo[0]) / self.get_distance(self.prey)]
-                        self.u = math.acos((self.prey.geo[0] - geo[0]) / self.get_distance(self.prey))
-                    except:
-                        pass
-                else: 
-                    self.u = self.searchState.move(self)
-                    self.u_trig = [math.sin(self.u), math.cos(self.u)]
-            else:
-                self.u = self.searchState.move(self)
-                self.u_trig = [math.sin(self.u), math.cos(self.u)]
-        #Если яблоко уже было выбрано 
-        elif state[0] == 1:
-            if self.prey!=None:
-                if state[1]!=self.prey: 
-                    state[1]=self.prey
-                    if spiders != [] and ants != 0:
-                        consensus = self.send_message_to_radius(0, ants, spiders[0])
-                        if consensus == True:
-                            self.state = [2, spiders[0]]
-                        elif consensus == False:
-                            self.state = [4, spiders[0]]
-                    elif state[1] in self.anthill.get_apples(self.anthill.scene):
-                        try:
-                            state[1].geo = geo
-                            state[1].travelset.add(self)
-                            self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                            self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-                            self.u_trig[0] = (self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill)
-                            self.u_trig[1] = (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)
-                        except:
-                            f = 1
-                        self.scene = state[1].move(self.scene)
-                    elif self in state[1].travelset and state[1] not in apples:
-                        state[1].travelset.remove(self)
-            elif(self.state[1]!=None and self.prey==None):
-                if spiders != [] and ants != 0:
-                    consensus = self.send_message_to_radius(0, ants, spiders[0])
-                    if consensus == True:
-                        self.state = [2, spiders[0]]
-                    elif consensus == False:
-                        self.state = [4, spiders[0]]
-                elif state[1] in self.anthill.get_apples(self.anthill.scene):
-                    try:
-                        state[1].geo = geo
-                        state[1].travelset.add(self)
-                        self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-                        self.usin = math.asin((self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill))
-                        self.u_trig[0] = (self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill)
-                        self.u_trig[1] = (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)
-                    except:
-                        f = 1
-                    self.scene = state[1].move(self.scene)
-                elif self in state[1].travelset and state[1] not in apples:
-                    state[1].travelset.remove(self)
-
-            
-        elif state[0] == 2:
-            self.u_trig = [(state[1].geo[1] - geo[1]) / self.get_distance(state[1]), (state[1].geo[0] - geo[0]) / self.get_distance(state[1])]
-            self.u = math.acos((state[1].geo[0] - geo[0]) / self.get_distance(state[1]))
-        elif state[0] == 3:
-            self.u_trig = [(self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill), (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)]
-            self.u = math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-            if self.get_distance(self.anthill) <= 4: self.die(self)
-        elif state[0] == 4:
-            self.u_trig = [(self.anthill.geo[1] - geo[1]) / self.get_distance(self.anthill), (self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill)]
-            self.u = math.pi - math.acos((self.anthill.geo[0] - geo[0]) / self.get_distance(self.anthill))
-
     def move(self, scene):
         killed = []
         self.scene = scene
@@ -332,15 +171,22 @@ class Ant:
         if self.spiders != []:
             sorted(self.spiders,
                    key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список пауков
+            self.enemy_prey = self.spiders[0]
         if self.apples != []:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
             if self.apples[0] != self.get_nearest(self.apples):
                 self.apples.append(self.apples[0])
                 self.apples[0] = self.get_nearest(self.apples)
+            self.food_pray=self.apples[0]
+        # Изменить потом на самое профитное 
+        
+        st = self.state_determination.do(self, self.spiders, self.ants, self.apples)
+        most = self.agent.choose_state(self, st)
+        if most[0]==4:
+            self.u = self.searchState.move(self)
+            self.u_trig = [math.sin(self.u), math.cos(self.u)]    
+        else: self.states[most[0]].move(self)
 
-        if self.spiders!=[]:
-            self.enemy_prey = self.spiders[0]
-            self.agent.tell(self.agent, MessageType.ATTACK)
         self.energy -= 0.001
 
         if self.energy <= 0:

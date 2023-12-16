@@ -44,6 +44,7 @@ class Anthill:
         self.growthState = GrowthState(self)
         self.all = False
         self.moving = False
+        self.help = 0
         # self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
         self.anthill_icon = pygame.image.load("icons/anthill.png").convert_alpha()
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
@@ -127,6 +128,13 @@ class Anthill:
         self.anthills = self.get_anthills(scene)
         self.ants = self.get_ants(scene)
         self.apples = self.get_apples(scene)
+
+        # Добавил
+
+        if self.spiders.get_distance(self)<(self.r/50):
+            self.help = 1
+        else: self.help = 0
+
         i = 0
         for a in self.ants:
             if a.state[0]==4:

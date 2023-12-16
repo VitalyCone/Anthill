@@ -73,5 +73,6 @@ class SearchState(State):
             elif odd[0] == best_odds[0][0]:
                 best_odds.append(odd)
         u = random.choice(best_odds)[1]
+        
         return u
 

@@ -1,7 +1,7 @@
 from states.State import State
 
 class AttackState(State):
-    def Attack(agent):
+    def move(self, agent):
         """
 
         в качестве обозначения врагов можно либо с enemies, либо prey. 
@@ -15,7 +15,7 @@ class AttackState(State):
         кто нанес последний удар.
 
         """
-
+        print("АТАКУЮ")
         agent.u_trig[0] = (agent.enemy_prey.geo[1] - agent.geo[1]) / agent.get_distance(agent.enemy_prey)
         agent.u_trig[1] = (agent.enemy_prey.geo[0] - agent.geo[0]) / agent.get_distance(agent.enemy_prey)
         if 5>agent.get_distance(agent.enemy_prey)>3:
@@ -29,4 +29,3 @@ class AttackState(State):
             for a in agent.group:
                 a.energy+=(2/3)/len(agent.group)
         
-
