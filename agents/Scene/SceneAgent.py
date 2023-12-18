@@ -1,7 +1,8 @@
 """ Реализация класса агента сцены"""
 import logging
-
+import sys
 from agents.Base.BaseAgent import AgentBase
+from agents.Group.Group import Group
 
 from Messages.Messages import MessageType
 from agents.Scene.Scene import Scene
@@ -19,6 +20,11 @@ class SceneAgent(AgentBase):
         self.name = 'Агент сцены'
         self.subscribe(MessageType.SCENE_REQUEST, self.handle_scene_request_message)
         self.subscribe(MessageType.ENTITY_REMOVE_REQUEST, self.handle_entity_remove_request)
+        self.subscribe(MessageType.CREATE_GROUP_AGENT, self.handle_create_group_agent)
+
+    def handle_create_group_agent(self, message, sender):
+        group = Group(self.entity, 0, message[1][0], message[1][0])
+        self.dispatcher.add_entity(group)
 
     def handle_scene_request_message(self, message, sender):
         """

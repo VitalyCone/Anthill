@@ -17,6 +17,21 @@ class AntAgent(AgentBase):
         self.name = 'Агент муравья'
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
+        self.subscribe(MessageType.INVITE_REQUEST, self.handle_invite_request)
+
+    def handle_invite_request(self, message, sender):
+        """
+        Обработка приглашения в группу
+        :param message:
+        :param sender:
+        :return:
+        """
+        if self.entity.prey is None:
+            self.entity.prey = message[1]
+            msg = (MessageType.INVITE_RESPONSE, (True, self.entity))
+        else:
+            msg = (MessageType.INVITE_RESPONSE, (False, None))
+        self.send(sender, msg)
 
     def handle_scene_response(self, message, sender):
         """
@@ -44,3 +59,14 @@ class AntAgent(AgentBase):
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
+
+    def create_group(self, aim, leader):
+        """
+        Отправка сообщений о созданиии группы
+        :param aim:
+        :return:
+        """
+        scene_request_msg = (MessageType.CREATE_GROUP_AGENT, (aim, leader))
+        address = self.dispatcher.reference_book.get_address(self.scene)
+        self.send(address, scene_request_msg)
+

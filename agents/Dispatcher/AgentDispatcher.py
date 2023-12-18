@@ -1,6 +1,6 @@
 """Содержит класс диспетчера агентов"""
 import logging
-
+from copy import copy
 
 from thespian.actors import ActorSystem
 import traceback
@@ -13,6 +13,7 @@ from agents.Spider.SpiderAgent import SpiderAgent
 from agents.Anthill.AnthillAgent import AnthillAgent
 from agents.Apple.AppleAgent import AppleAgent
 from agents.Scene.SceneAgent import SceneAgent
+from agents.Group.GroupAgent import GroupAgent
 from Game.GameAgent import GameAgent
 
 from Messages.Messages import MessageType
@@ -26,6 +27,7 @@ TYPES_AGENTS = {
     'Apple': AppleAgent,
     'Scene': SceneAgent,
     'Game': GameAgent,
+    'Group': GroupAgent,
 }
 
 
@@ -62,7 +64,8 @@ class AgentDispatcher(AgentBase):
         Запускает игру
         """
         if not self.pause:
-            for entity in self.reference_book.agents_entities:
+            entities = copy(self.reference_book.agents_entities)
+            for entity in entities:
                 agent = self.reference_book.get_address(entity)
                 move_message = (MessageType.GIVE_CONTROL, self)
                 self.actor_system.tell(agent, move_message)

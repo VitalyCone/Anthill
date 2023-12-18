@@ -16,3 +16,6 @@ class MessageType(Enum):
     SHARE_INFORMATION = 'Поделиться информацией'
     GAME_RENDERING_REQUEST = 'Запрос на отрисовку игрового поля'
     GAME_RENDERING_RESPONSE = 'Ответ на запрос на отрисовку игрового поля'
+    CREATE_GROUP_AGENT = 'Создать агента группы'
+    INVITE_REQUEST = 'Приглашение'
+    INVITE_RESPONSE = 'Ответ на приглашение'
