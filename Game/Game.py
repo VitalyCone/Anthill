@@ -372,26 +372,28 @@ class Game:
             #     display.blit(sett,(0,50))
 
             for entities in self.scene.get_all_entities():
-                for entity in entities:
-                    entity.run()
-                    self.display.blit(entity.body(), entity.geo)
+                if entities[0].name != 'Group':
+                    for entity in entities:
+                        entity.run()
+                        self.display.blit(entity.body(), entity.geo)
             
         seconds = int(str(self.total_seconds)[:str(self.total_seconds).find('.')])
+        scene = self.scene
         if seconds not in self.sec_list:
             if seconds != '':
                 self.sec_list.append(seconds)
-                temp_spider_energy = [0,0]
-                for spider in self.scene.get_entities_by_type("Spider"):
+                temp_spider_energy = [0, 0]
+                for spider in scene.get_entities_by_type("Spider"):
                     temp_spider_energy[0] += spider.energy
                     temp_spider_energy[1] += 1
                 self.spider_middle_energy_per_sec.append(temp_spider_energy[0]/temp_spider_energy[1])
-                temp_ant_energy = [0,0]
-                for ant in self.scene.get_entities_by_type("Ant"):
+                temp_ant_energy = [0, 0]
+                for ant in scene.get_entities_by_type("Ant"):
                     temp_ant_energy[0] += ant.energy
                     temp_ant_energy[1] += 1
                 self.ant_middle_energy_per_sec.append(temp_ant_energy[0]/temp_ant_energy[1])
-                temp_anthill_energy = [0,0]
-                for anthill in self.scene.get_entities_by_type("Anthill"):
+                temp_anthill_energy = [0, 0]
+                for anthill in scene.get_entities_by_type("Anthill"):
                     temp_anthill_energy[0] += anthill.energy
                     temp_anthill_energy[1] += 1
                 self.anthill_middle_energy_per_sec.append(temp_anthill_energy[0]/temp_anthill_energy[1])
