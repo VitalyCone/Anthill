@@ -1,5 +1,5 @@
 import logging
-
+import importlib.resources
 import pygame
 from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
@@ -7,6 +7,7 @@ from src.states.GrowthState import GrowthState
 
 class Anthill:
     def __init__(self, input_apple_hp, input_ant, del_ants, id='0'):
+        MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.input_apple_hp = input_apple_hp
         self.uri = self.name + str(id)
@@ -40,7 +41,7 @@ class Anthill:
         self.all = False
         self.moving = False
         # self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
-        self.anthill_icon = pygame.image.load("assets/icons/anthill.png").convert_alpha()
+        self.anthill_icon = pygame.image.load(MODULE_PATH / "icons/anthill.png").convert_alpha()
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')

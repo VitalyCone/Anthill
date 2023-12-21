@@ -2,8 +2,12 @@
 import pygame
 import time
 import matplotlib.pyplot as plt
-import random
+import os
+import assets
 from src.scene.Scene import Scene
+import importlib.resources
+
+import random
 from src.utils.Export.Export import export_in_excel
 
 class Game:
@@ -14,6 +18,8 @@ class Game:
         :param start_scene:
         :return:
         """
+        MODULE_PATH = importlib.resources.files("assets")
+
         self.input_spdr_speed = 6
         # input_ant_speed = 3
         self.input_ant_power = 1500
@@ -55,8 +61,8 @@ class Game:
         pygame.display.set_caption("ANTHILL")
         self.display_xy = (500, 500)
         self.display = pygame.display.set_mode(self.display_xy)
-        self.intro_download = pygame.image.load("assets/icons/intro_logo.png").convert_alpha()
-        self.backgr_download = pygame.image.load("assets/icons/backgr.png").convert_alpha()
+        self.intro_download = pygame.image.load(MODULE_PATH / "icons/intro_logo.png").convert_alpha()
+        self.backgr_download = pygame.image.load("../../assets/icons/backgr.png").convert_alpha()
         self.display.blit(pygame.transform.scale(self.backgr_download, (self.display.get_width(), self.display.get_height())), (0, 0))
 
     def save_graphics(self):

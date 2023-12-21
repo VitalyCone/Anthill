@@ -2,12 +2,13 @@ import random
 import math
 import pygame
 import logging
-
+import importlib.resources
 from src.states.SearchState import SearchState
 
 
 class Spider:
     def __init__(self, scene, id='0'):
+        MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         # в каждом классе определил переменную-имя класса,
         # чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
@@ -34,7 +35,7 @@ class Spider:
         self.preys = ["Ant"]    # добыча пауков
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
-        self.spider_icon = pygame.image.load("assets/icons/spider.png").convert_alpha()
+        self.spider_icon = pygame.image.load(MODULE_PATH / "icons/spider.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):

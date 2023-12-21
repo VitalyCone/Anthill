@@ -2,6 +2,7 @@
 import datetime
 import logging
 
+
 from src.agents.AgentDispatcher import AgentDispatcher
 
 from src.scene.Scene import Scene
@@ -11,6 +12,8 @@ from src.entitites.Ant import Ant
 from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
 from src.Game.Game import Game
+
+
 
 input_spider_num = 10
 input_ant_num = 100

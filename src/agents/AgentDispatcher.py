@@ -5,6 +5,7 @@ from copy import copy
 from thespian.actors import ActorSystem
 import traceback
 
+from src.utils.statistics.Statistics import StatisticsAlfa
 from src.agents.BaseAgent import AgentBase
 from src.agents.AntAgent import AntAgent
 from src.agents.SpiderAgent import SpiderAgent
@@ -45,7 +46,7 @@ class AgentDispatcher(AgentBase):
         self.pause = False
         self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
-
+        self.statisticsalfa = StatisticsAlfa(scene)
     def handle_game_rendering_response(self, message, sender):
         """
         Обработка ответа на сообщение о рендеринге игры
@@ -67,6 +68,7 @@ class AgentDispatcher(AgentBase):
                 agent = self.reference_book.get_address(entity)
                 move_message = (MessageType.GIVE_CONTROL, self)
                 self.actor_system.tell(agent, move_message)
+            self.statisticsalfa.move()
         self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
 
     def add_game_entity(self, game_entity):
