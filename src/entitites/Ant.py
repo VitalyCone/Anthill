@@ -2,11 +2,13 @@ import math
 import random
 import pygame
 import logging
+import importlib.resources
 from src.states.SearchState import SearchState
 
 #### ИИ + МОШКИ = DIGITAL МОШКИ
 class Ant:
     def __init__(self, scene, anthill, id='0'):
+        MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.uri = self.name + str(id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
@@ -48,8 +50,8 @@ class Ant:
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
-        self.ant_icon = (pygame.image.load("assets/icons/ant.png").convert_alpha(),
-                         pygame.image.load("assets/icons/big_ant.png").convert_alpha())
+        self.ant_icon = (pygame.image.load(MODULE_PATH / "icons/ant.png").convert_alpha(),
+                         pygame.image.load(MODULE_PATH / "icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):

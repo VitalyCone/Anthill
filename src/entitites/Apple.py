@@ -2,6 +2,7 @@ import random
 import pygame
 import math
 import logging
+import importlib.resources
 from src.states.InertiaState import InertiaState
 
 
@@ -31,6 +32,7 @@ def get_spiders(scene):
 
 class Apple:
     def __init__(self, anthill, _id='0'):
+        MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.uri = self.name + str(_id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
@@ -50,7 +52,7 @@ class Apple:
         self.energy = self.weight
         self.speed = 0
         self.inertiaState = InertiaState(self)
-        self.apple_icon = pygame.image.load("assets/icons/apple.png").convert_alpha()
+        self.apple_icon = pygame.image.load(MODULE_PATH / "icons/apple.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
