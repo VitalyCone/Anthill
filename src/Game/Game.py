@@ -7,7 +7,8 @@ import assets
 from src.scene.Scene import Scene
 import importlib.resources
 
-
+import random
+from src.utils.Export.Export import export_in_excel
 
 class Game:
 
@@ -64,23 +65,35 @@ class Game:
         self.backgr_download = pygame.image.load("../../assets/icons/backgr.png").convert_alpha()
         self.display.blit(pygame.transform.scale(self.backgr_download, (self.display.get_width(), self.display.get_height())), (0, 0))
 
-    def save_graphics(self,filename,xy,save_plt=False,xlabel='x',ylabel='y'):
+    def save_graphics(self):
         """
         Создание и сохранение графиков
         :param filename - название файла, xy- Массивы данных по x и y, save_plt- скачать график, xlabel- название оси x, ylabel- название оси y:
         :return:
         """
-        plt.close()
-        x_values = xy[0]
-        y_values = xy[1]
-        plt.plot(x_values, y_values, marker=',', linestyle='-')
 
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
-        plt.title(filename)
-        plt.savefig(f"graphics/arg.png",)
-        if save_plt:
-            plt.savefig(f"exel/{filename}.png",)
+        n = 500
+
+        tiks = []
+        for i in range(1, n+1):
+            tiks.append(i)
+
+        a = [random.randint(0, 500) for i in range(n)]
+        b = [random.randint(0, 500) for i in range(n)]
+        c = [random.randint(0, 500) for i in range(n)]
+        d = [random.randint(0, 500) for i in range(n)]
+        e = [random.randint(0, 500) for i in range(n)]
+
+        data = {
+            'Номер тика': tiks,
+            'Средние значения энергии всех муравьев': a,
+            'Суммарные значения энергии муравьев': b,
+            'Средние значения энергии пауков': c,
+            'Суммарные значения энергии пауков': d,
+            'Значения энергии муравейника': e
+        }
+
+        export_in_excel(data)
 
     def show_graphics(self,filename,pos,xy,save_plt=False,xlabel='x',ylabel='y'):
         """
@@ -88,7 +101,6 @@ class Game:
         :param filename - название файла, pos- позиция на экране, xy- Массивы данных по x и y, save_plt- скачать график, xlabel- название оси x, ylabel- название оси y:
         :return:
         """
-        self.save_graphics(filename,xy,save_plt,xlabel,ylabel)
         self.display.blit(pygame.transform.scale(pygame.image.load(f"graphics/arg.png"),(500,500)).convert_alpha(),pos)
 
     def render_game(self):
@@ -356,6 +368,7 @@ class Game:
                 if download_to_exel.get_rect(topleft = (60,50)).collidepoint(mouse):
                     self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'white'),(60,50))
                     if pygame.mouse.get_pressed()[0]:
+                        self.save_graphics()
                         self.saveplt = True
                 else:
                     self.display.blit(download_to_exel,(60,50))
