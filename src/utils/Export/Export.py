@@ -27,16 +27,16 @@ def export_in_excel(data):
     где n - кол-во тиков.
     
     """
-    name = 'Данные за ' + str(datetime.datetime.today().strftime('%Y.%m.%d-%H:%M')) + '.xlsx'
+    name = 'Данные за ' + str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M')) + '.xlsx'
     n = len(data['Номер тика'])
     not_last_not_filled_cell = None
     k = 0
 
     df = ps.DataFrame(data)
 
-    df.to_excel('export/' + name, index=False)
+    df.to_excel( name, index=False)
 
-    workbook = openpyxl.load_workbook('export/' + name)
+    workbook = openpyxl.load_workbook( name)
     worksheet = workbook.active
 
     for cell in worksheet.iter_cols(min_row=1, max_row=1, min_col=1, max_col=len(data)+2):  # worksheet[1] обращается к первой строке
@@ -114,5 +114,5 @@ def export_in_excel(data):
     worksheet.add_chart(chart, cell_name)
 
     # Сохранение изменений
-    workbook.save('export/' + name)
+    workbook.save(name)
 

@@ -1,7 +1,7 @@
 """Файл для запуска игровой модели"""
 import datetime
 import logging
-
+import random
 
 from src.agents.AgentDispatcher import AgentDispatcher
 
@@ -13,10 +13,8 @@ from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
 from src.game.Game import Game
 
-
-
-input_spider_num = 10
-input_ant_num = 100
+input_spider_num = 15
+input_ant_num = 150
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -28,8 +26,8 @@ if __name__ == "__main__":
     # TODO: Расширить входные данные для пауков, муравьев и т. д. с задачей множества параметров
     input_apple_hp = 10000
     input_anthills = 1
-    input_apple = 3
-    input_spdr = 3
+    input_apple = 8
+    input_spdr = 10
     input_ant = 30
     # Создание агентов, добавление оных в диспетчер агентов
     agent_dispatcher.add_game_entity(game)
