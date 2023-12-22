@@ -1,9 +1,9 @@
 import pandas as ps
-import random 
 import openpyxl
 import datetime
 from openpyxl.styles import Alignment, Font
 from openpyxl.chart import LineChart, Reference
+
 
 def export_in_excel(data):
 
@@ -40,7 +40,7 @@ def export_in_excel(data):
     worksheet = workbook.active
 
     for cell in worksheet.iter_cols(min_row=1, max_row=1, min_col=1, max_col=len(data)+2):  # worksheet[1] обращается к первой строке
-        if cell[0].value != None:
+        if cell[0].value:
             cell[0].alignment = Alignment(wrapText=True,horizontal='center', vertical='center')
             cell[0].font = Font(bold=True)
             worksheet.column_dimensions[cell[0].column_letter].width+=5

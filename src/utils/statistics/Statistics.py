@@ -29,7 +29,7 @@ class StatisticsAlfa:
             'Средние значения энергии пауков': self.c,
             'Суммарные значения энергии пауков': self.d,
             'Значения энергии муравейника': self.e
-        },
+        }
 
     def move(self):
         i = ['Ant', 'Anthill', 'Spider']
