@@ -2,13 +2,11 @@
 import pygame
 import time
 import matplotlib.pyplot as plt
-import os
-import assets
-from src.scene.Scene import Scene
-import importlib.resources
-
 import random
+from src.scene.Scene import Scene
 from src.utils.Export.Export import export_in_excel
+from src.utils.statistics.Statistics import DataStatistics
+
 
 class Game:
 
@@ -18,8 +16,6 @@ class Game:
         :param start_scene:
         :return:
         """
-        MODULE_PATH = importlib.resources.files("assets")
-
         self.input_spdr_speed = 6
         # input_ant_speed = 3
         self.input_ant_power = 1500
@@ -61,8 +57,8 @@ class Game:
         pygame.display.set_caption("ANTHILL")
         self.display_xy = (500, 500)
         self.display = pygame.display.set_mode(self.display_xy)
-        self.intro_download = pygame.image.load(MODULE_PATH / "icons/intro_logo.png").convert_alpha()
-        self.backgr_download = pygame.image.load("../../assets/icons/backgr.png").convert_alpha()
+        self.intro_download = pygame.image.load("assets/icons/intro_logo.png").convert_alpha()
+        self.backgr_download = pygame.image.load("assets/icons/backgr.png").convert_alpha()
         self.display.blit(pygame.transform.scale(self.backgr_download, (self.display.get_width(), self.display.get_height())), (0, 0))
 
     def save_graphics(self):
@@ -72,26 +68,7 @@ class Game:
         :return:
         """
 
-        n = 500
-
-        tiks = []
-        for i in range(1, n+1):
-            tiks.append(i)
-
-        a = [random.randint(0, 500) for i in range(n)]
-        b = [random.randint(0, 500) for i in range(n)]
-        c = [random.randint(0, 500) for i in range(n)]
-        d = [random.randint(0, 500) for i in range(n)]
-        e = [random.randint(0, 500) for i in range(n)]
-
-        data = {
-            'Номер тика': tiks,
-            'Средние значения энергии всех муравьев': a,
-            'Суммарные значения энергии муравьев': b,
-            'Средние значения энергии пауков': c,
-            'Суммарные значения энергии пауков': d,
-            'Значения энергии муравейника': e
-        }
+        data = DataStatistics.data
 
         export_in_excel(data)
 
@@ -373,10 +350,10 @@ class Game:
                 else:
                     self.display.blit(download_to_exel,(60,50))
 
-            if self.graphics_isopen:
-                self.show_graphics('spider_energy',(self.display_xy[0],0),(self.sec_list,self.spider_middle_energy_per_sec),self.saveplt,'time','spiders energy')
-                self.show_graphics('anthill_energy',(0,self.display_xy[1]),(self.sec_list,self.anthill_middle_energy_per_sec),self.saveplt,'time','ants energy')
-                self.show_graphics('ant_energy',(self.display_xy[0],self.display_xy[1]),(self.sec_list,self.ant_middle_energy_per_sec),self.saveplt, 'time', 'anthill energy')
+            # if self.graphics_isopen:
+            #     self.show_graphics('spider_energy',(self.display_xy[0],0),(self.sec_list,self.spider_middle_energy_per_sec),self.saveplt,'time','spiders energy')
+            #     self.show_graphics('anthill_energy',(0,self.display_xy[1]),(self.sec_list,self.anthill_middle_energy_per_sec),self.saveplt,'time','ants energy')
+            #     self.show_graphics('ant_energy',(self.display_xy[0],self.display_xy[1]),(self.sec_list,self.ant_middle_energy_per_sec),self.saveplt, 'time', 'anthill energy')
 
             self.saveplt = False
             # if pause_ingame.get_rect(topleft = (0,50)).collidepoint(mouse):
@@ -390,10 +367,11 @@ class Game:
             #     display.blit(sett,(0,50))
 
             for entities in self.scene.get_all_entities():
-                if entities[0].name != 'Group':
-                    for entity in entities:
-                        entity.run()
-                        self.display.blit(entity.body(), entity.geo)
+                if entities:
+                    if entities[0].name != 'Group':
+                        for entity in entities:
+                            entity.run()
+                            self.display.blit(entity.body(), entity.geo)
             
         seconds = int(str(self.total_seconds)[:str(self.total_seconds).find('.')])
         scene = self.scene

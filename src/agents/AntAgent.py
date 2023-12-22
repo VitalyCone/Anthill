@@ -18,6 +18,16 @@ class AntAgent(AgentBase):
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
         self.subscribe(MessageType.INVITE_REQUEST, self.handle_invite_request)
+        self.subscribe(MessageType.ATTACK_REQUEST, self.handle_attack_request)
+
+    def handle_attack_request(self, message, sender):
+        """
+        Обработка запроса на атаку агента
+        :param message:
+        :param sender:
+        :return:
+        """
+        self.entity.attack = message[1]
 
     def handle_invite_request(self, message, sender):
         """
@@ -26,7 +36,7 @@ class AntAgent(AgentBase):
         :param sender:
         :return:
         """
-        if self.entity.prey is None:
+        if self.entity.prey is None or self.entity.prey.energy <= message[1].energy:
             self.entity.prey = message[1]
             msg = (MessageType.INVITE_RESPONSE, (True, self.entity))
         else:
@@ -64,6 +74,7 @@ class AntAgent(AgentBase):
         """
         Отправка сообщений о созданиии группы
         :param aim:
+        :param leader:
         :return:
         """
         scene_request_msg = (MessageType.CREATE_GROUP_AGENT, (aim, leader))

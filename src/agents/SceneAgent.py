@@ -22,7 +22,8 @@ class SceneAgent(AgentBase):
         self.subscribe(MessageType.CREATE_GROUP_AGENT, self.handle_create_group_agent)
 
     def handle_create_group_agent(self, message, sender):
-        group = Group(self.entity, 0, message[1][0], message[1][0])
+        group = Group(message[1][1].scene, 0, message[1][0], message[1][1])
+        logging.info("Группа {group} была создана")
         self.dispatcher.add_entity(group)
 
     def handle_scene_request_message(self, message, sender):

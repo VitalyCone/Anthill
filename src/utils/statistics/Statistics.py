@@ -1,15 +1,15 @@
-#from src.entitites.Spider import Spider
-#from src.entitites.Ant import Ant
-#Sfrom src.entitites.Anthill import Anthill
 import logging
 
 from src.scene.Scene import Scene
 
 from dataclasses import dataclass
 
+
 @dataclass
 class DataStatistics:
     data = {}
+
+
 class StatisticsAlfa:
 
     def __init__(self, scene):
@@ -34,16 +34,21 @@ class StatisticsAlfa:
     def move(self):
         i = ['Ant', 'Anthill', 'Spider']
         for agent in i:
-            energe = 0
+            energy = 0
             for g in self.scene.get_entities_by_type(agent):
-                energe += g.energy
+                energy += g.energy
             if agent == 'Ant':
-                self.a.append(energe / len(self.scene.get_entities_by_type(agent)))
-                self.b.append(energe)
+                try:
+                    self.a.append(energy / len(self.scene.get_entities_by_type(agent)))
+                except ZeroDivisionError:
+                    self.c.append(0)
+                self.b.append(energy)
             elif agent == 'Spider':
-                self.c.append(energe / len(self.scene.get_entities_by_type(agent)))
-                self.d.append(energe)
+                try:
+                    self.c.append(energy / len(self.scene.get_entities_by_type(agent)))
+                except ZeroDivisionError:
+                    self.c.append(0)
+                self.d.append(energy)
             elif agent == 'Anthill':
-                self.e.append(energe)
+                self.e.append(energy)
         self.teak.append(len(self.teak))
-        logging.warning(DataStatistics.data)

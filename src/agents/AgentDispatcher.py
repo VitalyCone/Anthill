@@ -13,7 +13,7 @@ from src.agents.AnthillAgent import AnthillAgent
 from src.agents.AppleAgent import AppleAgent
 from src.agents.SceneAgent import SceneAgent
 from src.agents.GroupAgent import GroupAgent
-from src.Game.GameAgent import GameAgent
+from src.agents.GameAgent import GameAgent
 
 from src.utils.Messages.Messages import MessageType
 from src.utils.ReferenceBook.ReferenceBook import ReferenceBook
@@ -25,7 +25,7 @@ TYPES_AGENTS = {
     'Anthill': AnthillAgent,
     'Apple': AppleAgent,
     'Scene': SceneAgent,
-    'Game': GameAgent,
+    'game': GameAgent,
     'Group': GroupAgent,
 }
 

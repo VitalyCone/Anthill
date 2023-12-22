@@ -19,3 +19,4 @@ class MessageType(Enum):
     CREATE_GROUP_AGENT = 'Создать агента группы'
     INVITE_REQUEST = 'Приглашение'
     INVITE_RESPONSE = 'Ответ на приглашение'
+    ATTACK_REQUEST = 'Запрос атаки'

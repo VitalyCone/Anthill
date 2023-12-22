@@ -5,12 +5,13 @@ import logging
 import importlib.resources
 from src.states.SearchState import SearchState
 
-#### ИИ + МОШКИ = DIGITAL МОШКИ
+
 class Ant:
     def __init__(self, scene, anthill, id='0'):
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.uri = self.name + str(id)
+        self.status = 'alive'
         self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
         self.isready = False
         self.agent = None
@@ -23,8 +24,8 @@ class Ant:
         self.u = random.uniform(0, 4 * math.pi)  # Случайный угол по x
         self.speed = 6
         self.r = 70
-        most_apple = None
         self.energy_consumption = 1/100
+        self.attack = False
         if self.charachter == 0:  # Если трус, то выше скорость, но ниже радиус обзора
             self.speed = 4
             self.r = 50
@@ -40,6 +41,7 @@ class Ant:
         self.ants = self.get_ants(self.scene)  # Вообще все муравьи
         self.spiders = self.get_spiders(self.scene)  # Вообще все пауки
         self.weight = 0.2
+        self.group = None
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
         self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
         # 1. друзья 2.враги 3.добыча 4.угол отклонения 5.внутри карты
@@ -125,6 +127,7 @@ class Ant:
         try:  # Через try/except, потому что иногда выскакивают ошибки
             self.ants.remove(ant)
             self.scene.remove(ant)
+            ant.status = 'dead'
         except:
             pass
         logging.info(f'{self} умер')
@@ -149,16 +152,25 @@ class Ant:
         if not self.prey:
             self.u = self.searchState.move(self)
             self.u_trig = [math.sin(self.u), math.cos(self.u)]
-            if self.apples:
-                self.prey = self.apples[0]
+            if self.apples or self.spiders:
+                self.prey = self.choose_prey()
+                self.agent.create_group(self.prey, self)
         else:
-            if self.prey:
+            if self.prey.name == 'Apple':
                 if self.get_distance(self.prey) >= self.speed - self.prey.speed:
-                    self.u_trig = [(self.prey.geo[1] - self.geo[1]) / self.get_distance(self.prey),
-                                   (self.prey.geo[0] - self.geo[0]) / self.get_distance(self.prey)]
+                    self.set_vector_to_object(self.prey)
                 else:
-                    self.u_trig = [(self.anthill.geo[1] - self.geo[1]) / self.get_distance(self.anthill),
-                                   (self.anthill.geo[0] - self.geo[0]) / self.get_distance(self.anthill)]
+                    self.set_vector_to_object(self.anthill)
+            elif self.prey.name == 'Spider' and self.group:
+                self.set_vector_to_object(self.prey)
+                if not self.attack:
+                    if self == self.group.leader:
+                        self.u_trig[0] = -self.u_trig[0]
+                        self.u_trig[1] = -self.u_trig[1]
+                    else:
+                        self.set_vector_to_object(self.group.leader)
+                else:
+                    self.set_vector_to_object(self.prey)
 
         self.energy -= 0.001
         if self.energy <= 0:
@@ -166,6 +178,32 @@ class Ant:
             killed.append(self.get_uri())
 
         return killed
+
+    def choose_prey(self):
+        """
+        Выбирает жертву
+        """
+        if self.spiders:
+            best_prey = self.spiders[0]
+            for spider in self.spiders:
+                if spider.energy > best_prey.energy:
+                    best_prey = spider
+            return best_prey
+        else:
+            best_prey = self.apples[0]
+            for apple in self.apples:
+                if apple.energy > best_prey.energy:
+                    best_prey = apple
+            return best_prey
+
+    def set_vector_to_object(self, entity):
+        """
+        Определяет направляющие векторы для движения к объекту
+        :param entity:
+        :return:
+        """
+        self.u_trig = [(entity.geo[1] - self.geo[1]) / self.get_distance(entity),
+                       (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
 
     def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)

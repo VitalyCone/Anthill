@@ -35,6 +35,7 @@ class Apple:
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.uri = self.name + str(_id)
+        self.status = 'alive'
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.r = 50
         self.apl_font = pygame.font.Font(pygame.font.match_font('verdana'), 15)
@@ -82,7 +83,7 @@ class Apple:
             return pygame.transform.scale(self.apple_icon,(55,55))
 
     def die(self, apple):
-        self.apples.remove(apple)
+        apple.status = 'dead'
         self.scene.remove(apple)
         self.anthill.get_food_apple(apple)
 
@@ -120,7 +121,6 @@ class Apple:
                 print(ant.energy)
                 ant.energy += (self.energy/10)/len(my_ants)
                 print(ant.energy)
-            self.die(self)
             killed.append(self.get_uri())
         return killed
     

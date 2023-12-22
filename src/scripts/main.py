@@ -11,7 +11,7 @@ from src.entitites.Spider import Spider
 from src.entitites.Ant import Ant
 from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
-from src.Game.Game import Game
+from src.game.Game import Game
 
 
 

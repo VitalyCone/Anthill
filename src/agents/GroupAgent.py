@@ -23,6 +23,7 @@ class GroupAgent(AgentBase):
         if message[1][0]:
             logging.info(f'Агент {sender} успешно добавлен в группу {self}')
             self.entity.entities.append(message[1][1])
+            message[1][1].group = self.entity
         else:
             logging.info(f'Не удалось добавить {sender} в группу {self}')
 
@@ -36,7 +37,39 @@ class GroupAgent(AgentBase):
         logging.info(f'{self}: получена сцена от {sender}')
         scene = message[1]
         self.entity.scene = scene
-        self.send_invite_message()
+        if len(self.entity.entities) <= 10:
+            self.send_invite_message()
+        for entity in self.entity.entities:
+            if entity.status == 'dead':
+                self.entity.entities.remove(entity)
+        if self.entity.aim.status == 'dead' or self.entity.leader.status == 'dead':
+            for entity in self.entity.entities:
+                entity.prey = None
+                entity.group = None
+                entity.attack = False
+            msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.uri])
+            address = self.dispatcher.reference_book.get_address(self.scene)
+            self.send(address, msg)
+        entities_ready_attack = []
+        for entity in self.entity.entities:
+            if entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack:
+                entities_ready_attack.append(entity)
+        if self.entity.aim.name == 'Spider' and len(entities_ready_attack) > 3:
+            for entity in self.entity.entities:
+                address = self.dispatcher.reference_book.get_address(entity)
+                msg = (MessageType.ATTACK_REQUEST, True)
+                self.send(address, msg)
+        elif self.entity.aim.name == 'Spider':
+            num_of_entities = 0
+            for entity in self.entity.entities:
+                if entity.attack and entity.get_distance(self.entity.aim) <= 20:
+                    num_of_entities += 1
+            if num_of_entities > 3:
+                self.entity.aim.die()
+                msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.aim.uri])
+                address = self.dispatcher.reference_book.get_address(self.scene)
+                self.send(address, msg)
+
         # killed = self.entity.live(scene)
         # if killed:
         #     msg = (MessageType.ENTITY_REMOVE_REQUEST, killed)

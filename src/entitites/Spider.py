@@ -14,6 +14,7 @@ class Spider:
         # чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
         self.uri = self.name + str(id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
+        self.status = 'alive'
         self.speed = 6
         self.u = 0.57
         self.agent = None
@@ -135,7 +136,8 @@ class Spider:
 
         fighters = []
         for ant in ants:
-            if ant.state == [2, self] and self.get_distance(ant) <= 20:
+            # if ant.attack and self.get_distance(ant) <= 20:
+            if self.get_distance(ant) <= 40:
                 fighters.append(ant)
         if len(fighters) != 0:
             if len(fighters) <= 2:
@@ -154,6 +156,7 @@ class Spider:
                     print(i.energy)
                 print(self.name, "умер!")
                 self.die()
+                killed.append(self.get_uri())
             elif 6 <= len(fighters):
                 for i in range(0, len(fighters) - len(fighters) // 2):
                     a = random.choice(fighters)
@@ -165,6 +168,7 @@ class Spider:
                     print(i.energy)
                 print(self.name, "умер!")
                 self.die()
+                killed.append(self.get_uri())
 
         #############
         if len(ants) == 0:  # если вокруг паука нет муравьев, то он продолжает находиться в состоянии поиска
@@ -198,6 +202,7 @@ class Spider:
                         self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
                     self.my_ant.die(self.my_ant)
                     logging.info(f'{self.my_ant} был убит {self}')
+                    self.energy += self.my_ant.energy
                     killed.append(self.my_ant.get_uri())
                     self.scene.remove(self.my_ant)
                     self.my_ant = None
@@ -226,10 +231,7 @@ class Spider:
         return scene1
 
     def die(self):
-        try:
-            self.scene.remove(self)
-        except:
-            f = 1
+            self.status = 'dead'
 
     def run(self):
         self.geo[0] += self.speed * self.u_trig[1]

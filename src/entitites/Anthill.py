@@ -10,6 +10,7 @@ class Anthill:
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.input_apple_hp = input_apple_hp
+        self.status = 'alive'
         self.uri = self.name + str(id)
         self.r = 500
         self.input_ant = input_ant
@@ -25,7 +26,7 @@ class Anthill:
         self.livelihood = 1000  # запасы пропитания
         self.anth_font = pygame.font.Font(pygame.font.match_font('verdana'), size=30)
         self.exit = False
-        self.geo = [self.x,self.y]
+        self.geo = [self.x, self.y]
         self.scene = None
         self.ants = []
         self.anthills = []
