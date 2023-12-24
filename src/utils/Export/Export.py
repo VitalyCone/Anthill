@@ -3,7 +3,7 @@ import openpyxl
 import datetime
 from openpyxl.styles import Alignment, Font
 from openpyxl.chart import LineChart, Reference
-
+import matplotlib.pyplot as plt
 
 def export_in_excel(data):
 
@@ -116,3 +116,17 @@ def export_in_excel(data):
     # Сохранение изменений
     workbook.save(name)
 
+
+def data_in_game(data,y_name,x_name):
+    plt.close()
+
+    x_values = data.get(x_name)
+    y_values = data.get(y_name)
+
+    plt.plot(x_values, y_values, marker=',', linestyle='-')
+
+    plt.xlabel(x_name,fontweight='bold')
+    plt.ylabel(y_name,fontweight='bold')
+    plt.title(y_name,fontweight='bold')
+
+    plt.savefig('plot.png')
