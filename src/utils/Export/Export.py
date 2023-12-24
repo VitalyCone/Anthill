@@ -34,7 +34,7 @@ def export_in_excel(data):
 
     df = ps.DataFrame(data)
 
-    df.to_excel( name, index=False)
+    df.to_excel('../../export/' + name, index=False)
 
     workbook = openpyxl.load_workbook( name)
     worksheet = workbook.active
@@ -114,5 +114,5 @@ def export_in_excel(data):
     worksheet.add_chart(chart, cell_name)
 
     # Сохранение изменений
-    workbook.save(name)
+    workbook.save('../../export/' + name)
 

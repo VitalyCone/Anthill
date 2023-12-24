@@ -13,6 +13,7 @@ class GameAgent(AgentBase):
     """
     def __init__(self):
         super().__init__()
+        self.logger = logging.getLogger(__name__)
         self.entity: Game
         self.name = 'Агент игры'
         self.subscribe(MessageType.GAME_RENDERING_REQUEST, self.handle_game_rendering_request)
@@ -26,7 +27,7 @@ class GameAgent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'Получен запрос на рендеринг игры')
+        self.logger.info(f'Получен запрос на рендеринг игры')
         pause = self.entity.render_game()
         self.dispatcher.pause = pause
         self.send(sender, (MessageType.GAME_RENDERING_RESPONSE, pause))

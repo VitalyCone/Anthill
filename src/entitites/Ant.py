@@ -1,5 +1,8 @@
+import datetime
 import math
 import random
+from os import makedirs
+
 import pygame
 import logging
 import importlib.resources
@@ -129,6 +132,7 @@ class Ant:
             self.scene.remove(ant)
             ant.status = 'dead'
         except:
+
             pass
         logging.info(f'{self} умер')
 
@@ -139,6 +143,7 @@ class Ant:
         self.ants = self.get_ants(self.scene)
         self.spiders = self.get_spiders(self.scene)
         # получение данных из сцены и запись, только данных в области обзора паука
+        logging.info(f"{self} делает ход!")
 
         if self.spiders:
             sorted(self.spiders,
