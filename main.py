@@ -1,23 +1,47 @@
 """Файл для запуска игровой модели"""
 import datetime
 import logging
-import random
+from os import makedirs
 
 from src.agents.AgentDispatcher import AgentDispatcher
-
-from src.scene.Scene import Scene
-
-from src.entitites.Spider import Spider
 from src.entitites.Ant import Ant
 from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
+from src.entitites.Spider import Spider
 from src.game.Game import Game
+from src.scene.Scene import Scene
 
 input_spider_num = 15
 input_ant_num = 150
 
+
+def setup_logging():
+    n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
+
+    makedirs('../../logs/' + n2, exist_ok=True)
+
+    debug_handler = logging.FileHandler('../../logs/' + n2 + '/all_logs.log')
+    info_handler = logging.FileHandler('../../logs/' + n2 + '/info_logs.log')
+
+    # Установка уровней
+    debug_handler.setLevel(logging.DEBUG)
+    info_handler.setLevel(logging.INFO)
+
+    # Создание форматтера
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    debug_handler.setFormatter(formatter)
+    info_handler.setFormatter(formatter)
+
+    # Инициализация корневого логгера
+    logging.basicConfig(level=logging.DEBUG, handlers=[debug_handler, info_handler])
+
+    # Пример использования
+    logging.info("Это тестовое сообщение INFO")
+    logging.debug("Это тестовое сообщение DEBUG")
+
+
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    setup_logging()
     scene = Scene()
     agent_dispatcher = AgentDispatcher(scene)
     # Инициализация игры
@@ -29,6 +53,8 @@ if __name__ == "__main__":
     input_apple = 8
     input_spdr = 10
     input_ant = 30
+    logging.info("Это тестовое сообщение INFO111111")
+    logging.debug("Это тестовое сообщение DEBUG1111111")
     # Создание агентов, добавление оных в диспетчер агентов
     agent_dispatcher.add_game_entity(game)
     for i in range(input_anthills):

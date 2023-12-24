@@ -54,6 +54,7 @@ class Apple:
         self.speed = 0
         self.inertiaState = InertiaState(self)
         self.apple_icon = pygame.image.load(MODULE_PATH / "icons/apple.png").convert_alpha()
+
         logging.info(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
