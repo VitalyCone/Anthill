@@ -5,7 +5,7 @@ from src.entitites.Group import Group
 
 from src.utils.Messages.Messages import MessageType
 from src.scene.Scene import Scene
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class SceneAgent(AgentBase):
     """
@@ -23,7 +23,8 @@ class SceneAgent(AgentBase):
 
     def handle_create_group_agent(self, message, sender):
         group = Group(message[1][1].scene, 0, message[1][0], message[1][1])
-        logging.info("Группа {group} была создана")
+        logging.info(f"Группа {group} была создана")
+        all_update(f"Группа {group} была создана")
         self.dispatcher.add_entity(group)
 
     def handle_scene_request_message(self, message, sender):
@@ -34,6 +35,7 @@ class SceneAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получен запрос сцены от {sender}')
+        all_update(f'{self}: получен запрос сцены от {sender}')
         entities_in_radius = []
         geo = message[1][0]
         radius = message[1][1]
@@ -54,3 +56,4 @@ class SceneAgent(AgentBase):
         for uri in message[1]:
             self.entity.remove_entity_by_uri(uri)
             logging.info(f'{uri} был(а) удален(а) из сцены агентом {sender}')
+            all_update(f'{uri} был(а) удален(а) из сцены агентом {sender}')

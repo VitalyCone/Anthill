@@ -34,19 +34,19 @@ def debug_update(log):
         DataStatistics.num_of_messages.append(1)
     else:
         DataStatistics.num_of_messages[len(DataStatistics.num_of_messages)-1] += 1
-    n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
-    DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log)
+    n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
+    DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + "\n")
     rewrite()
 
 
-def info_update(log):
+def all_update(log):
     if len(DataStatistics.num_of_messages) < len(DataStatistics.data.get('Номер тика')):
         DataStatistics.num_of_messages.append(1)
     else:
         DataStatistics.num_of_messages[len(DataStatistics.num_of_messages)-1] += 1
-    n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
-    DataStatistics.all_logs.append(n + " " + "INFO" + " " + log)
-    DataStatistics.info_logs.append(n + " " + "INFO" + " " + log)
+    n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
+    DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + "\n")
+    DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + "\n")
     rewrite()
 
 

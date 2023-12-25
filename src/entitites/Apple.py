@@ -4,7 +4,7 @@ import math
 import logging
 import importlib.resources
 from src.states.InertiaState import InertiaState
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 def get_ants(scene):
     ants = []
@@ -56,6 +56,7 @@ class Apple:
         self.apple_icon = pygame.image.load(MODULE_PATH / "icons/apple.png").convert_alpha()
 
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+        all_update(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
         """
@@ -65,6 +66,7 @@ class Apple:
         """
         killed = self.move(scene)
         logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
         return killed
 
     def get_uri(self):

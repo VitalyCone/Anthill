@@ -3,7 +3,7 @@ import importlib.resources
 import pygame
 from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class Anthill:
     def __init__(self, input_apple_hp, input_ant, del_ants, id='0'):
@@ -47,6 +47,7 @@ class Anthill:
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+        all_update(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
         """
@@ -56,6 +57,7 @@ class Anthill:
         """
         killed = self.move(scene)
         logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
         return killed
 
     def get_uri(self):

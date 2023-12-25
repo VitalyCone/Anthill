@@ -1,6 +1,6 @@
 """Содержит адресную книгу агентов"""
 import logging
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class ReferenceBook:
     """Адресная книга агентов с привязкой к сущностям"""
@@ -24,6 +24,7 @@ class ReferenceBook:
         """
         if entity not in self.agents_entities:
             logging.error(f'Агент {entity} отсутствует в адресной книге')
+            all_update(f'Агент {entity} отсутствует в адресной книге')
             return None
         return self.agents_entities[entity]
 

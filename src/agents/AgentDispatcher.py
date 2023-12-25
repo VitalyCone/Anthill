@@ -17,6 +17,7 @@ from src.agents.GameAgent import GameAgent
 
 from src.utils.Messages.Messages import MessageType
 from src.utils.ReferenceBook.ReferenceBook import ReferenceBook
+from src.utils.statistics.Statistics import all_update, debug_update
 
 # В зависимости от типа сущности мы выбираем класс агента
 TYPES_AGENTS = {
@@ -54,8 +55,11 @@ class AgentDispatcher(AgentBase):
         """
         if message[1]:
             logging.info(f'Ответ на сообщение о рендеринге игры от {sender}, игра на паузе')
+            all_update(f'Ответ на сообщение о рендеринге игры от {sender}, игра на паузе')
+
         else:
             logging.info(f'Ответ на сообщение о рендеринге игры от {sender}, планирование продолжается')
+            all_update(f'Ответ на сообщение о рендеринге игры от {sender}, планирование продолжается')
         self.pause = message[1]
 
     def run_planning(self):
@@ -83,6 +87,7 @@ class AgentDispatcher(AgentBase):
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
         logging.info(f'{agent} сущecтва {game_entity} был создан')
+        all_update(agent + " существа " + game_entity + " был создан")
         self.game_address = agent
 
     def add_entity(self, entity):
@@ -95,6 +100,7 @@ class AgentDispatcher(AgentBase):
         self.scene.entities[entity_type].append(entity)
         agent_type = TYPES_AGENTS.get(entity_type)
         logging.info(f'{entity} был добавлен в сцену')
+        all_update(f'{entity} был добавлен в сцену')
         if agent_type:
             self.create_agent(agent_type, entity)
             return True
@@ -113,6 +119,7 @@ class AgentDispatcher(AgentBase):
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
         logging.info(f'{agent} сущecтва {entity} был создан')
+        all_update(f'{agent} сущecтва {entity} был создан')
         return agent
 
     def receiveMessage(self, msg, sender):
@@ -123,6 +130,7 @@ class AgentDispatcher(AgentBase):
         :return:
         """
         logging.debug('%s получил сообщение: %s', self.name, msg)
+        debug_update(f'{self.name} получил сообщение: {msg}')
 
         if isinstance(msg, tuple):
 
@@ -133,8 +141,11 @@ class AgentDispatcher(AgentBase):
                 except Exception as ex:
                     traceback.print_exc()
                     logging.error(ex)
+                    all_update(ex)
             else:
                 logging.warning('%s Отсутствует подписка на сообщение: %s', self.name, message_type)
+                all_update(f'{self.name} Отсутствует подписка на сообщение: {message_type}')
         else:
             logging.error('%s Неверный формат сообщения: %s', self.name, msg)
+            all_update(f'{self.name} Неверный формат сообщения {msg}')
             super().receiveMessage(msg, sender)

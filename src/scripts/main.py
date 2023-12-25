@@ -54,8 +54,6 @@ if __name__ == "__main__":
     input_apple = 8
     input_spdr = 10
     input_ant = 30
-    logging.info("Это тестовое сообщение INFO111111")
-    logging.debug("Это тестовое сообщение DEBUG1111111")
     # Создание агентов, добавление оных в диспетчер агентов
     agent_dispatcher.add_game_entity(game)
     for i in range(input_anthills):
