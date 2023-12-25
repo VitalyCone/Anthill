@@ -84,9 +84,6 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-                print(self.spider_middle_energy_per_sec)
-                print(self.sec_list)
-                print(self.ant_middle_energy_per_sec)
                 quit()
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
@@ -110,22 +107,23 @@ class Game:
                 self.text_event_enter = True
 
 
-
+        #Графики
         if self.graphics_isopen:
+            self.display.fill('white')
+
             self.pause = True
             self.settings = False
             self.intro = False
-
-            self.display.fill('white')
 
             self.show_graphics((0,0), 'Средние значения энергии всех муравьев')
             self.show_graphics((500,0), 'Средние значения энергии пауков')
             self.show_graphics((0,500), 'Значения энергии муравейника')
             #self.show_graphics((500,500), {!!!Ключ для словаря data!!!})
 
-            back_to_game = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("back", True, 'black')
+            #Кнопка back
+            back_to_game = pygame.font.SysFont('MV Boli', 15).render("back", True, 'black')
             if back_to_game.get_rect(topleft=(0, 0)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("back", True, 'green'),(0, 0))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("back", True, 'black'),(0, 0))
                 if pygame.mouse.get_pressed()[0]:
                     self.pause = False
                     self.graphics_isopen = False
@@ -133,39 +131,34 @@ class Game:
             else:
                 self.display.blit(back_to_game, (0, 0))
             
-            download_to_exel = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'Black')
+            #Кнопка download to exel
+            download_to_exel = pygame.font.SysFont('MV Boli', 15).render("download to exel", True, 'Black')
             if self.download_bot:
                 if download_to_exel.get_rect(topleft = (0,25)).collidepoint(mouse):
-                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'green'),(0,25))
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("download to exel", True, 'black'),(0,25))
                     if pygame.mouse.get_pressed()[0]:
                         self.save_graphics()
                 else:
                     self.display.blit(download_to_exel,(0,25))
 
-
+        #Игра
         if not self.pause:
-            if self.graphics_isopen:
-                self.display.fill('white')
             self.display.blit(pygame.transform.scale(self.backgr_download,(self.display_xy)),(0,0))
 
-            sett = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("settings", True, 'Black')
-            menu = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("menu", True, 'Black')
-            graphics = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'Black')
-            pause_ingame = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'Black')
-
+            #Кнопка меню
+            menu = pygame.font.SysFont('MV Boli', 15).render("menu", True, 'Black')
             if menu.get_rect(topleft=(0, 0)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("menu", True, 'White'),
-                             (0, 0))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("menu", True, 'black'),(0, 0))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = True
                     self.pause = True
             else:
                 self.display.blit(menu, (0, 0))
 
+            #Кнопка settings
+            sett = pygame.font.SysFont('MV Boli', 15).render("settings", True, 'Black')
             if sett.get_rect(topleft=(0, 25)).collidepoint(mouse):
-                self.display.blit(
-                    pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("settings", True, 'White'),
-                    (0, 25))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("settings", True, 'black'),(0, 25))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = False
                     self.pause = True
@@ -174,8 +167,10 @@ class Game:
             else:
                 self.display.blit(sett, (0, 25))
             
+            #Кнопка graphics
+            graphics = pygame.font.SysFont('MV Boli', 15).render("graphics", True, 'Black')
             if graphics.get_rect(topleft = (0,50)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'White'),(0,50))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("graphics", True, 'black'),(0,50))
                 if pygame.mouse.get_pressed()[0]:
                     if not self.graphics_isopen:
                         self.display = pygame.display.set_mode((self.display_xy[0]*2,self.display_xy[1]*2))
@@ -189,8 +184,11 @@ class Game:
             else:
                 self.display.blit(graphics,(0,50))
 
+            #Кнопка pause
+            #Пауза странно работает
+            pause_ingame = pygame.font.SysFont('MV Boli', 15).render("pause", True, 'Black')
             if pause_ingame.get_rect(topleft = (0,75)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("pause", True, 'White'),(0,75))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("pause", True, 'black'),(0,75))
                 if pygame.mouse.get_pressed()[0]:
                     if self.pause_agents:
                         self.pause_agents = False
@@ -198,34 +196,38 @@ class Game:
                         self.pause_agents = True
             else:
                 self.display.blit(pause_ingame,(0,75))
+            
+            #Кнопка exit
+            exit_ingame = pygame.font.SysFont('MV Boli', 15).render("exit", True, 'Black')
+            if exit_ingame.get_rect(topleft=(0, 100)).collidepoint(mouse):
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("exit", True, 'black'),(0, 100))
+                if pygame.mouse.get_pressed()[0]:
+                    self.running = False
+                    quit()
+            else:
+                self.display.blit(exit_ingame, (0, 100))
 
             for entities in self.scene.get_all_entities():
                 if entities:
                     if entities[0].name != 'Group':
                         for entity in entities:
-                            if not self.pause_agents:
+                            if not self.pause_agents:   #Причина плохой работы паузы тут скорее всего
                                 entity.run()
                             self.display.blit(entity.body(), entity.geo)
         
 
 
+        #Настройки
         if self.settings:
             self.display.blit(pygame.transform.scale(self.intro_download, (self.display.get_width(), self.display.get_height())), (0, 0))
             if self.menu_back:
-                back_to_menu = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("back", True,
-                                                                                                   'Black')
-                # set_ant_speed = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 30).render(f"ants speed: {input_ant_speed}", True, 'Black')
-                set_ant_power = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render(
-                    f"ants power: {self.input_ant_power}", True, 'Black')
-                set_spider_speed = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render(
-                    f"spider speed: {self.input_spdr_speed}", True, 'Black')
-                # set_apple_weight = pygame.font.Font(pygame.font.match_font('MV Boli'), size = 30).render(f"apple weight: {input_apple_hp}", True, 'Black')
+                back_to_menu = pygame.font.SysFont('MV Boli', 15).render("back", True,'Black')
+                set_ant_power = pygame.font.SysFont('MV Boli', 15).render(f"ants power: {self.input_ant_power}", True, 'Black')
+                set_spider_speed = pygame.font.SysFont('MV Boli', 15).render(f"spider speed: {self.input_spdr_speed}", True, 'Black')
 
                 if back_to_menu.get_rect(topleft=(50, 0)).collidepoint(mouse):
 
-                    self.display.blit(
-                        pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("back", True, 'White'),
-                        (50, 0))
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("back", True, 'black'),(50, 0))
                     if pygame.mouse.get_pressed()[0]:
                         for i in range(len(self.change_list)):
                             self.change_list[i] = False
@@ -236,37 +238,13 @@ class Game:
                 else:
                     self.display.blit(back_to_menu, (50, 0))
 
-                # if set_ant_speed.get_rect(topleft = (100,300)).collidepoint(mouse) and not change_ant_speed:
-                #     display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 30).render(f"ants speed: {input_ant_speed}", True, 'White'),(100,300))
-                #     if pygame.mouse.get_pressed()[0] and not change_spider_speed and not change_ant_power and not change_apple_weight:
-                #         text_for_settings = 'enter the number'
-                #         change_ant_speed = True
-                # elif change_ant_speed:
-                #     display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 30).render(f"ants speed: {input_ant_speed}", True, 'White'),(100,300))
-                #     if type(text_for_settings) != "enter the number":
-                #             input_ant_speed = text_for_settings
-                #             if text_event_enter:
-                #                 input_ant_speed = int(input_ant_speed)
-                #                 if ants:
-                #                     for ant in ants:
-                #                         ant.speed = input_ant_speed
-                #                 change_ant_speed = False
-                #                 text_event_enter = False
-                #     else:
-                #         input_ant_speed = text_for_settings
-                # else:
-                #     display.blit(set_ant_speed,(100,300))
-
                 if set_spider_speed.get_rect(topleft=(50, 200)).collidepoint(mouse) and not self.change_spider_speed:
-                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render(
-                        f"spider speed: {self.input_spdr_speed}", True, 'White'), (50, 200))
-                    if pygame.mouse.get_pressed()[
-                        0] and not self.change_ant_speed and not self.change_ant_power and not self.change_apple_weight:
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(f"spider speed: {self.input_spdr_speed}", True, 'black'), (50, 200))
+                    if pygame.mouse.get_pressed()[0] and not self.change_ant_speed and not self.change_ant_power and not self.change_apple_weight:
                         self.text_for_settings = 'enter the number'
                         self.change_spider_speed = True
                 elif self.change_spider_speed:
-                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render(
-                        f"spider speed: {self.input_spdr_speed}", True, 'White'), (50, 200))
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(f"spider speed: {self.input_spdr_speed}", True, 'black'), (50, 200))
                     if type(self.text_for_settings) != "enter the number":
                         input_spdr_speed = self.text_for_settings
                         if self.text_event_enter:
@@ -281,15 +259,14 @@ class Game:
                     self.display.blit(set_spider_speed, (50, 200))
 
                 if set_ant_power.get_rect(topleft=(50, 175)).collidepoint(mouse) and not self.change_ant_power:
-                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render(
-                        f"ants power: {self.input_ant_power}", True, 'White'), (50, 175))
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(
+                        f"ants power: {self.input_ant_power}", True, 'black'), (50, 175))
                     if pygame.mouse.get_pressed()[0
                         ] and not self.change_ant_speed and not self.change_spider_speed and not self.change_apple_weight:
                         self.text_for_settings = 'enter the number'
                         self.change_ant_power = True
                 elif self.change_ant_power:
-                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render(
-                        f"ants power: {self.input_ant_power}", True, 'White'), (50, 175))
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(f"ants power: {self.input_ant_power}", True, 'black'), (50, 175))
                     if type(self.text_for_settings) != "enter the number":
                         input_ant_power = self.text_for_settings
                         if self.text_event_enter:
@@ -307,16 +284,15 @@ class Game:
 
 
 
+        #Заствка
         if self.intro:
             self.display.blit(pygame.transform.scale(self.intro_download, (self.display.get_width(), self.display.get_height())), (0, 0))
-            antvssp = pygame.font.Font(pygame.font.match_font('MV Boli'), size=25).render("ANTS VS SPIDERS", True,
-                                                                                          'Black')
-            run_game = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("play", True, 'Black')
-            sett = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("settings", True, 'Black')
-            exit_from_game = pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("exit", True, 'Black')
+            antvssp = pygame.font.SysFont('MV Boli', 25).render("ANTS VS SPIDERS", True,'Black')
 
+            #Кнопка play
+            run_game = pygame.font.SysFont('MV Boli', 15).render("play", True, 'Black')
             if run_game.get_rect(topleft=(0, 75)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("play", True, 'White'),
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("play", True, 'black'),
                             (0, 75))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = False
@@ -324,10 +300,10 @@ class Game:
             else:
                 self.display.blit(run_game, (0, 75))
 
+            #Кнопка settings
+            sett = pygame.font.SysFont('MV Boli', 15).render("settings", True, 'Black')
             if sett.get_rect(topleft=(0, 100)).collidepoint(mouse):
-                self.display.blit(
-                    pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("settings", True, 'White'),
-                    (0, 100))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("settings", True, 'black'),(0, 100))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = False
                     self.menu_back = True
@@ -335,8 +311,10 @@ class Game:
             else:
                 self.display.blit(sett, (0, 100))
 
+            #Кнопка exit
+            exit_from_game = pygame.font.SysFont('MV Boli', 15).render("exit", True, 'Black')
             if exit_from_game.get_rect(topleft=(0, 125)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("exit", True, 'White'),
+                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("exit", True, 'black'),
                              (0, 125))
                 if pygame.mouse.get_pressed()[0]:
                     quit()
