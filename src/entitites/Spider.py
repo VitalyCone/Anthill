@@ -4,7 +4,7 @@ import pygame
 import logging
 import importlib.resources
 from src.states.SearchState import SearchState
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class Spider:
     def __init__(self, scene, id='0'):
@@ -38,6 +38,7 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.spider_icon = pygame.image.load(MODULE_PATH / "icons/spider.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+        all_update(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
         """
@@ -47,6 +48,7 @@ class Spider:
         """
         killed = self.move(scene)
         logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
         return killed
 
     def get_uri(self):
@@ -123,6 +125,7 @@ class Spider:
         self.scene = scene
         if self.sended_objects:
             logging.info(f'В сцену была добавлена информация от других агентов: {self.sended_objects}')
+            all_update(f'В сцену была добавлена информация от других агентов: {self.sended_objects}')
         self.scene += self.sended_objects
         self.sended_objects.clear()
         # получение данных из сцены и запись, только данных в области обзора паука
@@ -202,6 +205,7 @@ class Spider:
                         self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
                     self.my_ant.die(self.my_ant)
                     logging.info(f'{self.my_ant} был убит {self}')
+                    all_update(f'{self.my_ant} был убит {self}')
                     self.energy += self.my_ant.energy
                     killed.append(self.my_ant.get_uri())
                     self.scene.remove(self.my_ant)
@@ -214,6 +218,7 @@ class Spider:
         if self.energy <= 0:
             self.die()
             logging.info(f'{self} умер')
+            all_update(f'{self} умер')
             killed.append(self.get_uri())
         return killed
 

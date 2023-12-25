@@ -4,7 +4,7 @@ import logging
 from src.agents.BaseAgent import AgentBase
 from src.utils.Messages.Messages import MessageType
 from src.entitites.Spider import Spider
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class SpiderAgent(AgentBase):
     """
@@ -30,6 +30,7 @@ class SpiderAgent(AgentBase):
             message = (MessageType.SHARE_INFORMATION, ants)
             spider_address = self.dispatcher.reference_book.get_address(spider)
             logging.info(f'{self} поделился информацией с {spider_address}')
+            all_update(f'{self} поделился информацией с {spider_address}')
             self.send(spider_address, message)
 
     def handle_share_information(self, message, sender):
@@ -40,6 +41,7 @@ class SpiderAgent(AgentBase):
         :return:
         """
         logging.info(f'Получена информация от агента {sender}')
+        all_update(f'Получена информация от агента {sender}')
         self.entity.process_information(message[1])
 
     def handle_scene_response(self, message, sender):
@@ -50,6 +52,7 @@ class SpiderAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получена сцена от {sender}')
+        all_update(f'{self}: получена сцена от {sender}')
         scene = message[1]
         killed = self.entity.live(scene)
         if killed:
@@ -65,6 +68,7 @@ class SpiderAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получен {message} от {sender}')
+        all_update(f'{self}: получен {message} от {sender}')
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)

@@ -6,7 +6,7 @@ from abc import ABC
 from thespian.actors import Actor, ActorExitRequest
 
 from src.utils.Messages.Messages import MessageType
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class AgentBase(ABC, Actor):
     """
@@ -14,7 +14,7 @@ class AgentBase(ABC, Actor):
     """
 
     def __init__(self):
-        self.name = 'Базовый агент'
+        self.name = 'Базовый агентfrom src.utils.statistics.Statistics import all_update, debug_update'
         super().__init__()
         self.handlers = {}
         self.scene = None
@@ -31,6 +31,7 @@ class AgentBase(ABC, Actor):
         """
         if msg_type in self.handlers:
             logging.warning('Повторная подписка на сообщение: %s', msg_type)
+            all_update(f'Повторная подписка на сообщение: {msg_type}')
         self.handlers[msg_type] = handler
 
     def handle_deleted(self, msg, sender):
@@ -40,6 +41,7 @@ class AgentBase(ABC, Actor):
         :return:
         """
         logging.info(f'{self} получил сообщение {msg}, от: {sender}')
+        all_update(f'{self} получил сообщение {msg}, от: {sender}')
 
     def receiveMessage(self, msg, sender):
         """Обрабатывает сообщения - запускает их обработку в зависимости от типа.
@@ -48,8 +50,10 @@ class AgentBase(ABC, Actor):
         :return:
         """
         logging.debug('%s получил сообщение: %s', self.name, msg)
+        debug_update(f'{self.name} получил сообщение: {msg}')
         if isinstance(msg, ActorExitRequest):
             logging.info(f'{self} получил сообщение {msg} - ActorExitRequest')
+            all_update(f'{self} получил сообщение {msg} - ActorExitRequest')
             self.handle_deleted(msg, sender)
             return
 
@@ -62,10 +66,13 @@ class AgentBase(ABC, Actor):
                 except Exception as ex:
                     traceback.print_exc()
                     logging.error(ex)
+                    all_update(ex)
             else:
                 logging.warning('%s Отсутствует подписка на сообщение: %s', self.name, message_type)
+                all_update(f'{self.name} Отсутствует подписка на сообщение: {message_type}')
         else:
             logging.error('%s Неверный формат сообщения: %s', self.name, msg)
+            all_update(f'{self.name} Неверный формат сообщения: {msg}')
             super().receiveMessage(msg, sender)
 
     def __str__(self):
@@ -84,3 +91,4 @@ class AgentBase(ABC, Actor):
         self.entity.agent = self
         self.name = self.name + ' ' + self.entity.name
         logging.info(f'{self} проинициализирован')
+        all_update(f'{self} проинициализирован')

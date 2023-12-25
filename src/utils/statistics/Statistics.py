@@ -1,4 +1,6 @@
+import datetime
 import logging
+from os import makedirs
 
 from src.scene.Scene import Scene
 
@@ -8,6 +10,44 @@ from dataclasses import dataclass
 @dataclass
 class DataStatistics:
     data = {}
+    all_logs = []
+    info_logs = []
+    num_of_messages = []
+
+
+n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
+makedirs('../../logs/' + n2, exist_ok=True)
+
+
+def rewrite():
+    makedirs('../../logs/' + n2, exist_ok=True)
+    with open("../../logs/" + n2 + "/all_logs.txt", "w") as file:
+        for line in DataStatistics.all_logs:
+            file.write(line)
+    with open("../../logs/" + n2 + "/info_logs.txt", "w") as file:
+        for line in DataStatistics.info_logs:
+            file.write(line)
+
+
+def debug_update(log):
+    if len(DataStatistics.num_of_messages) < len(DataStatistics.data.get('Номер тика')):
+        DataStatistics.num_of_messages.append(1)
+    else:
+        DataStatistics.num_of_messages[len(DataStatistics.num_of_messages)-1] += 1
+    n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
+    DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + "\n")
+    rewrite()
+
+
+def all_update(log):
+    if len(DataStatistics.num_of_messages) < len(DataStatistics.data.get('Номер тика')):
+        DataStatistics.num_of_messages.append(1)
+    else:
+        DataStatistics.num_of_messages[len(DataStatistics.num_of_messages)-1] += 1
+    n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
+    DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + "\n")
+    DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + "\n")
+    rewrite()
 
 
 class StatisticsAlfa:
@@ -52,3 +92,4 @@ class StatisticsAlfa:
             elif agent == 'Anthill':
                 self.e.append(energy)
         self.teak.append(len(self.teak))
+

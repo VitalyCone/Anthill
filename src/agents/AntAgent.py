@@ -4,6 +4,7 @@ import logging
 from src.agents.BaseAgent import AgentBase
 from src.utils.Messages.Messages import MessageType
 from src.entitites.Ant import Ant
+from src.utils.statistics.Statistics import all_update, debug_update
 
 
 class AntAgent(AgentBase):
@@ -51,6 +52,7 @@ class AntAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получена сцена от {sender}')
+        all_update(f'{self}: получена сцена от {sender}')
         scene = message[1]
         killed = self.entity.live(scene)
         if killed:
@@ -66,6 +68,7 @@ class AntAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получен {message} от {sender}')
+        all_update(f'{self}: получен {message} от {sender}')
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)

@@ -7,7 +7,7 @@ import pygame
 import logging
 import importlib.resources
 from src.states.SearchState import SearchState
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class Ant:
     def __init__(self, scene, anthill, id='0'):
@@ -58,6 +58,7 @@ class Ant:
         self.ant_icon = (pygame.image.load(MODULE_PATH / "icons/ant.png").convert_alpha(),
                          pygame.image.load(MODULE_PATH / "icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
+        all_update(f'Объект {self.uri} был успешно инициализирован')
 
     def live(self, scene):
         """
@@ -67,6 +68,7 @@ class Ant:
         """
         killed = self.move(scene)
         logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
         return killed
 
     def get_uri(self):
@@ -135,6 +137,7 @@ class Ant:
 
             pass
         logging.info(f'{self} умер')
+        all_update(f'{self} умер')
 
     def move(self, scene):
         killed = []
@@ -144,6 +147,7 @@ class Ant:
         self.spiders = self.get_spiders(self.scene)
         # получение данных из сцены и запись, только данных в области обзора паука
         logging.info(f"{self} делает ход!")
+        all_update(f"{self} делает ход!")
 
         if self.spiders:
             sorted(self.spiders,

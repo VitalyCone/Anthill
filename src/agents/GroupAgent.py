@@ -4,7 +4,7 @@ import logging
 from src.agents.BaseAgent import AgentBase
 from src.utils.Messages.Messages import MessageType
 from src.entitites.Group import Group
-
+from src.utils.statistics.Statistics import all_update, debug_update
 
 class GroupAgent(AgentBase):
     """
@@ -22,10 +22,12 @@ class GroupAgent(AgentBase):
     def handle_invite_response(self, message, sender):
         if message[1][0]:
             logging.info(f'Агент {sender} успешно добавлен в группу {self}')
+            all_update(f'Агент {sender} успешно добавлен в группу {self}')
             self.entity.entities.append(message[1][1])
             message[1][1].group = self.entity
         else:
             logging.info(f'Не удалось добавить {sender} в группу {self}')
+            all_update(f'Не удалось добавить {sender} в группу {self}')
 
     def handle_scene_response(self, message, sender):
         """
@@ -35,6 +37,7 @@ class GroupAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получена сцена от {sender}')
+        all_update(f'{self}: получена сцена от {sender}')
         scene = message[1]
         self.entity.scene = scene
         if len(self.entity.entities) <= 10:
@@ -92,6 +95,7 @@ class GroupAgent(AgentBase):
         :return:
         """
         logging.info(f'{self}: получен {message} от {sender}')
+        all_update(f'{self}: получен {message} от {sender}')
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
