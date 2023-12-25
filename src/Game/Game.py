@@ -1,10 +1,9 @@
 """Модуль игры"""
-import importlib
-
 import pygame
 import time
 import matplotlib.pyplot as plt
 import random
+import importlib.resources
 from src.scene.Scene import Scene
 from src.utils.Export.Export import export_in_excel,data_in_game
 from src.utils.statistics.Statistics import DataStatistics
@@ -139,7 +138,7 @@ class Game:
                     self.display = pygame.display.set_mode((self.display_xy[0],self.display_xy[1]))
             else:
                 self.display.blit(back_to_game, (0, 0))
-            
+
             #Кнопка download to exel
             download_to_exel = pygame.font.SysFont('MV Boli', 15).render("download to exel", True, 'Black')
             if self.download_bot:
@@ -170,12 +169,11 @@ class Game:
                 self.display.blit(pygame.font.SysFont('MV Boli', 15, bold='True', italic='True').render("settings", True, 'black'),(0, 25))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = False
-                    self.pause = True
                     self.menu_back = True
                     self.settings = True
             else:
                 self.display.blit(sett, (0, 25))
-            
+
             #Кнопка graphics
             graphics = pygame.font.SysFont('MV Boli', 15).render("graphics", True, 'Black')
             if graphics.get_rect(topleft = (0,50)).collidepoint(mouse):
@@ -206,7 +204,7 @@ class Game:
                         self.pause_agents = True
             else:
                 self.display.blit(pause_ingame,(0,75))
-            
+
             #Кнопка exit
             exit_ingame = pygame.font.SysFont('MV Boli', 15).render("exit", True, 'Black')
             if exit_ingame.get_rect(topleft=(0, 100)).collidepoint(mouse):
@@ -224,10 +222,8 @@ class Game:
                             if not self.pause_agents:   #Причина плохой работы паузы тут скорее всего
                                 entity.run()
                             self.display.blit(entity.body(), entity.geo)
-        
 
 
-        #Настройки
         if self.settings:
             self.display.blit(pygame.transform.scale(self.intro_download, (self.display.get_width(), self.display.get_height())), (0, 0))
             if self.menu_back:
@@ -332,7 +328,7 @@ class Game:
                 self.display.blit(exit_from_game, (0, 125))
 
             self.display.blit(antvssp, (0, 25))
-        
+
 
 
             
