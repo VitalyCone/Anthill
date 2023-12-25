@@ -1,4 +1,6 @@
+import datetime
 import logging
+from os import makedirs
 
 from src.scene.Scene import Scene
 
@@ -8,6 +10,34 @@ from dataclasses import dataclass
 @dataclass
 class DataStatistics:
     data = {}
+
+
+@dataclass
+class LogStatistics:
+    all_logs = []
+    info_logs = []
+    n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
+    makedirs('../../logs/' + n2, exist_ok=True)
+
+    def rewrite(self):
+        makedirs('../../logs/' + self.n2, exist_ok=True)
+        with open("../../logs/" + self.n2 + "/all_logs.txt", "w") as file:
+            for line in self.all_logs:
+                file.write(line)
+        with open("../../logs/" + self.n2 + "/info_logs.txt", "w") as file:
+            for line in self.info_logs:
+                file.write(line)
+
+    def debug_update(self, log):
+        n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
+        self.all_logs.append(n + " " + "DEBUG" + " " + log)
+        self.rewrite()
+
+    def info_update(self, log):
+        n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
+        self.all_logs.append(n + " " + "INFO" + " " + log)
+        self.info_logs.append(n + " " + "INFO" + " " + log)
+        self.rewrite()
 
 
 class StatisticsAlfa:

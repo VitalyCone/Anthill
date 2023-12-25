@@ -5,6 +5,7 @@ from src.agents.BaseAgent import AgentBase
 
 from src.game.Game import Game
 from src.utils.Messages.Messages import MessageType
+from src.utils.statistics.Statistics import LogStatistics
 
 
 class GameAgent(AgentBase):
@@ -28,6 +29,7 @@ class GameAgent(AgentBase):
         :return:
         """
         self.logger.info(f'Получен запрос на рендеринг игры')
+        LogStatistics.info_update('Получен запрос на рендеринг игры')
         pause = self.entity.render_game()
         self.dispatcher.pause = pause
         self.send(sender, (MessageType.GAME_RENDERING_RESPONSE, pause))

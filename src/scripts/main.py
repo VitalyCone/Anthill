@@ -15,33 +15,34 @@ input_spider_num = 15
 input_ant_num = 150
 
 
-def setup_logging():
-    n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
-
-    makedirs('../../logs/' + n2, exist_ok=True)
-
-    debug_handler = logging.FileHandler('../../logs/' + n2 + '/all_logs.log')
-    info_handler = logging.FileHandler('../../logs/' + n2 + '/info_logs.log')
-
-    # Установка уровней
-    debug_handler.setLevel(logging.DEBUG)
-    info_handler.setLevel(logging.INFO)
-
-    # Создание форматтера
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    debug_handler.setFormatter(formatter)
-    info_handler.setFormatter(formatter)
-
-    # Инициализация корневого логгера
-    logging.basicConfig(level=logging.DEBUG, handlers=[debug_handler, info_handler])
-
-    # Пример использования
-    logging.info("Это тестовое сообщение INFO")
-    logging.debug("Это тестовое сообщение DEBUG")
+# def setup_logging():
+#     n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
+#
+#     makedirs('../../logs/' + n2, exist_ok=True)
+#
+#     debug_handler = logging.FileHandler('../../logs/' + n2 + '/all_logs.log', 'w', 'utf-8')
+#     info_handler = logging.FileHandler('../../logs/' + n2 + '/info_logs.log', 'w', 'utf-8')
+#
+#     # Установка уровней
+#     debug_handler.setLevel(logging.DEBUG)
+#     info_handler.setLevel(logging.INFO)
+#
+#     # Создание форматтера
+#     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#     debug_handler.setFormatter(formatter)
+#     info_handler.setFormatter(formatter)
+#
+#     # Инициализация корневого логгера
+#     logging.basicConfig(level=logging.DEBUG, handlers=[debug_handler, info_handler])
+#
+#     # Пример использования
+#     logging.info("Это тестовое сообщение INFO")
+#     logging.debug("Это тестовое сообщение DEBUG")
 
 
 if __name__ == "__main__":
-    setup_logging()
+    # setup_logging()
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     scene = Scene()
     agent_dispatcher = AgentDispatcher(scene)
     # Инициализация игры
