@@ -3,7 +3,7 @@ import logging
 
 from src.agents.BaseAgent import AgentBase
 
-from src.game.Game import Game
+from src.Game.Game import Game
 from src.utils.Messages.Messages import MessageType
 from src.utils.statistics.Statistics import all_update
 

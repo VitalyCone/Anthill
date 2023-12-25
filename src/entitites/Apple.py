@@ -116,7 +116,7 @@ class Apple:
 
         f = self.inertiaState.move(self)
         my_ants = f[1]
-        distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
+        distance = self.get_distance(self.anthill)
         if distance <= 15:
             for ant in my_ants:
                 ant.prey = None
@@ -124,6 +124,8 @@ class Apple:
                 print(ant.energy)
                 ant.energy += (self.energy/10)/len(my_ants)
                 print(ant.energy)
+            self.die(self)
+            self.anthill.get_food_apple(self)
             killed.append(self.get_uri())
         return killed
     

@@ -8,7 +8,7 @@ from src.entitites.Ant import Ant
 from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
-from src.game.Game import Game
+from src.Game.Game import Game
 from src.scene.Scene import Scene
 
 input_spider_num = 15
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     for i in range(input_spdr):
         spider = Spider(scene.get_entities_by_type('Spider') + scene.get_entities_by_type('Apple'), i)
         agent_dispatcher.add_entity(spider)
-    # rendering_process = multiprocessing.Process(target=game.render_game())
+    # rendering_process = multiprocessing.Process(target=Game.render_game())
     # planning_process = multiprocessing.Process(target=agent_dispatcher.run_planning())
     start_time = datetime.datetime.now()
     while True:

@@ -54,6 +54,7 @@ class Game:
         self.spider_middle_energy_per_sec = []
         self.ant_middle_energy_per_sec = []
         self.anthill_middle_energy_per_sec = []
+        self.already_shown = False
 
         self.scene = start_scene
         pygame.init()
@@ -69,10 +70,16 @@ class Game:
         export_in_excel(data)
 
     def show_graphics(self, pos, y_name, x_name='Номер тика'):
+        self.already_shown = True
         data = DataStatistics.data
         data_in_game(data,y_name,x_name)
 
         self.display.blit(pygame.transform.scale(pygame.image.load(f"plot.png"),(500,500)).convert_alpha(),pos)
+
+    def show_mas_graphic(self):
+        tics = DataStatistics.data.get('Номер тика')
+        num_of_messages = DataStatistics.data.get('Номер тика')  # FIXME: поменять
+        self.display.blit(pygame.transform.scale(pygame.image.load(f"plot.png"), (500, 500)).convert_alpha(), (500, 500))
 
     def render_game(self):
         """
@@ -115,10 +122,12 @@ class Game:
             self.settings = False
             self.intro = False
 
+
             self.show_graphics((0,0), 'Средние значения энергии всех муравьев')
             self.show_graphics((500,0), 'Средние значения энергии пауков')
             self.show_graphics((0,500), 'Значения энергии муравейника')
-            #self.show_graphics((500,500), {!!!Ключ для словаря data!!!})
+            self.show_graphics((500, 500), 'Количество сообщений в системе')
+
 
             #Кнопка back
             back_to_game = pygame.font.SysFont('MV Boli', 15).render("back", True, 'black')
@@ -158,7 +167,7 @@ class Game:
             #Кнопка settings
             sett = pygame.font.SysFont('MV Boli', 15).render("settings", True, 'Black')
             if sett.get_rect(topleft=(0, 25)).collidepoint(mouse):
-                self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render("settings", True, 'black'),(0, 25))
+                self.display.blit(pygame.font.SysFont('MV Boli', 15, bold='True', italic='True').render("settings", True, 'black'),(0, 25))
                 if pygame.mouse.get_pressed()[0]:
                     self.intro = False
                     self.pause = True
@@ -175,6 +184,7 @@ class Game:
                     if not self.graphics_isopen:
                         self.display = pygame.display.set_mode((self.display_xy[0]*2,self.display_xy[1]*2))
                         self.graphics_isopen = True
+                        self.already_shown = True
                         self.download_bot = True
 
                     else:

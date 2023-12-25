@@ -12,7 +12,6 @@ class DataStatistics:
     data = {}
     all_logs = []
     info_logs = []
-    num_of_messages = []
 
 
 n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
@@ -20,30 +19,33 @@ makedirs('../../logs/' + n2, exist_ok=True)
 
 
 def rewrite():
-    makedirs('../../logs/' + n2, exist_ok=True)
-    with open("../../logs/" + n2 + "/all_logs.txt", "w") as file:
-        for line in DataStatistics.all_logs:
-            file.write(line)
-    with open("../../logs/" + n2 + "/info_logs.txt", "w") as file:
-        for line in DataStatistics.info_logs:
-            file.write(line)
+    pass
+    # makedirs('../../logs/' + n2, exist_ok=True)
+    # with open("../../logs/" + n2 + "/all_logs.txt", "w") as file:
+    #     for line in DataStatistics.all_logs:
+    #         file.write(line)
+    # with open("../../logs/" + n2 + "/info_logs.txt", "w") as file:
+    #     for line in DataStatistics.info_logs:
+    #         file.write(line)
 
 
 def debug_update(log):
-    if len(DataStatistics.num_of_messages) < len(DataStatistics.data.get('Номер тика')):
-        DataStatistics.num_of_messages.append(1)
+    if (len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика'))
+            or len(DataStatistics.data.get('Количество сообщений в системе')) == 0):
+        DataStatistics.data.get('Количество сообщений в системе').append(1)
     else:
-        DataStatistics.num_of_messages[len(DataStatistics.num_of_messages)-1] += 1
+        DataStatistics.data.get('Количество сообщений в системе')[len(DataStatistics.data.get('Количество сообщений в системе'))-1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + "\n")
     rewrite()
 
 
 def all_update(log):
-    if len(DataStatistics.num_of_messages) < len(DataStatistics.data.get('Номер тика')):
-        DataStatistics.num_of_messages.append(1)
+    if (len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика'))
+            or len(DataStatistics.data.get('Количество сообщений в системе')) == 0):
+        DataStatistics.data.get('Количество сообщений в системе').append(1)
     else:
-        DataStatistics.num_of_messages[len(DataStatistics.num_of_messages)-1] += 1
+        DataStatistics.data.get('Количество сообщений в системе')[len(DataStatistics.data.get('Количество сообщений в системе'))-1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + "\n")
     DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + "\n")
@@ -61,6 +63,7 @@ class StatisticsAlfa:
         self.c = []
         self.d = []
         self.e = []
+        self.f = []
 
         DataStatistics.data = {
             'Номер тика': self.teak,
@@ -68,7 +71,8 @@ class StatisticsAlfa:
             'Суммарные значения энергии муравьев': self.b,
             'Средние значения энергии пауков': self.c,
             'Суммарные значения энергии пауков': self.d,
-            'Значения энергии муравейника': self.e
+            'Значения энергии муравейника': self.e,
+            'Количество сообщений в системе': self.f
         }
 
     def move(self):

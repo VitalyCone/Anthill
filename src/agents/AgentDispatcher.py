@@ -26,7 +26,7 @@ TYPES_AGENTS = {
     'Anthill': AnthillAgent,
     'Apple': AppleAgent,
     'Scene': SceneAgent,
-    'game': GameAgent,
+    'Game': GameAgent,
     'Group': GroupAgent,
 }
 
@@ -39,6 +39,7 @@ class AgentDispatcher(AgentBase):
     def __init__(self, scene):
         super().__init__()
         self.name = 'Диспетчер агентов'
+        self.statisticsalfa = StatisticsAlfa(scene)
         self.actor_system = ActorSystem()
         self.reference_book = ReferenceBook()
         self.handlers = {}
@@ -47,7 +48,6 @@ class AgentDispatcher(AgentBase):
         self.pause = False
         self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
-        self.statisticsalfa = StatisticsAlfa(scene)
     def handle_game_rendering_response(self, message, sender):
         """
         Обработка ответа на сообщение о рендеринге игры
@@ -67,12 +67,13 @@ class AgentDispatcher(AgentBase):
         Запускает игру
         """
         if not self.pause:
-            entities = copy(self.reference_book.agents_entities)
-            for entity in entities:
-                agent = self.reference_book.get_address(entity)
-                move_message = (MessageType.GIVE_CONTROL, self)
-                self.actor_system.tell(agent, move_message)
-            self.statisticsalfa.move()
+            scene_copy = copy(self.scene.entities)
+            for entities in scene_copy.values():
+                for entity in entities:
+                    agent = self.reference_book.get_address(entity)
+                    move_message = (MessageType.GIVE_CONTROL, self)
+                    self.actor_system.tell(agent, move_message)
+                self.statisticsalfa.move()
         self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
 
     def add_game_entity(self, game_entity):
@@ -87,7 +88,7 @@ class AgentDispatcher(AgentBase):
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
         logging.info(f'{agent} сущecтва {game_entity} был создан')
-        all_update(agent + " существа " + game_entity + " был создан")
+        all_update(f'{agent} сущecтва {game_entity} был создан')
         self.game_address = agent
 
     def add_entity(self, entity):

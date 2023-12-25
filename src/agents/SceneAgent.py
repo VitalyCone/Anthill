@@ -7,6 +7,7 @@ from src.utils.Messages.Messages import MessageType
 from src.scene.Scene import Scene
 from src.utils.statistics.Statistics import all_update, debug_update
 
+
 class SceneAgent(AgentBase):
     """
     Класс агента сцены

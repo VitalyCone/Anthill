@@ -125,14 +125,7 @@ class Anthill:
         self.anthills = self.get_anthills(scene)
         self.ants = self.get_ants(scene)
         self.apples = self.get_apples(scene)
-        i = 0
-        for a in self.ants:
-            if a.state[0]==4:
-                i+=1
-        if i>0:
-            scene = self.spawnState.move(self, True)
-        else:
-            scene = self.spawnState.move(self)
+        scene = self.spawnState.move(self)
         scene = self.growthState.move(self)
 
         self.tic += 1
