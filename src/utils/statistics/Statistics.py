@@ -30,21 +30,15 @@ def rewrite():
 
 
 def debug_update(log):
-    if (len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика'))
-            or len(DataStatistics.data.get('Количество сообщений в системе')) == 0):
-        DataStatistics.data.get('Количество сообщений в системе').append(1)
-    else:
-        DataStatistics.data.get('Количество сообщений в системе')[len(DataStatistics.data.get('Количество сообщений в системе'))-1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + "\n")
     rewrite()
 
 
 def all_update(log):
-    if (len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика'))
-            or len(DataStatistics.data.get('Количество сообщений в системе')) == 0):
+    if len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика')):
         DataStatistics.data.get('Количество сообщений в системе').append(1)
-    else:
+    elif len(DataStatistics.data.get('Количество сообщений в системе')) > 0:
         DataStatistics.data.get('Количество сообщений в системе')[len(DataStatistics.data.get('Количество сообщений в системе'))-1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + "\n")

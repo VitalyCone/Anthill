@@ -73,7 +73,7 @@ class AgentDispatcher(AgentBase):
                     agent = self.reference_book.get_address(entity)
                     move_message = (MessageType.GIVE_CONTROL, self)
                     self.actor_system.tell(agent, move_message)
-                self.statisticsalfa.move()
+            self.statisticsalfa.move()
         self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
 
     def add_game_entity(self, game_entity):
