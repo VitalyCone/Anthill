@@ -58,7 +58,9 @@ class Spider:
     def body(self):
         # s = random.randint(14, 20)
         # return pygame.Rect(self.geo[0], self.geo[1], s, s)
-        return pygame.transform.scale(self.spider_icon, (30, 30))
+        surface = pygame.transform.rotate(self.spider_icon, math.degrees(self.u)-90)
+        surface = pygame.transform.scale(surface, (30, 30))
+        return surface
 
     def get_num_of_spiders_around(self, geo):
         # метод, который обрабатывает сцену, и ищет в ней количество пауков, в радиусе от заданных координат
@@ -134,41 +136,41 @@ class Spider:
 
 
 
-        fighters = []
-        for ant in ants:
-            # if ant.attack and self.get_distance(ant) <= 20:
-            if self.get_distance(ant) <= 40:
-                fighters.append(ant)
-        if len(fighters) != 0:
-            if len(fighters) <= 2:
-                for i in range(0, len(fighters) - len(fighters) // 6):
-                    a = random.choice(fighters)
-                    a.die(a)
-                    fighters.remove(a)
-            elif 3 <= len(fighters) <= 5:
-                for i in range(0, len(fighters) - len(fighters) // 4):
-                    a = random.choice(fighters)
-                    a.die(a)
-                    fighters.remove(a)
-                for i in fighters:
-                    print(i.energy)
-                    i.energy += self.energy/len(fighters)
-                    print(i.energy)
-                print(self.name, "умер!")
-                self.die()
-                killed.append(self.get_uri())
-            elif 6 <= len(fighters):
-                for i in range(0, len(fighters) - len(fighters) // 2):
-                    a = random.choice(fighters)
-                    a.die(a)
-                    fighters.remove(a)
-                for i in fighters:
-                    print(i.energy)
-                    i.energy += self.energy/len(fighters)
-                    print(i.energy)
-                print(self.name, "умер!")
-                self.die()
-                killed.append(self.get_uri())
+        # fighters = []
+        # for ant in ants:
+        #     # if ant.attack and self.get_distance(ant) <= 20:
+        #     if self.get_distance(ant) <= 40:
+        #         fighters.append(ant)
+        # if len(fighters) != 0:
+        #     if len(fighters) <= 2:
+        #         for i in range(0, len(fighters) - len(fighters) // 6):
+        #             a = random.choice(fighters)
+        #             a.die(a)
+        #             fighters.remove(a)
+        #     elif 3 <= len(fighters) <= 5:
+        #         for i in range(0, len(fighters) - len(fighters) // 4):
+        #             a = random.choice(fighters)
+        #             a.die(a)
+        #             fighters.remove(a)
+        #         for i in fighters:
+        #             print(i.energy)
+        #             i.energy += self.energy/len(fighters)
+        #             print(i.energy)
+        #         print(self.name, "умер!")
+        #         self.die()
+        #         killed.append(self.get_uri())
+        #     elif 6 <= len(fighters):
+        #         for i in range(0, len(fighters) - len(fighters) // 2):
+        #             a = random.choice(fighters)
+        #             a.die(a)
+        #             fighters.remove(a)
+        #         for i in fighters:
+        #             print(i.energy)
+        #             i.energy += self.energy/len(fighters)
+        #             print(i.energy)
+        #         print(self.name, "умер!")
+        #         self.die()
+        #         killed.append(self.get_uri())
 
         #############
         if len(ants) == 0:  # если вокруг паука нет муравьев, то он продолжает находиться в состоянии поиска

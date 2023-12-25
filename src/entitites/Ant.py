@@ -33,6 +33,7 @@ class Ant:
             self.speed = 3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
+        self.damage = 0.1
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
@@ -112,9 +113,12 @@ class Ant:
         #     s = random.randint(7, 8)
         #     return pygame.Rect(self.geo[0], self.geo[1], s, s)  # Идентично
         if self.charachter == 0:
-            return pygame.transform.scale(self.ant_icon[0], (12, 12))
+            surface = pygame.transform.rotate(self.ant_icon[0], math.degrees(self.u) - 90)
+            surface = pygame.transform.scale(surface, (12, 12))
         if self.charachter == 1:
-            return pygame.transform.scale(self.ant_icon[1], (20, 20))
+            surface = pygame.transform.rotate(self.ant_icon[1], math.degrees(self.u) - 90)
+            surface = pygame.transform.scale(surface, (20, 20))
+        return surface
         
     def get_nearest(self, agents):
         nearest_agent = agents[0]
@@ -204,6 +208,12 @@ class Ant:
         """
         self.u_trig = [(entity.geo[1] - self.geo[1]) / self.get_distance(entity),
                        (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
+        if math.acos(self.u_trig[1]) != math.asin(self.u_trig[0]):
+            self.u = math.acos(self.u_trig[1])
+        elif math.asin(self.u_trig[0]) > 2*math.pi:
+            self.u = math.asin(self.u_trig[0])
+        elif math.acos(self.u_trig[1]) < 0:
+            self.u = math.acos(self.u_trig[1])
 
     def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)

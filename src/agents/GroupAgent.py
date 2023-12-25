@@ -59,16 +59,7 @@ class GroupAgent(AgentBase):
                 address = self.dispatcher.reference_book.get_address(entity)
                 msg = (MessageType.ATTACK_REQUEST, True)
                 self.send(address, msg)
-        elif self.entity.aim.name == 'Spider':
-            num_of_entities = 0
-            for entity in self.entity.entities:
-                if entity.attack and entity.get_distance(self.entity.aim) <= 20:
-                    num_of_entities += 1
-            if num_of_entities > 3:
-                self.entity.aim.die()
-                msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.aim.uri])
-                address = self.dispatcher.reference_book.get_address(self.scene)
-                self.send(address, msg)
+        self.entity.make_damage()
 
         # killed = self.entity.live(scene)
         # if killed:
@@ -95,3 +86,8 @@ class GroupAgent(AgentBase):
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
+
+    def kill_aim(self):
+        msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.aim.uri])
+        address = self.dispatcher.reference_book.get_address(self.scene)
+        self.send(address, msg)

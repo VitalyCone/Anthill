@@ -3,8 +3,9 @@ import pygame
 import time
 import matplotlib.pyplot as plt
 import random
+import importlib.resources
 from src.scene.Scene import Scene
-from src.utils.Export.Export import export_in_excel
+from src.utils.Export import Export
 from src.utils.statistics.Statistics import DataStatistics
 
 
@@ -16,6 +17,7 @@ class Game:
         :param start_scene:
         :return:
         """
+        MODULE_PATH = importlib.resources.files("assets")
         self.input_spdr_speed = 6
         # input_ant_speed = 3
         self.input_ant_power = 1500
@@ -57,8 +59,8 @@ class Game:
         pygame.display.set_caption("ANTHILL")
         self.display_xy = (500, 500)
         self.display = pygame.display.set_mode(self.display_xy)
-        self.intro_download = pygame.image.load("assets/icons/intro_logo.png").convert_alpha()
-        self.backgr_download = pygame.image.load("assets/icons/backgr.png").convert_alpha()
+        self.intro_download = pygame.image.load(MODULE_PATH / "icons/intro_logo.png").convert_alpha()
+        self.backgr_download = pygame.image.load(MODULE_PATH / "icons/backgr.png").convert_alpha()
         self.display.blit(pygame.transform.scale(self.backgr_download, (self.display.get_width(), self.display.get_height())), (0, 0))
 
     def save_graphics(self):
@@ -70,7 +72,7 @@ class Game:
 
         data = DataStatistics.data
 
-        export_in_excel(data)
+        Export.export_in_excel(data)
 
     def show_graphics(self,filename,pos,xy,save_plt=False,xlabel='x',ylabel='y'):
         """
@@ -326,8 +328,8 @@ class Game:
             else:
                 self.display.blit(sett, (0, 25))
             
-            if graphics.get_rect(topleft = (0,50)).collidepoint(mouse):
-                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("graphics", True, 'White'),(0,50))
+            if graphics.get_rect(topleft=(0, 50)).collidepoint(mouse):
+                self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("graphics", True, 'White'),(0,50))
                 if pygame.mouse.get_pressed()[0]:
                     if not self.graphics_isopen:
                         self.display = pygame.display.set_mode((self.display_xy[0]*2,self.display_xy[1]*2))
@@ -339,16 +341,16 @@ class Game:
                         self.graphics_isopen = False
                         self.download_bot = False
             else:
-                self.display.blit(graphics,(0,50))
+                self.display.blit(graphics, (0, 50))
 
             if self.download_bot:
-                if download_to_exel.get_rect(topleft = (60,50)).collidepoint(mouse):
-                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size = 15).render("download to exel", True, 'white'),(60,50))
+                if download_to_exel.get_rect(topleft=(60, 50)).collidepoint(mouse):
+                    self.display.blit(pygame.font.Font(pygame.font.match_font('MV Boli'), size=15).render("download to exel", True, 'white'), (60, 50))
                     if pygame.mouse.get_pressed()[0]:
                         self.save_graphics()
                         self.saveplt = True
                 else:
-                    self.display.blit(download_to_exel,(60,50))
+                    self.display.blit(download_to_exel, (60, 50))
 
             # if self.graphics_isopen:
             #     self.show_graphics('spider_energy',(self.display_xy[0],0),(self.sec_list,self.spider_middle_energy_per_sec),self.saveplt,'time','spiders energy')
@@ -374,26 +376,6 @@ class Game:
                             self.display.blit(entity.body(), entity.geo)
             
         seconds = int(str(self.total_seconds)[:str(self.total_seconds).find('.')])
-        scene = self.scene
-        if seconds not in self.sec_list:
-            if seconds != '':
-                self.sec_list.append(seconds)
-                temp_spider_energy = [0, 0]
-                for spider in scene.get_entities_by_type("Spider"):
-                    temp_spider_energy[0] += spider.energy
-                    temp_spider_energy[1] += 1
-                self.spider_middle_energy_per_sec.append(temp_spider_energy[0]/temp_spider_energy[1])
-                temp_ant_energy = [0, 0]
-                for ant in scene.get_entities_by_type("Ant"):
-                    temp_ant_energy[0] += ant.energy
-                    temp_ant_energy[1] += 1
-                self.ant_middle_energy_per_sec.append(temp_ant_energy[0]/temp_ant_energy[1])
-                temp_anthill_energy = [0, 0]
-                for anthill in scene.get_entities_by_type("Anthill"):
-                    temp_anthill_energy[0] += anthill.energy
-                    temp_anthill_energy[1] += 1
-                self.anthill_middle_energy_per_sec.append(temp_anthill_energy[0]/temp_anthill_energy[1])
-        self.total_seconds = time.time()-self.lastcallback
         pygame.display.update()
         return self.pause
 
