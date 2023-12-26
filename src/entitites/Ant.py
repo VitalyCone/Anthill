@@ -172,18 +172,23 @@ class Ant:
             if self.prey.name == 'Apple':
                 if self.get_distance(self.prey) >= self.speed - self.prey.speed:
                     self.set_vector_to_object(self.prey)
+                    self.set_u()
                 else:
                     self.set_vector_to_object(self.anthill)
+                    self.set_u()
             elif self.prey.name == 'Spider' and self.group:
                 self.set_vector_to_object(self.prey)
                 if not self.attack:
                     if self == self.group.leader:
                         self.u_trig[0] = -self.u_trig[0]
                         self.u_trig[1] = -self.u_trig[1]
+                        self.set_u()
                     else:
                         self.set_vector_to_object(self.group.leader)
+                        self.set_u()
                 else:
                     self.set_vector_to_object(self.prey)
+                    self.set_u()
 
         self.energy -= 0.001
         if self.energy <= 0:
@@ -217,6 +222,8 @@ class Ant:
         """
         self.u_trig = [(entity.geo[1] - self.geo[1]) / self.get_distance(entity),
                        (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
+
+    def set_u(self):
         if math.acos(self.u_trig[1]) != math.asin(self.u_trig[0]):
             self.u = math.acos(self.u_trig[1])
         elif math.asin(self.u_trig[0]) > 2*math.pi:

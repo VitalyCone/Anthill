@@ -388,9 +388,10 @@ class Game:
             
 
         pygame.display.update()
-        if self.pause_agents or self.pause:
-            return True
-        else:
-            return False
+        # if self.pause_agents or self.pause:
+        #     return True
+        # else:
+        #     return False
+        return False
 
 

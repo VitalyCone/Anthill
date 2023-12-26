@@ -30,5 +30,7 @@ class GameAgent(AgentBase):
         logging.info(f'Получен запрос на рендеринг игры')
         all_update(f'Получен запрос на рендеринг игры')
         pause = self.entity.render_game()
+        if self.entity.pause or self.entity.pause_agents:
+            pause = True
         self.dispatcher.pause = pause
         self.send(sender, (MessageType.GAME_RENDERING_RESPONSE, pause))
