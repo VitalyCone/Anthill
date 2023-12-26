@@ -20,7 +20,9 @@ class Game:
         MODULE_PATH = importlib.resources.files("assets")
         self.input_spdr_speed = 6
         # input_ant_speed = 3
-        self.input_ant_power = 1500
+        self.input_ant_energy = 1
+        self.input_spdr_energy = 1
+        self.input_ant_speed = 4
 
         self.name = 'Game'
 
@@ -225,10 +227,13 @@ class Game:
 
 
         if self.settings:
+            self.pause_agents = True
             self.display.blit(pygame.transform.scale(self.intro_download, (self.display.get_width(), self.display.get_height())), (0, 0))
             if self.menu_back:
                 back_to_menu = pygame.font.SysFont('MV Boli', 15).render("back", True,'Black')
-                set_ant_power = pygame.font.SysFont('MV Boli', 15).render(f"ants power: {self.input_ant_power}", True, 'Black')
+                set_ant_power = pygame.font.SysFont('MV Boli', 15).render(f"ants energy: {self.input_ant_energy}", True, 'Black')
+                set_ant_speed = pygame.font.SysFont('MV Boli', 15).render(f"ants speed: {self.input_ant_speed}", True,'Black')
+                set_spider_energy = pygame.font.SysFont('MV Boli', 15).render(f"spiders energy: {self.input_spdr_energy}", True, 'Black')
                 set_spider_speed = pygame.font.SysFont('MV Boli', 15).render(f"spider speed: {self.input_spdr_speed}", True, 'Black')
 
                 if back_to_menu.get_rect(topleft=(50, 0)).collidepoint(mouse):
@@ -241,6 +246,7 @@ class Game:
                         self.intro = True
                         self.menu_back = False
                         self.settings = False
+                        self.pause_agents = False
                 else:
                     self.display.blit(back_to_menu, (50, 0))
 
@@ -255,7 +261,7 @@ class Game:
                         input_spdr_speed = self.text_for_settings
                         if self.text_event_enter:
                             input_spdr_speed = int(input_spdr_speed)
-                            for spider in self.spiders:
+                            for spider in self.scene.get_entities_by_type('Spider'):
                                 spider.speed = input_spdr_speed
                             self.change_spider_speed = False
                             self.text_event_enter = False
@@ -264,29 +270,77 @@ class Game:
                 else:
                     self.display.blit(set_spider_speed, (50, 200))
 
-                if set_ant_power.get_rect(topleft=(50, 175)).collidepoint(mouse) and not self.change_ant_power:
+                if set_ant_speed.get_rect(topleft=(50, 175)).collidepoint(mouse) and not self.change_ant_power:
                     self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(
-                        f"ants power: {self.input_ant_power}", True, 'black'), (50, 175))
+                        f"ants speed: {self.input_ant_speed}", True, 'black'), (50, 175))
                     if pygame.mouse.get_pressed()[0
-                        ] and not self.change_ant_speed and not self.change_spider_speed and not self.change_apple_weight:
+                        ] and not self.change_spider_speed:
                         self.text_for_settings = 'enter the number'
-                        self.change_ant_power = True
-                elif self.change_ant_power:
-                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(f"ants power: {self.input_ant_power}", True, 'black'), (50, 175))
+                        self.change_ant_speed = True
+                elif self.change_ant_speed:
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15,bold='True',italic='True').render(f"ants speed: {self.input_ant_power}", True, 'black'), (50, 175))
                     if type(self.text_for_settings) != "enter the number":
-                        input_ant_power = self.text_for_settings
+                        input_ant_speed = self.text_for_settings
                         if self.text_event_enter:
-                            input_ant_power = int(input_ant_power)
-                            if self.ants:
-                                for ant in self.ants:
-                                    ant.power = input_ant_power
+                            input_ant_speed = int(input_ant_speed)
+                            if self.scene.entities:
+                                for ant in self.scene.get_entities_by_type('Ant'):
+                                    ant.speed = input_ant_speed
+                            self.change_ant_power = False
+                            self.text_event_enter = False
+                    else:
+                        self.input_ant_speed = self.text_for_settings
+                else:
+                    self.display.blit(set_ant_speed, (50, 175))
+
+                if set_ant_power.get_rect(topleft=(50, 150)).collidepoint(mouse) and not self.change_ant_power:
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15, bold='True', italic='True').render(
+                        f"ants energy: {self.input_ant_energy}", True, 'black'), (50, 150))
+                    if pygame.mouse.get_pressed()[0
+                    ] and not self.change_spider_speed:
+                        self.text_for_settings = 'enter the number'
+                        self.change_ant_speed = True
+                elif self.change_ant_speed:
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15, bold='True', italic='True').render(
+                        f"ants energy: {self.input_ant_energy}", True, 'black'), (50, 150))
+                    if type(self.text_for_settings) != "enter the number":
+                        input_ant_energy = self.text_for_settings
+                        if self.text_event_enter:
+                            input_ant_energy = int(input_ant_energy)
+                            if self.scene.entities:
+                                for ant in self.scene.get_entities_by_type('Ant'):
+                                    ant.energy = input_ant_energy
+                            self.change_ant_power = False
+                            self.text_event_enter = False
+                    else:
+                        self.input_ant_energy = self.text_for_settings
+                else:
+                    self.display.blit(set_ant_power, (50, 150))
+
+                if set_spider_energy.get_rect(topleft=(50, 125)).collidepoint(mouse) and not self.change_ant_power:
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15, bold='True', italic='True').render(
+                        f"spider energy: {self.input_spdr_speed}", True, 'black'), (50, 125))
+                    if pygame.mouse.get_pressed()[0
+                    ] and not self.change_spider_speed:
+                        self.text_for_settings = 'enter the number'
+                        self.change_ant_speed = True
+                elif self.change_ant_speed:
+                    self.display.blit(pygame.font.SysFont('MV Boli', 15, bold='True', italic='True').render(
+                        f"spider energy: {self.input_spdr_speed}", True, 'black'), (50, 125))
+                    if type(self.text_for_settings) != "enter the number":
+                        input_spider_energy = self.text_for_settings
+                        if self.text_event_enter:
+                            input_spider_energy = int(input_spider_energy)
+                            if self.scene.entities:
+                                for ant in self.scene.get_entities_by_type('Spider'):
+                                    ant.energy = input_spider_energy
                             self.change_ant_power = False
                             self.text_event_enter = False
 
                     else:
-                        self.input_ant_power = self.text_for_settings
+                        self.input_spdr_speed = self.text_for_settings
                 else:
-                    self.display.blit(set_ant_power, (50, 175))
+                    self.display.blit(set_spider_energy, (50, 125))
 
 
 
@@ -334,6 +388,9 @@ class Game:
             
 
         pygame.display.update()
-        return self.pause
+        if self.pause_agents or self.pause:
+            return True
+        else:
+            return False
 
 
