@@ -18,32 +18,52 @@ n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
 makedirs('../../logs/' + n2, exist_ok=True)
 
 
-def rewrite():
-    pass
-    # makedirs('../../logs/' + n2, exist_ok=True)
-    # with open("../../logs/" + n2 + "/all_logs.txt", "w") as file:
-    #     for line in DataStatistics.all_logs:
-    #         file.write(line)
-    # with open("../../logs/" + n2 + "/info_logs.txt", "w") as file:
-    #     for line in DataStatistics.info_logs:
-    #         file.write(line)
+def start(path):
+    makedirs(path + n2, exist_ok=True)
+    with open(path + n2 + '/all_logs.txt', 'w') as f:
+        pass
+    with open(path + n2 + '/info_logs.txt', 'w') as f:
+        pass
+
+
+def rewrite(arg):
+    if arg == 0:
+        with open('../../logs/' + n2 + '/all_logs.txt', 'a') as file:
+            line = DataStatistics.all_logs[-1]
+            file.write(line)
+        with open('../../logs/' + n2 + '/info_logs.txt', 'a') as file:
+            line = DataStatistics.info_logs[-1]
+            file.write(line)
+    elif arg == 1:
+        with open('../../logs/' + n2 + '/all_logs.txt', 'a') as file:
+            line = DataStatistics.all_logs[-1]
+            file.write(line)
 
 
 def debug_update(log):
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
-    DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + "\n")
-    rewrite()
+    try:
+        DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + '\n')
+        rewrite(1)
+    except:
+        logging.info('Логирование не удалось')
+        all_update('Логирование не удалось')
 
 
 def all_update(log):
     if len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика')):
         DataStatistics.data.get('Количество сообщений в системе').append(1)
     elif len(DataStatistics.data.get('Количество сообщений в системе')) > 0:
-        DataStatistics.data.get('Количество сообщений в системе')[len(DataStatistics.data.get('Количество сообщений в системе'))-1] += 1
+        DataStatistics.data.get('Количество сообщений в системе')[
+            len(DataStatistics.data.get('Количество сообщений в системе')) - 1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
-    DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + "\n")
-    DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + "\n")
-    rewrite()
+    try:
+        DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + '\n')
+        DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + '\n')
+        rewrite(0)
+    except:
+        logging.info('Логирование не удалось')
+        all_update('Логирование не удалось')
 
 
 class StatisticsAlfa:
@@ -90,4 +110,3 @@ class StatisticsAlfa:
             elif agent == 'Anthill':
                 self.e.append(energy)
         self.teak.append(len(self.teak))
-

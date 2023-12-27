@@ -10,6 +10,7 @@ from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
 from src.Game.Game import Game
 from src.scene.Scene import Scene
+from src.utils.statistics.Statistics import start
 
 input_spider_num = 15
 input_ant_num = 150
@@ -43,6 +44,7 @@ input_ant_num = 150
 if __name__ == "__main__":
     # setup_logging()
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    start('../../logs/')
     scene = Scene()
     agent_dispatcher = AgentDispatcher(scene)
     # Инициализация игры

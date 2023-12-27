@@ -66,7 +66,7 @@ class AgentBase(ABC, Actor):
                 except Exception as ex:
                     traceback.print_exc()
                     logging.error(ex)
-                    all_update(ex)
+                    all_update(traceback.format_exc())
             else:
                 logging.warning('%s Отсутствует подписка на сообщение: %s', self.name, message_type)
                 all_update(f'{self.name} Отсутствует подписка на сообщение: {message_type}')
