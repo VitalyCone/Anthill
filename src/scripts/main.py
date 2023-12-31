@@ -54,8 +54,8 @@ if __name__ == "__main__":
     input_apple_hp = 10000
     input_anthills = 1
     input_apple = 8
-    input_spdr = 5
-    input_ant = 60
+    input_spdr = 3
+    input_ant = 30
     # Создание агентов, добавление оных в диспетчер агентов
     agent_dispatcher.add_game_entity(game)
     for i in range(input_anthills):

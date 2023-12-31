@@ -40,8 +40,7 @@ class GroupAgent(AgentBase):
         all_update(f'{self}: получена сцена от {sender}')
         scene = message[1]
         self.entity.scene = scene
-        if len(self.entity.entities) <= 10:
-            self.send_invite_message()
+        self.send_invite_message()
         for entity in self.entity.entities:
             if entity.status == 'dead':
                 self.entity.entities.remove(entity)
@@ -73,6 +72,8 @@ class GroupAgent(AgentBase):
     def send_invite_message(self):
         ants = self.entity.get_ants(self.entity.scene)
         for ant in ants:
+            if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.type == 'Apple':
+                break
             if ant not in self.entity.entities:
                 address = self.dispatcher.reference_book.get_address(ant)
                 msg = (MessageType.INVITE_REQUEST, self.entity.aim)

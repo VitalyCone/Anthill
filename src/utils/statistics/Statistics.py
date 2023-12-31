@@ -44,7 +44,7 @@ def debug_update(log):
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     try:
         DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + '\n')
-        rewrite(1)
+        # rewrite(1)
     except:
         logging.info('Логирование не удалось')
         all_update('Логирование не удалось')
@@ -60,7 +60,7 @@ def all_update(log):
     try:
         DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + '\n')
         DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + '\n')
-        rewrite(0)
+        # rewrite(0)
     except:
         logging.info('Логирование не удалось')
         all_update('Логирование не удалось')
