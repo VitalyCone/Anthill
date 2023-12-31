@@ -134,6 +134,18 @@ class Game:
 
             if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
                 self.text_event_enter = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.pauseButtonColision:
+                    self.pause_agents = not self.pause_agents #инвертировать состояние
+                if self.menuButtonCollision:
+                    self.intro = True
+                    self.pause = True
+                    self.anim_x = -100
+                    self.anim_num = 0
+                    self.anim_num_past = 0
+                    self.anim_count = 0
+
+
 
 
         #Графики
@@ -149,7 +161,6 @@ class Game:
             self.show_graphics((500,0), 'Средние значения энергии пауков')
             self.show_graphics((0,500), 'Значения энергии муравейника')
             self.show_graphics((500, 500), 'Количество сообщений в системе')
-
 
             #Кнопка back
             back_to_game = pygame.font.SysFont('broadway', 15).render("back to menu", True, 'black')
@@ -185,14 +196,10 @@ class Game:
             menu = pygame.font.SysFont('broadway', 15).render("menu", True, 'Black')
             if menu.get_rect(topleft=(0, 0)).collidepoint(mouse):
                 self.display.blit(pygame.font.SysFont('broadway', 15,bold='True',italic='True').render("menu", True, 'black'),(0, 0))
-                if pygame.mouse.get_pressed()[0]:
-                    self.intro = True
-                    self.pause = True
-                    self.anim_x = -100
-                    self.anim_num = 0
-                    self.anim_num_past = 0
-                    self.anim_count = 0
+                self.menuButtonCollision = True
+
             else:
+                self.menuButtonCollision = False
                 self.display.blit(menu, (0, 0))
 
             #Кнопка pause
@@ -200,12 +207,9 @@ class Game:
             pause_ingame = pygame.font.SysFont('broadway', 15).render("pause", True, 'Black')
             if pause_ingame.get_rect(topleft = (0,25)).collidepoint(mouse):
                 self.display.blit(pygame.font.SysFont('broadway', 15,bold='True',italic='True').render("pause", True, 'black'),(0,25))
-                if pygame.mouse.get_pressed()[0]:
-                    if self.pause_agents:
-                        self.pause_agents = False
-                    else:
-                        self.pause_agents = True
+                self.pauseButtonColision = True
             else:
+                self.pauseButtonColision = False
                 self.display.blit(pause_ingame,(0,25))
 
             for entities in self.scene.get_all_entities():
