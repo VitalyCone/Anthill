@@ -15,9 +15,11 @@ from src.agents.SceneAgent import SceneAgent
 from src.agents.GroupAgent import GroupAgent
 from src.agents.GameAgent import GameAgent
 
+from src.entitites.Apple import Apple
+
 from src.utils.Messages.Messages import MessageType
 from src.utils.ReferenceBook.ReferenceBook import ReferenceBook
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update, debug_update, Denotations, count_id
 
 # В зависимости от типа сущности мы выбираем класс агента
 TYPES_AGENTS = {
@@ -48,6 +50,8 @@ class AgentDispatcher(AgentBase):
         self.pause = False
         self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
+        self.n = 0
+
     def handle_game_rendering_response(self, message, sender):
         """
         Обработка ответа на сообщение о рендеринге игры
@@ -62,6 +66,17 @@ class AgentDispatcher(AgentBase):
             all_update(f'Ответ на сообщение о рендеринге игры от {sender}, планирование продолжается')
         self.pause = message[1]
 
+    def create_apple(self):
+        """
+        Создает яблоко рандомно каждые n тиков
+        """
+        self.n += 1
+        if self.n == 100:
+            apple = Apple(self.scene.get_entities_by_type('Anthill')[0], count_id('apple'))
+            Denotations.uris['apple'].append(apple.uri)
+            self.add_entity(apple)
+            self.n = 0
+
     def run_planning(self):
         """
         Запускает игру
@@ -73,6 +88,7 @@ class AgentDispatcher(AgentBase):
                     agent = self.reference_book.get_address(entity)
                     move_message = (MessageType.GIVE_CONTROL, self)
                     self.actor_system.tell(agent, move_message)
+            self.create_apple()
             self.statisticsalfa.move()
         self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
 

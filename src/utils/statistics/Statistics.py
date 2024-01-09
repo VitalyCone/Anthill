@@ -14,6 +14,28 @@ class DataStatistics:
     info_logs = []
 
 
+@dataclass
+class Denotations:
+    """
+    Класс хранит в себе словарь uri каждой сущности, когда-либо существовавшей
+    """
+    uris = {
+        'ant': [],
+        'spider': [],
+        'apple': [],
+        'anthill': []
+    }
+
+
+def count_id(entity_class):
+    """
+    :param entity_class:
+    Функция предназначена для выдачи новых id
+    :return:
+    """
+    return len(Denotations.uris[entity_class])
+
+
 n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
 makedirs('../../logs/' + n2, exist_ok=True)
 

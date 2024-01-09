@@ -11,10 +11,7 @@ from src.entitites.Spider import Spider
 from src.Game.Game import Game
 from src.scene.Scene import Scene
 from src.utils.statistics.Statistics import start
-
-input_spider_num = 15
-input_ant_num = 150
-
+from src.utils.statistics.Statistics import Denotations, count_id
 
 # def setup_logging():
 #     n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
@@ -54,25 +51,26 @@ if __name__ == "__main__":
     input_apple_hp = 10000
     input_anthills = 1
     input_apple = 8
-    input_spdr = 3
-    input_ant = 30
+    input_spdr = 5
+    input_ant = 100
     # Создание агентов, добавление оных в диспетчер агентов
     agent_dispatcher.add_game_entity(game)
     for i in range(input_anthills):
-        anthill = Anthill(input_apple_hp, input_apple, 0, i)
+        anthill = Anthill(input_apple_hp, input_apple, 0, count_id('anthill'))
+        Denotations.uris['anthill'].append(anthill.uri)
         agent_dispatcher.add_entity(anthill)
     # FIXME: Добавлять объекты сцены в инициализации, а не тут
     for i in range(input_apple):
-        apple = Apple(scene.get_entities_by_type('Anthill')[0], i)
+        apple = Apple(scene.get_entities_by_type('Anthill')[0], count_id('apple'))
+        Denotations.uris['apple'].append(apple.uri)
         agent_dispatcher.add_entity(apple)
     for i in range(input_ant):
-        ant = Ant(scene.get_entities_by_type('Apple'), scene.get_entities_by_type('Anthill')[0], i)
-        agent_dispatcher.add_entity(ant)
-    for i in range(input_ant):
-        ant = Ant(scene.get_entities_by_type('Apple'), scene.get_entities_by_type('Anthill')[0], i)
+        ant = Ant(scene.get_entities_by_type('Apple'), scene.get_entities_by_type('Anthill')[0], count_id('ant'))
+        Denotations.uris['ant'].append(ant.uri)
         agent_dispatcher.add_entity(ant)
     for i in range(input_spdr):
-        spider = Spider(scene.get_entities_by_type('Spider') + scene.get_entities_by_type('Apple'), i)
+        spider = Spider(scene.get_entities_by_type('Spider') + scene.get_entities_by_type('Apple'), count_id('spider'))
+        Denotations.uris['spider'].append(spider.uri)
         agent_dispatcher.add_entity(spider)
     # rendering_process = multiprocessing.Process(target=Game.render_game())
     # planning_process = multiprocessing.Process(target=agent_dispatcher.run_planning())
