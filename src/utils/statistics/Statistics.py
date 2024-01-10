@@ -23,7 +23,8 @@ class Denotations:
         'ant': [],
         'spider': [],
         'apple': [],
-        'anthill': []
+        'anthill': [],
+        'group': []
     }
 
 
@@ -37,36 +38,23 @@ def count_id(entity_class):
 
 
 n2 = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M'))
-makedirs('../../logs/' + n2, exist_ok=True)
 
 
-def start(path):
+def write_logs():
+    path = 'logs/'
     makedirs(path + n2, exist_ok=True)
     with open(path + n2 + '/all_logs.txt', 'w') as f:
-        pass
+        for log in DataStatistics.all_logs[::-1]:
+            f.write(log)
     with open(path + n2 + '/info_logs.txt', 'w') as f:
-        pass
-
-
-def rewrite(arg):
-    if arg == 0:
-        with open('../../logs/' + n2 + '/all_logs.txt', 'a') as file:
-            line = DataStatistics.all_logs[-1]
-            file.write(line)
-        with open('../../logs/' + n2 + '/info_logs.txt', 'a') as file:
-            line = DataStatistics.info_logs[-1]
-            file.write(line)
-    elif arg == 1:
-        with open('../../logs/' + n2 + '/all_logs.txt', 'a') as file:
-            line = DataStatistics.all_logs[-1]
-            file.write(line)
+        for log in DataStatistics.info_logs[::-1]:
+            f.write(log)
 
 
 def debug_update(log):
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     try:
         DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + '\n')
-        # rewrite(1)
     except:
         logging.info('Логирование не удалось')
         all_update('Логирование не удалось')
@@ -82,7 +70,6 @@ def all_update(log):
     try:
         DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + '\n')
         DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + '\n')
-        # rewrite(0)
     except:
         logging.info('Логирование не удалось')
         all_update('Логирование не удалось')

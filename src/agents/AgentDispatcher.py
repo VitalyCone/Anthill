@@ -1,5 +1,7 @@
 """Содержит класс диспетчера агентов"""
 import logging
+import sys
+import time
 from copy import copy
 
 from thespian.actors import ActorSystem
@@ -19,7 +21,9 @@ from src.entitites.Apple import Apple
 
 from src.utils.Messages.Messages import MessageType
 from src.utils.ReferenceBook.ReferenceBook import ReferenceBook
-from src.utils.statistics.Statistics import all_update, debug_update, Denotations, count_id
+from src.utils.statistics.Statistics import all_update, debug_update
+
+from src.utils.statistics.Statistics import Denotations, count_id
 
 # В зависимости от типа сущности мы выбираем класс агента
 TYPES_AGENTS = {
@@ -31,6 +35,8 @@ TYPES_AGENTS = {
     'Game': GameAgent,
     'Group': GroupAgent,
 }
+
+PAUSE = True
 
 
 class AgentDispatcher(AgentBase):
@@ -46,10 +52,14 @@ class AgentDispatcher(AgentBase):
         self.reference_book = ReferenceBook()
         self.handlers = {}
         self.scene = scene
+        self.pause = PAUSE
+        self.gap = 100
+        self.kill = False
         self.create_agent(SceneAgent, scene)
-        self.pause = False
+        self.window = None
         self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
+
         self.n = 0
 
     def handle_game_rendering_response(self, message, sender):
@@ -71,8 +81,10 @@ class AgentDispatcher(AgentBase):
         Создает яблоко рандомно каждые n тиков
         """
         self.n += 1
-        if self.n == 100:
+        if self.n == self.gap:
             apple = Apple(self.scene.get_entities_by_type('Anthill')[0], count_id('apple'))
+            self.window.graph_scene.addItem(apple.graphics_entity)
+            apple.graphics_entity.graph_scene = self.window.graph_scene
             Denotations.uris['apple'].append(apple.uri)
             self.add_entity(apple)
             self.n = 0
@@ -81,7 +93,7 @@ class AgentDispatcher(AgentBase):
         """
         Запускает игру
         """
-        if not self.pause:
+        if not PAUSE:
             scene_copy = copy(self.scene.entities)
             for entities in scene_copy.values():
                 for entity in entities:
@@ -90,7 +102,7 @@ class AgentDispatcher(AgentBase):
                     self.actor_system.tell(agent, move_message)
             self.create_apple()
             self.statisticsalfa.move()
-        self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
+        # self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
 
     def add_game_entity(self, game_entity):
         """

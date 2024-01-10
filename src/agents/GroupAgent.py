@@ -6,6 +6,7 @@ from src.utils.Messages.Messages import MessageType
 from src.entitites.Group import Group
 from src.utils.statistics.Statistics import all_update, debug_update
 
+
 class GroupAgent(AgentBase):
     """
     Класс агента группы
@@ -63,16 +64,12 @@ class GroupAgent(AgentBase):
                 self.send(address, msg)
         self.entity.make_damage()
 
-        # killed = self.entity.live(scene)
-        # if killed:
-        #     msg = (MessageType.ENTITY_REMOVE_REQUEST, killed)
-        #     scene_address = self.dispatcher.reference_book.get_address(self.scene)
-        #     self.send(scene_address, msg)
-
     def send_invite_message(self):
+        if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
+            return
         ants = self.entity.get_ants(self.entity.scene)
         for ant in ants:
-            if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.type == 'Apple':
+            if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
                 break
             if ant not in self.entity.entities:
                 address = self.dispatcher.reference_book.get_address(ant)
@@ -93,6 +90,10 @@ class GroupAgent(AgentBase):
         self.send(courier_address, scene_request_msg)
 
     def kill_aim(self):
+        """
+        Убийство цели
+        :return:
+        """
         msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.aim.uri])
         address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(address, msg)

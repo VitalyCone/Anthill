@@ -1,6 +1,12 @@
 import logging
 import importlib.resources
+import math
+import os
+
 import pygame
+from PyQt6.QtCore import QPointF
+
+from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
 from src.utils.statistics.Statistics import all_update, debug_update
@@ -21,10 +27,10 @@ class Anthill:
         self.energy_consumption = 0.01
         self.x = 100
         self.y = 400
+        self.u = 0
         self.height = 50
         self.long = 50
         self.livelihood = 1000  # запасы пропитания
-        self.anth_font = pygame.font.Font(pygame.font.match_font('verdana'), size=30)
         self.exit = False
         self.geo = [self.x, self.y]
         self.scene = None
@@ -42,12 +48,15 @@ class Anthill:
         self.all = False
         self.moving = False
         # self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
-        self.anthill_icon = pygame.image.load(MODULE_PATH / "icons/anthill.png").convert_alpha()
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
+        path = str(os.path.abspath('assets/icons/anthill.png'))
+        self.graphics_entity = GraphicsEntity(self.geo,
+                                              path,
+                                              self.u)
 
     def live(self, scene):
         """
@@ -118,6 +127,11 @@ class Anthill:
         self.energy -= self.energy_consumption
 
 
+    def render(self):
+        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
+        self.graphics_entity.setRotation(math.degrees(self.u))
+
+
     
     def move(self, scene):
         killed = []
@@ -129,5 +143,5 @@ class Anthill:
         scene = self.growthState.move(self)
 
         self.tic += 1
-
+        self.run()
         return killed

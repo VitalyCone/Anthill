@@ -3,7 +3,6 @@ import openpyxl
 import datetime
 from openpyxl.styles import Alignment, Font
 from openpyxl.chart import LineChart, Reference
-import matplotlib.pyplot as plt
 
 
 def export_in_excel(data):
@@ -31,12 +30,24 @@ def export_in_excel(data):
     n = len(data['Номер тика'])
     not_last_not_filled_cell = None
     k = 0
+    data_1 = {
+        'Номер тика': data.get('Номер тика'),
+        'Средние значения энергии всех муравьев':
+            data.get('Средние значения энергии всех муравьев')[0:len(data.get('Номер тика'))],
+        'Суммарные значения энергии муравьев':
+            data.get('Суммарные значения энергии муравьев')[0:len(data.get('Номер тика'))],
+        'Средние значения энергии пауков':
+            data.get('Средние значения энергии пауков')[0:len(data.get('Номер тика'))],
+        'Суммарные значения энергии пауков':
+            data.get('Суммарные значения энергии пауков')[0:len(data.get('Номер тика'))],
+        'Значения энергии муравейника':
+            data.get('Значения энергии муравейника')[0:len(data.get('Номер тика'))]
+    }
+    df = ps.DataFrame(data_1)
 
-    df = ps.DataFrame(data)
+    df.to_excel('export/' + name, index=False)
 
-    df.to_excel('../../export/' + name, index=False)
-
-    workbook = openpyxl.load_workbook('../../export/' + name)
+    workbook = openpyxl.load_workbook('export/' + name)
     worksheet = workbook.active
 
     for cell in worksheet.iter_cols(min_row=1, max_row=1, min_col=1,
@@ -134,19 +145,5 @@ def export_in_excel(data):
     worksheet.add_chart(chart, cell_name)
 
     # Сохранение изменений
-    workbook.save('../../export/' + name)
+    workbook.save('export/' + name)
 
-
-def data_in_game(data, y_name, x_name):
-    plt.close()
-
-    x_values = data.get(x_name)
-    y_values = data.get(y_name)
-
-    plt.plot(x_values, y_values, marker=',', linestyle='-')
-
-    plt.xlabel(x_name, fontweight='bold')
-    plt.ylabel(y_name, fontweight='bold')
-    plt.title(y_name, fontweight='bold')
-
-    plt.savefig('plot.png')

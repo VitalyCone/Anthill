@@ -1,6 +1,7 @@
 """Реализация класса группы"""
 from src.utils.statistics.Statistics import all_update, debug_update
 
+
 class Group:
     def __init__(self, scene, id='0', aim=None, leader=None):
         self.name = __class__.__name__

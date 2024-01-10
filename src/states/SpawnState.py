@@ -8,8 +8,9 @@ class SpawnState(State):
         if not bool:
             if agent.tic % 20 == 0:
                 for i in range(int(num)):
-                    ant = list(agent.ants)[0].add_ant(agent.scene, agent)
+                    if agent.ants:
+                        ant = list(agent.ants)[0].add_ant(agent.scene, agent)
                     # FIXME: IndexError: list index out of range
-                    agent.scene.append(ant)
+                        agent.scene.append(ant)
         
         return agent.scene

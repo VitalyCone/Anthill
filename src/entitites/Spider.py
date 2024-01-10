@@ -1,8 +1,16 @@
+import os.path
 import random
 import math
+from copy import copy
+
 import pygame
 import logging
 import importlib.resources
+
+from PyQt6.QtCore import QPointF
+from PyQt6.QtWidgets import QGraphicsPixmapItem
+
+from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
 from src.utils.statistics.Statistics import all_update, debug_update
 
@@ -19,6 +27,7 @@ class Spider:
         self.u = 0.57
         self.agent = None
         self.sended_objects = []
+        self.energy_consumption = 0.01
         # random.uniform(0, 2 * math.pi)
         self.r = 70  # радиус обзора паука
         self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
@@ -36,9 +45,12 @@ class Spider:
         self.preys = ["Ant"]    # добыча пауков
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
-        self.spider_icon = pygame.image.load(MODULE_PATH / "icons/spider.png").convert_alpha()
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
+        path = str(os.path.abspath('assets/icons/spider.png'))
+        self.graphics_entity = GraphicsEntity(self.geo,
+                                              path,
+                                              self.u)
 
     def live(self, scene):
         """
@@ -202,19 +214,16 @@ class Spider:
                             self.my_ant = None  # нечто вроде прототипа ПВ-сетей между пауками, при выборе муравья,если они выбрали одну цель, то они вступают в что-то вроде конфликта,
                             self.chasing = False  # решая, чей профит будет выше => выше прибыль системы. Этот кусочек еще не тестировал, но его надо развивать.
 
-            try:
-                if distance < (
-                        self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
-                    self.my_ant.die(self.my_ant)
-                    logging.info(f'{self.my_ant} был убит {self}')
-                    all_update(f'{self.my_ant} был убит {self}')
-                    self.energy += self.my_ant.energy
-                    killed.append(self.my_ant.get_uri())
-                    self.scene.remove(self.my_ant)
-                    self.my_ant = None
-                    self.chasing = False  # муравей погибает и паук снова переходит в стадию поиска
-            except:
-                pass
+            if distance < (
+                    self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
+                self.my_ant.die(self.my_ant)
+                logging.info(f'{self.my_ant} был убит {self}')
+                all_update(f'{self.my_ant} был убит {self}')
+                self.energy += self.my_ant.energy
+                killed.append(self.my_ant.get_uri())
+                self.scene.remove(self.my_ant)
+                self.my_ant = None
+                self.chasing = False  # муравей погибает и паук снова переходит в стадию поиска
         
         self.energy -= 0.001
         if self.energy <= 0:
@@ -222,6 +231,7 @@ class Spider:
             logging.info(f'{self} умер')
             all_update(f'{self} умер')
             killed.append(self.get_uri())
+        self.run()
         return killed
 
     def get_energy(self, obj):  # возвращает энергию, полученную пауком.
@@ -238,9 +248,14 @@ class Spider:
         return scene1
 
     def die(self):
-            self.status = 'dead'
+        self.status = 'dead'
+        self.graphics_entity.delete_entity()
 
     def run(self):
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
+        # self.graphics_entity.u = math.degrees(self.u)
 
+    def render(self):
+        self.graphics_entity.setRotation(math.degrees(self.u))
+        self.graphics_entity.setPos(self.geo[0], self.geo[1])

@@ -1,15 +1,21 @@
 import datetime
 import math
+import os
 import random
 from os import makedirs
 
 import pygame
 import logging
 import importlib.resources
+
+from PyQt6.QtCore import QPointF
+
+from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
 from src.utils.statistics.Statistics import all_update, debug_update
 
 class Ant:
+
     def __init__(self, scene, anthill, id='0'):
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
@@ -25,7 +31,7 @@ class Ant:
         # Сопротивление пауку
         self.charachter = random.randint(0, 1)  # Характер. 0 - трусливый, 1 - доблестный
         self.u = random.uniform(0, 4 * math.pi)  # Случайный угол по x
-        self.speed = 6
+        self.speed = 8
         self.r = 70
         self.energy_consumption = 1/100
         self.attack = False
@@ -56,10 +62,12 @@ class Ant:
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.prey = None
-        self.ant_icon = (pygame.image.load(MODULE_PATH / "icons/ant.png").convert_alpha(),
-                         pygame.image.load(MODULE_PATH / "icons/big_ant.png").convert_alpha())
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
+        path = str(os.path.abspath('assets/icons/ant.png'))
+        self.graphics_entity = GraphicsEntity(self.geo,
+                                              path,
+                                              self.u)
 
     def live(self, scene):
         """
@@ -130,7 +138,7 @@ class Ant:
         for agent in agents:
             if self.get_distance(agent) < self.get_distance(nearest_agent):
                 nearest_agent = agent
-        return agent
+        return nearest_agent
 
     def die(self, ant):  # Смерть
         try:  # Через try/except, потому что иногда выскакивают ошибки
@@ -138,10 +146,10 @@ class Ant:
             self.scene.remove(ant)
             ant.status = 'dead'
         except:
-
             pass
         logging.info(f'{self} умер')
         all_update(f'{self} умер')
+        ant.graphics_entity.delete_entity()
 
     def move(self, scene):
         killed = []
@@ -194,7 +202,7 @@ class Ant:
         if self.energy <= 0:
             self.die(self)
             killed.append(self.get_uri())
-
+        self.run()
         return killed
 
     def choose_prey(self):
@@ -224,6 +232,9 @@ class Ant:
                        (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
 
     def set_u(self):
+        """
+        Задает угол поворота муравья, исходя из синуса и косинуса этого угла
+        """
         if math.acos(self.u_trig[1]) != math.asin(self.u_trig[0]):
             self.u = math.acos(self.u_trig[1])
         elif math.asin(self.u_trig[0]) > 2*math.pi:
@@ -231,7 +242,10 @@ class Ant:
         elif math.acos(self.u_trig[1]) < 0:
             self.u = math.acos(self.u_trig[1])
 
-    def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
+    def get_distance(self, obj):
+        """
+        Возвращает информацию о расстоянии до объекта при помощи теоремы Пифагора
+        """
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
 
     def accept_message(self, param, obj):  # Функция принятия сообщения. 0 - принятия просьбы о помощи
@@ -279,10 +293,14 @@ class Ant:
             else:
                 if (abs(obj.geo[0] - self.geo[0]) <= self.r) and (abs(obj.geo[1] - self.geo[1]) <= self.r):
                     scene1.add(obj)
-
         return scene1
 
     def run(self):
         # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
+        # self.graphics_entity.u = math.degrees(self.u)
+
+    def render(self):
+        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
+        self.graphics_entity.setRotation(math.degrees(self.u))

@@ -49,6 +49,8 @@ class Scene:
             for entity in self.entities.get(key):
                 if entity.get_uri() == uri:
                     self.entities.get(key).remove(entity)
+                    if entity.name != "Group":
+                        entity.graph_entity.delete_entity()
                     return True
         return False
 

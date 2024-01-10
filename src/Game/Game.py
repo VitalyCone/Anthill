@@ -1,13 +1,15 @@
 """Модуль игры"""
+from copy import copy
+
 import pygame
 import time
 import matplotlib.pyplot as plt
 import random
 import importlib.resources
 from src.scene.Scene import Scene
-from src.utils.Export.Export import export_in_excel,data_in_game
+from src.utils.Export.Export import export_in_excel
 from src.utils.statistics.Statistics import DataStatistics
-
+from abc import ABC, abstractmethod
 
 class Game:
 
@@ -94,8 +96,7 @@ class Game:
     def show_graphics(self, pos, y_name, x_name='Номер тика'):
         self.already_shown = True
         data = DataStatistics.data
-        data_in_game(data,y_name,x_name)
-
+        # data_in_game(data, y_name, x_name)
         self.display.blit(pygame.transform.scale(pygame.image.load(f"plot.png"),(500,500)).convert_alpha(),pos)
 
     def show_mas_graphic(self):
@@ -431,7 +432,7 @@ class Game:
                         self.graphics_isopen = False
                         self.download_bot = False
             else:
-                self.display.blit(graphics,(self.display.get_width()/2-round((8*19.95)/4),125))
+                self.display.blit(graphics, (self.display.get_width()/2-round((8*19.95)/4),125))
 
             #Кнопка exit
             exit_from_game = pygame.font.SysFont('broadway', 15).render("exit", True, 'Black')

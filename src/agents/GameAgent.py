@@ -27,8 +27,9 @@ class GameAgent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'Получен запрос на рендеринг игры')
-        all_update(f'Получен запрос на рендеринг игры')
+        # logging.info(f'Получен запрос на рендеринг игры')
+        # all_update(f'Получен запрос на рендеринг игры')
+        # FIXME: Записывать ли логи об обработке игры?
         pause = self.entity.render_game()
         if self.entity.pause or self.entity.pause_agents:
             pause = True
