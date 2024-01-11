@@ -47,7 +47,7 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('assets/icons/spider.png'))
+        path = str(os.path.abspath('../../assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
