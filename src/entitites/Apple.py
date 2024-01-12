@@ -1,11 +1,10 @@
 import os
 import random
-import pygame
 import math
 import logging
 import importlib.resources
 
-from PyQt6.QtCore import QPointF
+from PySide6.QtCore import QPointF
 
 from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.InertiaState import InertiaState
@@ -58,7 +57,7 @@ class Apple:
         self.energy = self.weight
         self.speed = 0
         self.inertiaState = InertiaState(self)
-        path = str(os.path.abspath('../../assets/icons/apple.png'))
+        path = str(os.path.abspath('assets/icons/apple.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

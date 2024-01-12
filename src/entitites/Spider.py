@@ -3,12 +3,11 @@ import random
 import math
 from copy import copy
 
-import pygame
 import logging
 import importlib.resources
 
-from PyQt6.QtCore import QPointF
-from PyQt6.QtWidgets import QGraphicsPixmapItem
+from PySide6.QtCore import QPointF
+from PySide6.QtWidgets import QGraphicsPixmapItem
 
 from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
@@ -47,7 +46,7 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/spider.png'))
+        path = str(os.path.abspath('assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

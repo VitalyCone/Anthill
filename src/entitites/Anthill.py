@@ -3,8 +3,7 @@ import importlib.resources
 import math
 import os
 
-import pygame
-from PyQt6.QtCore import QPointF
+from PySide6.QtCore import QPointF
 
 from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SpawnState import SpawnState
@@ -53,7 +52,7 @@ class Anthill:
         # print(f'center={self.rect.center}')
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/anthill.png'))
+        path = str(os.path.abspath('assets/icons/anthill.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

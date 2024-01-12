@@ -1,9 +1,4 @@
-import multiprocessing
-from copy import copy
-import time
-
-from src.UI.main_window import MainWindow
-from PyQt6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication
 import logging
 
 from src.agents.AgentDispatcher import AgentDispatcher
@@ -13,6 +8,7 @@ from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
 from src.scene.Scene import Scene
 from src.utils.statistics.Statistics import Denotations, count_id
+from src.UI.forms.MainForm import MainForm
 
 from threading import Thread
 
@@ -52,13 +48,11 @@ def add_agents_to_system():
         Denotations.uris['spider'].append(spider.uri)
         agent_dispatcher.add_entity(spider)
 
-
 def qt_thread():
     app = QApplication(sys.argv)
 
-    window = MainWindow(app, agent_dispatcher, scene)
-    agent_dispatcher.window = window
-    window.show()
+    form = MainForm(app, agent_dispatcher, scene)
+    agent_dispatcher.window = form
     app.exec()
 
 

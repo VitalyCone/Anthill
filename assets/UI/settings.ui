@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1069</width>
+    <height>886</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="spiders_settings">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+  align-items: center;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 100px;
+  justify-content: center;
+  line-height: 300px;
+  max-width: 300%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+QPushButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: &quot;&quot;;
+  display: block;
+  height:100px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+QPushButton:hover:after {
+  transform: translate(0, 0);
+}
+
+QPushButton:active {
+  background-color: #c2fab1;
+  outline: 0;
+}
+
+QPushButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  QPushButton {
+    padding: 0 40px;
+  }
+}</string>
+        </property>
+        <property name="text">
+         <string>Spiders' Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="ants_settins">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+  align-items: center;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 100px;
+  justify-content: center;
+  line-height: 300px;
+  max-width: 300%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+QPushButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: &quot;&quot;;
+  display: block;
+  height:100px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+QPushButton:hover:after {
+  transform: translate(0, 0);
+}
+
+QPushButton:active {
+  background-color: #c2fab1;
+  outline: 0;
+}
+
+QPushButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  QPushButton {
+    padding: 0 40px;
+  }
+}</string>
+        </property>
+        <property name="text">
+         <string>Ants' Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="system_settings">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+  align-items: center;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 100px;
+  justify-content: center;
+  line-height: 300px;
+  max-width: 300%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+QPushButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: &quot;&quot;;
+  display: block;
+  height:100px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+QPushButton:hover:after {
+  transform: translate(0, 0);
+}
+
+QPushButton:active {
+  background-color: #c2fab1;
+  outline: 0;
+}
+
+QPushButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  QPushButton {
+    padding: 0 40px;
+  }
+}</string>
+        </property>
+        <property name="text">
+         <string>System Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="return_button_settings">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+  align-items: center;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 100px;
+  justify-content: center;
+  line-height: 300px;
+  max-width: 300%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+QPushButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: &quot;&quot;;
+  display: block;
+  height:100px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+QPushButton:hover:after {
+  transform: translate(0, 0);
+}
+
+QPushButton:active {
+  background-color: #c2fab1;
+  outline: 0;
+}
+
+QPushButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  QPushButton {
+    padding: 0 40px;
+  }
+}</string>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

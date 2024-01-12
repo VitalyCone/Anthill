@@ -1,8 +1,8 @@
 from copy import copy
 
-from PyQt6.QtCore import QPointF, QRectF, QRect
-from PyQt6.QtGui import QPainter, QImage, QPen, QColor
-from PyQt6.QtWidgets import QGraphicsItem, QWidget, QStyleOptionGraphicsItem
+from PySide6.QtCore import QPointF, QRectF, QRect
+from PySide6.QtGui import QPainter, QImage, QPen, QColor
+from PySide6.QtWidgets import QGraphicsItem, QWidget, QStyleOptionGraphicsItem
 from math import degrees
 
 
@@ -20,13 +20,27 @@ class GraphicsEntity(QGraphicsItem):
         self.graph_scene = None
 
     def paint(self, painter: QPainter, option: QStyleOptionGraphicsItem, widget: QWidget = None):
+        """
+        Oтрисовывает графический объект и задает ему направление поворота и позицию на графической сцене
+        :param painter:
+        :param option:
+        :param widget:
+        :return:
+        """
         painter.drawImage(self.boundingRect(), self.sprite)
         self.setPos(self.geo[0], self.geo[1])
-        self.setRotation(self.u)
+        # self.setRotation(self.u)
         self.update()
 
     def delete_entity(self):
+        """
+        Удаляет графическую сущность. Вызывается при удалении агента
+        """
         self.graph_scene.removeItem(self)
 
     def boundingRect(self):
+        """
+        Возвращает размер отрисовываемого графического объекта
+        """
+        # FIXME: Предоставить каждому виду сущностей свой размер(изменяемый)
         return QRectF(0, 0, 20, 20)

@@ -4,11 +4,10 @@ import os
 import random
 from os import makedirs
 
-import pygame
 import logging
 import importlib.resources
 
-from PyQt6.QtCore import QPointF
+from PySide6.QtCore import QPointF
 
 from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
@@ -64,7 +63,7 @@ class Ant:
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/ant.png'))
+        path = str(os.path.abspath('assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

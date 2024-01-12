@@ -3,7 +3,7 @@ import logging
 
 from src.agents.BaseAgent import AgentBase
 
-from src.Game.Game import Game
+# from src.Game.Game import Game
 from src.utils.Messages.Messages import MessageType
 from src.utils.statistics.Statistics import all_update
 
@@ -14,7 +14,7 @@ class GameAgent(AgentBase):
     """
     def __init__(self):
         super().__init__()
-        self.entity: Game
+        # self.entity: Game
         self.name = 'Агент игры'
         self.subscribe(MessageType.GAME_RENDERING_REQUEST, self.handle_game_rendering_request)
         # TODO: определить ответ на сообщение о запросе рендеринга игры
