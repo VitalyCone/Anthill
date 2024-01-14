@@ -12,6 +12,7 @@ class StartGameDialog(QDialog, Ui_GameStartDialog):
     def __init__(self, dispatcher: AgentDispatcher, scene: Scene,
                  anthill_num: int, apples_num: int, spdr_num: int, ants_num: int):
         super().__init__()
+        self.show_model = False
 
         self.planner = Planner(dispatcher, scene, anthill_num, apples_num, spdr_num, ants_num)
 
@@ -36,4 +37,4 @@ class StartGameDialog(QDialog, Ui_GameStartDialog):
                                     int(self.spiders_num_input.text()),
                                     int(self.ants_num_input.text()))
         self.planner.start_system()
-        AgentDispatcher.PAUSE = not AgentDispatcher.PAUSE
+        self.show_model = True

@@ -72,9 +72,26 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                                               1, self.start_apples_num,
                                               self.start_spiders_num,
                                               self.start_ants_num)
+            self.start_apples_num = start_game_dialog.planner.apples_num
+            self.start_spiders_num = start_game_dialog.planner.spdr_num
+            self.start_ants_num = start_game_dialog.planner.ants_num
 
-        if not AgentDispatcher.PAUSE:
-            AgentDispatcher.PAUSE = True
+            if start_game_dialog.show_model:
+                self.setupGameUi(self)
+                self.return_button_game.clicked.connect(self.show_menu)
+                self.pause_button.clicked.connect(self.set_on_pause)
+
+                board = QGraphicsView()
+                board.setScene(scene)
+                board.setBackgroundBrush(QColor("#c2fab1"))
+                layout = QVBoxLayout()
+                layout.addWidget(board)
+                self.graph_scene_widget.setLayout(layout)
+
+                self.rend()
+
+                AgentDispatcher.PAUSE = False
+        else:
             self.setupGameUi(self)
             self.return_button_game.clicked.connect(self.show_menu)
             self.pause_button.clicked.connect(self.set_on_pause)
@@ -145,6 +162,15 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
 
         self.show()
 
+    def set_start_ants_num(self, num):
+        self.start_ants_num = num
+
+    def set_start_spiders_num(self, num):
+        self.start_spiders_num = num
+
+    def set_start_apples_num(self, num):
+        self.start_apples_num = num
+
     def show_system_settings(self):
         """
         Создает макет настроек системы.
@@ -157,6 +183,18 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                                                       self.change_apple_gap(self.apples_gap_input_line.text()))
 
         self.return_button_system_settings.clicked.connect(self.show_settings)
+        self.start_ants_num_submit_button.clicked.connect(lambda:
+                                                          self.set_start_ants_num(
+                                                              int(self.start_ants_num_input_line.text())))
+        self.current_start_ants_num.setText("Current: " + str(self.start_ants_num))
+        self.start_spiders_num_submit_button.clicked.connect(lambda:
+                                                          self.set_start_spiders_num(
+                                                              int(self.start_spiders_num_input_line.text())))
+        self.current_start_spiders_num.setText("Current: " + str(self.start_spiders_num))
+        self.start_apples_num_submit_button.clicked.connect(lambda:
+                                                          self.set_start_apples_num(
+                                                              int(self.start_apples_num_input_line.text())))
+        self.current_start_apples_num.setText("Current: " + str(self.start_apples_num))
 
         self.show()
 
