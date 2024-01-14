@@ -11,14 +11,12 @@ from src.states.GrowthState import GrowthState
 from src.utils.statistics.Statistics import all_update, debug_update
 
 class Anthill:
-    def __init__(self, input_apple_hp, input_ant, del_ants, id='0'):
+    def __init__(self, del_ants, id='0'):
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
-        self.input_apple_hp = input_apple_hp
         self.status = 'alive'
         self.uri = self.name + str(id)
         self.r = 500
-        self.input_ant = input_ant
         self.agent = None
         self.ants = del_ants
         self.energy = 50
@@ -75,7 +73,8 @@ class Anthill:
         return self.uri
 
     def body(self):
-        return pygame.transform.scale(self.anthill_icon,(self.height,self.long))
+        pass
+        # return pygame.transform.scale(self.anthill_icon,(self.height,self.long))
         # moving = self.moving
         # self.geo[0] = self.rect[0]
         # self.geo[1] = self.rect[1]

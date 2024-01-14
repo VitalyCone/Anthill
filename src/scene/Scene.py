@@ -18,7 +18,13 @@ class Scene:
         :param entity_type:
         :return:
         """
-        return self.entities.get(entity_type, [])
+        if self.entities.get(entity_type):
+            return self.entities.get(entity_type, [])
+        else:
+            return []
+
+    def remove_all_entities(self):
+        self.entities.clear()
 
     def get_entity_by_uri(self, uri):
         """

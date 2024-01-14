@@ -27,6 +27,11 @@ class Denotations:
         'group': []
     }
 
+def null_uris(self):
+    """
+    Обнуляет словарь с занятыми ссылками
+    """
+    Denotations.uris.clear()
 
 def count_id(entity_class):
     """
@@ -102,20 +107,30 @@ class StatisticsAlfa:
         i = ['Ant', 'Anthill', 'Spider']
         for agent in i:
             energy = 0
-            for g in self.scene.get_entities_by_type(agent):
-                energy += g.energy
+            entities = self.scene.get_entities_by_type(agent)
+            if entities:
+                for g in entities:
+                    energy += g.energy
+            else:
+                energy = 0
             if agent == 'Ant':
-                try:
-                    self.a.append(energy / len(self.scene.get_entities_by_type(agent)))
-                except ZeroDivisionError:
-                    self.c.append(0)
-                self.b.append(energy)
+                if energy == 0:
+                    self.a.append(0)
+                else:
+                    try:
+                        self.a.append(energy / len(entities))
+                    except ZeroDivisionError:
+                        self.a.append(0)
+                    self.b.append(energy)
             elif agent == 'Spider':
-                try:
-                    self.c.append(energy / len(self.scene.get_entities_by_type(agent)))
-                except ZeroDivisionError:
-                    self.c.append(0)
-                self.d.append(energy)
+                if energy == 0:
+                    self.a.append(0)
+                else:
+                    try:
+                        self.c.append(energy / len(entities))
+                    except ZeroDivisionError or TypeError:
+                        self.c.append(0)
+                    self.d.append(energy)
             elif agent == 'Anthill':
                 self.e.append(energy)
         self.teak.append(len(self.teak))

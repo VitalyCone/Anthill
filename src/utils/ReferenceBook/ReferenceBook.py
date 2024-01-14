@@ -2,10 +2,14 @@
 import logging
 from src.utils.statistics.Statistics import all_update, debug_update
 
+
 class ReferenceBook:
     """Адресная книга агентов с привязкой к сущностям"""
     def __init__(self):
         self.agents_entities = {}
+
+    def clear_reference_book(self):
+        self.agents_entities.clear()
 
     def add_agent(self, entity, agent_address):
         """

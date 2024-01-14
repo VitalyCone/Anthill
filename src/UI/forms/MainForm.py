@@ -4,6 +4,7 @@ from copy import copy
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QMainWindow, QApplication, QGraphicsScene, QGraphicsView, QVBoxLayout, QLabel
 
+from src.UI.forms.StartGameDialog import StartGameDialog
 from src.UI.windows.ui_agent_settings_window import Ui_AgentSettingsWindow
 from src.UI.windows.ui_game_window import Ui_GameWindow
 from src.UI.windows.ui_graphs_window import Ui_GraphsWindow
@@ -30,6 +31,10 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.dispatcher = dispatcher
         self.scene = scene
         self.show_menu()
+
+        self.start_ants_num = 0
+        self.start_spiders_num = 0
+        self.start_apples_num = 0
 
         """
         #F0F0F0
@@ -60,21 +65,30 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         """
         Создает макет самой игры
         """
-        self.setupGameUi(self)
-        self.return_button_game.clicked.connect(self.show_menu)
-        self.pause_button.clicked.connect(self.set_on_pause)
-
         scene = QGraphicsScene()
         self.graph_scene = scene
-        board = QGraphicsView()
-        board.setScene(scene)
-        board.setBackgroundBrush(QColor("#c2fab1"))
-        layout = QVBoxLayout()
-        layout.addWidget(board)
-        self.graph_scene_widget.setLayout(layout)
+        if len(self.scene.entities) == 0:
+            start_game_dialog = StartGameDialog(self.dispatcher, self.scene,
+                                              1, self.start_apples_num,
+                                              self.start_spiders_num,
+                                              self.start_ants_num)
 
-        self.rend()
-        AgentDispatcher.PAUSE = not AgentDispatcher.PAUSE
+        if not AgentDispatcher.PAUSE:
+            AgentDispatcher.PAUSE = True
+            self.setupGameUi(self)
+            self.return_button_game.clicked.connect(self.show_menu)
+            self.pause_button.clicked.connect(self.set_on_pause)
+
+            board = QGraphicsView()
+            board.setScene(scene)
+            board.setBackgroundBrush(QColor("#c2fab1"))
+            layout = QVBoxLayout()
+            layout.addWidget(board)
+            self.graph_scene_widget.setLayout(layout)
+
+            self.rend()
+
+            AgentDispatcher.PAUSE = False
 
     def change_radius(self, r, entity_type):
         """
