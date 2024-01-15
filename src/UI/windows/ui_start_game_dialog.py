@@ -178,14 +178,14 @@ class Ui_GameStartDialog(object):
         self.verticalLayout_2.addWidget(self.buttonBox)
 
 
-        self.retranslateUi(GameStartDialog)
+        self.retranslateStartGameUi(GameStartDialog)
         self.buttonBox.accepted.connect(GameStartDialog.accept)
         self.buttonBox.rejected.connect(GameStartDialog.reject)
 
         QMetaObject.connectSlotsByName(GameStartDialog)
     # setupUi
 
-    def retranslateUi(self, GameStartDialog):
+    def retranslateStartGameUi(self, GameStartDialog):
         GameStartDialog.setWindowTitle(QCoreApplication.translate("GameStartDialog", u"Dialog", None))
         self.label.setText(QCoreApplication.translate("GameStartDialog", u"Starting number of ants", None))
         self.label_2.setText(QCoreApplication.translate("GameStartDialog", u"Starting number of spiders", None))

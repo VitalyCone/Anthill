@@ -15,22 +15,179 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QLayout, QLineEdit, QMainWindow,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QLayout, QLineEdit, QMainWindow, QPushButton,
+    QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_SystemSettingsWindow(object):
-    def setupSystemSettingsUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        self.centralwidget = QWidget(MainWindow)
+    def setupSystemSettingsUi(self, SystemSettingsWindow):
+        if not SystemSettingsWindow.objectName():
+            SystemSettingsWindow.setObjectName(u"SystemSettingsWindow")
+        SystemSettingsWindow.resize(1653, 1097)
+        self.centralwidget = QWidget(SystemSettingsWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.widget = QWidget(self.centralwidget)
+        self.widget.setObjectName(u"widget")
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy)
+        self.verticalLayout_2 = QVBoxLayout(self.widget)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.start_ants_num_label = QLabel(self.widget)
+        self.start_ants_num_label.setObjectName(u"start_ants_num_label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.start_ants_num_label.sizePolicy().hasHeightForWidth())
+        self.start_ants_num_label.setSizePolicy(sizePolicy1)
+        self.start_ants_num_label.setStyleSheet(u"QLabel{\n"
+"  font-family: Inter,sans-serif;\n"
+"  font-size: 24px;\n"
+"  align-items: center;\n"
+"  border: 2px solid #111;\n"
+"  border-radius: 8px;\n"
+"}")
+
+        self.horizontalLayout_3.addWidget(self.start_ants_num_label)
+
+        self.start_ants_num_input_line = QLineEdit(self.widget)
+        self.start_ants_num_input_line.setObjectName(u"start_ants_num_input_line")
+        sizePolicy1.setHeightForWidth(self.start_ants_num_input_line.sizePolicy().hasHeightForWidth())
+        self.start_ants_num_input_line.setSizePolicy(sizePolicy1)
+
+        self.horizontalLayout_3.addWidget(self.start_ants_num_input_line)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_3, 2, 0, 1, 1)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.label_apple_gap = QLabel(self.widget)
+        self.label_apple_gap.setObjectName(u"label_apple_gap")
+        sizePolicy1.setHeightForWidth(self.label_apple_gap.sizePolicy().hasHeightForWidth())
+        self.label_apple_gap.setSizePolicy(sizePolicy1)
+        self.label_apple_gap.setStyleSheet(u"QLabel{\n"
+"  font-family: Inter,sans-serif;\n"
+"  font-size: 24px;\n"
+"  align-items: center;\n"
+"  border: 2px solid #111;\n"
+"  border-radius: 8px;\n"
+"}\n"
+"")
+
+        self.horizontalLayout_2.addWidget(self.label_apple_gap)
+
+        self.apples_gap_input_line = QLineEdit(self.widget)
+        self.apples_gap_input_line.setObjectName(u"apples_gap_input_line")
+        sizePolicy1.setHeightForWidth(self.apples_gap_input_line.sizePolicy().hasHeightForWidth())
+        self.apples_gap_input_line.setSizePolicy(sizePolicy1)
+        self.apples_gap_input_line.setStyleSheet(u"")
+
+        self.horizontalLayout_2.addWidget(self.apples_gap_input_line)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.spider_gap_label = QLabel(self.widget)
+        self.spider_gap_label.setObjectName(u"spider_gap_label")
+        sizePolicy1.setHeightForWidth(self.spider_gap_label.sizePolicy().hasHeightForWidth())
+        self.spider_gap_label.setSizePolicy(sizePolicy1)
+        self.spider_gap_label.setStyleSheet(u"QLabel{\n"
+"  font-family: Inter,sans-serif;\n"
+"  font-size: 24px;\n"
+"  align-items: center;\n"
+"  border: 2px solid #111;\n"
+"  border-radius: 8px;\n"
+"}")
+
+        self.horizontalLayout.addWidget(self.spider_gap_label)
+
+        self.spider_gap_input_line = QLineEdit(self.widget)
+        self.spider_gap_input_line.setObjectName(u"spider_gap_input_line")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.spider_gap_input_line.sizePolicy().hasHeightForWidth())
+        self.spider_gap_input_line.setSizePolicy(sizePolicy2)
+
+        self.horizontalLayout.addWidget(self.spider_gap_input_line)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.starts_spiders_num_label = QLabel(self.widget)
+        self.starts_spiders_num_label.setObjectName(u"starts_spiders_num_label")
+        sizePolicy1.setHeightForWidth(self.starts_spiders_num_label.sizePolicy().hasHeightForWidth())
+        self.starts_spiders_num_label.setSizePolicy(sizePolicy1)
+        self.starts_spiders_num_label.setStyleSheet(u"QLabel{\n"
+"  font-family: Inter,sans-serif;\n"
+"  font-size: 24px;\n"
+"  align-items: center;\n"
+"  border: 2px solid #111;\n"
+"  border-radius: 8px;\n"
+"}")
+
+        self.horizontalLayout_4.addWidget(self.starts_spiders_num_label)
+
+        self.start_spiders_num_input_line = QLineEdit(self.widget)
+        self.start_spiders_num_input_line.setObjectName(u"start_spiders_num_input_line")
+        sizePolicy1.setHeightForWidth(self.start_spiders_num_input_line.sizePolicy().hasHeightForWidth())
+        self.start_spiders_num_input_line.setSizePolicy(sizePolicy1)
+
+        self.horizontalLayout_4.addWidget(self.start_spiders_num_input_line)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_4, 3, 0, 1, 1)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.starts_apples_num_label = QLabel(self.widget)
+        self.starts_apples_num_label.setObjectName(u"starts_apples_num_label")
+        sizePolicy1.setHeightForWidth(self.starts_apples_num_label.sizePolicy().hasHeightForWidth())
+        self.starts_apples_num_label.setSizePolicy(sizePolicy1)
+        self.starts_apples_num_label.setStyleSheet(u"QLabel{\n"
+"  font-family: Inter,sans-serif;\n"
+"  font-size: 24px;\n"
+"  align-items: center;\n"
+"  border: 2px solid #111;\n"
+"  border-radius: 8px;\n"
+"}")
+
+        self.horizontalLayout_5.addWidget(self.starts_apples_num_label)
+
+        self.start_apples_num_input_line = QLineEdit(self.widget)
+        self.start_apples_num_input_line.setObjectName(u"start_apples_num_input_line")
+        sizePolicy1.setHeightForWidth(self.start_apples_num_input_line.sizePolicy().hasHeightForWidth())
+        self.start_apples_num_input_line.setSizePolicy(sizePolicy1)
+
+        self.horizontalLayout_5.addWidget(self.start_apples_num_input_line)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_5, 4, 0, 1, 1)
+
+
+        self.verticalLayout_2.addLayout(self.gridLayout)
+
+
+        self.verticalLayout.addWidget(self.widget)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.return_button_system_settings = QPushButton(self.centralwidget)
-        self.return_button_system_settings.setObjectName(u"return_button_agent_settings")
+        self.return_button_system_settings.setObjectName(u"return_button_system_settings")
         self.return_button_system_settings.setMaximumSize(QSize(16777215, 40))
         self.return_button_system_settings.setStyleSheet(u"QPushButton {\n"
 "  align-items: center;\n"
@@ -89,40 +246,13 @@ class Ui_SystemSettingsWindow(object):
 "  }\n"
 "}")
 
-        self.gridLayout.addWidget(self.return_button_system_settings, 5, 0, 1, 1)
+        self.horizontalLayout_6.addWidget(self.return_button_system_settings)
 
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.start_ants_num_label = QLabel(self.centralwidget)
-        self.start_ants_num_label.setObjectName(u"start_ants_num_label")
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.start_ants_num_label.sizePolicy().hasHeightForWidth())
-        self.start_ants_num_label.setSizePolicy(sizePolicy)
-        self.start_ants_num_label.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout_3.addWidget(self.start_ants_num_label)
-
-        self.start_ants_num_input_line = QLineEdit(self.centralwidget)
-        self.start_ants_num_input_line.setObjectName(u"start_ants_num_input_line")
-        sizePolicy.setHeightForWidth(self.start_ants_num_input_line.sizePolicy().hasHeightForWidth())
-        self.start_ants_num_input_line.setSizePolicy(sizePolicy)
-
-        self.horizontalLayout_3.addWidget(self.start_ants_num_input_line)
-
-        self.start_ants_num_submit_button = QPushButton(self.centralwidget)
-        self.start_ants_num_submit_button.setObjectName(u"start_ants_num_submit_button")
-        sizePolicy.setHeightForWidth(self.start_ants_num_submit_button.sizePolicy().hasHeightForWidth())
-        self.start_ants_num_submit_button.setSizePolicy(sizePolicy)
-        self.start_ants_num_submit_button.setMaximumSize(QSize(16777215, 40))
-        self.start_ants_num_submit_button.setStyleSheet(u"QPushButton {\n"
+        self.submit_editing_system_settings = QPushButton(self.centralwidget)
+        self.submit_editing_system_settings.setObjectName(u"submit_editing_system_settings")
+        self.submit_editing_system_settings.setMinimumSize(QSize(0, 40))
+        self.submit_editing_system_settings.setMaximumSize(QSize(16777215, 40))
+        self.submit_editing_system_settings.setStyleSheet(u"QPushButton {\n"
 "  align-items: center;\n"
 "  background-color: #c2fab1;\n"
 "  border: 2px solid #111;\n"
@@ -179,476 +309,26 @@ class Ui_SystemSettingsWindow(object):
 "  }\n"
 "}")
 
-        self.horizontalLayout_3.addWidget(self.start_ants_num_submit_button)
-
-        self.current_start_ants_num = QLabel(self.centralwidget)
-        self.current_start_ants_num.setObjectName(u"current_start_ants_num")
-        sizePolicy.setHeightForWidth(self.current_start_ants_num.sizePolicy().hasHeightForWidth())
-        self.current_start_ants_num.setSizePolicy(sizePolicy)
-        self.current_start_ants_num.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout_3.addWidget(self.current_start_ants_num)
+        self.horizontalLayout_6.addWidget(self.submit_editing_system_settings)
 
 
-        self.gridLayout.addLayout(self.horizontalLayout_3, 2, 0, 1, 1)
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
 
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.label_apple_gap = QLabel(self.centralwidget)
-        self.label_apple_gap.setObjectName(u"label_apple_gap")
-        sizePolicy.setHeightForWidth(self.label_apple_gap.sizePolicy().hasHeightForWidth())
-        self.label_apple_gap.setSizePolicy(sizePolicy)
-        self.label_apple_gap.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}\n"
-"")
+        SystemSettingsWindow.setCentralWidget(self.centralwidget)
 
-        self.horizontalLayout_2.addWidget(self.label_apple_gap)
+        self.retranslateSystemSettingsUi(SystemSettingsWindow)
 
-        self.apples_gap_input_line = QLineEdit(self.centralwidget)
-        self.apples_gap_input_line.setObjectName(u"apples_gap_input_line")
-        sizePolicy.setHeightForWidth(self.apples_gap_input_line.sizePolicy().hasHeightForWidth())
-        self.apples_gap_input_line.setSizePolicy(sizePolicy)
-        self.apples_gap_input_line.setStyleSheet(u"")
-
-        self.horizontalLayout_2.addWidget(self.apples_gap_input_line)
-
-        self.apples_gap_submit_button = QPushButton(self.centralwidget)
-        self.apples_gap_submit_button.setObjectName(u"apples_gap_submit_button")
-        sizePolicy.setHeightForWidth(self.apples_gap_submit_button.sizePolicy().hasHeightForWidth())
-        self.apples_gap_submit_button.setSizePolicy(sizePolicy)
-        self.apples_gap_submit_button.setMaximumSize(QSize(16777215, 40))
-        self.apples_gap_submit_button.setStyleSheet(u"QPushButton {\n"
-"  align-items: center;\n"
-"  background-color: #c2fab1;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"  box-sizing: border-box;\n"
-"  color: #111;\n"
-"  cursor: pointer;\n"
-"  display: flex;\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 16px;\n"
-"  height: 100px;\n"
-"  justify-content: center;\n"
-"  padding: 0 25px;\n"
-"  position: relative;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  user-select: none;\n"
-"  -webkit-user-select: none;\n"
-"  touch-action: manipulation;\n"
-"}\n"
-"\n"
-"QPushButton:after {\n"
-"  background-color: #111;\n"
-"  border-radius: 8px;\n"
-"  content: \"\";\n"
-"  display: block;\n"
-"  height:100px;\n"
-"  left: 0;\n"
-"  width: 100%;\n"
-"  position: absolute;\n"
-"  top: -2px;\n"
-"  transform: translate(8px, 8px);\n"
-"  transition: transform .2s ease-out;\n"
-"  z-index: -1;\n"
-"}\n"
-"\n"
-"QPushButton:hover:after {\n"
-"  transform: translate(0, 0);\n"
-"}\n"
-"\n"
-"QPushButton:active {\n"
-"  background-color: #c2fab1;\n"
-"  outline: 0;\n"
-""
-                        "}\n"
-"\n"
-"QPushButton:hover {\n"
-"  outline: 0;\n"
-"}\n"
-"\n"
-"@media (min-width: 768px) {\n"
-"  QPushButton {\n"
-"    padding: 0 40px;\n"
-"  }\n"
-"}")
-
-        self.horizontalLayout_2.addWidget(self.apples_gap_submit_button)
-
-        self.current_apples_gap = QLabel(self.centralwidget)
-        self.current_apples_gap.setObjectName(u"current_apples_gap")
-        sizePolicy.setHeightForWidth(self.current_apples_gap.sizePolicy().hasHeightForWidth())
-        self.current_apples_gap.setSizePolicy(sizePolicy)
-        self.current_apples_gap.setLayoutDirection(Qt.LeftToRight)
-        self.current_apples_gap.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-        self.current_apples_gap.setFrameShape(QFrame.NoFrame)
-
-        self.horizontalLayout_2.addWidget(self.current_apples_gap)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.spider_gap_label = QLabel(self.centralwidget)
-        self.spider_gap_label.setObjectName(u"spider_gap_label")
-        sizePolicy.setHeightForWidth(self.spider_gap_label.sizePolicy().hasHeightForWidth())
-        self.spider_gap_label.setSizePolicy(sizePolicy)
-        self.spider_gap_label.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout.addWidget(self.spider_gap_label)
-
-        self.spider_gap_input_line = QLineEdit(self.centralwidget)
-        self.spider_gap_input_line.setObjectName(u"spider_gap_input_line")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.spider_gap_input_line.sizePolicy().hasHeightForWidth())
-        self.spider_gap_input_line.setSizePolicy(sizePolicy1)
-
-        self.horizontalLayout.addWidget(self.spider_gap_input_line)
-
-        self.spiders_gap_submit_button = QPushButton(self.centralwidget)
-        self.spiders_gap_submit_button.setObjectName(u"spiders_gap_submit_button")
-        sizePolicy.setHeightForWidth(self.spiders_gap_submit_button.sizePolicy().hasHeightForWidth())
-        self.spiders_gap_submit_button.setSizePolicy(sizePolicy)
-        self.spiders_gap_submit_button.setMaximumSize(QSize(16777215, 40))
-        self.spiders_gap_submit_button.setStyleSheet(u"QPushButton {\n"
-"  align-items: center;\n"
-"  background-color: #c2fab1;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"  box-sizing: border-box;\n"
-"  color: #111;\n"
-"  cursor: pointer;\n"
-"  display: flex;\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 16px;\n"
-"  height: 100px;\n"
-"  justify-content: center;\n"
-"  padding: 0 25px;\n"
-"  position: relative;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  user-select: none;\n"
-"  -webkit-user-select: none;\n"
-"  touch-action: manipulation;\n"
-"}\n"
-"\n"
-"QPushButton:after {\n"
-"  background-color: #111;\n"
-"  border-radius: 8px;\n"
-"  content: \"\";\n"
-"  display: block;\n"
-"  height:100px;\n"
-"  left: 0;\n"
-"  width: 100%;\n"
-"  position: absolute;\n"
-"  top: -2px;\n"
-"  transform: translate(8px, 8px);\n"
-"  transition: transform .2s ease-out;\n"
-"  z-index: -1;\n"
-"}\n"
-"\n"
-"QPushButton:hover:after {\n"
-"  transform: translate(0, 0);\n"
-"}\n"
-"\n"
-"QPushButton:active {\n"
-"  background-color: #c2fab1;\n"
-"  outline: 0;\n"
-""
-                        "}\n"
-"\n"
-"QPushButton:hover {\n"
-"  outline: 0;\n"
-"}\n"
-"\n"
-"@media (min-width: 768px) {\n"
-"  QPushButton {\n"
-"    padding: 0 40px;\n"
-"  }\n"
-"}")
-
-        self.horizontalLayout.addWidget(self.spiders_gap_submit_button)
-
-        self.current_spiders_gap = QLabel(self.centralwidget)
-        self.current_spiders_gap.setObjectName(u"current_spiders_gap")
-        sizePolicy.setHeightForWidth(self.current_spiders_gap.sizePolicy().hasHeightForWidth())
-        self.current_spiders_gap.setSizePolicy(sizePolicy)
-        self.current_spiders_gap.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout.addWidget(self.current_spiders_gap)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
-
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.starts_spiders_num_label = QLabel(self.centralwidget)
-        self.starts_spiders_num_label.setObjectName(u"starts_spiders_num_label")
-        sizePolicy.setHeightForWidth(self.starts_spiders_num_label.sizePolicy().hasHeightForWidth())
-        self.starts_spiders_num_label.setSizePolicy(sizePolicy)
-        self.starts_spiders_num_label.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout_4.addWidget(self.starts_spiders_num_label)
-
-        self.start_spiders_num_input_line = QLineEdit(self.centralwidget)
-        self.start_spiders_num_input_line.setObjectName(u"start_spiders_num_input_line")
-        sizePolicy.setHeightForWidth(self.start_spiders_num_input_line.sizePolicy().hasHeightForWidth())
-        self.start_spiders_num_input_line.setSizePolicy(sizePolicy)
-
-        self.horizontalLayout_4.addWidget(self.start_spiders_num_input_line)
-
-        self.start_spiders_num_submit_button = QPushButton(self.centralwidget)
-        self.start_spiders_num_submit_button.setObjectName(u"start_spiders_num_submit_button")
-        sizePolicy.setHeightForWidth(self.start_spiders_num_submit_button.sizePolicy().hasHeightForWidth())
-        self.start_spiders_num_submit_button.setSizePolicy(sizePolicy)
-        self.start_spiders_num_submit_button.setMaximumSize(QSize(16777215, 40))
-        self.start_spiders_num_submit_button.setStyleSheet(u"QPushButton {\n"
-"  align-items: center;\n"
-"  background-color: #c2fab1;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"  box-sizing: border-box;\n"
-"  color: #111;\n"
-"  cursor: pointer;\n"
-"  display: flex;\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 16px;\n"
-"  height: 100px;\n"
-"  justify-content: center;\n"
-"  padding: 0 25px;\n"
-"  position: relative;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  user-select: none;\n"
-"  -webkit-user-select: none;\n"
-"  touch-action: manipulation;\n"
-"}\n"
-"\n"
-"QPushButton:after {\n"
-"  background-color: #111;\n"
-"  border-radius: 8px;\n"
-"  content: \"\";\n"
-"  display: block;\n"
-"  height:100px;\n"
-"  left: 0;\n"
-"  width: 100%;\n"
-"  position: absolute;\n"
-"  top: -2px;\n"
-"  transform: translate(8px, 8px);\n"
-"  transition: transform .2s ease-out;\n"
-"  z-index: -1;\n"
-"}\n"
-"\n"
-"QPushButton:hover:after {\n"
-"  transform: translate(0, 0);\n"
-"}\n"
-"\n"
-"QPushButton:active {\n"
-"  background-color: #c2fab1;\n"
-"  outline: 0;\n"
-""
-                        "}\n"
-"\n"
-"QPushButton:hover {\n"
-"  outline: 0;\n"
-"}\n"
-"\n"
-"@media (min-width: 768px) {\n"
-"  QPushButton {\n"
-"    padding: 0 40px;\n"
-"  }\n"
-"}")
-
-        self.horizontalLayout_4.addWidget(self.start_spiders_num_submit_button)
-
-        self.current_start_spiders_num = QLabel(self.centralwidget)
-        self.current_start_spiders_num.setObjectName(u"current_start_spiders_num")
-        sizePolicy.setHeightForWidth(self.current_start_spiders_num.sizePolicy().hasHeightForWidth())
-        self.current_start_spiders_num.setSizePolicy(sizePolicy)
-        self.current_start_spiders_num.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout_4.addWidget(self.current_start_spiders_num)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout_4, 3, 0, 1, 1)
-
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.starts_apples_num_label = QLabel(self.centralwidget)
-        self.starts_apples_num_label.setObjectName(u"starts_apples_num_label")
-        sizePolicy.setHeightForWidth(self.starts_apples_num_label.sizePolicy().hasHeightForWidth())
-        self.starts_apples_num_label.setSizePolicy(sizePolicy)
-        self.starts_apples_num_label.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout_5.addWidget(self.starts_apples_num_label)
-
-        self.start_apples_num_input_line = QLineEdit(self.centralwidget)
-        self.start_apples_num_input_line.setObjectName(u"start_apples_num_input_line")
-        sizePolicy.setHeightForWidth(self.start_apples_num_input_line.sizePolicy().hasHeightForWidth())
-        self.start_apples_num_input_line.setSizePolicy(sizePolicy)
-
-        self.horizontalLayout_5.addWidget(self.start_apples_num_input_line)
-
-        self.start_apples_num_submit_button = QPushButton(self.centralwidget)
-        self.start_apples_num_submit_button.setObjectName(u"start_apples_num_submit_button")
-        sizePolicy.setHeightForWidth(self.start_apples_num_submit_button.sizePolicy().hasHeightForWidth())
-        self.start_apples_num_submit_button.setSizePolicy(sizePolicy)
-        self.start_apples_num_submit_button.setMaximumSize(QSize(16777215, 40))
-        self.start_apples_num_submit_button.setStyleSheet(u"QPushButton {\n"
-"  align-items: center;\n"
-"  background-color: #c2fab1;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"  box-sizing: border-box;\n"
-"  color: #111;\n"
-"  cursor: pointer;\n"
-"  display: flex;\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 16px;\n"
-"  height: 100px;\n"
-"  justify-content: center;\n"
-"  padding: 0 25px;\n"
-"  position: relative;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  user-select: none;\n"
-"  -webkit-user-select: none;\n"
-"  touch-action: manipulation;\n"
-"}\n"
-"\n"
-"QPushButton:after {\n"
-"  background-color: #111;\n"
-"  border-radius: 8px;\n"
-"  content: \"\";\n"
-"  display: block;\n"
-"  height:100px;\n"
-"  left: 0;\n"
-"  width: 100%;\n"
-"  position: absolute;\n"
-"  top: -2px;\n"
-"  transform: translate(8px, 8px);\n"
-"  transition: transform .2s ease-out;\n"
-"  z-index: -1;\n"
-"}\n"
-"\n"
-"QPushButton:hover:after {\n"
-"  transform: translate(0, 0);\n"
-"}\n"
-"\n"
-"QPushButton:active {\n"
-"  background-color: #c2fab1;\n"
-"  outline: 0;\n"
-""
-                        "}\n"
-"\n"
-"QPushButton:hover {\n"
-"  outline: 0;\n"
-"}\n"
-"\n"
-"@media (min-width: 768px) {\n"
-"  QPushButton {\n"
-"    padding: 0 40px;\n"
-"  }\n"
-"}")
-
-        self.horizontalLayout_5.addWidget(self.start_apples_num_submit_button)
-
-        self.current_start_apples_num = QLabel(self.centralwidget)
-        self.current_start_apples_num.setObjectName(u"current_start_apples_num")
-        sizePolicy.setHeightForWidth(self.current_start_apples_num.sizePolicy().hasHeightForWidth())
-        self.current_start_apples_num.setSizePolicy(sizePolicy)
-        self.current_start_apples_num.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
-
-        self.horizontalLayout_5.addWidget(self.current_start_apples_num)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout_5, 4, 0, 1, 1)
-
-
-        self.verticalLayout.addLayout(self.gridLayout)
-
-        MainWindow.setCentralWidget(self.centralwidget)
-
-        self.retranslateSystemSettingsUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(SystemSettingsWindow)
     # setupUi
 
-    def retranslateSystemSettingsUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.return_button_system_settings.setText(QCoreApplication.translate("MainWindow", u"Back", None))
-        self.start_ants_num_label.setText(QCoreApplication.translate("MainWindow", u"Start Number of Ants", None))
-        self.start_ants_num_submit_button.setText(QCoreApplication.translate("MainWindow", u"Submit", None))
-        self.current_start_ants_num.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_apple_gap.setText(QCoreApplication.translate("MainWindow", u"Time Gap Between Apple Spawns", None))
-        self.apples_gap_submit_button.setText(QCoreApplication.translate("MainWindow", u"Submit", None))
-        self.current_apples_gap.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.spider_gap_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Gap Between Spider Spawns</p></body></html>", None))
-        self.spiders_gap_submit_button.setText(QCoreApplication.translate("MainWindow", u"Submit", None))
-        self.current_spiders_gap.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.starts_spiders_num_label.setText(QCoreApplication.translate("MainWindow", u"Start Number of Spiders", None))
-        self.start_spiders_num_submit_button.setText(QCoreApplication.translate("MainWindow", u"Submit", None))
-        self.current_start_spiders_num.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.starts_apples_num_label.setText(QCoreApplication.translate("MainWindow", u"Start Number of Apples", None))
-        self.start_apples_num_submit_button.setText(QCoreApplication.translate("MainWindow", u"Submit", None))
-        self.current_start_apples_num.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+    def retranslateSystemSettingsUi(self, SystemSettingsWindow):
+        SystemSettingsWindow.setWindowTitle(QCoreApplication.translate("SystemSettingsWindow", u"MainWindow", None))
+        self.start_ants_num_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"<html><head/><body><p>Start Number of Ants</p></body></html>", None))
+        self.label_apple_gap.setText(QCoreApplication.translate("SystemSettingsWindow", u"Time Gap Between Apple Spawns", None))
+        self.spider_gap_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"<html><head/><body><p>Gap Between Spider Spawns</p></body></html>", None))
+        self.starts_spiders_num_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"<html><head/><body><p>Start Number of Spiders</p></body></html>", None))
+        self.starts_apples_num_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"Start Number of Apples", None))
+        self.return_button_system_settings.setText(QCoreApplication.translate("SystemSettingsWindow", u"Return", None))
+        self.submit_editing_system_settings.setText(QCoreApplication.translate("SystemSettingsWindow", u"Submit Editing", None))
     # retranslateUi
 

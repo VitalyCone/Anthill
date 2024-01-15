@@ -101,7 +101,14 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             self.setupGameUi(self)
             self.return_button_game.clicked.connect(self.show_menu)
             self.pause_button.clicked.connect(self.set_on_pause)
+            start_game_dialog = StartGameDialog(self.dispatcher, self.scene,
+                                              1, self.start_apples_num,
+                                              self.start_spiders_num,
+                                              self.start_ants_num)
             self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
+            self.start_apples_num = start_game_dialog.planner.apples_num
+            self.start_spiders_num = start_game_dialog.planner.spdr_num
+            self.start_ants_num = start_game_dialog.planner.ants_num
 
             board = QGraphicsView()
             board.setScene(scene)
@@ -151,6 +158,12 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                         entity.graphics_entity.graph_scene = self.graph_scene
         self.graph_scene.advance()
 
+    def submit_data_agent_settings(self, entity_type):
+        self.change_radius(self.radius_input_line.text(),
+                           entity_type)
+        self.change_speed(self.speed_input_line.text(), entity_type)
+        self.show_menu()
+
     def show_agent_settings(self, entity_type: str):
         """
         Создает макет настроек агентов паука или муравья
@@ -158,12 +171,10 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         """
         self.setupAgentSettingsUi(self)
 
-        self.current_radius_label.setText("Current: " + str(copy(self.scene.entities).get(entity_type)[0].r))
-        self.radius_submit_button.clicked.connect(lambda: self.change_radius(self.radius_input_line.text(),
-                                                                             entity_type))
+        self.radius_input_line.setText(str(copy(self.scene.entities).get(entity_type)[0].r))
 
-        self.current_speed_label.setText("Current: " + str(copy(self.scene.entities).get(entity_type)[0].speed))
-        self.speed_submit_button.clicked.connect(lambda: self.change_speed(self.speed_input_line.text(), entity_type))
+        self.speed_input_line.setText(str(copy(self.scene.entities).get(entity_type)[0].speed))
+        self.submit_editing_agent_settings.clicked.connect(lambda: self.submit_data_agent_settings(entity_type))
 
         self.return_button_agent_settings.clicked.connect(self.show_settings)
 
@@ -185,25 +196,27 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         """
         self.setupSystemSettingsUi(self)
 
-        self.current_apples_gap.setText("Current: " + str(self.dispatcher.gap))
-        self.apples_gap_submit_button.clicked.connect(lambda:
-                                                      self.change_apple_gap(self.apples_gap_input_line.text()))
-
+        self.apples_gap_input_line.setText(str(self.dispatcher.gap))
         self.return_button_system_settings.clicked.connect(self.show_settings)
-        self.start_ants_num_submit_button.clicked.connect(lambda:
-                                                          self.set_start_ants_num(
-                                                              int(self.start_ants_num_input_line.text())))
-        self.current_start_ants_num.setText("Current: " + str(self.start_ants_num))
-        self.start_spiders_num_submit_button.clicked.connect(lambda:
-                                                          self.set_start_spiders_num(
-                                                              int(self.start_spiders_num_input_line.text())))
-        self.current_start_spiders_num.setText("Current: " + str(self.start_spiders_num))
-        self.start_apples_num_submit_button.clicked.connect(lambda:
-                                                          self.set_start_apples_num(
-                                                              int(self.start_apples_num_input_line.text())))
-        self.current_start_apples_num.setText("Current: " + str(self.start_apples_num))
+        self.start_ants_num_input_line.setText(str(self.start_ants_num))
+        self.start_spiders_num_input_line.setText(str(self.start_spiders_num))
+        self.start_apples_num_input_line.setText(str(self.start_apples_num))
+        self.submit_editing_system_settings.clicked.connect(lambda: self.submit_data_system_settings())
 
         self.show()
+
+    def submit_data_system_settings(self):
+        self.change_apple_gap(self.apples_gap_input_line.text())
+        self.set_start_ants_num(
+            int(self.start_ants_num_input_line.text()))
+        self.set_start_spiders_num(
+            int(self.start_spiders_num_input_line.text()))
+        self.set_start_apples_num(
+            int(self.start_apples_num_input_line.text()))
+        self.start_apples_num = int(self.start_apples_num_input_line.text())
+        self.start_spiders_num = int(self.start_spiders_num_input_line.text())
+        self.start_ants_num = int(self.start_ants_num_input_line.text())
+        self.show_menu()
 
     def change_apple_gap(self, gap):
         """
