@@ -4,7 +4,7 @@ from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
 from src.scene.Scene import Scene
-from src.utils.statistics.Statistics import Denotations, count_id
+from src.utils.statistics.Statistics import Denotations, count_id, null_uris
 
 
 class Planner:
@@ -18,6 +18,7 @@ class Planner:
         self.ants_num = ants_num
 
     def start_system(self):
+        self.dispatcher.create_scene_agent(self.scene)
         for i in range(self.anthill_num):
             anthill = Anthill(0, count_id('anthill'))
             Denotations.uris['anthill'].append(anthill.uri)
@@ -47,3 +48,4 @@ class Planner:
     def remove_all_data(self):
         self.scene.remove_all_entities()
         self.dispatcher.reference_book.clear_reference_book()
+        null_uris()

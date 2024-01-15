@@ -55,12 +55,14 @@ class AgentDispatcher(AgentBase):
         self.pause = PAUSE
         self.gap = 100
         self.kill = False
-        self.create_agent(SceneAgent, scene)
         self.window = None
         self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
 
         self.n = 0
+
+    def create_scene_agent(self, scene):
+        self.create_agent(SceneAgent, scene)
 
     def handle_game_rendering_response(self, message, sender):
         """
@@ -98,8 +100,9 @@ class AgentDispatcher(AgentBase):
             for entities in scene_copy.values():
                 for entity in entities:
                     agent = self.reference_book.get_address(entity)
-                    move_message = (MessageType.GIVE_CONTROL, self)
-                    self.actor_system.tell(agent, move_message)
+                    if agent:
+                        move_message = (MessageType.GIVE_CONTROL, self)
+                        self.actor_system.tell(agent, move_message)
             self.create_apple()
             self.statisticsalfa.move()
         # self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))

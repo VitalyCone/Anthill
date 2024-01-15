@@ -61,6 +61,11 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         """
         AgentDispatcher.PAUSE = not AgentDispatcher.PAUSE
 
+    def restart_game(self, start_game_dialog):
+        AgentDispatcher.PAUSE = True
+        start_game_dialog.planner.remove_all_data()
+        self.show_game()
+
     def show_game(self):
         """
         Создает макет самой игры
@@ -80,13 +85,14 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                 self.setupGameUi(self)
                 self.return_button_game.clicked.connect(self.show_menu)
                 self.pause_button.clicked.connect(self.set_on_pause)
+                self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
 
                 board = QGraphicsView()
                 board.setScene(scene)
                 board.setBackgroundBrush(QColor("#c2fab1"))
                 layout = QVBoxLayout()
                 layout.addWidget(board)
-                self.graph_scene_widget.setLayout(layout)
+                self.scene_widget.setLayout(layout)
 
                 self.rend()
 
@@ -95,13 +101,14 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             self.setupGameUi(self)
             self.return_button_game.clicked.connect(self.show_menu)
             self.pause_button.clicked.connect(self.set_on_pause)
+            self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
 
             board = QGraphicsView()
             board.setScene(scene)
             board.setBackgroundBrush(QColor("#c2fab1"))
             layout = QVBoxLayout()
             layout.addWidget(board)
-            self.graph_scene_widget.setLayout(layout)
+            self.scene_widget.setLayout(layout)
 
             self.rend()
 

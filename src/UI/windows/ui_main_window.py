@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
     def setupMainWindowUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.setMinimumSize(QSize(1000, 700))
+        MainWindow.setMinimumSize(QSize(1080, 1080))
         MainWindow.setStyleSheet(u"QMainWindow{\n"
 "	background-color: #F0F0F0\n"
 "}")

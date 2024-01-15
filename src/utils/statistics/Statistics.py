@@ -27,11 +27,18 @@ class Denotations:
         'group': []
     }
 
-def null_uris(self):
+def null_uris():
     """
     Обнуляет словарь с занятыми ссылками
     """
-    Denotations.uris.clear()
+    Denotations.uris = {
+        'ant': [],
+        'spider': [],
+        'apple': [],
+        'anthill': [],
+        'group': []
+    }
+
 
 def count_id(entity_class):
     """
