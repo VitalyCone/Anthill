@@ -3,12 +3,13 @@ import importlib.resources
 import math
 import os
 
-from PySide6.QtCore import QPointF
+from PySide6.QtCore import QPointF, QRectF
 
-from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
+from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update
+
 
 class Anthill:
     def __init__(self, del_ants, id='0'):
@@ -54,6 +55,7 @@ class Anthill:
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
+        self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
     def live(self, scene):
         """
@@ -123,6 +125,7 @@ class Anthill:
 
     def run(self):
         self.energy -= self.energy_consumption
+        self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
 
     def render(self):

@@ -66,6 +66,14 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         start_game_dialog.planner.remove_all_data()
         self.show_game()
 
+    def on_of_negotiations(self):
+        if self.dispatcher.negotiations_on:
+            self.mas_on_of.setText("Negotiations: off")
+            self.dispatcher.negotiations_on = False
+        else:
+            self.mas_on_of.setText("Negotiations: on")
+            self.dispatcher.negotiations_on = True
+
     def show_game(self):
         """
         Создает макет самой игры
@@ -86,7 +94,11 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                 self.return_button_game.clicked.connect(self.show_menu)
                 self.pause_button.clicked.connect(self.set_on_pause)
                 self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
-
+                self.mas_on_of.clicked.connect(self.on_of_negotiations)
+                if self.dispatcher.negotiations_on:
+                    self.mas_on_of.setText("Negotiations: on")
+                else:
+                    self.mas_on_of.setText("Negotiations: off")
                 board = QGraphicsView()
                 board.setScene(scene)
                 board.setBackgroundBrush(QColor("#c2fab1"))
@@ -101,14 +113,15 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             self.setupGameUi(self)
             self.return_button_game.clicked.connect(self.show_menu)
             self.pause_button.clicked.connect(self.set_on_pause)
-            start_game_dialog = StartGameDialog(self.dispatcher, self.scene,
+            self.restart_system.clicked.connect(lambda: self.restart_game(StartGameDialog(self.dispatcher, self.scene,
                                               1, self.start_apples_num,
                                               self.start_spiders_num,
-                                              self.start_ants_num)
-            self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
-            self.start_apples_num = start_game_dialog.planner.apples_num
-            self.start_spiders_num = start_game_dialog.planner.spdr_num
-            self.start_ants_num = start_game_dialog.planner.ants_num
+                                              self.start_ants_num)))
+            self.mas_on_of.clicked.connect(self.on_of_negotiations)
+            if self.dispatcher.negotiations_on:
+                self.mas_on_of.setText("Negotiations: on")
+            else:
+                self.mas_on_of.setText("Negotiations: off")
 
             board = QGraphicsView()
             board.setScene(scene)
@@ -128,7 +141,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         :entity_type: The entity type
         :return:
         """
-        r = int(r)
+        r = float(r)
         scene_copy = self.scene.entities
         for entity in scene_copy.get(entity_type):
             entity.r = r
@@ -140,7 +153,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         :param entity_type: The entity type
         :return:
         """
-        speed = int(speed)
+        speed = float(speed)
         scene_copy = self.scene.entities
         for entity in scene_copy.get(entity_type):
             entity.speed = speed

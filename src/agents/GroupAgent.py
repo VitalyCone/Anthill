@@ -65,16 +65,17 @@ class GroupAgent(AgentBase):
         self.entity.make_damage()
 
     def send_invite_message(self):
-        if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
-            return
-        ants = self.entity.get_ants(self.entity.scene)
-        for ant in ants:
+        if self.dispatcher.negotiations_on:
             if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
-                break
-            if ant not in self.entity.entities:
-                address = self.dispatcher.reference_book.get_address(ant)
-                msg = (MessageType.INVITE_REQUEST, self.entity.aim)
-                self.send(address, msg)
+                return
+            ants = self.entity.get_ants(self.entity.scene)
+            for ant in ants:
+                if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
+                    break
+                if ant not in self.entity.entities:
+                    address = self.dispatcher.reference_book.get_address(ant)
+                    msg = (MessageType.INVITE_REQUEST, self.entity.aim)
+                    self.send(address, msg)
 
     def handle_give_control(self, message, sender):
         """

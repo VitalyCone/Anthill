@@ -27,12 +27,13 @@ class SpiderAgent(AgentBase):
         :param ants:
         :return:
         """
-        for spider in spiders:
-            message = (MessageType.SHARE_INFORMATION, ants)
-            spider_address = self.dispatcher.reference_book.get_address(spider)
-            logging.info(f'{self} поделился информацией с {spider_address}')
-            all_update(f'{self} поделился информацией с {spider_address}')
-            self.send(spider_address, message)
+        if self.dispatcher.negotiations_on:
+            for spider in spiders:
+                message = (MessageType.SHARE_INFORMATION, ants)
+                spider_address = self.dispatcher.reference_book.get_address(spider)
+                logging.info(f'{self} поделился информацией с {spider_address}')
+                all_update(f'{self} поделился информацией с {spider_address}')
+                self.send(spider_address, message)
 
     def handle_share_information(self, message, sender):
         """

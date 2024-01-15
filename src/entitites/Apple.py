@@ -6,9 +6,10 @@ import importlib.resources
 
 from PySide6.QtCore import QPointF
 
-from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
+from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.InertiaState import InertiaState
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update
+
 
 def get_ants(scene):
     ants = []
@@ -53,7 +54,7 @@ class Apple:
         self.ants = None
         self.spiders = None
         self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
-        self.weight = 0.2
+        self.weight = 1
         self.energy = self.weight
         self.speed = 0
         self.inertiaState = InertiaState(self)

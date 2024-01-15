@@ -18,6 +18,7 @@ class GraphicsEntity(QGraphicsItem):
         self.setRotation(degrees(copy(rotation)))
         self.sprite = QImage(sprite)
         self.graph_scene = None
+        self.rect = QRectF(0, 0, 20, 20)
 
     def paint(self, painter: QPainter, option: QStyleOptionGraphicsItem, widget: QWidget = None):
         """
@@ -38,9 +39,12 @@ class GraphicsEntity(QGraphicsItem):
         """
         self.graph_scene.removeItem(self)
 
+    def setRect(self, rect: QRectF):
+        self.rect = rect
+
     def boundingRect(self):
         """
         Возвращает размер отрисовываемого графического объекта
         """
         # FIXME: Предоставить каждому виду сущностей свой размер(изменяемый)
-        return QRectF(0, 0, 20, 20)
+        return self.rect

@@ -1,17 +1,16 @@
-import datetime
 import math
 import os
 import random
-from os import makedirs
 
 import logging
 import importlib.resources
 
 from PySide6.QtCore import QPointF
 
-from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
+from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update
+
 
 class Ant:
 
@@ -30,15 +29,15 @@ class Ant:
         # Сопротивление пауку
         self.charachter = random.randint(0, 1)  # Характер. 0 - трусливый, 1 - доблестный
         self.u = random.uniform(0, 4 * math.pi)  # Случайный угол по x
-        self.speed = 8
+        self.speed = 0.8
         self.r = 70
         self.energy_consumption = 1/100
         self.attack = False
         if self.charachter == 0:  # Если трус, то выше скорость, но ниже радиус обзора
-            self.speed = 4
+            self.speed = 0.5
             self.r = 50
         elif self.charachter == 1:  # Если доблестный, то наоборот
-            self.speed = 3  # Скорость муравья
+            self.speed = 0.3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
         self.damage = 0.1
@@ -197,7 +196,6 @@ class Ant:
                     self.set_vector_to_object(self.prey)
                     self.set_u()
 
-        self.energy -= 0.001
         if self.energy <= 0:
             self.die(self)
             killed.append(self.get_uri())
@@ -234,12 +232,12 @@ class Ant:
         """
         Задает угол поворота муравья, исходя из синуса и косинуса этого угла
         """
-        if math.acos(self.u_trig[1]) != math.asin(self.u_trig[0]):
-            self.u = math.acos(self.u_trig[1])
-        elif math.asin(self.u_trig[0]) > 2*math.pi:
-            self.u = math.asin(self.u_trig[0])
-        elif math.acos(self.u_trig[1]) < 0:
-            self.u = math.acos(self.u_trig[1])
+        # if (self.u_trig[1] > 0 and self.u_trig[0] > 0) or (self.u_trig[0] < 0 < self.u_trig[1]):
+        #     self.u = math.asin(self.u_trig[0])
+        # elif self.u_trig[0] > 0:
+        #     self.u = math.asin(self.u_trig[0] + math.pi/2)
+        # elif self.u_trig[0] < 0:
+        #     self.u = math.asin(self.u_trig[0] - math.pi/2)
 
     def get_distance(self, obj):
         """
@@ -298,7 +296,7 @@ class Ant:
         # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
-        # self.graphics_entity.u = math.degrees(self.u)
+        self.graphics_entity.u = math.degrees(self.u)
 
     def render(self):
         self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))

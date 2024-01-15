@@ -1,17 +1,16 @@
 import os.path
 import random
 import math
-from copy import copy
 
 import logging
 import importlib.resources
 
-from PySide6.QtCore import QPointF
-from PySide6.QtWidgets import QGraphicsPixmapItem
+from PySide6.QtCore import QRectF
 
-from src.entitites.GraphicsEntity.GrapicsEntity import GraphicsEntity
+from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update
+
 
 class Spider:
     def __init__(self, scene, id='0'):
@@ -22,7 +21,7 @@ class Spider:
         self.uri = self.name + str(id)
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.status = 'alive'
-        self.speed = 6
+        self.speed = 0.9
         self.u = 0.57
         self.agent = None
         self.sended_objects = []
@@ -50,6 +49,7 @@ class Spider:
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
+        self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
 
     def live(self, scene):
         """

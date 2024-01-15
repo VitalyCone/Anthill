@@ -53,6 +53,7 @@ class AgentDispatcher(AgentBase):
         self.handlers = {}
         self.scene = scene
         self.pause = PAUSE
+        self.negotiations_on = True
         self.gap = 100
         self.kill = False
         self.window = None

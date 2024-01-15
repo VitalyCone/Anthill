@@ -288,7 +288,7 @@ class Ui_GameWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.return_button_game.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.restart_system.setText(QCoreApplication.translate("MainWindow", u"Restart", None))
-        self.mas_on_of.setText(QCoreApplication.translate("MainWindow", u"MAS: on", None))
+        self.mas_on_of.setText(QCoreApplication.translate("MainWindow", u"Negotiations: on", None))
         self.pause_button.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
     # retranslateUi
 
