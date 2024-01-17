@@ -23,7 +23,6 @@ class Ui_SystemSettingsWindow(object):
     def setupSystemSettingsUi(self, SystemSettingsWindow):
         if not SystemSettingsWindow.objectName():
             SystemSettingsWindow.setObjectName(u"SystemSettingsWindow")
-        SystemSettingsWindow.resize(1653, 1097)
         self.centralwidget = QWidget(SystemSettingsWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)

@@ -1,7 +1,8 @@
 """Содержит класс главного окна приложения"""
+import os
 from copy import copy
 
-from PySide6.QtGui import QColor
+from PySide6.QtGui import QColor, QPixmap
 from PySide6.QtWidgets import QMainWindow, QApplication, QGraphicsScene, QGraphicsView, QVBoxLayout, QLabel
 
 from src.UI.forms.StartGameDialog import StartGameDialog
@@ -263,6 +264,9 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.exit_button.clicked.connect(self.close_game)
         self.graph_button.clicked.connect(self.show_graphs)
         self.start_button.clicked.connect(self.show_game)
+
+        path = str(os.path.abspath('assets/images/ants_img.jpg'))
+        self.image_label.setPixmap(QPixmap(path))
 
         self.show()
 

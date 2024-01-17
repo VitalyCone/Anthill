@@ -23,7 +23,6 @@ class Ui_AgentSettingsWindow(object):
     def setupAgentSettingsUi(self, AgentSettingsWindow):
         if not AgentSettingsWindow.objectName():
             AgentSettingsWindow.setObjectName(u"AgentSettingsWindow")
-        AgentSettingsWindow.resize(1177, 878)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
