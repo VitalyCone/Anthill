@@ -7,7 +7,7 @@ from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
 from src.scene.Scene import Scene
-from src.utils.statistics.Statistics import Denotations, count_id
+from src.utils.statistics.Statistics import setConfig
 from src.UI.forms.MainForm import MainForm
 
 from threading import Thread
@@ -18,6 +18,7 @@ import sys
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 scene = Scene()
 agent_dispatcher = AgentDispatcher(scene)
+setConfig('cfg/config.yml')
 # Инициализация игры
 # Входные данные для моделирования
 # TODO: Расширить входные данные для пауков, муравьев и т. д. с задачей множества параметров

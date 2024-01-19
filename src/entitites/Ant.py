@@ -5,6 +5,7 @@ import random
 import logging
 import importlib.resources
 
+import pygame
 from PySide6.QtCore import QPointF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity

@@ -1,6 +1,7 @@
 import datetime
 import logging
 from os import makedirs
+import yaml
 
 from src.scene.Scene import Scene
 
@@ -26,6 +27,34 @@ class Denotations:
         'anthill': [],
         'group': []
     }
+
+
+@dataclass
+class Config:
+    dataset = {}
+
+
+def setConfig(config_file_path='config.yml'):
+    """
+    Функция по заданному пути открывает yml конфиг
+    и считывает как словарь.
+
+    Пример:
+    spider.r = Config.dataset['spider']['radius']
+    ant.speed = Config.dataset['ant']['speed']
+
+    Получается так, что dataset - это словарь,
+    внутри которого (на данный момент) существуют
+    три словаря - system, spider и ant.
+
+    Функция вызывается один раз в main, в дальнейшем
+    требуется использовать класс Config.
+    """
+    with open(config_file_path, 'r') as config_file:
+        config_data = yaml.safe_load(config_file)
+    Config.dataset = config_data
+
+
 
 def null_uris():
     """
