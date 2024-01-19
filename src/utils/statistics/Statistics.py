@@ -55,7 +55,6 @@ def setConfig(config_file_path='config.yml'):
     Config.dataset = config_data
 
 
-
 def null_uris():
     """
     Обнуляет словарь с занятыми ссылками

@@ -45,7 +45,7 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('assets/icons/spider.png'))
+        path = str(os.path.abspath('../assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -234,7 +234,10 @@ class Spider:
         return killed
 
     def get_energy(self, obj):  # возвращает энергию, полученную пауком.
-        return self.energy + obj.energy - self.get_distance(obj) / (self.speed - obj.speed) * 0.01
+        try:
+            return self.energy + obj.energy - self.get_distance(obj) / (self.speed - obj.speed) * 0.01
+        except ZeroDivisionError:
+            return 0
 
     def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
         return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)

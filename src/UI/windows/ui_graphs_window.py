@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+import time
 
 ################################################################################
 ## Form generated from reading UI file 'graphs.ui'
@@ -9,14 +11,14 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+                            QMetaObject, QObject, QPoint, QRect,
+                            QSize, QTime, QUrl, Qt, QThread)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+                           QFont, QFontDatabase, QGradient, QIcon,
+                           QImage, QKeySequence, QLinearGradient, QPainter,
+                           QPalette, QPixmap, QRadialGradient, QTransform, QMovie)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLayout, QMainWindow,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+                               QPushButton, QSizePolicy, QVBoxLayout, QWidget, QDialog, QLabel)
 
 from src.utils.Graphs.MplWidget import MplWidget
 
@@ -211,4 +213,5 @@ class Ui_GraphsWindow(object):
         self.return_button_graphs.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.download_graphs_button.setText(QCoreApplication.translate("MainWindow", u"Download Graphs", None))
     # retranslateUi
+
 

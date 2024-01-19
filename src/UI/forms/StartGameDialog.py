@@ -10,11 +10,13 @@ from src.scene.Scene import Scene
 class StartGameDialog(QDialog, Ui_GameStartDialog):
 
     def __init__(self, dispatcher: AgentDispatcher, scene: Scene,
-                 anthill_num: int, apples_num: int, spdr_num: int, ants_num: int):
+                 anthill_num: int, apples_num: int, spdr_num: int, ants_num: int, entities_settings: dict):
         super().__init__()
         self.show_model = False
 
-        self.planner = Planner(dispatcher, scene, anthill_num, apples_num, spdr_num, ants_num)
+        self.entities_settings = entities_settings
+
+        self.planner = Planner(dispatcher, scene, anthill_num, apples_num, spdr_num, ants_num, self.entities_settings)
 
         self.setupUi(self)
 

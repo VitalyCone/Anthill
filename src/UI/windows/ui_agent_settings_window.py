@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'agent_settings.ui'
+## Form generated from reading UI file 'agent_settingsmCryjE.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,6 +23,7 @@ class Ui_AgentSettingsWindow(object):
     def setupAgentSettingsUi(self, AgentSettingsWindow):
         if not AgentSettingsWindow.objectName():
             AgentSettingsWindow.setObjectName(u"AgentSettingsWindow")
+        AgentSettingsWindow.resize(1177, 878)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -51,7 +52,7 @@ class Ui_AgentSettingsWindow(object):
         self.speed_label.setSizePolicy(sizePolicy1)
         self.speed_label.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -66,6 +67,9 @@ class Ui_AgentSettingsWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.speed_input_line.sizePolicy().hasHeightForWidth())
         self.speed_input_line.setSizePolicy(sizePolicy2)
+        font = QFont()
+        font.setPointSize(50)
+        self.speed_input_line.setFont(font)
 
         self.horizontalLayout.addWidget(self.speed_input_line)
 
@@ -81,7 +85,7 @@ class Ui_AgentSettingsWindow(object):
         self.radius_label.setSizePolicy(sizePolicy1)
         self.radius_label.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -94,6 +98,7 @@ class Ui_AgentSettingsWindow(object):
         self.radius_input_line.setObjectName(u"radius_input_line")
         sizePolicy1.setHeightForWidth(self.radius_input_line.sizePolicy().hasHeightForWidth())
         self.radius_input_line.setSizePolicy(sizePolicy1)
+        self.radius_input_line.setFont(font)
         self.radius_input_line.setStyleSheet(u"")
 
         self.horizontalLayout_2.addWidget(self.radius_input_line)
@@ -104,6 +109,19 @@ class Ui_AgentSettingsWindow(object):
 
         self.verticalLayout_2.addLayout(self.gridLayout)
 
+        self.error_label_agent_settings = QLabel(self.widget)
+        self.error_label_agent_settings.setObjectName(u"error_label_agent_settings")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.error_label_agent_settings.sizePolicy().hasHeightForWidth())
+        self.error_label_agent_settings.setSizePolicy(sizePolicy3)
+        font1 = QFont()
+        font1.setPointSize(16)
+        self.error_label_agent_settings.setFont(font1)
+
+        self.verticalLayout_2.addWidget(self.error_label_agent_settings)
+
 
         self.verticalLayout.addWidget(self.widget)
 
@@ -112,11 +130,11 @@ class Ui_AgentSettingsWindow(object):
         self.horizontalLayout_3.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.return_button_agent_settings = QPushButton(self.centralwidget)
         self.return_button_agent_settings.setObjectName(u"return_button_agent_settings")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.return_button_agent_settings.sizePolicy().hasHeightForWidth())
-        self.return_button_agent_settings.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.return_button_agent_settings.sizePolicy().hasHeightForWidth())
+        self.return_button_agent_settings.setSizePolicy(sizePolicy4)
         self.return_button_agent_settings.setMaximumSize(QSize(16777215, 40))
         self.return_button_agent_settings.setStyleSheet(u"QPushButton {\n"
 "  align-items: center;\n"
@@ -254,6 +272,7 @@ class Ui_AgentSettingsWindow(object):
         AgentSettingsWindow.setWindowTitle(QCoreApplication.translate("AgentSettingsWindow", u"MainWindow", None))
         self.speed_label.setText(QCoreApplication.translate("AgentSettingsWindow", u"Speed", None))
         self.radius_label.setText(QCoreApplication.translate("AgentSettingsWindow", u"Radius", None))
+        self.error_label_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"<html><head/><body><p><span style=\" font-size:14pt; color:#aa0000;\">Incorrect data format</span></p></body></html>", None))
         self.return_button_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"Return", None))
         self.submit_editing_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"Submit editing", None))
     # retranslateUi

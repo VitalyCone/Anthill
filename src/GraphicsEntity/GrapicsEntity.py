@@ -30,7 +30,7 @@ class GraphicsEntity(QGraphicsItem):
         """
         painter.drawImage(self.boundingRect(), self.sprite)
         self.setPos(self.geo[0], self.geo[1])
-        # self.setRotation(self.u)
+        self.setRotation(self.u)
         self.update()
 
     def delete_entity(self):

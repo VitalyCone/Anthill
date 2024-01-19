@@ -16,12 +16,11 @@ import sys
 
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+setConfig('src\\scripts\\cfg\\config.yml')
 scene = Scene()
 agent_dispatcher = AgentDispatcher(scene)
-setConfig('cfg/config.yml')
 # Инициализация игры
 # Входные данные для моделирования
-# TODO: Расширить входные данные для пауков, муравьев и т. д. с задачей множества параметров
 
 def qt_thread():
     app = QApplication(sys.argv)

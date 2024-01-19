@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1653</width>
-    <height>1097</height>
+    <width>1554</width>
+    <height>1028</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
              <property name="styleSheet">
               <string notr="true">QLabel{
   font-family: Inter,sans-serif;
-  font-size: 24px;
+  font-size: 50px;
   align-items: center;
   border: 2px solid #111;
   border-radius: 8px;
@@ -57,6 +57,11 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>50</pointsize>
+              </font>
              </property>
             </widget>
            </item>
@@ -78,7 +83,7 @@
              <property name="styleSheet">
               <string notr="true">QLabel{
   font-family: Inter,sans-serif;
-  font-size: 24px;
+  font-size: 50px;
   align-items: center;
   border: 2px solid #111;
   border-radius: 8px;
@@ -97,6 +102,11 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>50</pointsize>
+              </font>
              </property>
              <property name="styleSheet">
               <string notr="true"/>
@@ -118,7 +128,7 @@
              <property name="styleSheet">
               <string notr="true">QLabel{
   font-family: Inter,sans-serif;
-  font-size: 24px;
+  font-size: 50px;
   align-items: center;
   border: 2px solid #111;
   border-radius: 8px;
@@ -137,6 +147,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>50</pointsize>
+              </font>
+             </property>
             </widget>
            </item>
           </layout>
@@ -154,7 +169,7 @@
              <property name="styleSheet">
               <string notr="true">QLabel{
   font-family: Inter,sans-serif;
-  font-size: 24px;
+  font-size: 50px;
   align-items: center;
   border: 2px solid #111;
   border-radius: 8px;
@@ -173,6 +188,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>50</pointsize>
+              </font>
+             </property>
             </widget>
            </item>
           </layout>
@@ -190,7 +210,7 @@
              <property name="styleSheet">
               <string notr="true">QLabel{
   font-family: Inter,sans-serif;
-  font-size: 24px;
+  font-size: 50px;
   align-items: center;
   border: 2px solid #111;
   border-radius: 8px;
@@ -209,11 +229,29 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>50</pointsize>
+              </font>
+             </property>
             </widget>
            </item>
           </layout>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; color:#aa0000;&quot;&gt;Incorrect data format&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

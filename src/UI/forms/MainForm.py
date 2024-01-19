@@ -1,9 +1,12 @@
 """Содержит класс главного окна приложения"""
 import os
+import threading
+import time
 from copy import copy
 
-from PySide6.QtGui import QColor, QPixmap
-from PySide6.QtWidgets import QMainWindow, QApplication, QGraphicsScene, QGraphicsView, QVBoxLayout, QLabel
+from PySide6.QtCore import QTimer, QSize, Qt, QThread
+from PySide6.QtGui import QColor, QPixmap, QMovie
+from PySide6.QtWidgets import QMainWindow, QApplication, QGraphicsScene, QGraphicsView, QVBoxLayout, QLabel, QDialog
 
 from src.UI.forms.StartGameDialog import StartGameDialog
 from src.UI.windows.ui_agent_settings_window import Ui_AgentSettingsWindow
@@ -16,7 +19,7 @@ from src.UI.windows.ui_system_settings_window import Ui_SystemSettingsWindow
 from src.agents import AgentDispatcher
 from src.utils.Export.Export import export_in_excel
 from src.utils.statistics import Statistics
-from src.utils.statistics.Statistics import write_logs, DataStatistics
+from src.utils.statistics.Statistics import write_logs, DataStatistics, Config
 
 
 class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui_GameWindow,
@@ -33,13 +36,20 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.scene = scene
         self.show_menu()
 
-        self.start_ants_num = 0
-        self.start_spiders_num = 0
-        self.start_apples_num = 0
+        self.entities_settings = {
+            "Spider": {
+                "speed": Config.dataset['spider']['speed'],
+                "radius": Config.dataset['spider']['radius']
+            },
+            "Ant": {
+                "speed": Config.dataset['ant']['speed'],
+                "radius": Config.dataset['ant']["radius"]
+            }
+        }
 
-        """
-        #F0F0F0
-        """
+        self.start_ants_num = Config.dataset['system']['ant_num']
+        self.start_spiders_num = Config.dataset['system']['spider_num']
+        self.start_apples_num = Config.dataset['system']['apple_num']
 
     def show_mas_info(self):
         """
@@ -69,10 +79,10 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
 
     def on_of_negotiations(self):
         if self.dispatcher.negotiations_on:
-            self.mas_on_of.setText("Negotiations: off")
+            self.mas_on_of.setText("Collective intelligence: off")
             self.dispatcher.negotiations_on = False
         else:
-            self.mas_on_of.setText("Negotiations: on")
+            self.mas_on_of.setText("Collective intelligence: on")
             self.dispatcher.negotiations_on = True
 
     def show_game(self):
@@ -85,7 +95,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             start_game_dialog = StartGameDialog(self.dispatcher, self.scene,
                                               1, self.start_apples_num,
                                               self.start_spiders_num,
-                                              self.start_ants_num)
+                                              self.start_ants_num, self.entities_settings)
             self.start_apples_num = start_game_dialog.planner.apples_num
             self.start_spiders_num = start_game_dialog.planner.spdr_num
             self.start_ants_num = start_game_dialog.planner.ants_num
@@ -97,9 +107,9 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                 self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
                 self.mas_on_of.clicked.connect(self.on_of_negotiations)
                 if self.dispatcher.negotiations_on:
-                    self.mas_on_of.setText("Negotiations: on")
+                    self.mas_on_of.setText("Collective intelligence: on")
                 else:
-                    self.mas_on_of.setText("Negotiations: off")
+                    self.mas_on_of.setText("Collective intelligence: off")
                 board = QGraphicsView()
                 board.setScene(scene)
                 board.setBackgroundBrush(QColor("#c2fab1"))
@@ -117,7 +127,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             self.restart_system.clicked.connect(lambda: self.restart_game(StartGameDialog(self.dispatcher, self.scene,
                                               1, self.start_apples_num,
                                               self.start_spiders_num,
-                                              self.start_ants_num)))
+                                              self.start_ants_num, self.entities_settings)))
             self.mas_on_of.clicked.connect(self.on_of_negotiations)
             if self.dispatcher.negotiations_on:
                 self.mas_on_of.setText("Negotiations: on")
@@ -143,6 +153,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         :return:
         """
         r = float(r)
+        self.entities_settings[entity_type]["radius"] = r
         scene_copy = self.scene.entities
         for entity in scene_copy.get(entity_type):
             entity.r = r
@@ -155,6 +166,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         :return:
         """
         speed = float(speed)
+        self.entities_settings[entity_type]["speed"] = speed
         scene_copy = self.scene.entities
         for entity in scene_copy.get(entity_type):
             entity.speed = speed
@@ -173,21 +185,29 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.graph_scene.advance()
 
     def submit_data_agent_settings(self, entity_type):
-        self.change_radius(self.radius_input_line.text(),
-                           entity_type)
-        self.change_speed(self.speed_input_line.text(), entity_type)
-        self.show_menu()
+        try:
+            radius = float((self.radius_input_line.text()))
+            speed = float(self.speed_input_line.text())
+            self.change_radius(radius,
+                               entity_type)
+            self.change_speed(speed, entity_type)
+            self.show_menu()
+        except ValueError:
+            self.error_label_agent_settings.setVisible(True)
 
     def show_agent_settings(self, entity_type: str):
         """
         Создает макет настроек агентов паука или муравья
         :param entity_type: name of the entity(Spider or Ant)
         """
+        self.load()
         self.setupAgentSettingsUi(self)
 
-        self.radius_input_line.setText(str(copy(self.scene.entities).get(entity_type)[0].r))
+        self.error_label_agent_settings.setVisible(False)
 
-        self.speed_input_line.setText(str(copy(self.scene.entities).get(entity_type)[0].speed))
+        self.radius_input_line.setText(str(self.entities_settings[entity_type]["radius"]))
+
+        self.speed_input_line.setText(str(self.entities_settings[entity_type]["speed"]))
         self.submit_editing_agent_settings.clicked.connect(lambda: self.submit_data_agent_settings(entity_type))
 
         self.return_button_agent_settings.clicked.connect(self.show_settings)
@@ -208,7 +228,10 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         Создает макет настроек системы.
         Временные промежутки спавна яблок и пауков и начальное количество агентов в системе
         """
+        self.load()
         self.setupSystemSettingsUi(self)
+
+        self.error_label_system_settings.setVisible(False)
 
         self.apples_gap_input_line.setText(str(self.dispatcher.gap))
         self.return_button_system_settings.clicked.connect(self.show_settings)
@@ -220,17 +243,24 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.show()
 
     def submit_data_system_settings(self):
-        self.change_apple_gap(self.apples_gap_input_line.text())
-        self.set_start_ants_num(
-            int(self.start_ants_num_input_line.text()))
-        self.set_start_spiders_num(
-            int(self.start_spiders_num_input_line.text()))
-        self.set_start_apples_num(
-            int(self.start_apples_num_input_line.text()))
-        self.start_apples_num = int(self.start_apples_num_input_line.text())
-        self.start_spiders_num = int(self.start_spiders_num_input_line.text())
-        self.start_ants_num = int(self.start_ants_num_input_line.text())
-        self.show_menu()
+        try:
+            apple_gap = int(self.apples_gap_input_line.text())
+            ants = int(self.start_ants_num_input_line.text())
+            spiders = int(self.start_spiders_num_input_line.text())
+            apples = int(self.start_apples_num_input_line.text())
+            self.change_apple_gap(apple_gap)
+            self.set_start_ants_num(
+                int(ants))
+            self.set_start_spiders_num(
+                int(spiders))
+            self.set_start_apples_num(
+                int(apples))
+            self.start_apples_num = int(self.start_apples_num_input_line.text())
+            self.start_spiders_num = int(self.start_spiders_num_input_line.text())
+            self.start_ants_num = int(self.start_ants_num_input_line.text())
+            self.show_menu()
+        except ValueError:
+            self.error_label_system_settings.setVisible(True)
 
     def change_apple_gap(self, gap):
         """
@@ -265,21 +295,50 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.graph_button.clicked.connect(self.show_graphs)
         self.start_button.clicked.connect(self.show_game)
 
-        path = str(os.path.abspath('assets/images/ants_img.jpg'))
+        path = str(os.path.abspath('../assets/images/ants_img.jpg'))
         self.image_label.setPixmap(QPixmap(path))
 
         self.show()
 
     def show_graphs(self):
         """Создает макет отображения графиков"""
+        self.load()
         self.setupGraphsUi(self)
-
         self.return_button_graphs.clicked.connect(self.show_menu)
         self.download_graphs_button.clicked.connect(lambda: export_in_excel(Statistics.DataStatistics.data))
-
         self.show()
 
     def close_game(self):
         """Закрывает UI модели и останавливает процесс планирования системы"""
         self.dispatcher.kill = True
         self.app.quit()
+
+    def load(self):
+        # setup dialog
+        dialog = QDialog()
+        vbox = QVBoxLayout()
+        lbl = QLabel()
+        self.moviee = QMovie(os.path.abspath('assets/images/loader.gif'))
+        lbl.setMovie(self.moviee)
+        self.moviee.start()
+        vbox.addWidget(lbl)
+        dialog.setLayout(vbox)
+        dialog.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.CustomizeWindowHint)
+
+        # setup thread
+        thread = myThread()
+        thread.finished.connect(thread.deleteLater)
+        thread.finished.connect(dialog.close)
+        thread.finished.connect(dialog.deleteLater)
+        thread.start()
+
+        dialog.exec()
+
+
+class myThread(QThread):
+    def run(self):
+        # time consuming actions
+        time.sleep(2)
+
+
+

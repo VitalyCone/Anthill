@@ -23,7 +23,6 @@ class Ui_GameStartDialog(object):
     def setupUi(self, GameStartDialog):
         if not GameStartDialog.objectName():
             GameStartDialog.setObjectName(u"GameStartDialog")
-        GameStartDialog.resize(400, 300)
         GameStartDialog.setMinimumSize(QSize(400, 300))
         GameStartDialog.setMaximumSize(QSize(400, 300))
         self.verticalLayout_2 = QVBoxLayout(GameStartDialog)

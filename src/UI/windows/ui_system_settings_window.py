@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'system_settings.ui'
+## Form generated from reading UI file 'system_settingscSnvcD.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -49,7 +49,7 @@ class Ui_SystemSettingsWindow(object):
         self.start_ants_num_label.setSizePolicy(sizePolicy1)
         self.start_ants_num_label.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -61,6 +61,9 @@ class Ui_SystemSettingsWindow(object):
         self.start_ants_num_input_line.setObjectName(u"start_ants_num_input_line")
         sizePolicy1.setHeightForWidth(self.start_ants_num_input_line.sizePolicy().hasHeightForWidth())
         self.start_ants_num_input_line.setSizePolicy(sizePolicy1)
+        font = QFont()
+        font.setPointSize(50)
+        self.start_ants_num_input_line.setFont(font)
 
         self.horizontalLayout_3.addWidget(self.start_ants_num_input_line)
 
@@ -76,7 +79,7 @@ class Ui_SystemSettingsWindow(object):
         self.label_apple_gap.setSizePolicy(sizePolicy1)
         self.label_apple_gap.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -89,6 +92,7 @@ class Ui_SystemSettingsWindow(object):
         self.apples_gap_input_line.setObjectName(u"apples_gap_input_line")
         sizePolicy1.setHeightForWidth(self.apples_gap_input_line.sizePolicy().hasHeightForWidth())
         self.apples_gap_input_line.setSizePolicy(sizePolicy1)
+        self.apples_gap_input_line.setFont(font)
         self.apples_gap_input_line.setStyleSheet(u"")
 
         self.horizontalLayout_2.addWidget(self.apples_gap_input_line)
@@ -104,7 +108,7 @@ class Ui_SystemSettingsWindow(object):
         self.spider_gap_label.setSizePolicy(sizePolicy1)
         self.spider_gap_label.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -119,6 +123,7 @@ class Ui_SystemSettingsWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.spider_gap_input_line.sizePolicy().hasHeightForWidth())
         self.spider_gap_input_line.setSizePolicy(sizePolicy2)
+        self.spider_gap_input_line.setFont(font)
 
         self.horizontalLayout.addWidget(self.spider_gap_input_line)
 
@@ -133,7 +138,7 @@ class Ui_SystemSettingsWindow(object):
         self.starts_spiders_num_label.setSizePolicy(sizePolicy1)
         self.starts_spiders_num_label.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -145,6 +150,7 @@ class Ui_SystemSettingsWindow(object):
         self.start_spiders_num_input_line.setObjectName(u"start_spiders_num_input_line")
         sizePolicy1.setHeightForWidth(self.start_spiders_num_input_line.sizePolicy().hasHeightForWidth())
         self.start_spiders_num_input_line.setSizePolicy(sizePolicy1)
+        self.start_spiders_num_input_line.setFont(font)
 
         self.horizontalLayout_4.addWidget(self.start_spiders_num_input_line)
 
@@ -159,7 +165,7 @@ class Ui_SystemSettingsWindow(object):
         self.starts_apples_num_label.setSizePolicy(sizePolicy1)
         self.starts_apples_num_label.setStyleSheet(u"QLabel{\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
+"  font-size: 50px;\n"
 "  align-items: center;\n"
 "  border: 2px solid #111;\n"
 "  border-radius: 8px;\n"
@@ -171,6 +177,7 @@ class Ui_SystemSettingsWindow(object):
         self.start_apples_num_input_line.setObjectName(u"start_apples_num_input_line")
         sizePolicy1.setHeightForWidth(self.start_apples_num_input_line.sizePolicy().hasHeightForWidth())
         self.start_apples_num_input_line.setSizePolicy(sizePolicy1)
+        self.start_apples_num_input_line.setFont(font)
 
         self.horizontalLayout_5.addWidget(self.start_apples_num_input_line)
 
@@ -179,6 +186,16 @@ class Ui_SystemSettingsWindow(object):
 
 
         self.verticalLayout_2.addLayout(self.gridLayout)
+
+        self.error_label_system_settings = QLabel(self.widget)
+        self.error_label_system_settings.setObjectName(u"label")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.error_label_system_settings.sizePolicy().hasHeightForWidth())
+        self.error_label_system_settings.setSizePolicy(sizePolicy3)
+
+        self.verticalLayout_2.addWidget(self.error_label_system_settings)
 
 
         self.verticalLayout.addWidget(self.widget)
@@ -327,6 +344,7 @@ class Ui_SystemSettingsWindow(object):
         self.spider_gap_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"<html><head/><body><p>Gap Between Spider Spawns</p></body></html>", None))
         self.starts_spiders_num_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"<html><head/><body><p>Start Number of Spiders</p></body></html>", None))
         self.starts_apples_num_label.setText(QCoreApplication.translate("SystemSettingsWindow", u"Start Number of Apples", None))
+        self.error_label_system_settings.setText(QCoreApplication.translate("SystemSettingsWindow", u"<html><head/><body><p><span style=\" font-size:14pt; color:#aa0000;\">Incorrect data format</span></p></body></html>", None))
         self.return_button_system_settings.setText(QCoreApplication.translate("SystemSettingsWindow", u"Return", None))
         self.submit_editing_system_settings.setText(QCoreApplication.translate("SystemSettingsWindow", u"Submit Editing", None))
     # retranslateUi

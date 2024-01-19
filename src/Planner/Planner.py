@@ -9,13 +9,14 @@ from src.utils.statistics.Statistics import Denotations, count_id, null_uris
 
 class Planner:
     def __init__(self, dispatcher: AgentDispatcher, scene: Scene,
-                 anthill_num: int, apples_num: int, spdr_num: int, ants_num: int):
+                 anthill_num: int, apples_num: int, spdr_num: int, ants_num: int, entities_settings: dict):
         self.dispatcher = dispatcher
         self.scene = scene
         self.anthill_num = anthill_num
         self.apples_num = apples_num
         self.spdr_num = spdr_num
         self.ants_num = ants_num
+        self.entities_settings = entities_settings
 
     def start_system(self):
         self.dispatcher.create_scene_agent(self.scene)
@@ -31,11 +32,15 @@ class Planner:
         for i in range(self.ants_num):
             ant = Ant(self.scene.get_entities_by_type('Apple'), self.scene.get_entities_by_type('Anthill')[0],
                       count_id('ant'))
+            ant.r = self.entities_settings["Ant"]["radius"]
+            ant.speed = self.entities_settings["Ant"]["speed"]
             Denotations.uris['ant'].append(ant.uri)
             self.dispatcher.add_entity(ant)
         for i in range(self.spdr_num):
             spider = Spider(self.scene.get_entities_by_type('Spider') + self.scene.get_entities_by_type('Apple'),
                             count_id('spider'))
+            spider.r = self.entities_settings["Spider"]["radius"]
+            spider.speed = self.entities_settings["Spider"]["speed"]
             Denotations.uris['spider'].append(spider.uri)
             self.dispatcher.add_entity(spider)
 
