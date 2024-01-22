@@ -101,11 +101,11 @@ def debug_update(log):
 
 
 def all_update(log):
-    if len(DataStatistics.data.get('Количество сообщений в системе')) < len(DataStatistics.data.get('Номер тика')):
-        DataStatistics.data.get('Количество сообщений в системе').append(1)
-    elif len(DataStatistics.data.get('Количество сообщений в системе')) > 0:
-        DataStatistics.data.get('Количество сообщений в системе')[
-            len(DataStatistics.data.get('Количество сообщений в системе')) - 1] += 1
+    if len(DataStatistics.data.get('Number of messages')) < len(DataStatistics.data.get('Number of tic')):
+        DataStatistics.data.get('Number of messages').append(1)
+    elif len(DataStatistics.data.get('Number of messages')) > 0:
+        DataStatistics.data.get('Number of messages')[
+            len(DataStatistics.data.get('Number of messages')) - 1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
     try:
         DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + '\n')
@@ -128,14 +128,15 @@ class StatisticsAlfa:
         self.e = []
         self.f = []
 
+
         DataStatistics.data = {
-            'Номер тика': self.teak,
-            'Средние значения энергии всех муравьев': self.a,
-            'Суммарные значения энергии муравьев': self.b,
-            'Средние значения энергии пауков': self.c,
-            'Суммарные значения энергии пауков': self.d,
-            'Значения энергии муравейника': self.e,
-            'Количество сообщений в системе': self.f
+            'Number of tic': self.teak,
+            'Average energy of ant': self.a,
+            'Accumulated energy of ants': self.b,
+            'Average energy of spider': self.c,
+            'Accumulated energy of spiders': self.d,
+            'Energy of anthill': self.e,
+            'Number of messages': self.f
         }
 
     def move(self):

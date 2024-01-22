@@ -38,9 +38,11 @@ class GraphicsEntity(QGraphicsItem):
         Удаляет графическую сущность. Вызывается при удалении агента
         """
         self.graph_scene.removeItem(self)
+        self.update()
 
     def setRect(self, rect: QRectF):
         self.rect = rect
+        self.update()
 
     def boundingRect(self):
         """
@@ -48,3 +50,4 @@ class GraphicsEntity(QGraphicsItem):
         """
         # FIXME: Предоставить каждому виду сущностей свой размер(изменяемый)
         return self.rect
+

@@ -13,7 +13,7 @@ class Graph:
 
     def __init__(self, y_name):
         self.data = copy(DataStatistics.data)
-        self.x_name = 'Номер тика'
+        self.x_name = 'Number of tic'
         self.y_name = y_name
 
     def load_graph(self) -> Figure:

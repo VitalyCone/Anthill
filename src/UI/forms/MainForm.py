@@ -295,7 +295,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.graph_button.clicked.connect(self.show_graphs)
         self.start_button.clicked.connect(self.show_game)
 
-        path = str(os.path.abspath('../assets/images/ants_img.jpg'))
+        path = str(os.path.abspath('assets/images/ants_img.jpg'))
         self.image_label.setPixmap(QPixmap(path))
 
         self.show()
@@ -318,7 +318,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         dialog = QDialog()
         vbox = QVBoxLayout()
         lbl = QLabel()
-        self.moviee = QMovie(os.path.abspath('../assets/images/loader.gif'))
+        self.moviee = QMovie(os.path.abspath('assets/images/loader.gif'))
         lbl.setMovie(self.moviee)
         self.moviee.start()
         vbox.addWidget(lbl)

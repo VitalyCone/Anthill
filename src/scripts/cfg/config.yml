@@ -1,6 +1,6 @@
 system:
   apple_spawn_time: 100
-  spider_spawn_time: 50
+  spider_spawn_time: 70
   ant_num: 50
   spider_num: 3
   apple_num: 5
@@ -10,6 +10,6 @@ ant:
   radius: 70
 
 spider:
-  speed: 3
+  speed: 1.5
   radius: 70
 

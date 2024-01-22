@@ -28,7 +28,7 @@ class Spider:
         self.energy_consumption = 0.01
         # random.uniform(0, 2 * math.pi)
         self.r = 70  # радиус обзора паука
-        self.energy = random.uniform(0.01, 1)  # энергия муравья/паука, пока что у всех она -- 1
+        self.energy = 1 # энергия муравья/паука, пока что у всех она -- 1
         self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
         self.chasing = False
         # булево значение, которое контролирует переход между состояниями
@@ -45,7 +45,7 @@ class Spider:
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../assets/icons/spider.png'))
+        path = str(os.path.abspath('assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -213,8 +213,8 @@ class Spider:
                             self.my_ant = None  # нечто вроде прототипа ПВ-сетей между пауками, при выборе муравья,если они выбрали одну цель, то они вступают в что-то вроде конфликта,
                             self.chasing = False  # решая, чей профит будет выше => выше прибыль системы. Этот кусочек еще не тестировал, но его надо развивать.
 
-            if distance < (
-                    self.speed + self.my_ant.speed) and self.my_ant != None:  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
+            if self.my_ant and distance < (
+                    self.speed + self.my_ant.speed):  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
                 self.my_ant.die(self.my_ant)
                 logging.info(f'{self.my_ant} был убит {self}')
                 all_update(f'{self.my_ant} был убит {self}')
@@ -223,8 +223,7 @@ class Spider:
                 self.scene.remove(self.my_ant)
                 self.my_ant = None
                 self.chasing = False  # муравей погибает и паук снова переходит в стадию поиска
-        
-        self.energy -= 0.001
+
         if self.energy <= 0:
             self.die()
             logging.info(f'{self} умер')
@@ -251,11 +250,19 @@ class Spider:
 
     def die(self):
         self.status = 'dead'
-        self.graphics_entity.delete_entity()
 
     def run(self):
+        self.energy -= 0.005
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
+        if self.geo[0] > 500:
+            self.geo[0] = 500
+        elif self.geo[0] < 0:
+            self.geo[0] = 0
+        if self.geo[1] > 500:
+            self.geo[1] = 500
+        elif self.geo[1] < 0:
+            self.geo[1] = 0
         # self.graphics_entity.u = math.degrees(self.u)
 
     def render(self):

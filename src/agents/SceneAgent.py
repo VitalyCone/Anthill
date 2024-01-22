@@ -5,7 +5,7 @@ from src.entitites.Group import Group
 
 from src.utils.Messages.Messages import MessageType
 from src.scene.Scene import Scene
-from src.utils.statistics.Statistics import all_update, debug_update, count_id
+from src.utils.statistics.Statistics import all_update, debug_update, count_id, Denotations
 
 
 class SceneAgent(AgentBase):
@@ -24,6 +24,7 @@ class SceneAgent(AgentBase):
 
     def handle_create_group_agent(self, message, sender):
         group = Group(message[1][1].scene, count_id("group"), message[1][0], message[1][1])
+        Denotations.uris['group'].append(group.uri)
         logging.info(f"Группа {group} была создана")
         all_update(f"Группа {group} была создана")
         self.dispatcher.add_entity(group)

@@ -43,8 +43,8 @@ class Ui_GraphsWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        y_names = ['Суммарные значения энергии муравьев', 'Суммарные значения энергии пауков',
-                   'Значения энергии муравейника', 'Количество сообщений в системе']
+        y_names = ['Accumulated energy of ants', 'Accumulated energy of spiders',
+                   'Energy of anthill', 'Number of messages']
         self.graph_1 = MplWidget(y_names[0])
         self.graph_1.setObjectName(u"graph_1")
 

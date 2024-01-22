@@ -7,6 +7,8 @@ from copy import copy
 from thespian.actors import ActorSystem
 import traceback
 
+from src.entitites.Ant import Ant
+from src.entitites.Spider import Spider
 from src.utils.statistics.Statistics import StatisticsAlfa, Config
 from src.agents.BaseAgent import AgentBase
 from src.agents.AntAgent import AntAgent
@@ -55,12 +57,14 @@ class AgentDispatcher(AgentBase):
         self.pause = PAUSE
         self.negotiations_on = True
         self.gap = Config.dataset['system']['apple_spawn_time']
+        self.spider_gap = Config.dataset['system']['spider_spawn_time']
         self.kill = False
         self.window = None
         self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
 
         self.n = 0
+        self.spider_n = 0
 
     def create_scene_agent(self, scene):
         self.create_agent(SceneAgent, scene)
@@ -92,6 +96,30 @@ class AgentDispatcher(AgentBase):
             self.add_entity(apple)
             self.n = 0
 
+    def create_spider(self):
+        """
+        Создает яблоко рандомно каждые n тиков
+        """
+        self.spider_n += 1
+        if self.n == self.spider_gap:
+            spider = Spider(self.scene.get_entities_by_type('Spider') + self.scene.get_entities_by_type('Apple'),
+                            count_id('spider'))
+            self.window.graph_scene.addItem(spider.graphics_entity)
+            spider.graphics_entity.graph_scene = self.window.graph_scene
+            Denotations.uris['spider'].append(spider.uri)
+            self.add_entity(spider)
+
+    def create_ant(self):
+        """
+        Создает яблоко рандомно каждые n тиков
+        """
+        ant = Ant(self.scene.get_entities_by_type('Apple'), self.scene.get_entities_by_type('Anthill')[0],
+                  count_id('ant'))
+        self.window.graph_scene.addItem(ant.graphics_entity)
+        ant.graphics_entity.graph_scene = self.window.graph_scene
+        Denotations.uris['ant'].append(ant.uri)
+        self.add_entity(ant)
+
     def run_planning(self):
         """
         Запускает игру
@@ -105,6 +133,7 @@ class AgentDispatcher(AgentBase):
                         move_message = (MessageType.GIVE_CONTROL, self)
                         self.actor_system.tell(agent, move_message)
             self.create_apple()
+            self.create_spider()
             self.statisticsalfa.move()
         # self.actor_system.tell(self.game_address, (MessageType.GAME_RENDERING_REQUEST, self.pause))
 

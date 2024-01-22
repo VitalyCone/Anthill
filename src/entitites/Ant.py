@@ -40,7 +40,7 @@ class Ant:
             self.speed = 0.3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
-        self.damage = 0.1
+        self.damage = 0.2
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
@@ -62,7 +62,7 @@ class Ant:
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../assets/icons/ant.png'))
+        path = str(os.path.abspath('assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -147,7 +147,6 @@ class Ant:
             pass
         logging.info(f'{self} умер')
         all_update(f'{self} умер')
-        ant.graphics_entity.delete_entity()
 
     def move(self, scene):
         killed = []
@@ -303,8 +302,17 @@ class Ant:
 
     def run(self):
         # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
+        self.energy -= 0.001
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
+        if self.geo[0] > 500:
+            self.geo[0] = 500
+        elif self.geo[0] < 0:
+            self.geo[0] = 0
+        if self.geo[1] > 500:
+            self.geo[1] = 500
+        elif self.geo[1] < 0:
+            self.geo[1] = 0
         # self.graphics_entity.u = math.degrees(self.u)
 
     def render(self):

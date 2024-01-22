@@ -50,6 +50,7 @@ class GroupAgent(AgentBase):
                 entity.prey = None
                 entity.group = None
                 entity.attack = False
+                entity.energy += 1
             msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.uri])
             address = self.dispatcher.reference_book.get_address(self.scene)
             self.send(address, msg)
