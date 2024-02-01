@@ -89,11 +89,11 @@ class Ant(EntityBase):
                 nearest_agent = agent
         return nearest_agent
 
-    def die(self, ant):  # Смерть
+    def die(self, obj):  # Смерть
         try:  # Через try/except, потому что иногда выскакивают ошибки
-            self.ants.remove(ant)
-            self.scene.remove(ant)
-            ant.status = 'dead'
+            self.ants.remove(obj)
+            self.scene.remove(obj)
+            obj.status = 'dead'
         except:
             pass
         logging.info(f'{self} умер')

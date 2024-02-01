@@ -96,3 +96,12 @@ class Anthill(EntityBase):
         self.tic += 1
         self.run()
         return killed
+
+    def die(self, obj):  # Смерть
+        try:  # Через try/except, потому что иногда выскакивают ошибки
+            self.scene.remove(obj)
+            obj.status = 'dead'
+        except:
+            pass
+        logging.info(f'{self} умер')
+        all_update(f'{self} умер')
