@@ -5,16 +5,19 @@ import random
 import logging
 import importlib.resources
 
+import pygame
 from PySide6.QtCore import QPointF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
 from src.utils.statistics.Statistics import all_update
+from src.entitites.BaseEntity import EntityBase
 
 
-class Ant:
+class Ant(EntityBase):
 
     def __init__(self, scene, anthill, id='0'):
+        super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.uri = self.name + str(id)
@@ -66,63 +69,11 @@ class Ant:
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
-
-    def live(self, scene):
-        """
-        Обработка запроса на ход муравья
-        :param scene:
-        :return killed:
-        """
-        killed = self.move(scene)
-        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        return killed
-
-    def get_uri(self):
-        """
-        :return: uri
-        """
-        return self.uri
-
-    def get_spiders(self, scene):  # Фукнция возвращает всех пауков из сцены
-        spiders = []
-        for spider in scene:
-            if spider.name == 'Spider':
-                spiders.append(spider)
-        return spiders
-
-    def get_ants(self, scene):  # Возвращает всех муравьев из сцены
-        ants = []
-        for ant in scene:
-            if ant.name == 'Ant':
-                ants.append(ant)
-        return ants
-
-    def get_apples(self, scene):  # Возвращает все яблоки из сцены
-        apples = []
-        for apple in scene:
-            if apple.name == 'Apple':
-                apples.append(apple)
-        return apples
-
-    def get_anthill(self, scene):  # Возвращает муравейники сцены(задел на будущее)
-        anthill_1 = None
-        for anthill in scene:
-            if anthill.name == 'Anthill':
-                anthill_1 = anthill
-        return anthill_1
     
     def add_ant(self, scene, anthill):
         return Ant(scene, anthill)
 
     def body(self):  # Построение тела на карте
-        # if self.charachter == 0:  # Трус - чуть поменьше
-        #     s = random.randint(4, 5)
-        #     return pygame.Rect(self.geo[0], self.geo[1], s,
-        #                        s)  # Небольшая рандомизация размера каждый вызов даёт ощущения движения
-        # elif self.charachter == 1:  # Доблестный - чуть побольше
-        #     s = random.randint(7, 8)
-        #     return pygame.Rect(self.geo[0], self.geo[1], s, s)  # Идентично
         if self.charachter == 0:
             surface = pygame.transform.rotate(self.ant_icon[0], math.degrees(self.u) - 90)
             surface = pygame.transform.scale(surface, (12, 12))
@@ -218,15 +169,6 @@ class Ant:
                     best_prey = apple
             return best_prey
 
-    def set_vector_to_object(self, entity):
-        """
-        Определяет направляющие векторы для движения к объекту
-        :param entity:
-        :return:
-        """
-        self.u_trig = [(entity.geo[1] - self.geo[1]) / self.get_distance(entity),
-                       (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
-
     def set_u(self):
         """
         Задает угол поворота муравья, исходя из синуса и косинуса этого угла
@@ -246,35 +188,6 @@ class Ant:
             self.u = 0
         elif self.u_trig[0] == -1 and self.u_trig[1] == 0:
             self.u = math.pi
-
-    def get_distance(self, obj):
-        """
-        Возвращает информацию о расстоянии до объекта при помощи теоремы Пифагора
-        """
-        return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
-
-    def accept_message(self, param, obj):  # Функция принятия сообщения. 0 - принятия просьбы о помощи
-        if param == 0:
-            if self.charachter == 0:
-                if self.state[0] != 2 and self.get_distance(obj) <= self.r * 3:
-                    self.state = [2, obj]
-                elif obj in self.spiders:
-                    self.state = [4, obj]
-            elif self.charachter == 1:
-                if self.state[0] != 2 and self.get_distance(obj) <= self.r * 3:
-                    self.state = [2, obj]
-                elif obj in self.spiders:
-                    self.state = [4, obj]
-
-    def send_message_to_radius(self, param, ants,
-                               obj=0):  # Функция разослать сообщение всем в радиусе. param = 0 - помогите убить паука
-        if param == 0:
-            if len(ants) > 3:
-                for ant in ants:
-                    ant.accept_message(param, obj)
-                return True
-            else:
-                return False
 
     def profit(self, ants, agent_resource):
         speed = agent_resource.speed + 0.000001

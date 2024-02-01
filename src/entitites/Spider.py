@@ -5,15 +5,18 @@ import math
 import logging
 import importlib.resources
 
+import pygame
 from PySide6.QtCore import QRectF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
 from src.utils.statistics.Statistics import all_update
+from src.entitites.BaseEntity import EntityBase
 
 
-class Spider:
+class Spider(EntityBase):
     def __init__(self, scene, id='0'):
+        super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         # в каждом классе определил переменную-имя класса,
@@ -51,23 +54,6 @@ class Spider:
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
 
-    def live(self, scene):
-        """
-        Обработка запроса на ход муравья
-        :param scene:
-        :return killed:
-        """
-        killed = self.move(scene)
-        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        return killed
-
-    def get_uri(self):
-        """
-        :return: uri
-        """
-        return self.uri
-
     def body(self):
         # s = random.randint(14, 20)
         # return pygame.Rect(self.geo[0], self.geo[1], s, s)
@@ -90,27 +76,6 @@ class Spider:
             if ant.name == 'Ant' and (abs(geo[0] - ant.geo[0]) <= self.r) and (abs(geo[0] - ant.geo[0]) <= self.r):
                 num_of_ants += 1
         return num_of_ants
-
-    def get_ants(self, scene):  # метод, возвращающий всех муравьев в зоне обзора
-        ants = []
-        for ant in scene:
-            if ant.name == 'Ant':
-                ants.append(ant)
-        return ants
-
-    def get_spiders(self, scene):  # метод, возвращающий всех пауков в зоне обзора
-        spiders = []
-        for spider in scene:
-            if spider.name == 'Spider':
-                spiders.append(spider)
-        return spiders
-
-    def get_apples(self, scene):
-        apples = []
-        for apple in scene:
-            if apple.name == 'Apple':
-                apples.append(apple)
-        return apples
 
     def agent_in_radius(self, agent):
         """
@@ -148,45 +113,6 @@ class Spider:
             self.agent.send_information(spiders, ants)
         killed = []
 
-
-
-        # fighters = []
-        # for ant in ants:
-        #     # if ant.attack and self.get_distance(ant) <= 20:
-        #     if self.get_distance(ant) <= 40:
-        #         fighters.append(ant)
-        # if len(fighters) != 0:
-        #     if len(fighters) <= 2:
-        #         for i in range(0, len(fighters) - len(fighters) // 6):
-        #             a = random.choice(fighters)
-        #             a.die(a)
-        #             fighters.remove(a)
-        #     elif 3 <= len(fighters) <= 5:
-        #         for i in range(0, len(fighters) - len(fighters) // 4):
-        #             a = random.choice(fighters)
-        #             a.die(a)
-        #             fighters.remove(a)
-        #         for i in fighters:
-        #             print(i.energy)
-        #             i.energy += self.energy/len(fighters)
-        #             print(i.energy)
-        #         print(self.name, "умер!")
-        #         self.die()
-        #         killed.append(self.get_uri())
-        #     elif 6 <= len(fighters):
-        #         for i in range(0, len(fighters) - len(fighters) // 2):
-        #             a = random.choice(fighters)
-        #             a.die(a)
-        #             fighters.remove(a)
-        #         for i in fighters:
-        #             print(i.energy)
-        #             i.energy += self.energy/len(fighters)
-        #             print(i.energy)
-        #         print(self.name, "умер!")
-        #         self.die()
-        #         killed.append(self.get_uri())
-
-        #############
         if len(ants) == 0:  # если вокруг паука нет муравьев, то он продолжает находиться в состоянии поиска
             self.chasing = False
             self.my_ant = None
@@ -238,9 +164,6 @@ class Spider:
         except ZeroDivisionError:
             return 0
 
-    def get_distance(self, obj):  # возвращает информацию о расстоянии до обьекта при помощи любимой теоремы Пифагора
-        return math.sqrt((self.geo[0] - obj.geo[0]) ** 2 + (self.geo[1] - obj.geo[1]) ** 2)
-
     def get_scene(self, scene):  # возвращает обьекты из сцены, в радиусе обзора паука
         scene1 = []
         for obj in scene:
@@ -248,7 +171,7 @@ class Spider:
                 scene1.append(obj)
         return scene1
 
-    def die(self):
+    def die(self, obj):
         self.status = 'dead'
 
     def run(self):

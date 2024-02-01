@@ -9,10 +9,12 @@ from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
 from src.utils.statistics.Statistics import all_update
+from src.entitites.BaseEntity import EntityBase
 
 
-class Anthill:
+class Anthill(EntityBase):
     def __init__(self, del_ants, id='0'):
+        super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.status = 'alive'
@@ -39,7 +41,7 @@ class Anthill:
         self.s = 0
         self.del_livelihood = 200
         self.pot_ant = 5
-        self.pot_ants = len(self.ants)*self.pot_ant
+        self.pot_ants = len(self.ants) * self.pot_ant
         self.tic = 0
         self.spawnState = SpawnState(self)
         self.growthState = GrowthState(self)
@@ -57,68 +59,19 @@ class Anthill:
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
-    def live(self, scene):
-        """
-        Обработка запроса на ход муравья
-        :param scene:
-        :return killed:
-        """
-        killed = self.move(scene)
-        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        return killed
-
-    def get_uri(self):
-        """
-        :return: uri
-        """
-        return self.uri
-
     def body(self):
         pass
-        # return pygame.transform.scale(self.anthill_icon,(self.height,self.long))
-        # moving = self.moving
-        # self.geo[0] = self.rect[0]
-        # self.geo[1] = self.rect[1]
-        # print(self.rect, '23223')
-        # if not moving:
-        #     return pygame.Rect(self.geo[0],self.geo[1], self.height,self.long)
-        # else:
-        #     return pygame.Rect(display, "Blue" ,anthill.body())
-        
+
     def change_moving(self, new_moving):
         self.moving = new_moving
-       
-    
-    def get_apples(self, scene):
-        apples = set()
-        for apple in scene:
-            if apple.name == 'Apple':
-                apples.add(apple)
-        return apples
-    
-    def get_ants(self, scene,):  #метод, возвращающий всех муравьев в зоне обзора
-        ants = set()
 
-        for ant in scene:
-            if ant.name == 'Ant':
-                ants.add(ant)
-        return ants
-
-    def get_spiders(self, scene):  #метод, возвращающий всех пауков в зоне обзора
-        spiders = set()
-        for spider in scene:
-            if spider.name == 'Spider':
-                spiders.add(spider)
-        return spiders
-    
     def get_anthills(self, scene):
         anthills = set()
         for anthill in scene:
             if anthill.name == 'Anthill':
                 anthills.add(anthill)
         return anthills
-    
+
     def get_food_apple(self, apple):
         self.energy += apple.energy
         self.food_apple += 1
@@ -127,13 +80,10 @@ class Anthill:
         self.energy -= self.energy_consumption
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
-
     def render(self):
         self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
         self.graphics_entity.setRotation(math.degrees(self.u))
 
-
-    
     def move(self, scene):
         killed = []
         self.scene = scene
