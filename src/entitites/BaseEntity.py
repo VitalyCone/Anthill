@@ -70,13 +70,13 @@ class EntityBase(ABC):
         all_update(f"{self} делает ход!")
 
         if self.energy <= 0:
-            self.die(self)
+            self.die()
             killed.append(self.get_uri())
         self.run()
         return killed
 
     @abstractmethod
-    def die(self, obj):
+    def die(self):
         pass  # Смерть
 
     def render(self):

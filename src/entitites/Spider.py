@@ -163,7 +163,7 @@ class Spider(EntityBase):
                 scene1.append(obj)
         return scene1
 
-    def die(self, obj):
+    def die(self):
         self.status = 'dead'
 
     def run(self):
