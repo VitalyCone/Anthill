@@ -273,6 +273,6 @@ class Ui_AgentSettingsWindow(object):
         self.radius_label.setText(QCoreApplication.translate("AgentSettingsWindow", u"Radius", None))
         self.error_label_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"<html><head/><body><p><span style=\" font-size:14pt; color:#aa0000;\">Incorrect data format</span></p></body></html>", None))
         self.return_button_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"Return", None))
-        self.submit_editing_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"Submit editing", None))
+        self.submit_editing_agent_settings.setText(QCoreApplication.translate("AgentSettingsWindow", u"Apply", None))
     # retranslateUi
 

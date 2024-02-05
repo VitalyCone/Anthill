@@ -297,7 +297,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.settings_button.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.start_button.setText(QCoreApplication.translate("MainWindow", u"Start/Continue", None))
-        self.mas_info_button.setText(QCoreApplication.translate("MainWindow", u"Desicion making log", None))
+        self.mas_info_button.setText(QCoreApplication.translate("MainWindow", u"Decision making log", None))
         self.graph_button.setText(QCoreApplication.translate("MainWindow", u"Results", None))
         self.help_button.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.exit_button.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
