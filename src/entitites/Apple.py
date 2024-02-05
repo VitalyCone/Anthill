@@ -4,7 +4,6 @@ import math
 import logging
 import importlib.resources
 
-import pygame
 from PySide6.QtCore import QPointF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
@@ -21,7 +20,7 @@ class Apple(EntityBase):
         self.uri = self.name + str(_id)
         self.status = 'alive'
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
-        self.r = 50
+        self.r = 500
         self.u = random.uniform(0, 4 * math.pi)
         self.u_trig = [math.sin(self.u), math.cos(self.u)]
         self.travelset = set()
@@ -44,16 +43,6 @@ class Apple(EntityBase):
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
 
-    def body(self):
-        if self.weight == 1:
-            return pygame.transform.scale(self.apple_icon, (25, 25))
-        if self.weight == 2:
-            return pygame.transform.scale(self.apple_icon, (35, 35))
-        if self.weight == 3:
-            return pygame.transform.scale(self.apple_icon, (45, 45))
-        if self.weight == 4:
-            return pygame.transform.scale(self.apple_icon, (55, 55))
-
     def die(self, apple):
         apple.status = 'dead'
         self.scene.remove(apple)
@@ -70,10 +59,10 @@ class Apple(EntityBase):
     def move(self, scene):
         killed = []
         self.scene = scene
-        self.apples = self.get_apples(self.scene)  # диспетчер переопределяет сцену
-        self.ants = self.get_ants(self.scene)
-        self.spiders = self.get_spiders(self.scene)
-        self.anthill = self.get_anthill(self.scene)
+        self.apples = self.get_specific_entities(self.scene, "Apple")   # диспетчер переопределяет сцену
+        self.ants = self.get_specific_entities(self.scene, "Ant")
+        self.spiders = self.get_specific_entities(self.scene, "Spider")
+        self.anthill = self.get_specific_entities(self.scene, "Anthill")[0]
 
         f = self.inertiaState.move(self)
         my_ants = f[1]
@@ -92,6 +81,7 @@ class Apple(EntityBase):
         return killed
 
     def run(self):
+        super().run()
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
 

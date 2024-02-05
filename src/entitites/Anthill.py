@@ -30,7 +30,6 @@ class Anthill(EntityBase):
         self.u = 0
         self.height = 50
         self.long = 50
-        self.livelihood = 1000  # запасы пропитания
         self.exit = False
         self.geo = [self.x, self.y]
         self.scene = None
@@ -87,9 +86,9 @@ class Anthill(EntityBase):
     def move(self, scene):
         killed = []
         self.scene = scene
-        self.anthills = self.get_anthills(scene)
-        self.ants = self.get_ants(scene)
-        self.apples = self.get_apples(scene)
+        self.anthills = self.get_specific_entities(self.scene, "Anthill")
+        self.ants = self.get_specific_entities(self.scene, "Ant")
+        self.apples = self.get_specific_entities(self.scene, "Apple")
         scene = self.spawnState.move(self)
         scene = self.growthState.move(self)
 

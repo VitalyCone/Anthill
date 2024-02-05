@@ -5,7 +5,6 @@ import random
 import logging
 import importlib.resources
 
-import pygame
 from PySide6.QtCore import QPointF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
@@ -47,10 +46,10 @@ class Ant(EntityBase):
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
-        self.apples = self.get_apples(self.scene)  # Вообще все яблоки
+        self.apples = self.get_specific_entities(self.scene, "Apple")  # Вообще все яблоки
         self.anthill = anthill  # Муравейник
-        self.ants = self.get_ants(self.scene)  # Вообще все муравьи
-        self.spiders = self.get_spiders(self.scene)  # Вообще все пауки
+        self.ants = self.get_specific_entities(self.scene, "Ant")  # Вообще все муравьи
+        self.spiders = self.get_specific_entities(self.scene, "Spider")  # Вообще все пауки
         self.weight = 0.2
         self.group = None
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
@@ -73,15 +72,6 @@ class Ant(EntityBase):
     def add_ant(self, scene, anthill):
         return Ant(scene, anthill)
 
-    def body(self):  # Построение тела на карте
-        if self.charachter == 0:
-            surface = pygame.transform.rotate(self.ant_icon[0], math.degrees(self.u) - 90)
-            surface = pygame.transform.scale(surface, (12, 12))
-        if self.charachter == 1:
-            surface = pygame.transform.rotate(self.ant_icon[1], math.degrees(self.u) - 90)
-            surface = pygame.transform.scale(surface, (20, 20))
-        return surface
-        
     def get_nearest(self, agents):
         nearest_agent = agents[0]
         for agent in agents:
@@ -102,9 +92,9 @@ class Ant(EntityBase):
     def move(self, scene):
         killed = []
         self.scene = scene
-        self.apples = self.get_apples(self.scene)
-        self.ants = self.get_ants(self.scene)
-        self.spiders = self.get_spiders(self.scene)
+        self.apples = self.get_specific_entities(self.scene, "Apple")
+        self.ants = self.get_specific_entities(self.scene, "Ant")
+        self.spiders = self.get_specific_entities(self.scene, "Spider")
         # получение данных из сцены и запись, только данных в области обзора паука
         logging.info(f"{self} делает ход!")
         all_update(f"{self} делает ход!")

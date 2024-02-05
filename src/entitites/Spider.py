@@ -5,7 +5,6 @@ import math
 import logging
 import importlib.resources
 
-import pygame
 from PySide6.QtCore import QRectF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
@@ -54,13 +53,6 @@ class Spider(EntityBase):
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
 
-    def body(self):
-        # s = random.randint(14, 20)
-        # return pygame.Rect(self.geo[0], self.geo[1], s, s)
-        surface = pygame.transform.rotate(self.spider_icon, math.degrees(self.u)-90)
-        surface = pygame.transform.scale(surface, (30, 30))
-        return surface
-
     def get_num_of_spiders_around(self, geo):
         # метод, который обрабатывает сцену, и ищет в ней количество пауков, в радиусе от заданных координат
         num_of_spiders = 0
@@ -107,8 +99,8 @@ class Spider(EntityBase):
         self.scene += self.sended_objects
         self.sended_objects.clear()
         # получение данных из сцены и запись, только данных в области обзора паука
-        ants = self.get_ants(self.scene)  # все муравьи в радиусе обзора паука
-        spiders = self.get_spiders(self.scene)
+        ants = self.get_specific_entities(self.scene, "Ant")  # все муравьи в радиусе обзора паука
+        spiders = self.get_specific_entities(self.scene, "Spider")
         if ants and spiders:
             self.agent.send_information(spiders, ants)
         killed = []
@@ -132,7 +124,7 @@ class Spider(EntityBase):
             self.u_trig[0] = (self.my_ant.geo[1] - self.geo[1]) / distance
             self.u_trig[1] = (self.my_ant.geo[0] - self.geo[0]) / distance
             self.u = math.acos((self.my_ant.geo[0] - self.geo[0]) / distance)  # назначается угол-направление в сторону лучшего муравья.
-            for spider in self.get_spiders(self.scene):
+            for spider in self.get_specific_entities(self.scene, "Spider"):
                 if self.my_ant != None and spider.my_ant != None:
                     if spider.my_ant == self.my_ant:
                         if spider.get_energy(self.my_ant) > self.get_energy(self.my_ant):

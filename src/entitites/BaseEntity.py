@@ -56,17 +56,15 @@ class EntityBase(ABC):
 
         super().__init__()
 
-    @abstractmethod
     def run(self):
         self.energy -= 0.001
 
-    @abstractmethod
     def move(self, scene):
         killed = []
         self.scene = scene
-        self.apples = self.get_apples(self.scene)
-        self.ants = self.get_ants(self.scene)
-        self.spiders = self.get_spiders(self.scene)
+        self.apples = self.get_specific_entities(self.scene, "Apple")
+        self.ants = self.get_specific_entities(self.scene, "Ant")
+        self.spiders = self.get_specific_entities(self.scene, "Spider")
 
         logging.info(f"{self} делает ход!")
         all_update(f"{self} делает ход!")
@@ -78,21 +76,12 @@ class EntityBase(ABC):
         return killed
 
     @abstractmethod
-    def die(self, obj):  # Смерть
-        try:
-            pass
-        except:
-            pass
-        logging.info(f'{self} умер')
-        all_update(f'{self} умер')
+    def die(self, obj):
+        pass  # Смерть
 
-    @abstractmethod
-    def body(self):
-        pass
-
-    @abstractmethod
     def render(self):
-        pass
+        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
+        self.graphics_entity.setRotation(math.degrees(self.u))
 
     def live(self, scene):
         """
@@ -105,33 +94,10 @@ class EntityBase(ABC):
         all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
         return killed
 
-    def get_spiders(self, scene):
-        spiders = []
-        for spider in scene:
-            if spider.name == 'Spider':
-                spiders.append(spider)
-        return spiders
-
-    def get_ants(self, scene):
-        ants = []
-        for ant in scene:
-            if ant.name == 'Ant':
-                ants.append(ant)
-        return ants
-
-    def get_apples(self, scene):
-        apples = []
-        for apple in scene:
-            if apple.name == 'Apple':
-                apples.append(apple)
-        return apples
-
-    def get_anthill(self, scene):
-        anthill_1 = None
-        for anthill in scene:
-            if anthill.name == 'Anthill':
-                anthill_1 = anthill
-        return anthill_1
+    @staticmethod
+    def get_specific_entities(scene, entity_type):
+        entities = [entity for entity in scene if entity.name == entity_type]
+        return entities
 
     def get_uri(self):
         """
