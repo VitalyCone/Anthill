@@ -14,7 +14,7 @@ class AgentBase(ABC, Actor):
     """
 
     def __init__(self):
-        self.name = 'Базовый агент from src.utils.statistics.Statistics import all_update, debug_update'
+        self.name = 'Базовый агент'
         super().__init__()
         self.handlers = {}
         self.scene = None

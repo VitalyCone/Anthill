@@ -22,7 +22,7 @@ class GraphicsEntity(QGraphicsItem):
 
     def paint(self, painter: QPainter, option: QStyleOptionGraphicsItem, widget: QWidget = None):
         """
-        Oтрисовывает графический объект и задает ему направление поворота и позицию на графической сцене
+        Oтрисовывает графический объект и задает ему позицию на графической сцене
         :param painter:
         :param option:
         :param widget:
@@ -30,7 +30,6 @@ class GraphicsEntity(QGraphicsItem):
         """
         painter.drawImage(self.boundingRect(), self.sprite)
         self.setPos(self.geo[0], self.geo[1])
-        self.setRotation(self.u)
         self.update()
 
     def delete_entity(self):

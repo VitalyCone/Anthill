@@ -48,6 +48,7 @@ class EntityBase(ABC):
         self.preys = None
         self.spawn = None
         self.searchState = None
+        self.removed = []
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
@@ -57,31 +58,33 @@ class EntityBase(ABC):
         super().__init__()
 
     def run(self):
-        self.energy -= 0.001
+        self.energy -= self.energy_consumption
+
+    def update_scene(self, scene):
+        self.scene = scene
+        self.ants = self.get_specific_entities(self.scene, "Ant")
+        self.apples = self.get_specific_entities(self.scene, "Apple")
+
+    def add_agents_to_scene(self, agents):
+        if agents:
+            logging.info(f'В сцену была добавлена информация от других агентов: {agents}')
+            all_update(f'В сцену была добавлена информация от других агентов: {agents}')
+        self.scene += agents
+        self.ants += self.get_specific_entities(self.scene, "Ant")
+        self.apples += self.get_specific_entities(self.scene, "Apple")
 
     def move(self, scene):
-        killed = []
-        self.scene = scene
-        self.apples = self.get_specific_entities(self.scene, "Apple")
-        self.ants = self.get_specific_entities(self.scene, "Ant")
-        self.spiders = self.get_specific_entities(self.scene, "Spider")
+        self.removed = []
+        self.update_scene(scene)
 
-        logging.info(f"{self} делает ход!")
+        logging.info(f"{self.uri} делает ход!")
         all_update(f"{self} делает ход!")
 
-        if self.energy <= 0:
-            self.die()
-            killed.append(self.get_uri())
-        self.run()
-        return killed
-
-    @abstractmethod
     def die(self):
-        pass  # Смерть
-
-    def render(self):
-        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
-        self.graphics_entity.setRotation(math.degrees(self.u))
+        self.status = 'dead'
+        self.removed.append(self.get_uri())
+        logging.info(f'{self} умер')
+        all_update(f'{self} умер')
 
     def live(self, scene):
         """

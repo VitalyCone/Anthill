@@ -1,5 +1,7 @@
 import math
 import random
+
+from src.entitites import BaseEntity
 from src.states.State import State
 
 class SearchState(State):
@@ -45,7 +47,7 @@ class SearchState(State):
     
     def get_k_in_scope(self, u):
         geo = self.get_geo(u)
-        if (geo[0] > 10 and geo[0] < 490) and (geo[1] > 10 and geo[1] < 490):
+        if (10 < geo[0] < 490) and (10 < geo[1] < 490):
             return 1
         return 0
 
@@ -53,7 +55,7 @@ class SearchState(State):
         u = 0
         i = 0
         odds = []
-        while u < 2*math.pi and u >= 0:
+        while 2*math.pi > u >= 0:
             k_friend = self.get_k_friends(u)  # высчитывает коэфициент союзников, по заданному направлению
             k_enemy = self.get_k_enemies(u)    # высчитывает коэфициент врагов/конкурентов, по заданному направлению
             k_prey = self.get_k_preys(u)    # высчитывыет коэфициент жертвы, по заданному направлению
@@ -64,8 +66,7 @@ class SearchState(State):
             odds.append([k, u])
             u += 0.01      # перебор угла, имитирующий как существо осматривается
             i += 1
-        best_odds = []
-        best_odds.append(odds[0])
+        best_odds = [odds[0]]
         for odd in odds:
             if odd[0] > best_odds[0][0]:
                 best_odds.clear()
@@ -73,5 +74,6 @@ class SearchState(State):
             elif odd[0] == best_odds[0][0]:
                 best_odds.append(odd)
         u = random.choice(best_odds)[1]
+        agent.u_trig = [math.sin(agent.u), math.cos(agent.u)]
         return u
 

@@ -33,7 +33,7 @@ class Ant(EntityBase):
         self.u = 0 # Случайный угол по x
         self.speed = 0.8
         self.r = 70
-        self.energy_consumption = 1/100
+        self.energy_consumption = 0.001
         self.attack = False
         if self.charachter == 0:  # Если трус, то выше скорость, но ниже радиус обзора
             self.speed = 0.5
@@ -78,16 +78,6 @@ class Ant(EntityBase):
             if self.get_distance(agent) < self.get_distance(nearest_agent):
                 nearest_agent = agent
         return nearest_agent
-
-    def die(self, obj):  # Смерть
-        try:  # Через try/except, потому что иногда выскакивают ошибки
-            self.ants.remove(obj)
-            self.scene.remove(obj)
-            obj.status = 'dead'
-        except:
-            pass
-        logging.info(f'{self} умер')
-        all_update(f'{self} умер')
 
     def move(self, scene):
         killed = []
@@ -137,7 +127,7 @@ class Ant(EntityBase):
                     self.set_u()
 
         if self.energy <= 0:
-            self.die(self)
+            self.die()
             killed.append(self.get_uri())
         self.run()
         return killed
@@ -205,7 +195,7 @@ class Ant(EntityBase):
 
     def run(self):
         # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
-        self.energy -= 0.001
+        super().run()
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
         if self.geo[0] > 500:

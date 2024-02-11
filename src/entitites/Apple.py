@@ -4,8 +4,6 @@ import math
 import logging
 import importlib.resources
 
-from PySide6.QtCore import QPointF
-
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.InertiaState import InertiaState
 from src.utils.statistics.Statistics import all_update
@@ -43,26 +41,12 @@ class Apple(EntityBase):
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
 
-    def die(self, apple):
-        apple.status = 'dead'
-        self.scene.remove(apple)
-        self.anthill.get_food_apple(apple)
-        apple.graphics_entity.delete_entity()
-
-    def find_travel_speed(self):
-        quantity_ants = len(self.travelset)
-        normal_speed = 3
-        normal_weight = self.weight / self.ants[0].power
-        speed = normal_speed * quantity_ants / normal_weight
-        return speed
+    def die(self):
+        super().die()
+        self.anthill.get_food_apple(self)
 
     def move(self, scene):
-        killed = []
-        self.scene = scene
-        self.apples = self.get_specific_entities(self.scene, "Apple")   # диспетчер переопределяет сцену
-        self.ants = self.get_specific_entities(self.scene, "Ant")
-        self.spiders = self.get_specific_entities(self.scene, "Spider")
-        self.anthill = self.get_specific_entities(self.scene, "Anthill")[0]
+        super().move(scene)
 
         f = self.inertiaState.move(self)
         my_ants = f[1]
@@ -74,17 +58,13 @@ class Apple(EntityBase):
                 print(ant.energy)
                 ant.energy += (self.energy / 10) / len(my_ants)
                 print(ant.energy)
-            self.die(self)
+            self.die()
             self.anthill.get_food_apple(self)
-            killed.append(self.get_uri())
+            self.removed.append(self.get_uri())
         self.run()
-        return killed
+        return self.removed
 
     def run(self):
         super().run()
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
-
-    def render(self):
-        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
-        self.graphics_entity.setRotation(math.degrees(self.u))

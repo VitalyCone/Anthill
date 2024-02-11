@@ -34,7 +34,6 @@ class Anthill(EntityBase):
         self.geo = [self.x, self.y]
         self.scene = None
         self.ants = []
-        self.anthills = []
         self.spiders = []
         self.food_apple = 0
         self.s = 0
@@ -58,49 +57,20 @@ class Anthill(EntityBase):
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
-    def body(self):
-        pass
-
-    def change_moving(self, new_moving):
-        self.moving = new_moving
-
-    def get_anthills(self, scene):
-        anthills = set()
-        for anthill in scene:
-            if anthill.name == 'Anthill':
-                anthills.add(anthill)
-        return anthills
-
     def get_food_apple(self, apple):
         self.energy += apple.energy
         self.food_apple += 1
 
     def run(self):
-        self.energy -= self.energy_consumption
+        super().run()
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
-    def render(self):
-        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
-        self.graphics_entity.setRotation(math.degrees(self.u))
-
     def move(self, scene):
-        killed = []
-        self.scene = scene
-        self.anthills = self.get_specific_entities(self.scene, "Anthill")
-        self.ants = self.get_specific_entities(self.scene, "Ant")
-        self.apples = self.get_specific_entities(self.scene, "Apple")
-        scene = self.spawnState.move(self)
-        scene = self.growthState.move(self)
+        super().move(scene)
+        self.spawnState.move(self)
+        self.growthState.move(self)
 
         self.tic += 1
         self.run()
-        return killed
+        return self.removed
 
-    def die(self, obj):  # Смерть
-        try:  # Через try/except, потому что иногда выскакивают ошибки
-            self.scene.remove(obj)
-            obj.status = 'dead'
-        except:
-            pass
-        logging.info(f'{self} умер')
-        all_update(f'{self} умер')

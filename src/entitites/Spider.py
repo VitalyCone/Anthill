@@ -27,12 +27,11 @@ class Spider(EntityBase):
         self.u = 0.57
         self.agent = None
         self.sended_objects = []
-        self.energy_consumption = 0.01
+        self.energy_consumption = 0.005
         # random.uniform(0, 2 * math.pi)
         self.r = 70  # радиус обзора паука
-        self.energy = 1 # энергия муравья/паука, пока что у всех она -- 1
-        self.scene = self.get_scene(scene)  # метод, который получает данные о всех обЪектах в области обзора паука
-        self.chasing = False
+        self.energy = 1  # энергия муравья/паука, пока что у всех она -- 1
+        self.scene = []
         # булево значение, которое контролирует переход между состояниями
         # (изначально - паук не преследует никакого муравья)
         self.my_ant = None
@@ -45,29 +44,15 @@ class Spider(EntityBase):
         self.preys = ["Ant"]    # добыча пауков
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
-        logging.info(f'Объект {self.uri} был успешно инициализирован')
-        all_update(f'Объект {self.uri} был успешно инициализирован')
+        self.removed = []
         path = str(os.path.abspath('../../assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
 
-    def get_num_of_spiders_around(self, geo):
-        # метод, который обрабатывает сцену, и ищет в ней количество пауков, в радиусе от заданных координат
-        num_of_spiders = 0
-        for spider in self.scene:
-            if spider.name == Spider and (abs(geo[0] - spider.geo[0]) <= self.r) and (
-                    abs(geo[0] - spider.geo[0]) <= self.r) and spider.geo == self.geo:
-                num_of_spiders += 1
-        return num_of_spiders
-
-    def get_num_of_ants_around(self, geo):  # обрабатывает сцену и выдает кол-во пауков в радиусе обзора данной точки.
-        num_of_ants = 0
-        for ant in self.scene:
-            if ant.name == 'Ant' and (abs(geo[0] - ant.geo[0]) <= self.r) and (abs(geo[0] - ant.geo[0]) <= self.r):
-                num_of_ants += 1
-        return num_of_ants
+        logging.info(f'Объект {self.uri} был успешно инициализирован')
+        all_update(f'Объект {self.uri} был успешно инициализирован')
 
     def agent_in_radius(self, agent):
         """
@@ -90,65 +75,62 @@ class Spider(EntityBase):
             elif not self.agent_in_radius(ant):
                 self.sended_objects.append(ant)
 
-    def move(self, scene):
-        # метод для рассчёта действий для хода муравья
-        self.scene = scene
-        if self.sended_objects:
-            logging.info(f'В сцену была добавлена информация от других агентов: {self.sended_objects}')
-            all_update(f'В сцену была добавлена информация от других агентов: {self.sended_objects}')
-        self.scene += self.sended_objects
-        self.sended_objects.clear()
-        # получение данных из сцены и запись, только данных в области обзора паука
-        ants = self.get_specific_entities(self.scene, "Ant")  # все муравьи в радиусе обзора паука
-        spiders = self.get_specific_entities(self.scene, "Spider")
-        if ants and spiders:
-            self.agent.send_information(spiders, ants)
-        killed = []
+    def try_give_in_prey(self):
+        for spider in self.get_specific_entities(self.scene, "Spider"):
+            if self.my_ant and spider.my_ant:
+                if spider.my_ant == self.my_ant:
+                    if spider.get_energy(self.my_ant) > self.get_energy(self.my_ant):
+                        self.my_ant = None
 
-        if len(ants) == 0:  # если вокруг паука нет муравьев, то он продолжает находиться в состоянии поиска
-            self.chasing = False
+    def try_to_kill_ant(self):
+        self.my_ant.die()
+        self.energy += self.my_ant.energy
+        self.removed.append(self.my_ant.get_uri())
+        self.my_ant = None
+        logging.info(f'{self.my_ant} был убит {self}')
+        all_update(f'{self.my_ant} был убит {self}')
+
+    def move(self, scene):
+        super().move(scene)
+
+        self.add_agents_to_scene(self.sended_objects)
+        self.sended_objects.clear()
+        if self.ants and self.spiders:
+            self.agent.send_information(self.spiders, self.ants)
+
+        # если вокруг паука нет муравьев - состояние поиска
+        if len(self.ants) == 0:
             self.my_ant = None
 
             self.u = self.searchState.move(self)
-            self.u_trig = [math.sin(self.u), math.cos(self.u)]
 
-        else:  # если же вокруг паука есть муравьи - он начинает охоту
-            self.chasing = True
-            best_ant = ants[0]
-            for ant in ants:  # каждый ход охоты идет проверка, точно ли выбранный муравей - лучший.
-                if self.get_energy(ant) > self.get_energy(
-                        best_ant):  # если полученная энергия больше полученной энергии при охоте за лучшим муравьем, тогда назначается новый лучший муравей
-                    best_ant = ant
-            self.my_ant = best_ant
-            distance = self.get_distance(self.my_ant)
-            self.u_trig[0] = (self.my_ant.geo[1] - self.geo[1]) / distance
-            self.u_trig[1] = (self.my_ant.geo[0] - self.geo[0]) / distance
-            self.u = math.acos((self.my_ant.geo[0] - self.geo[0]) / distance)  # назначается угол-направление в сторону лучшего муравья.
-            for spider in self.get_specific_entities(self.scene, "Spider"):
-                if self.my_ant != None and spider.my_ant != None:
-                    if spider.my_ant == self.my_ant:
-                        if spider.get_energy(self.my_ant) > self.get_energy(self.my_ant):
-                            self.my_ant = None  # нечто вроде прототипа ПВ-сетей между пауками, при выборе муравья,если они выбрали одну цель, то они вступают в что-то вроде конфликта,
-                            self.chasing = False  # решая, чей профит будет выше => выше прибыль системы. Этот кусочек еще не тестировал, но его надо развивать.
+        # если же вокруг паука есть муравьи - он начинает охоту
+        else:
 
-            if self.my_ant and distance < (
-                    self.speed + self.my_ant.speed):  # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
-                self.my_ant.die(self.my_ant)
-                logging.info(f'{self.my_ant} был убит {self}')
-                all_update(f'{self.my_ant} был убит {self}')
-                self.energy += self.my_ant.energy
-                killed.append(self.my_ant.get_uri())
-                self.scene.remove(self.my_ant)
-                self.my_ant = None
-                self.chasing = False  # муравей погибает и паук снова переходит в стадию поиска
+            self.my_ant = self.get_best_ant()
+            self.set_vector_to_object(self.my_ant)
+
+            self.try_give_in_prey()
+
+            # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
+
+            if (self.my_ant and self.get_distance(self.my_ant) <
+                    (self.speed + self.my_ant.speed)):
+                self.try_to_kill_ant()
 
         if self.energy <= 0:
             self.die()
-            logging.info(f'{self} умер')
-            all_update(f'{self} умер')
-            killed.append(self.get_uri())
+
         self.run()
-        return killed
+        return self.removed
+
+    def get_best_ant(self):
+        best_ant = self.ants[0]
+        for ant in self.ants:  # каждый ход охоты идет проверка, точно ли выбранный муравей - лучший.
+            if self.get_energy(ant) > self.get_energy(
+                    best_ant):
+                best_ant = ant
+        return best_ant
 
     def get_energy(self, obj):  # возвращает энергию, полученную пауком.
         try:
@@ -156,18 +138,12 @@ class Spider(EntityBase):
         except ZeroDivisionError:
             return 0
 
-    def get_scene(self, scene):  # возвращает обьекты из сцены, в радиусе обзора паука
-        scene1 = []
-        for obj in scene:
-            if (abs(obj.geo[0] - self.geo[0]) <= self.r) and (abs(obj.geo[1] - self.geo[1]) <= self.r):
-                scene1.append(obj)
-        return scene1
-
-    def die(self):
-        self.status = 'dead'
-
     def run(self):
-        self.energy -= 0.005
+        """
+        Реализация перемещения агента по направляющему вектору
+        :return:
+        """
+        super().run()
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
         if self.geo[0] > 500:
@@ -178,8 +154,3 @@ class Spider(EntityBase):
             self.geo[1] = 500
         elif self.geo[1] < 0:
             self.geo[1] = 0
-        # self.graphics_entity.u = math.degrees(self.u)
-
-    def render(self):
-        self.graphics_entity.setRotation(math.degrees(self.u))
-        self.graphics_entity.setPos(self.geo[0], self.geo[1])
