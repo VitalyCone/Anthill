@@ -36,7 +36,7 @@ class Group:
         if self.aim.name == 'Spider':
             num_of_entities = 0
             for entity in self.entities:
-                if entity.attack and entity.get_distance(self.aim) <= 20:
+                if entity.attack and entity.get_distance(self.aim) <= (self.aim.speed + self.leader.speed):
                     num_of_entities += 1
             self.aim.energy -= num_of_entities*self.leader.damage
             if self.aim.energy <= 0:

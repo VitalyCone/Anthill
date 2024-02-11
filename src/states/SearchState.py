@@ -73,7 +73,7 @@ class SearchState(State):
                 best_odds.append(odd)
             elif odd[0] == best_odds[0][0]:
                 best_odds.append(odd)
-        u = random.choice(best_odds)[1]
+        agent.u = random.choice(best_odds)[1]
         agent.u_trig = [math.sin(agent.u), math.cos(agent.u)]
         return u
 

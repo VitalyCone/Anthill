@@ -9,7 +9,7 @@ class InertiaState(State):
         agent = self.agent
         i = []
         for other_agent in agent.scene:
-            if agent != other_agent and agent.get_distance(other_agent) <= 5 and other_agent.name == 'Ant':
+            if agent != other_agent and other_agent.name == 'Ant' and agent.get_distance(other_agent) <= other_agent.speed:
                 # ПЕРЕПИСАТЬ, чтобы никаких исключений, для пауков
                 impulce += other_agent.weight*other_agent.speed
                 i.append(other_agent)

@@ -30,7 +30,7 @@ class Ant(EntityBase):
         # 4 - Убегает от паука, поскольку рядом нет товарищей/не способны оказать должное
         # Сопротивление пауку
         self.charachter = random.randint(0, 1)  # Характер. 0 - трусливый, 1 - доблестный
-        self.u = 0 # Случайный угол по x
+        self.u = 0  # Случайный угол по x
         self.speed = 0.8
         self.r = 70
         self.energy_consumption = 0.001
@@ -68,85 +68,79 @@ class Ant(EntityBase):
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
-    
-    def add_ant(self, scene, anthill):
+
+    @staticmethod
+    def add_ant(scene, anthill):
         return Ant(scene, anthill)
 
-    def get_nearest(self, agents):
-        nearest_agent = agents[0]
-        for agent in agents:
-            if self.get_distance(agent) < self.get_distance(nearest_agent):
-                nearest_agent = agent
-        return nearest_agent
-
     def move(self, scene):
-        killed = []
-        self.scene = scene
-        self.apples = self.get_specific_entities(self.scene, "Apple")
-        self.ants = self.get_specific_entities(self.scene, "Ant")
-        self.spiders = self.get_specific_entities(self.scene, "Spider")
-        # получение данных из сцены и запись, только данных в области обзора паука
-        logging.info(f"{self} делает ход!")
-        all_update(f"{self} делает ход!")
+        super().move(scene)
 
         if self.spiders:
             sorted(self.spiders,
                    key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список пауков
         if self.apples:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
-            if self.apples[0] != self.get_nearest(self.apples):
-                self.apples.append(self.apples[0])
-                self.apples[0] = self.get_nearest(self.apples)
 
-        if not self.prey:
-            self.u = self.searchState.move(self)
-            self.u_trig = [math.sin(self.u), math.cos(self.u)]
-            if self.apples or self.spiders:
-                self.prey = self.choose_prey()
-                self.agent.create_group(self.prey, self)
-        else:
+        if not self.prey and not self.apples and not self.spiders:
+            self.searchState.move(self)
+        if not self.prey and self.apples or self.spiders:
+            self.choose_prey()
+        elif self.prey:
             if self.prey.name == 'Apple':
-                if self.get_distance(self.prey) >= self.speed - self.prey.speed:
+                if self.get_distance(self.prey) >= self.speed:
                     self.set_vector_to_object(self.prey)
-                    self.set_u()
                 else:
                     self.set_vector_to_object(self.anthill)
-                    self.set_u()
             elif self.prey.name == 'Spider' and self.group:
                 self.set_vector_to_object(self.prey)
                 if not self.attack:
                     if self == self.group.leader:
                         self.u_trig[0] = -self.u_trig[0]
                         self.u_trig[1] = -self.u_trig[1]
-                        self.set_u()
                     else:
                         self.set_vector_to_object(self.group.leader)
-                        self.set_u()
                 else:
                     self.set_vector_to_object(self.prey)
-                    self.set_u()
+            self.set_u()
 
         if self.energy <= 0:
             self.die()
-            killed.append(self.get_uri())
         self.run()
-        return killed
+        return self.removed
 
     def choose_prey(self):
         """
         Выбирает жертву
         """
-        if self.spiders:
+        groups = self.get_specific_entities(self.scene, "Group")
+        spider_groups = [group for group in groups if group.aim.name == "Spider"]
+        apple_groups = [group for group in groups if group.aim.name == "Apple"]
+        if len(spider_groups) > 0:
+            best_group = max(spider_groups, key=lambda x: x.aim.energy)
+            self.group = best_group
+            self.group.entities.append(self)
+            return best_group.aim
+        elif len(self.spiders) > 0:
             best_prey = self.spiders[0]
             for spider in self.spiders:
                 if spider.energy > best_prey.energy:
                     best_prey = spider
+            self.prey = best_prey
+            self.agent.create_group(self.prey, self)
             return best_prey
-        else:
+        elif len(apple_groups) > 0:
+            best_group = max(apple_groups, key=lambda x: x.aim.energy)
+            self.group = best_group
+            self.group.entities.append(self)
+            return best_group.aim
+        elif len(self.apples) > 0:
             best_prey = self.apples[0]
             for apple in self.apples:
                 if apple.energy > best_prey.energy:
                     best_prey = apple
+            self.prey = best_prey
+            self.agent.create_group(self.prey, self)
             return best_prey
 
     def set_u(self):
@@ -178,21 +172,6 @@ class Ant(EntityBase):
         our_profit = (agent_resource.energy/10)/(len(ants)+1) - self.get_distance(self.anthill)/new_speed*self.energy_consumption #Если они толкали со мной
         return our_profit - their_profit
 
-    def get_scene(self, scene):
-        # возвращает обьекты из сцены, в радиусе обзора паука
-        scene1 = set()
-        for obj in scene:
-            if obj.name == "Ant":
-                if (abs(obj.geo[0] - self.geo[0]) <= self.r * 1.5) and (abs(obj.geo[1] - self.geo[1]) <= self.r * 1.5):
-                    scene1.add(obj)
-            elif obj.name == "Apple":
-                if (abs(obj.geo[0] - self.geo[0]) <= self.r * 2) and (abs(obj.geo[1] - self.geo[1]) <= self.r * 2):
-                    scene1.add(obj)
-            else:
-                if (abs(obj.geo[0] - self.geo[0]) <= self.r) and (abs(obj.geo[1] - self.geo[1]) <= self.r):
-                    scene1.add(obj)
-        return scene1
-
     def run(self):
         # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
         super().run()
@@ -206,8 +185,3 @@ class Ant(EntityBase):
             self.geo[1] = 500
         elif self.geo[1] < 0:
             self.geo[1] = 0
-        # self.graphics_entity.u = math.degrees(self.u)
-
-    def render(self):
-        self.graphics_entity.setPos(QPointF(self.geo[0], self.geo[1]))
-        self.graphics_entity.setRotation(math.degrees(self.u))

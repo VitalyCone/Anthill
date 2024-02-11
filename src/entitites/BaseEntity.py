@@ -64,6 +64,7 @@ class EntityBase(ABC):
         self.scene = scene
         self.ants = self.get_specific_entities(self.scene, "Ant")
         self.apples = self.get_specific_entities(self.scene, "Apple")
+        self.spiders = self.get_specific_entities(self.scene, "Spider")
 
     def add_agents_to_scene(self, agents):
         if agents:
@@ -72,6 +73,7 @@ class EntityBase(ABC):
         self.scene += agents
         self.ants += self.get_specific_entities(self.scene, "Ant")
         self.apples += self.get_specific_entities(self.scene, "Apple")
+        self.spiders = self.get_specific_entities(self.scene, "Spider")
 
     def move(self, scene):
         self.removed = []
