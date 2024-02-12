@@ -36,9 +36,8 @@ class Group:
         if self.aim.name == 'Spider':
             num_of_entities = 0
             for entity in self.entities:
-                if entity.attack and entity.get_distance(self.aim) <= (self.aim.speed + self.leader.speed):
+                if entity.attack and entity.get_distance(self.aim) <= entity.speed + self.aim.speed:
                     num_of_entities += 1
-            self.aim.energy -= num_of_entities*self.leader.damage
-            if self.aim.energy <= 0:
+            if num_of_entities*self.leader.damage >= self.aim.energy:
                 self.aim.die()
                 self.agent.kill_aim()

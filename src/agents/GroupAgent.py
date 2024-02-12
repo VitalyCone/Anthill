@@ -46,24 +46,28 @@ class GroupAgent(AgentBase):
             if entity.status == 'dead':
                 self.entity.entities.remove(entity)
         if self.entity.aim.status == 'dead' or self.entity.leader.status == 'dead':
-            for entity in self.entity.entities:
-                entity.prey = None
-                entity.group = None
-                entity.attack = False
-                entity.energy += 1
-            msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.uri])
-            address = self.dispatcher.reference_book.get_address(self.scene)
-            self.send(address, msg)
+            self.remove_group()
         entities_ready_attack = []
         for entity in self.entity.entities:
             if entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack:
                 entities_ready_attack.append(entity)
-        if self.entity.aim.name == 'Spider' and len(entities_ready_attack) > 3:
+        if (self.entity.aim.name == 'Spider'
+                and len(entities_ready_attack) > 3):
             for entity in self.entity.entities:
                 address = self.dispatcher.reference_book.get_address(entity)
                 msg = (MessageType.ATTACK_REQUEST, True)
                 self.send(address, msg)
         self.entity.make_damage()
+
+    def remove_group(self):
+        for entity in self.entity.entities:
+            entity.prey = None
+            entity.group = None
+            entity.attack = False
+            entity.energy += 1
+        msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.uri])
+        address = self.dispatcher.reference_book.get_address(self.scene)
+        self.send(address, msg)
 
     def send_invite_message(self):
         if self.dispatcher.negotiations_on:

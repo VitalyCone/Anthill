@@ -45,7 +45,7 @@ class Spider(EntityBase):
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.removed = []
-        path = str(os.path.abspath('../../assets/icons/spider.png'))
+        path = str(os.path.abspath('assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -82,7 +82,7 @@ class Spider(EntityBase):
                     if spider.get_energy(self.my_ant) > self.get_energy(self.my_ant):
                         self.my_ant = None
 
-    def try_to_kill_ant(self):
+    def kill_ant(self):
         self.my_ant.die()
         self.energy += self.my_ant.energy
         self.removed.append(self.my_ant.get_uri())
@@ -116,7 +116,7 @@ class Spider(EntityBase):
 
             if (self.my_ant and self.get_distance(self.my_ant) <
                     (self.speed + self.my_ant.speed)):
-                self.try_to_kill_ant()
+                self.kill_ant()
 
         if self.energy <= 0:
             self.die()

@@ -102,12 +102,13 @@ class AgentDispatcher(AgentBase):
         """
         self.spider_n += 1
         if self.n == self.spider_gap:
-            spider = Spider(self.scene.get_entities_by_type('Spider') + self.scene.get_entities_by_type('Apple'),
-                            count_id('spider'))
-            self.window.graph_scene.addItem(spider.graphics_entity)
-            spider.graphics_entity.graph_scene = self.window.graph_scene
-            Denotations.uris['spider'].append(spider.uri)
-            self.add_entity(spider)
+            for i in range(self.scene.get_entities_by_type('Spider')/5 + 1):
+                spider = Spider(self.scene.get_entities_by_type('Spider') + self.scene.get_entities_by_type('Apple'),
+                                count_id('spider'))
+                self.window.graph_scene.addItem(spider.graphics_entity)
+                spider.graphics_entity.graph_scene = self.window.graph_scene
+                Denotations.uris['spider'].append(spider.uri)
+                self.add_entity(spider)
 
     def create_ant(self):
         """
@@ -143,7 +144,6 @@ class AgentDispatcher(AgentBase):
         :param game_entity:
         :return:
         """
-        entity_type = game_entity.name
         agent = self.actor_system.createActor(GameAgent)
         init_data = {'dispatcher': self, 'scene': self.scene, 'entity': game_entity}
         init_message = (MessageType.INIT_MESSAGE, init_data)

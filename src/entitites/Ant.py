@@ -42,7 +42,7 @@ class Ant(EntityBase):
             self.speed = 0.3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
-        self.damage = 0.2
+        self.damage = 0.05
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
@@ -64,7 +64,7 @@ class Ant(EntityBase):
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/ant.png'))
+        path = str(os.path.abspath('assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -84,9 +84,9 @@ class Ant(EntityBase):
 
         if not self.prey and not self.apples and not self.spiders:
             self.searchState.move(self)
-        if not self.prey and self.apples or self.spiders:
-            self.choose_prey()
-        elif self.prey:
+        # if not self.prey and self.apples or self.spiders:
+        self.choose_prey()
+        if self.prey:
             if self.prey.name == 'Apple':
                 if self.get_distance(self.prey) >= self.speed:
                     self.set_vector_to_object(self.prey)
