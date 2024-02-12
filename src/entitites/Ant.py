@@ -42,7 +42,7 @@ class Ant(EntityBase):
             self.speed = 0.3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
-        self.damage = 0.05
+        self.damage = 0.2
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
@@ -73,6 +73,13 @@ class Ant(EntityBase):
     def add_ant(scene, anthill):
         return Ant(scene, anthill)
 
+    def get_nearest(self, agents):
+        nearest_agent = agents[0]
+        for agent in agents:
+            if self.get_distance(agent) < self.get_distance(nearest_agent):
+                nearest_agent = agent
+        return nearest_agent
+
     def move(self, scene):
         super().move(scene)
 
@@ -81,12 +88,16 @@ class Ant(EntityBase):
                    key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список пауков
         if self.apples:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
+            if self.apples[0] != self.get_nearest(self.apples):
+                self.apples.append(self.apples[0])
+                self.apples[0] = self.get_nearest(self.apples)
 
-        if not self.prey and not self.apples and not self.spiders:
-            self.searchState.move(self)
-        # if not self.prey and self.apples or self.spiders:
-        self.choose_prey()
-        if self.prey:
+        if not self.prey:
+            self.u = self.searchState.move(self)
+            self.u_trig = [math.sin(self.u), math.cos(self.u)]
+            if self.apples or self.spiders:
+                self.prey = self.choose_prey()
+        else:
             if self.prey.name == 'Apple':
                 if self.get_distance(self.prey) >= self.speed:
                     self.set_vector_to_object(self.prey)
@@ -116,12 +127,12 @@ class Ant(EntityBase):
         groups = self.get_specific_entities(self.scene, "Group")
         spider_groups = [group for group in groups if group.aim.name == "Spider"]
         apple_groups = [group for group in groups if group.aim.name == "Apple"]
-        if len(spider_groups) > 0:
-            best_group = max(spider_groups, key=lambda x: x.aim.energy)
-            self.group = best_group
-            self.group.entities.append(self)
-            return best_group.aim
-        elif len(self.spiders) > 0:
+        # if len(spider_groups) > 0:
+        #     best_group = max(spider_groups, key=lambda x: x.aim.energy)
+        #     self.group = best_group
+        #     self.group.entities.append(self)
+        #     return best_group.aim
+        if len(self.spiders) > 0:
             best_prey = self.spiders[0]
             for spider in self.spiders:
                 if spider.energy > best_prey.energy:
@@ -129,11 +140,11 @@ class Ant(EntityBase):
             self.prey = best_prey
             self.agent.create_group(self.prey, self)
             return best_prey
-        elif len(apple_groups) > 0:
-            best_group = max(apple_groups, key=lambda x: x.aim.energy)
-            self.group = best_group
-            self.group.entities.append(self)
-            return best_group.aim
+        # elif len(apple_groups) > 0:
+        #     best_group = max(apple_groups, key=lambda x: x.aim.energy)
+        #     self.group = best_group
+        #     self.group.entities.append(self)
+        #     return best_group.aim
         elif len(self.apples) > 0:
             best_prey = self.apples[0]
             for apple in self.apples:

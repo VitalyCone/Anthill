@@ -75,5 +75,5 @@ class SearchState(State):
                 best_odds.append(odd)
         agent.u = random.choice(best_odds)[1]
         agent.u_trig = [math.sin(agent.u), math.cos(agent.u)]
-        return u
+        return agent.u
 
