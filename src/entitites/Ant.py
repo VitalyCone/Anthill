@@ -42,7 +42,7 @@ class Ant(EntityBase):
             self.speed = 0.3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
-        self.damage = 0.2
+        self.damage = 0.3
         self.power = 1500
         self.energy = random.uniform(0.01, 1)
         self.scene = scene  # Сцена
