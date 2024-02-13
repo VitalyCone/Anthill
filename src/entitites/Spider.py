@@ -9,6 +9,7 @@ from PySide6.QtCore import QRectF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
+from src.states.hunt_state import HuntState
 from src.utils.statistics.Statistics import all_update
 from src.entitites.BaseEntity import EntityBase
 
@@ -42,8 +43,10 @@ class Spider(EntityBase):
         self.friends = []  # друзья паука(здесь и в следующих массивах это имена классов-агентов)
         self.enemies = ["Spider"]  # враги пауков
         self.preys = ["Ant"]    # добыча пауков
+        self.prey = None
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
+        self.hunt_state = HuntState(self)
         self.removed = []
         path = str(os.path.abspath('assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
@@ -100,22 +103,17 @@ class Spider(EntityBase):
 
         # если вокруг паука нет муравьев - состояние поиска
         if len(self.ants) == 0:
-            self.my_ant = None
 
             self.u = self.searchState.move(self)
 
         # если же вокруг паука есть муравьи - он начинает охоту
         else:
 
-            self.my_ant = self.get_best_ant()
-            self.set_vector_to_object(self.my_ant)
-
-            self.try_give_in_prey()
-
+            self.hunt_state.move(self)
             # если же муравей оказался на дистанции меньшей, чем минимальное перемещение за ход, тогда муравей умирает
 
-            if (self.my_ant and self.get_distance(self.my_ant) <
-                    (self.speed + self.my_ant.speed)):
+            if (self.prey and self.get_distance(self.prey) <
+                    (self.speed + self.prey.speed)):
                 self.kill_ant()
 
         if self.energy <= 0:
