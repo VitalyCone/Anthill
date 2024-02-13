@@ -7,6 +7,7 @@ from copy import copy
 from thespian.actors import ActorSystem
 import traceback
 
+from src.agents.agent import Agent
 from src.entitites.Ant import Ant
 from src.entitites.Spider import Spider
 from src.utils.statistics.Statistics import StatisticsAlfa, Config
@@ -29,12 +30,12 @@ from src.utils.statistics.Statistics import Denotations, count_id
 
 # В зависимости от типа сущности мы выбираем класс агента
 TYPES_AGENTS = {
-    'Spider': SpiderAgent,
-    'Ant': AntAgent,
-    'Anthill': AnthillAgent,
-    'Apple': AppleAgent,
+    'Spider': Agent,
+    'Ant': Agent,
+    'Anthill': Agent,
+    'Apple': Agent,
     'Scene': SceneAgent,
-    'Game': GameAgent,
+    'Game': Agent,
     'Group': GroupAgent,
 }
 

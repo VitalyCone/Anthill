@@ -80,18 +80,18 @@ class Spider(EntityBase):
 
     def try_give_in_prey(self):
         for spider in self.get_specific_entities(self.scene, "Spider"):
-            if self.my_ant and spider.my_ant:
-                if spider.my_ant == self.my_ant:
-                    if spider.get_energy(self.my_ant) > self.get_energy(self.my_ant):
-                        self.my_ant = None
+            if self.prey and spider.prey:
+                if spider.prey == self.prey:
+                    if spider.get_energy(self.prey) > self.get_energy(self.prey):
+                        self.prey = None
 
     def kill_ant(self):
-        self.my_ant.die()
-        self.energy += self.my_ant.energy
-        self.removed.append(self.my_ant.get_uri())
-        self.my_ant = None
-        logging.info(f'{self.my_ant} был убит {self}')
-        all_update(f'{self.my_ant} был убит {self}')
+        self.prey.die()
+        self.energy += self.prey.energy
+        self.removed.append(self.prey.get_uri())
+        self.prey = None
+        logging.info(f'{self.prey} был убит {self}')
+        all_update(f'{self.prey} был убит {self}')
 
     def move(self, scene):
         super().move(scene)

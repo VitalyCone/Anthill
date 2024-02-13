@@ -122,6 +122,9 @@ class EntityBase(ABC):
         :param entity:
         :return:
         """
-        self.u_trig = [(entity.geo[1] - self.geo[1]) / self.get_distance(entity),
-                       (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
+        try:
+            self.u_trig = [(entity.geo[1] - self.geo[1]) / self.get_distance(entity),
+                           (entity.geo[0] - self.geo[0]) / self.get_distance(entity)]
+        except ZeroDivisionError:
+            self.u_trig = [0, 0]
 

@@ -1,23 +1,25 @@
-"""Содержит базовую реализацию агента с обработкой сообщений"""
+"""Содержит универсальную реализацию агента с обработкой сообщений"""
 import logging
 import traceback
 from abc import ABC
 
 from thespian.actors import Actor, ActorExitRequest
 
+from src.entitites import BaseEntity
 from src.utils.Messages.Messages import MessageType
 from src.utils.statistics.Statistics import all_update, debug_update
 
 
-class AgentBase(ABC, Actor):
+class Agent(ABC, Actor):
     """
-    Базовая реализация агента
+    Универсальная реализация агента
     """
 
     def __init__(self):
-        self.name = 'Базовый агент'
         super().__init__()
+        self.name = 'Агент'
         self.handlers = {}
+        self.entity: BaseEntity
         self.scene = None
         self.dispatcher = None
         self.entity = None
@@ -30,7 +32,7 @@ class AgentBase(ABC, Actor):
 
     def send_information(self, spiders, ants):
         """
-        Отправление информации другим паукам
+        Отправление информации другим агентам-союзникам
         :param spiders:
         :param ants:
         :return:
@@ -45,7 +47,7 @@ class AgentBase(ABC, Actor):
 
     def handle_share_information(self, message, sender):
         """
-        Обработка переданной информации о муравьях от других пауков
+        Обработка переданной информации о сцене от других агентов-союзников
         :param message:
         :param sender:
         :return:
@@ -120,6 +122,7 @@ class AgentBase(ABC, Actor):
         self.scene = message[1].get('scene')
         self.dispatcher = message[1].get('dispatcher')
         self.entity = message[1].get('entity')
+        self.name += " " + self.entity.name
         self.entity.agent = self
         self.name = self.name + ' ' + self.entity.name
         logging.info(f'{self} проинициализирован')
