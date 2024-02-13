@@ -64,7 +64,7 @@ class Ant(EntityBase):
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/ant.png'))
+        path = str(os.path.abspath('assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -72,13 +72,6 @@ class Ant(EntityBase):
     @staticmethod
     def add_ant(scene, anthill):
         return Ant(scene, anthill)
-
-    def get_nearest(self, agents):
-        nearest_agent = agents[0]
-        for agent in agents:
-            if self.get_distance(agent) < self.get_distance(nearest_agent):
-                nearest_agent = agent
-        return nearest_agent
 
     def move(self, scene):
         super().move(scene)
@@ -88,9 +81,6 @@ class Ant(EntityBase):
                    key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список пауков
         if self.apples:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
-            if self.apples[0] != self.get_nearest(self.apples):
-                self.apples.append(self.apples[0])
-                self.apples[0] = self.get_nearest(self.apples)
 
         if not self.prey:
             self.u = self.searchState.move(self)
