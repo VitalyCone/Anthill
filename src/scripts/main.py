@@ -16,7 +16,7 @@ import sys
 
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-setConfig('src/scripts/cfg/config.yml')
+setConfig('cfg/config.yml')
 scene = Scene()
 agent_dispatcher = AgentDispatcher(scene)
 # Инициализация игры

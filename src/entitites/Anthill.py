@@ -8,7 +8,7 @@ from PySide6.QtCore import QPointF, QRectF
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
-from src.utils.statistics.Statistics import all_update
+from src.utils.statistics.Statistics import all_update, Config
 from src.entitites.BaseEntity import EntityBase
 
 
@@ -43,6 +43,7 @@ class Anthill(EntityBase):
         self.tic = 0
         self.spawnState = SpawnState(self)
         self.growthState = GrowthState(self)
+        self.spawn_gap = Config.dataset['system']['ant_spawn_time']
         self.all = False
         self.moving = False
         # self.rect = Rect(self.geo[0],self.geo[1], self.height,self.long)
@@ -51,7 +52,7 @@ class Anthill(EntityBase):
         # print(f'center={self.rect.center}')
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('assets/icons/anthill.png'))
+        path = str(os.path.abspath('../../assets/icons/anthill.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
