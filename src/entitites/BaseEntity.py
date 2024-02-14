@@ -15,6 +15,7 @@ class EntityBase(ABC):
     def __init__(self):
         self.name = 'Базовая сущность'
         self.name = __class__.__name__
+        self.version = 0
         self.uri = None
         self.status = None
         self.geo = None
@@ -84,7 +85,7 @@ class EntityBase(ABC):
 
     def die(self):
         self.status = 'dead'
-        self.removed.append(self.get_uri())
+        self.removed.append([self.get_uri(), self.version])
         logging.info(f'{self} умер')
         all_update(f'{self} умер')
 

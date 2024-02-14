@@ -88,7 +88,7 @@ class Spider(EntityBase):
     def kill_ant(self):
         self.prey.die()
         self.energy += self.prey.energy
-        self.removed.append(self.prey.get_uri())
+        self.removed.append([self.prey.get_uri(), self.prey.version])
         self.prey = None
         logging.info(f'{self.prey} был убит {self}')
         all_update(f'{self.prey} был убит {self}')

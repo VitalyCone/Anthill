@@ -55,7 +55,12 @@ class SceneAgent(AgentBase):
         :param sender:
         :return:
         """
-        for uri in message[1]:
-            self.entity.remove_entity_by_uri(uri)
-            logging.info(f'{uri} был(а) удален(а) из сцены агентом {sender}')
-            all_update(f'{uri} был(а) удален(а) из сцены агентом {sender}')
+        for entity in message[1]:
+            uri = entity[0]
+            version = entity[1]
+            entity = self.entity.get_entity_by_uri(uri)
+            if entity:
+                if self.entity.get_entity_by_uri(uri).version == version:
+                    self.entity.remove_entity_by_uri(uri)
+                    logging.info(f'{uri} был(а) удален(а) из сцены агентом {sender}')
+                    all_update(f'{uri} был(а) удален(а) из сцены агентом {sender}')

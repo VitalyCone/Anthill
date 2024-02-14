@@ -60,7 +60,7 @@ class Apple(EntityBase):
                 print(ant.energy)
             self.die()
             self.anthill.get_food_apple(self)
-            self.removed.append(self.get_uri())
+            self.removed.append([self.get_uri(), self.prey.version])
         self.run()
         return self.removed
 

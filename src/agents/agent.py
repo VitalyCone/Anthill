@@ -139,6 +139,7 @@ class Agent(ABC, Actor):
         all_update(f'{self}: получена сцена от {sender}')
         scene = message[1]
         killed = self.entity.live(scene)
+        self.entity.version += 1
         if killed:
             msg = (MessageType.ENTITY_REMOVE_REQUEST, killed)
             scene_address = self.dispatcher.reference_book.get_address(self.scene)
