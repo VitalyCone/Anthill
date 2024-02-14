@@ -10,6 +10,7 @@ class Group:
         self.uri = self.name + str(id)
         self.scene = scene
         self.leader = leader
+        leader.group = self
         self.agent = None
         self.aim = aim
         self.r = leader.r

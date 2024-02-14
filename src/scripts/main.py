@@ -22,6 +22,7 @@ agent_dispatcher = AgentDispatcher(scene)
 # Инициализация игры
 # Входные данные для моделирования
 
+
 def qt_thread():
     app = QApplication(sys.argv)
 
