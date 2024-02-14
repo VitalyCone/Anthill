@@ -59,14 +59,28 @@ class Anthill(EntityBase):
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
     def get_food_apple(self, apple):
+        """
+        Муравейник поглощает яблоко.
+        :param apple:
+        :return:
+        """
         self.energy += apple.energy
         self.food_apple += 1
 
     def run(self):
+        """
+        Отрисовка муравейника.
+        :return:
+        """
         super().run()
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
     def move(self, scene):
+        """
+        Функция представляет собой единичный шаг сущности.
+        :param scene:
+        :return:
+        """
         super().move(scene)
         self.spawnState.move(self)
         self.growthState.move(self)
