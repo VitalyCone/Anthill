@@ -71,9 +71,22 @@ class Ant(EntityBase):
 
     @staticmethod
     def add_ant(scene, anthill):
+        """
+        Добавляет муравья в сцену, привязывает к муравейнику.
+        Иначе при добавлении класса муравья в муравейник,
+        происходит ошибка циклического импорта.
+        :param scene:
+        :param anthill:
+        :return:
+        """
         return Ant(scene, anthill)
 
     def move(self, scene):
+        """
+        Функция представляет собой единичный шаг сущности.
+        :param scene:
+        :return:
+        """
         super().move(scene)
 
         if self.spiders:
@@ -112,7 +125,7 @@ class Ant(EntityBase):
 
     def choose_prey(self):
         """
-        Выбирает жертву
+        Выбор жертвы
         """
         groups = self.get_specific_entities(self.scene, "Group")
         spider_groups = [group for group in groups if group.aim.name == "Spider"]
@@ -165,6 +178,14 @@ class Ant(EntityBase):
             self.u = math.pi
 
     def profit(self, ants, agent_resource):
+        """
+        Высчитывание выгоды муравья от взаимодействия с яблоком:
+            без self
+            вместе с self
+        :param ants:
+        :param agent_resource:
+        :return:
+        """
         speed = agent_resource.speed + 0.000001
         their_profit = (agent_resource.energy/10)/len(ants) - self.get_distance(self.anthill)/speed*self.energy_consumption
         # Если они толкают без меня!!!
@@ -174,7 +195,10 @@ class Ant(EntityBase):
         return our_profit - their_profit
 
     def run(self):
-        # метод, который перемещает муравья в нужном направлении, после рассчета хода(сделан отдельно, т. к.  в будующем можно будет отделить планировщик от рендеринга)
+        """
+        Перемещение муравья в нужном направлении.
+        :return:
+        """
         super().run()
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]

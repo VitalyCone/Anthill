@@ -59,15 +59,29 @@ class EntityBase(ABC):
         super().__init__()
 
     def run(self):
+        """
+        Изменение положения, размера или энергии сущности агента
+        :return:
+        """
         self.energy -= self.energy_consumption
 
     def update_scene(self, scene):
+        """
+        Функция обновления сцены.
+        :param scene:
+        :return:
+        """
         self.scene = scene
         self.ants = self.get_specific_entities(self.scene, "Ant")
         self.apples = self.get_specific_entities(self.scene, "Apple")
         self.spiders = self.get_specific_entities(self.scene, "Spider")
 
     def add_agents_to_scene(self, agents):
+        """
+        Добавление агентов в сцену.
+        :param agents:
+        :return:
+        """
         if agents:
             logging.info(f'В сцену была добавлена информация от других агентов: {agents}')
             all_update(f'В сцену была добавлена информация от других агентов: {agents}')
@@ -77,6 +91,11 @@ class EntityBase(ABC):
         self.spiders = self.get_specific_entities(self.scene, "Spider")
 
     def move(self, scene):
+        """
+        Функция представляет собой единичный шаг сущности.
+        :param scene:
+        :return:
+        """
         self.removed = []
         self.update_scene(scene)
 
@@ -84,6 +103,10 @@ class EntityBase(ABC):
         all_update(f"{self} делает ход!")
 
     def die(self):
+        """
+        Смерть сущности.
+        :return:
+        """
         self.status = 'dead'
         self.removed.append([self.get_uri(), self.version])
         logging.info(f'{self} умер')
@@ -91,7 +114,7 @@ class EntityBase(ABC):
 
     def live(self, scene):
         """
-        Обработка запроса на ход муравья
+        Обработка запроса на ход агента
         :param scene:
         :return killed:
         """
@@ -102,11 +125,18 @@ class EntityBase(ABC):
 
     @staticmethod
     def get_specific_entities(scene, entity_type):
+        """
+        Возвращение сущностей указанного типа.
+        :param scene:
+        :param entity_type:
+        :return:
+        """
         entities = [entity for entity in scene if entity.name == entity_type]
         return entities
 
     def get_uri(self):
         """
+        Возвращение уникального идентификатора.
         :return: uri
         """
         return self.uri
