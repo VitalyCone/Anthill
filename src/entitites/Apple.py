@@ -34,7 +34,7 @@ class Apple(EntityBase):
         self.energy = self.weight
         self.speed = 0
         self.inertiaState = InertiaState(self)
-        path = str(os.path.abspath('assets/icons/apple.png'))
+        path = str(os.path.abspath('../../assets/icons/apple.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

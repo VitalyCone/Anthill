@@ -70,7 +70,7 @@ class Ant(EntityBase):
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('assets/icons/ant.png'))
+        path = str(os.path.abspath('../../assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
