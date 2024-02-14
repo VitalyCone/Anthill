@@ -9,6 +9,8 @@ from PySide6.QtCore import QPointF
 
 from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.SearchState import SearchState
+from src.states.defense_group_state import DefenseGroupState
+from src.states.group_state import GroupState
 from src.utils.statistics.Statistics import all_update
 from src.entitites.BaseEntity import EntityBase
 
@@ -58,13 +60,17 @@ class Ant(EntityBase):
         self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэфициенты многофактроной целевой функции поиска
         self.friends = ["Ant"]  # друзьяшки паука(здесь и в следующих массивах это имена классов-агентов)
         self.enemies = ["Spider"]  # враги пауков
+        self.defensible_enemies = ["Spider"]
         self.preys = ["Apples"]    # добыча пауков
+        self.group_preys = ["Apple"]
         self.spawn = []     # обьекты для состояния спавна
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
+        self.group_state = GroupState(self)
+        self.defense_group_state = DefenseGroupState(self)
         self.prey = None
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/ant.png'))
+        path = str(os.path.abspath('assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -82,28 +88,12 @@ class Ant(EntityBase):
         if self.apples:
             sorted(self.apples, key=lambda x: self.get_distance(x))  # Отсортированный по расстоянию к self список яблок
 
+        self.defense_group_state.move(self)  # При отсутствии цели ищет паука для атаки
+
+        self.group_state.move(self)  # При отсутствии пауков ищет яблоки для перетаскивания и формировании группы
+
         if not self.prey:
-            self.u = self.searchState.move(self)
-            self.u_trig = [math.sin(self.u), math.cos(self.u)]
-            if self.apples or self.spiders:
-                self.prey = self.choose_prey()
-        else:
-            if self.prey.name == 'Apple':
-                if self.get_distance(self.prey) >= self.speed:
-                    self.set_vector_to_object(self.prey)
-                else:
-                    self.set_vector_to_object(self.anthill)
-            elif self.prey.name == 'Spider' and self.group:
-                self.set_vector_to_object(self.prey)
-                if not self.attack:
-                    if self == self.group.leader:
-                        self.u_trig[0] = -self.u_trig[0]
-                        self.u_trig[1] = -self.u_trig[1]
-                    else:
-                        self.set_vector_to_object(self.group.leader)
-                else:
-                    self.set_vector_to_object(self.prey)
-            self.set_u()
+            self.searchState.move(self)  # При отсутствии любых целей попадает в состояние поиска
 
         if self.energy <= 0:
             self.die()

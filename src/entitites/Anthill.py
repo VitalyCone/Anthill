@@ -52,7 +52,7 @@ class Anthill(EntityBase):
         # print(f'center={self.rect.center}')
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/anthill.png'))
+        path = str(os.path.abspath('assets/icons/anthill.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

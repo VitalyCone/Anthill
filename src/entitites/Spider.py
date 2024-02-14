@@ -48,7 +48,7 @@ class Spider(EntityBase):
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.hunt_state = HuntState(self)
         self.removed = []
-        path = str(os.path.abspath('../../assets/icons/spider.png'))
+        path = str(os.path.abspath('assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

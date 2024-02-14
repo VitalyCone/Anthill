@@ -16,11 +16,12 @@ import sys
 
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-setConfig('cfg/config.yml')
+setConfig('src/scripts/cfg/config.yml')
 scene = Scene()
 agent_dispatcher = AgentDispatcher(scene)
 # Инициализация игры
 # Входные данные для моделирования
+
 
 def qt_thread():
     app = QApplication(sys.argv)
