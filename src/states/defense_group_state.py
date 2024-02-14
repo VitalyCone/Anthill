@@ -13,15 +13,15 @@ class DefenseGroupState(State):
         Выбирает жертву
         """
         groups = self.agent.get_specific_entities(self.agent.scene, "Group")
+        groups_preys = [group.aim for group in groups]
         preys = [agent for agent in self.agent.scene if agent.name in self.agent.defensible_enemies]
-        # if len(spider_groups) > 0:
-        #     best_group = max(spider_groups, key=lambda x: x.aim.energy)
-        #     self.group = best_group
-        #     self.group.entities.append(self)
-        #     return best_group.aim
         if len(preys) > 0:
             self.agent.prey = max(preys, key=lambda x: x.energy)
-            self.agent.agent.create_group(self.agent.prey, self.agent)
+            if self.agent.prey in groups_preys:
+                self.agent.group = groups[groups_preys.index(self.agent.prey)]
+                self.agent.group.entities.append(self.agent)
+            else:
+                self.agent.agent.create_group(self.agent.prey, self.agent)
 
     def move(self, agent):
         """
