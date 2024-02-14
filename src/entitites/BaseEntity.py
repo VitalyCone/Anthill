@@ -59,6 +59,7 @@ class EntityBase(ABC):
 
     def run(self):
         """
+        Изменение положения, размера или энергии сущности агента
         :return:
         """
         self.energy -= self.energy_consumption
@@ -112,7 +113,7 @@ class EntityBase(ABC):
 
     def live(self, scene):
         """
-        Обработка запроса на ход муравья
+        Обработка запроса на ход агента
         :param scene:
         :return killed:
         """
