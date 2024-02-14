@@ -1,4 +1,5 @@
 """Содержит в себе класс состояния защиты группы"""
+from src.entitites import BaseEntity
 from src.states.State import State
 
 
