@@ -1,6 +1,11 @@
-from PySide6.QtWidgets import QApplication
 import logging
+import sys
+from os import getcwd
 
+sys.path.append(getcwd()[:-11]) # настройка на клиенте
+
+
+from PySide6.QtWidgets import QApplication
 from src.agents.AgentDispatcher import AgentDispatcher
 from src.entitites.Ant import Ant
 from src.entitites.Anthill import Anthill
@@ -11,8 +16,6 @@ from src.utils.statistics.Statistics import setConfig
 from src.UI.forms.MainForm import MainForm
 
 from threading import Thread
-
-import sys
 
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')

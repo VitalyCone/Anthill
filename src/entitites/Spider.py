@@ -4,6 +4,7 @@ import math
 
 import logging
 import importlib.resources
+from typing import Union
 
 from PySide6.QtCore import QRectF
 
@@ -12,10 +13,19 @@ from src.states.SearchState import SearchState
 from src.states.hunt_state import HuntState
 from src.utils.statistics.Statistics import all_update
 from src.entitites.BaseEntity import EntityBase
+from src.entitites.Ant import Ant
 
 
 class Spider(EntityBase):
-    def __init__(self, scene, id='0'):
+    """
+    Класс, представляющий сущность паука.
+    """
+    def __init__(self, scene: list, id='0'):
+        """
+        :args:
+        scene: общая сцена объектов.
+        id: уникальный идентификатор для паука (0 по умолчанию). 
+        """
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
@@ -57,19 +67,24 @@ class Spider(EntityBase):
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
 
-    def agent_in_radius(self, agent):
+    def agent_in_radius(self, agent: Ant) -> bool:
         """
         Проверка на нахождение агента в радиусе
-        :param agent:
+
+        :args:
+        agent: агент, проверяемый на нахождение в радиусе паука
+
         :return bool:
         """
         return (abs(self.geo[0] - agent.geo[0]) <= self.r) and (abs(self.geo[0] - agent.geo[0]) <= self.r)
 
-    def process_information(self, ants):
+    def process_information(self, ants: list):
         """
         Обработка информации от других пауков.
         Добавление агентов вне радиуса.
-        :param ants:
+
+        :param ants: список всех муравьёв
+
         :return:
         """
         for ant in ants:
@@ -78,14 +93,25 @@ class Spider(EntityBase):
             elif not self.agent_in_radius(ant):
                 self.sended_objects.append(ant)
 
-    def try_give_in_prey(self):
+    def try_give_in_prey(self) -> None:
+        """
+        Попытка отдать добычу другому пауку.
+
+        :return:
+        """
         for spider in self.get_specific_entities(self.scene, "Spider"):
             if self.prey and spider.prey:
                 if spider.prey == self.prey:
                     if spider.get_energy(self.prey) > self.get_energy(self.prey):
                         self.prey = None
 
-    def kill_ant(self):
+    def kill_ant(self) -> None:
+        """
+        Убийство преследуемого муравья и получение за это энергии.
+
+        :return:
+        """
+        
         self.prey.die()
         self.energy += self.prey.energy
         self.removed.append([self.prey.get_uri(), self.prey.version])
@@ -93,7 +119,13 @@ class Spider(EntityBase):
         logging.info(f'{self.prey} был убит {self}')
         all_update(f'{self.prey} был убит {self}')
 
-    def move(self, scene):
+    def move(self, scene) -> list:
+        """
+        Метод для перемещения паука по сцене и определения его действий в зависимости от состояния.
+
+        param scene: Общая сцена
+        return: Список удалённых объектов
+        """
         super().move(scene)
 
         self.add_agents_to_scene(self.sended_objects)
@@ -122,15 +154,30 @@ class Spider(EntityBase):
         self.run()
         return self.removed
 
-    def get_best_ant(self):
-        best_ant = self.ants[0]
-        for ant in self.ants:  # каждый ход охоты идет проверка, точно ли выбранный муравей - лучший.
-            if self.get_energy(ant) > self.get_energy(
-                    best_ant):
-                best_ant = ant
+    def get_best_ant(self) -> Ant:
+        """
+        Получение лучшего муравья для охоты.
+
+        :return: Лучший муравей для охоты. 
+        """
+        best_ant = max(self.ants, key=lambda x: self.get_energy(x))
+
+        # best_ant = self.ants[0]
+        # for ant in self.ants:  # каждый ход охоты идет проверка, точно ли выбранный муравей - лучший.
+        #     if self.get_energy(ant) > self.get_energy(
+        #             best_ant):
+        #         best_ant = ant
         return best_ant
 
-    def get_energy(self, obj):  # возвращает энергию, полученную пауком.
+    def get_energy(self, obj) -> Union[float, int]:
+        """
+        Получение энергии, которую получит паук, в случае успешной охоты на муравья.
+
+        :args:
+        obj: Предположительная добыча паука.
+
+        :return: кол-во энергии, которое получит паук при успешной охоте.
+        """
         try:
             return self.energy + obj.energy - self.get_distance(obj) / (self.speed - obj.speed) * 0.01
         except ZeroDivisionError:
@@ -139,6 +186,7 @@ class Spider(EntityBase):
     def run(self):
         """
         Реализация перемещения агента по направляющему вектору
+        
         :return:
         """
         super().run()
