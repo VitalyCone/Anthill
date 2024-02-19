@@ -11,7 +11,15 @@ from src.entitites.BaseEntity import EntityBase
 
 
 class Apple(EntityBase):
+    """
+    Класс, представляющий сущность яблока.
+    """
     def __init__(self, anthill, _id='0'):
+        """
+        :args:
+        anthill: муравейник, к которому принадлежит яблоко.
+        id: уникальный идентификатор для яблока (0 по умолчанию)
+        """
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
@@ -41,11 +49,23 @@ class Apple(EntityBase):
         logging.info(f'Объект {self.uri} был успешно инициализирован')
         all_update(f'Объект {self.uri} был успешно инициализирован')
 
-    def die(self):
+    def die(self) -> None:
+        """
+        Метод, который вызывается в случае поедания яблока.
+
+        :return:
+        """
         super().die()
         self.anthill.get_food_apple(self)
 
-    def move(self, scene):
+    def move(self, scene) -> list:
+        """
+        Метод для перемещения яблока по сцене.
+        
+        param scene: Общая сцена
+
+        return: Список удалённых объектов
+        """
         super().move(scene)
 
         f = self.inertiaState.move(self)
@@ -64,7 +84,12 @@ class Apple(EntityBase):
         self.run()
         return self.removed
 
-    def run(self):
+    def run(self) -> None:
+        """
+        Реализация перемещения агента по направляющему вектору.
+
+        :return:
+        """
         super().run()
         self.geo[0] += self.speed * self.u_trig[1]
         self.geo[1] += self.speed * self.u_trig[0]
