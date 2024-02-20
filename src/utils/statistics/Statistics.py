@@ -1,11 +1,10 @@
 import datetime
 import logging
 from os import makedirs
-import yaml
-
-from src.scene.Scene import Scene
 
 from dataclasses import dataclass
+
+import yaml
 
 
 @dataclass

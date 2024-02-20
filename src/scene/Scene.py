@@ -1,4 +1,5 @@
 """ Реализация класса сцены"""
+import threading
 from collections import defaultdict
 
 
@@ -54,9 +55,12 @@ class Scene:
         for key in self.entities.keys():
             for entity in self.entities.get(key):
                 if entity.get_uri() == uri:
+                    lock = threading.Lock()
+                    lock.acquire()
                     self.entities.get(key).remove(entity)
                     if entity.name != "Group":
                         entity.graphics_entity.delete_entity()
+                    lock.release()
                     return True
         return False
 

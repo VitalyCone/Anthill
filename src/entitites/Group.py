@@ -1,5 +1,4 @@
 """Реализация класса группы"""
-from src.utils.statistics.Statistics import all_update, debug_update
 
 
 class Group:
