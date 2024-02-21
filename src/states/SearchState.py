@@ -1,8 +1,8 @@
 import math
 import random
 
-from src.entitites import BaseEntity
 from src.states.State import State
+
 
 class SearchState(State):
 
@@ -10,7 +10,7 @@ class SearchState(State):
         trig = self.agent.u_trig
         u = math.acos(trig[1])
         if u == math.asin(trig[0]):
-            return u                #функция получает массив[синус, косинус] и находит угол, учитывая 
+            return u                # функция получает массив[синус, косинус] и находит угол, учитывая
         else:       
             u += math.pi
             return u

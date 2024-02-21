@@ -4,7 +4,7 @@ import logging
 from src.agents.BaseAgent import AgentBase
 from src.utils.Messages.Messages import MessageType
 from src.entitites.Group import Group
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update
 
 
 class GroupAgent(AgentBase):
