@@ -1,6 +1,13 @@
 import logging
 import requests
 
+import data.properties as default_properties
+
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 class OntologyManager:
     """
@@ -20,10 +27,7 @@ class OntologyManager:
 
     def __login(self):
         request_url = self.kms_url + "/api/ksirin/login"
-        data = {
-            "UserName": "editor",
-            "Password": "editor"
-            }
+        data = {"UserName": "editor", "Password": "editor"}
 
         try:
             self.session.post(request_url, json=data)
@@ -68,10 +72,226 @@ class OntologyManager:
             "http://www.kg.ru/ants_versus_spiders_v2#Anthill"
         )
 
-    def get_processes(self):
+    def __create_entity(
+        self, uri: str, label: str, properties: dict, data: dict, entity_type: str
+    ):
+        request_url = self.kms_url + "/api/entities"
+        params = {
+            "uri": uri,
+            "ontologyUri": self.ontology_uri,
+            "metadata": {"type": entity_type, "label": label, "properties": properties},
+            "data": data,
+        }
+        try:
+            response = self.session.post(request_url, json=params, timeout=600)
+            return response
+        except Exception as ex:
+            logging.error("Exception was handled %s, url: %s", ex, request_url)
+
+    def create_ant(self, attributes: dict):
         """
-        Метод, возвращающий список всех процессов.
+        Метод для создания нового муравья. Содержимое attributes:
+        {
+        uri: str,
+        label: str,
+        Weight: float | int,
+        Geoposition: str,
+        Energy: float | int,
+        MovementSpeed: float | int,
+        EnergyConsumption: float | int,
+        LivingIn: dict
+            {
+            uri: str,
+            label: str
+            }
+        }
         """
-        return self.__get_entities_list(
-            "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess"
+
+        properties = default_properties.ant_properties
+        entity_type = "http://www.kg.ru/ants_versus_spiders_v2#Ant"
+        uri = attributes.get("uri")
+        label = attributes.get("label")
+        weight = attributes.get("Weight")
+        geoposition = attributes.get("Geoposition")
+        energy = attributes.get("Energy")
+        energy_consumption = attributes.get("EnergyConsumption")
+        movement_speed = attributes.get("MovementSpeed")
+        anthill_attributes = attributes.get("LivingIn")
+        if anthill_attributes:
+            anthill_uri = anthill_attributes.get("uri")
+            anthill_label = anthill_attributes.get("label")
+        else:
+            raise ValueError("Необходимо указать данные о муравейнике.")
+
+        data = {
+            "uri": {"value": uri},
+            "label": {"value": label},
+            "Weight": {"value": weight},
+            "Geoposition": {"value": geoposition},
+            "EnergyConsumption": {"value": energy_consumption},
+            "MovementSpeed": {"value": movement_speed},
+            "Energy": {"value": energy},
+            "LivingIn": {
+                "value": {
+                    "uri": anthill_uri,
+                    "label": anthill_label,
+                },
+                "properties": {},
+            },
+        }
+
+        response = self.__create_entity(
+            uri=uri,
+            label="Муравей",
+            properties=properties,
+            data=data,
+            entity_type=entity_type,
         )
+
+        if response.ok:
+            logging.info("Муравей %s успешно добавлен в онтологию.", uri)
+        else:
+            logging.error("При добавлении муравья %s была получена ошибка.", uri)
+
+    def create_anthill(self, attributes: dict):
+        """
+        Метод для создания нового муравейника. Содержимое attributes:
+        {
+        uri: str,
+        label: str,
+        Weight: float | int,
+        Geoposition: str,
+        Energy: float | int,
+        MovementSpeed: float | int,
+        EnergyConsumption: float | int
+        }
+        """
+        properties = default_properties.anthill_properties
+        entity_type = "http://www.kg.ru/ants_versus_spiders_v2#Anthill"
+
+        uri = attributes.get("uri")
+        label = attributes.get("label")
+        weight = attributes.get("Weight")
+        geoposition = attributes.get("Geoposition")
+        energy = attributes.get("Energy")
+        energy_consumption = attributes.get("EnergyConsumption")
+        movement_speed = attributes.get("MovementSpeed")
+
+        data = {
+            "uri": {"value": uri},
+            "label": {"value": label},
+            "Weight": {"value": weight},
+            "Geoposition": {"value": geoposition},
+            "EnergyConsumption": {"value": energy_consumption},
+            "MovementSpeed": {"value": movement_speed},
+            "Energy": {"value": energy},
+        }
+
+        response = self.__create_entity(
+            uri=uri,
+            label="Муравейник",
+            properties=properties,
+            data=data,
+            entity_type=entity_type,
+        )
+
+        if response.ok:
+            logging.info("Муравейник %s успешно добавлен в онтологию.", uri)
+        else:
+            logging.error("При добавлении муравейника %s была получена ошибка.", uri)
+
+    def create_spider(self, attributes: dict):
+        """
+        {
+        Метод для создания нового паука. Содержимое attributes:
+        uri: str,
+        label: str,
+        Weight: float | int,
+        Geoposition: str,
+        Energy: float | int,
+        MovementSpeed: float | int,
+        EnergyConsumption: float | int
+        }
+        """
+        properties = default_properties.spider_properties
+        entity_type = "http://www.kg.ru/ants_versus_spiders_v2#Spider"
+
+        uri = attributes.get("uri")
+        label = attributes.get("label")
+        weight = attributes.get("Weight")
+        geoposition = attributes.get("Geoposition")
+        energy = attributes.get("Energy")
+        energy_consumption = attributes.get("EnergyConsumption")
+        movement_speed = attributes.get("MovementSpeed")
+
+        data = {
+            "uri": {"value": uri},
+            "label": {"value": label},
+            "Weight": {"value": weight},
+            "Geoposition": {"value": geoposition},
+            "EnergyConsumption": {"value": energy_consumption},
+            "MovementSpeed": {"value": movement_speed},
+            "Energy": {"value": energy},
+        }
+
+        response = self.__create_entity(
+            uri=uri,
+            label="Паук",
+            properties=properties,
+            data=data,
+            entity_type=entity_type,
+        )
+
+        if response.ok:
+            logging.info("Паук %s успешно добавлен в онтологию.", uri)
+        else:
+            logging.error("При добавлении паука %s была получена ошибка.", uri)
+
+    def create_apple(self, attributes: dict):
+        """
+        Метод для создания нового яблока. Содержимое attributes:
+        {
+        uri: str,
+        label: str,
+        Weight: float | int,
+        Geoposition: str,
+        Energy: float | int,
+        MovementSpeed: float | int,
+        EnergyConsumption: float | int
+        }
+        """
+        properties = default_properties.apple_properties
+        entity_type = "http://www.kg.ru/ants_versus_spiders_v2#Apple"
+
+        uri = attributes.get("uri")
+        label = attributes.get("label")
+        weight = attributes.get("Weight")
+        geoposition = attributes.get("Geoposition")
+        energy = attributes.get("Energy")
+        energy_consumption = attributes.get("EnergyConsumption")
+        movement_speed = attributes.get("MovementSpeed")
+
+        data = {
+            "uri": {"value": uri},
+            "label": {"value": label},
+            "Weight": {"value": weight},
+            "Geoposition": {"value": geoposition},
+            "EnergyConsumption": {"value": energy_consumption},
+            "MovementSpeed": {"value": movement_speed},
+            "Energy": {"value": energy},
+        }
+
+        response = self.__create_entity(
+            uri=uri,
+            label="Яблоко",
+            properties=properties,
+            data=data,
+            entity_type=entity_type,
+        )
+
+        if response.ok:
+            logging.info("Яблоко %s успешно добавлено в онтологию.", uri)
+        else:
+            logging.error("При добавлении яблока %s была получена ошибка.", uri)
+
+
