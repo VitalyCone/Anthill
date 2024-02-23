@@ -33,13 +33,13 @@ class Apple(EntityBase):
         self.agent = None
         self.scene = None
         self.apples = None
-        self.energy_consumption = 0.01
+        self.energy_consumption = 0
         self.anthill = anthill
         self.ants = None
         self.spiders = None
         self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
         self.weight = 1
-        self.energy = self.weight
+        self.energy = self.weight*10
         self.speed = 0
         self.inertiaState = InertiaState(self)
         path = str(os.path.abspath('../../assets/icons/apple.png'))
@@ -56,7 +56,6 @@ class Apple(EntityBase):
         :return:
         """
         super().die()
-        self.anthill.get_food_apple(self)
 
     def move(self, scene) -> list:
         """
@@ -67,20 +66,12 @@ class Apple(EntityBase):
         return: Список удалённых объектов
         """
         super().move(scene)
-
-        f = self.inertiaState.move(self)
-        my_ants = f[1]
-        distance = self.get_distance(self.anthill)
-        if distance <= 15:
-            for ant in my_ants:
-                ant.prey = None
-                ant.state[1] = None
-                print(ant.energy)
-                ant.energy += (self.energy / 10) / len(my_ants)
-                print(ant.energy)
+        self.ants = sorted(self.ants, key=lambda x: x.get_distance(self))
+        self.inertiaState.move(self)
+        distance = self.get_distance(self.ants[0].anthill)
+        if distance <= 20:
             self.die()
-            self.anthill.get_food_apple(self)
-            self.removed.append([self.get_uri(), self.prey.version])
+            self.removed.append([self.get_uri(), self.version])
         self.run()
         return self.removed
 

@@ -8,6 +8,7 @@ class Group:
         # , чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
         self.uri = self.name + str(id)
         self.scene = scene
+        self.version = 0
         self.leader = leader
         leader.group = self
         self.agent = None

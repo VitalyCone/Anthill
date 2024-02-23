@@ -191,3 +191,13 @@ class Agent(ABC, Actor):
         scene_request_msg = (MessageType.CREATE_GROUP_AGENT, (aim, leader))
         address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(address, scene_request_msg)
+
+    def connect_to_group(self, group_uri):
+        """
+        Отправка запроса на присоединение к группе
+        """
+        group_entity = self.dispatcher.scene.get_entity_by_uri(group_uri)
+        address = self.dispatcher.reference_book.get_address(group_entity)
+        msg = (MessageType.INVITE_RESPONSE, (True, self.entity))
+        self.send(address, msg)
+

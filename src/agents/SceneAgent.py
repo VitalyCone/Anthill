@@ -57,10 +57,10 @@ class SceneAgent(AgentBase):
         """
         for entity in message[1]:
             uri = entity[0]
-            version = entity[1]
+            # version = entity[1]
             entity = self.entity.get_entity_by_uri(uri)
             if entity:
-                if self.entity.get_entity_by_uri(uri).version == version:
-                    self.entity.remove_entity_by_uri(uri)
-                    logging.info(f'{uri} был(а) удален(а) из сцены агентом {sender}')
-                    all_update(f'{uri} был(а) удален(а) из сцены агентом {sender}')
+                # if self.entity.get_entity_by_uri(uri).version == version:
+                self.entity.remove_entity_by_uri(uri)
+                logging.info(f'{uri} был(а) удален(а) из сцены агентом {sender}')
+                all_update(f'{uri} был(а) удален(а) из сцены агентом {sender}')

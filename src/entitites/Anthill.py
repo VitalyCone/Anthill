@@ -58,15 +58,6 @@ class Anthill(EntityBase):
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
-    def get_food_apple(self, apple):
-        """
-        Муравейник поглощает яблоко.
-        :param apple:
-        :return:
-        """
-        self.energy += apple.energy
-        self.food_apple += 1
-
     def run(self):
         """
         Отрисовка муравейника.

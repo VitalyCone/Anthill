@@ -2,7 +2,7 @@ import logging
 import sys
 from os import getcwd
 
-sys.path.append(getcwd()[:-11]) # настройка на клиенте
+sys.path.append(getcwd()[:-11])  # настройка на клиенте
 
 
 from PySide6.QtWidgets import QApplication

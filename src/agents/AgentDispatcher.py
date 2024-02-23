@@ -102,14 +102,15 @@ class AgentDispatcher(AgentBase):
         Создает паука рандомно каждые n тиков
         """
         self.spider_n += 1
-        if self.n == self.spider_gap:
-            for i in range(self.scene.get_entities_by_type('Spider')/3 + 1):
+        if self.spider_n == self.spider_gap:
+            for i in range(round(len(self.scene.get_entities_by_type('Spider'))/3) + 1):
                 spider = Spider(self.scene.get_entities_by_type('Spider') + self.scene.get_entities_by_type('Apple'),
                                 count_id('spider'))
                 self.window.graph_scene.addItem(spider.graphics_entity)
                 spider.graphics_entity.graph_scene = self.window.graph_scene
                 Denotations.uris['spider'].append(spider.uri)
                 self.add_entity(spider)
+            self.spider_n = 0
 
     def create_ant(self):
         """

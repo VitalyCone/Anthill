@@ -52,7 +52,7 @@ class GroupAgent(AgentBase):
             if entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack:
                 entities_ready_attack.append(entity)
         if (self.entity.aim.name == 'Spider'
-                and len(entities_ready_attack) > 3):
+                and len(entities_ready_attack) > 5):
             for entity in self.entity.entities:
                 address = self.dispatcher.reference_book.get_address(entity)
                 msg = (MessageType.ATTACK_REQUEST, True)
@@ -60,12 +60,16 @@ class GroupAgent(AgentBase):
         self.entity.make_damage()
 
     def remove_group(self):
+        if self.entity.aim.name == 'Apple':
+            if self.entity.aim.status == 'dead':
+                self.entity.leader.anthill.energy += self.entity.aim.energy
         for entity in self.entity.entities:
             entity.prey = None
             entity.group = None
             entity.attack = False
-            entity.energy += 1
-        msg = (MessageType.ENTITY_REMOVE_REQUEST, [self.entity.uri])
+            if self.entity.aim.status == 'dead':
+                entity.energy += 1
+        msg = (MessageType.ENTITY_REMOVE_REQUEST, [[self.entity.uri, self.entity.version]])
         address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(address, msg)
 
