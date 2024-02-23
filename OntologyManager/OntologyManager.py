@@ -4,11 +4,6 @@ import requests
 import data.properties as default_properties
 
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
-
-
 class OntologyManager:
     """
     Класс для работы с СУЗ.
