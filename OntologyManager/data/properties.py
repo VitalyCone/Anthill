@@ -1,6 +1,6 @@
 """Файл для хранения properties классов"""
 
-ant_properties =  {
+ant_properties = {
     "Weight": {
         "uri": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
         "type": "attribute",
@@ -71,6 +71,16 @@ ant_properties =  {
         "hasUnitType": None,
         "oneOf": None,
     },
+    "VisionRadius": {
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+        "type": "attribute",
+        "label": "Радиус обзора",
+        "range": "http://www.w3.org/2001/XMLSchema#decimal",
+        "array": None,
+        "withUnit": False,
+        "hasUnitType": None,
+        "oneOf": None,
+    },
     "LivingIn": {
         "uri": "http://www.kg.ru/ants_versus_spiders_v2#LivingIn",
         "type": "relation",
@@ -78,7 +88,7 @@ ant_properties =  {
         "range": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
         "array": None,
         "attributes": {},
-    }
+    },
 }
 
 anthill_properties = {
@@ -220,6 +230,16 @@ spider_properties = {
         "type": "attribute",
         "label": "Наименование",
         "range": "http://www.w3.org/2001/XMLSchema#string",
+        "array": None,
+        "withUnit": False,
+        "hasUnitType": None,
+        "oneOf": None,
+    },
+    "VisionRadius": {
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+        "type": "attribute",
+        "label": "Радиус обзора",
+        "range": "http://www.w3.org/2001/XMLSchema#decimal",
         "array": None,
         "withUnit": False,
         "hasUnitType": None,

@@ -94,6 +94,7 @@ class OntologyManager:
         Energy: float | int,
         MovementSpeed: float | int,
         EnergyConsumption: float | int,
+        VisionRadius: float | int,
         LivingIn: dict
             {
             uri: str,
@@ -111,6 +112,8 @@ class OntologyManager:
         energy = attributes.get("Energy")
         energy_consumption = attributes.get("EnergyConsumption")
         movement_speed = attributes.get("MovementSpeed")
+        vision_radius = attributes.get("VisionRadius")
+
         anthill_attributes = attributes.get("LivingIn")
         if anthill_attributes:
             anthill_uri = anthill_attributes.get("uri")
@@ -126,6 +129,7 @@ class OntologyManager:
             "EnergyConsumption": {"value": energy_consumption},
             "MovementSpeed": {"value": movement_speed},
             "Energy": {"value": energy},
+            "VisionRadius": {"value": vision_radius},
             "LivingIn": {
                 "value": {
                     "uri": anthill_uri,
@@ -205,7 +209,8 @@ class OntologyManager:
         Geoposition: str,
         Energy: float | int,
         MovementSpeed: float | int,
-        EnergyConsumption: float | int
+        EnergyConsumption: float | int,
+        VisionRadius: float | int
         }
         """
         properties = default_properties.spider_properties
@@ -218,6 +223,7 @@ class OntologyManager:
         energy = attributes.get("Energy")
         energy_consumption = attributes.get("EnergyConsumption")
         movement_speed = attributes.get("MovementSpeed")
+        vision_radius = attributes.get("VisionRadius")
 
         data = {
             "uri": {"value": uri},
@@ -227,6 +233,7 @@ class OntologyManager:
             "EnergyConsumption": {"value": energy_consumption},
             "MovementSpeed": {"value": movement_speed},
             "Energy": {"value": energy},
+            "VisionRadius": {"value": vision_radius},
         }
 
         response = self.__create_entity(
@@ -290,3 +297,16 @@ class OntologyManager:
             logging.error("При добавлении яблока %s была получена ошибка.", uri)
 
 
+spider_attributes = {
+    "uri": "http://www.kg.ru/ants_vs_spiders_model#Spider1",
+    "label": "Паук 1",
+    "Weight": 10,
+    "Geoposition": "10 10",
+    "EnergyConsumption": 1,
+    "MovementSpeed": 1,
+    "Energy": 1,
+    "VisionRadius": 1,
+}
+
+manager = OntologyManager()
+manager.create_spider(spider_attributes)

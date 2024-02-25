@@ -121,14 +121,14 @@
       "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
       "properties": [
         {
-          "name": "http://www.w3.org/2000/01/rdf-schema#label",
-          "type": "http://www.w3.org:80/2001/XMLSchema#string",
-          "value": "Живое существо"
-        },
-        {
           "name": "http://www.kg.ru/SmartOntologyEditor#uri",
           "type": "http://www.w3.org:80/2001/XMLSchema#string",
           "value": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Живое существо"
         },
         {
           "name": "http://www.w3.org/2000/01/rdf-schema#comment",
@@ -1329,6 +1329,36 @@
       "subject": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
       "type": "http://www.kg.ru/SmartOntologyEditor#relations",
       "object": "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
       "properties": []
     }
   ],
