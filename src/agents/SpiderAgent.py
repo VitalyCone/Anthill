@@ -15,4 +15,4 @@ class SpiderAgent(AgentBase):
     def __init__(self):
         super().__init__()
         self.entity: Spider
-        self.name = 'Агент паука'
+        self.name = 'Spider Agent'

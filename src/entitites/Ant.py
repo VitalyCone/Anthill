@@ -17,11 +17,11 @@ from src.entitites.BaseEntity import EntityBase
 
 class Ant(EntityBase):
 
-    def __init__(self, scene, anthill, id='0'):
+    def __init__(self, anthill, uri='0'):
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
-        self.uri = self.name + str(id)
+        self.uri = uri
         self.status = 'alive'
         self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
         self.isready = False
@@ -44,14 +44,13 @@ class Ant(EntityBase):
             self.speed = 0.3  # Скорость муравья
             self.r = 70  # Радиус зрения муравья
         self.intravel = False
-        self.damage = 0.2
+        self.damage = 0.4
         self.power = 1500
         self.energy = 1
-        self.scene = scene  # Сцена
-        self.apples = self.get_specific_entities(self.scene, "Apple")  # Вообще все яблоки
+        self.apples = None  # Вообще все яблоки
         self.anthill = anthill  # Муравейник
-        self.ants = self.get_specific_entities(self.scene, "Ant")  # Вообще все муравьи
-        self.spiders = self.get_specific_entities(self.scene, "Spider")  # Вообще все пауки
+        self.ants = None  # Вообще все муравьи
+        self.spiders = None  # Вообще все пауки
         self.weight = 0.2
         self.group = None
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
@@ -68,9 +67,13 @@ class Ant(EntityBase):
         self.group_state = GroupState(self)
         self.defense_group_state = DefenseGroupState(self)
         self.prey = None
-        logging.info(f'Объект {self.uri} был успешно инициализирован')
-        all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/ant.png'))
+        logging.info(
+            f'Object {self.uri} was successfully initialized'
+        )
+        all_update(
+            f'Object {self.uri} was successfully initialized'
+                   )
+        path = str(os.path.abspath('assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

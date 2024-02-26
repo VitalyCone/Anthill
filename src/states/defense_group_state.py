@@ -38,7 +38,7 @@ class DefenseGroupState(State):
         if self.agent.prey and self.agent.prey.name in self.agent.defensible_enemies:
             self.agent.set_vector_to_object(self.agent.prey)
             if not self.agent.attack:
-                if self == self.agent.group.leader:
+                if self.agent == agent.group.leader:
                     self.agent.u_trig[0] = -self.agent.u_trig[0]
                     self.agent.u_trig[1] = -self.agent.u_trig[1]
                 else:

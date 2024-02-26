@@ -15,4 +15,4 @@ class AppleAgent(AgentBase):
     def __init__(self):
         super().__init__()
         self.entity: Apple
-        self.name = 'Агент яблока'
+        self.name = 'Apple agent'

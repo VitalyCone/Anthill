@@ -15,20 +15,24 @@ class GroupAgent(AgentBase):
     def __init__(self):
         super().__init__()
         self.entity: Group
-        self.name = 'Агент группы'
+        self.name = 'Group agent'
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
         self.subscribe(MessageType.INVITE_RESPONSE, self.handle_invite_response)
 
     def handle_invite_response(self, message, sender):
         if message[1][0]:
-            logging.info(f'Агент {sender} успешно добавлен в группу {self}')
-            all_update(f'Агент {sender} успешно добавлен в группу {self}')
+            logging.info(
+                f'Agent {sender} was successfully added to the group {self.entity.uri}'
+            )
+            all_update(
+                f'Agent {sender} was successfully added to the group {self.entity.uri}'
+            )
             self.entity.entities.append(message[1][1])
             message[1][1].group = self.entity
         else:
-            logging.info(f'Не удалось добавить {sender} в группу {self}')
-            all_update(f'Не удалось добавить {sender} в группу {self}')
+            logging.info(f'Failed to add {sender} to group {self}')
+            all_update(f'Failed to add {sender} to group {self}')
 
     def handle_scene_response(self, message, sender):
         """
@@ -37,8 +41,8 @@ class GroupAgent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'{self}: получена сцена от {sender}')
-        all_update(f'{self}: получена сцена от {sender}')
+        logging.info(f'{self}: received scene from {sender}')
+        all_update(f'{self}: received scene from {sender}')
         scene = message[1]
         self.entity.scene = scene
         self.send_invite_message()
@@ -93,8 +97,8 @@ class GroupAgent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'{self}: получен {message} от {sender}')
-        all_update(f'{self}: получен {message} от {sender}')
+        logging.info(f'{self}: received {message} from {sender}')
+        all_update(f'{self}: received {message} from {sender}')
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)

@@ -15,4 +15,4 @@ class AnthillAgent(AgentBase):
     def __init__(self):
         super().__init__()
         self.entity: Anthill
-        self.name = 'Агент муравейника'
+        self.name = 'Anthill agent'

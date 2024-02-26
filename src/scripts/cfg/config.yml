@@ -1,7 +1,7 @@
 system:
   apple_spawn_time: 100
   spider_spawn_time: 120
-  ant_spawn_time: 50
+  ant_spawn_time: 60
   ant_num: 50
   spider_num: 3
   apple_num: 5

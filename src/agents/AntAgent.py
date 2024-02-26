@@ -15,5 +15,5 @@ class AntAgent(AgentBase):
     def __init__(self):
         super().__init__()
         self.entity: Ant
-        self.name = 'Агент муравья'
+        self.name = 'Ant agent'
 

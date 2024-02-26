@@ -1,7 +1,7 @@
 import logging
 import requests
 
-import data.properties as default_properties
+import OntologyManager.data.properties as default_properties
 
 
 class OntologyManager:
@@ -119,7 +119,7 @@ class OntologyManager:
             anthill_uri = anthill_attributes.get("uri")
             anthill_label = anthill_attributes.get("label")
         else:
-            raise ValueError("Необходимо указать данные о муравейнике.")
+            raise ValueError("You must provide information about anthill.")
 
         data = {
             "uri": {"value": uri},
@@ -148,9 +148,13 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info("Муравей %s успешно добавлен в онтологию.", uri)
+            logging.info(
+                "Ant %s was successfully added to ontology model.",
+                uri)
         else:
-            logging.error("При добавлении муравья %s была получена ошибка.", uri)
+            logging.error(
+                "Error was received when adding ant %s.",
+                uri)
 
     def create_anthill(self, attributes: dict):
         """
@@ -195,9 +199,13 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info("Муравейник %s успешно добавлен в онтологию.", uri)
+            logging.info(
+                "Anthill %s was successfully added to ontology model.",
+                uri)
         else:
-            logging.error("При добавлении муравейника %s была получена ошибка.", uri)
+            logging.error(
+                "Error was received when adding anthill %s.",
+                uri)
 
     def create_spider(self, attributes: dict):
         """
@@ -245,9 +253,13 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info("Паук %s успешно добавлен в онтологию.", uri)
+            logging.info(
+                "Spider %s was successfully added to ontology model.",
+                uri)
         else:
-            logging.error("При добавлении паука %s была получена ошибка.", uri)
+            logging.error(
+                "Error was received when adding spider %s.",
+                uri)
 
     def create_apple(self, attributes: dict):
         """
@@ -292,21 +304,25 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info("Яблоко %s успешно добавлено в онтологию.", uri)
+            logging.info(
+                "Apple %s was successfully added to ontology model.",
+                uri)
         else:
-            logging.error("При добавлении яблока %s была получена ошибка.", uri)
+            logging.error(
+                "Error was received when adding apple %s.",
+                uri)
 
 
-spider_attributes = {
-    "uri": "http://www.kg.ru/ants_vs_spiders_model#Spider1",
-    "label": "Паук 1",
-    "Weight": 10,
-    "Geoposition": "10 10",
-    "EnergyConsumption": 1,
-    "MovementSpeed": 1,
-    "Energy": 1,
-    "VisionRadius": 1,
-}
+# spider_attributes = {
+#     "uri": "http://www.kg.ru/ants_vs_spiders_model#Spider1",
+#     "label": "Паук 1",
+#     "Weight": 10,
+#     "Geoposition": "10 10",
+#     "EnergyConsumption": 1,
+#     "MovementSpeed": 1,
+#     "Energy": 1,
+#     "VisionRadius": 1,
+# }
 
-manager = OntologyManager()
-manager.create_spider(spider_attributes)
+# manager = OntologyManager()
+# manager.create_spider(spider_attributes)

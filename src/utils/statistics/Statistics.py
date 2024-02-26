@@ -95,8 +95,8 @@ def debug_update(log):
     try:
         DataStatistics.all_logs.append(n + " " + "DEBUG" + " " + log + '\n')
     except:
-        logging.info('Логирование не удалось')
-        all_update('Логирование не удалось')
+        logging.info('Logging failed')
+        all_update('Logging failed')
 
 
 def all_update(log):
@@ -110,8 +110,8 @@ def all_update(log):
         DataStatistics.all_logs.append(n + " " + "INFO" + " " + log + '\n')
         DataStatistics.info_logs.append(n + " " + "INFO" + " " + log + '\n')
     except:
-        logging.info('Логирование не удалось')
-        all_update('Логирование не удалось')
+        logging.info('Logging failed')
+        all_update('Logging failed')
 
 
 class StatisticsAlfa:

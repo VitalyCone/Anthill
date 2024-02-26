@@ -27,8 +27,8 @@ class ReferenceBook:
         :return:
         """
         if entity not in self.agents_entities:
-            logging.error(f'Агент {entity} отсутствует в адресной книге')
-            all_update(f'Агент {entity} отсутствует в адресной книге')
+            logging.error(f'Agent {entity} is not in the reference book')
+            all_update(f'Agent {entity} is not in the reference book')
             return None
         return self.agents_entities[entity]
 

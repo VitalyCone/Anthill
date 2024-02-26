@@ -20,7 +20,7 @@ class Spider(EntityBase):
     """
     Класс, представляющий сущность паука.
     """
-    def __init__(self, scene: list, id='0'):
+    def __init__(self, uri='0'):
         """
         :args:
         scene: общая сцена объектов.
@@ -31,7 +31,7 @@ class Spider(EntityBase):
         self.name = __class__.__name__
         # в каждом классе определил переменную-имя класса,
         # чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
-        self.uri = self.name + str(id)
+        self.uri = uri
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.status = 'alive'
         self.speed = 0.9
@@ -49,6 +49,7 @@ class Spider(EntityBase):
         self.u_trig = [math.sin(self.u), math.cos(self.u)]  # угол направления паука-вектора
         self.error = math.pi / 6  # угол в радиусе которого допускается отклонение
         # 1. друзья 2.враги 3.добыча 4.угол отклонения 5.внутри карты
+        self.weight = 0.8
         self.weights = [0.2, -0.3, 0.3, 0.2, 1]  # весовые коэффициенты многофакторной целевой функции поиска
         self.friends = []  # друзья паука(здесь и в следующих массивах это имена классов-агентов)
         self.enemies = ["Spider"]  # враги пауков
@@ -58,14 +59,18 @@ class Spider(EntityBase):
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.hunt_state = HuntState(self)
         self.removed = []
-        path = str(os.path.abspath('../../assets/icons/spider.png'))
+        path = str(os.path.abspath('assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
 
-        logging.info(f'Объект {self.uri} был успешно инициализирован')
-        all_update(f'Объект {self.uri} был успешно инициализирован')
+        logging.info(
+            f'Object {self.uri} was successfully initialized'
+        )
+        all_update(
+            f'Object {self.uri} was successfully initialized'
+        )
 
     def agent_in_radius(self, agent: Ant) -> bool:
         """
@@ -116,8 +121,8 @@ class Spider(EntityBase):
         self.energy += self.prey.energy
         self.removed.append([self.prey.get_uri(), self.prey.version])
         self.prey = None
-        logging.info(f'{self.prey} был убит {self}')
-        all_update(f'{self.prey} был убит {self}')
+        logging.info(f'{self.prey} was killed {self}')
+        all_update(f'{self.prey} was killed {self}')
 
     def move(self, scene) -> list:
         """

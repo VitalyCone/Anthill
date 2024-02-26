@@ -16,13 +16,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
-    QHBoxLayout, QLabel, QLineEdit, QSizePolicy,
-    QVBoxLayout, QWidget)
+                               QHBoxLayout, QLabel, QLineEdit, QSizePolicy,
+                               QVBoxLayout, QWidget, QPushButton)
 
 class Ui_GameStartDialog(object):
     def setupUi(self, GameStartDialog):
         if not GameStartDialog.objectName():
             GameStartDialog.setObjectName(u"GameStartDialog")
+        GameStartDialog.resize(400, 300)
         GameStartDialog.setMinimumSize(QSize(400, 300))
         GameStartDialog.setMaximumSize(QSize(400, 300))
         self.verticalLayout_2 = QVBoxLayout(GameStartDialog)
@@ -39,12 +40,12 @@ class Ui_GameStartDialog(object):
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
         self.label.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
+                                 "  font-family: Inter,sans-serif;\n"
+                                 "  font-size: 24px;\n"
+                                 "  align-items: center;\n"
+                                 "  border: 2px solid #111;\n"
+                                 "  border-radius: 8px;\n"
+                                 "}")
 
         self.horizontalLayout_3.addWidget(self.label)
 
@@ -58,7 +59,6 @@ class Ui_GameStartDialog(object):
 
         self.horizontalLayout_3.addWidget(self.ants_num_input)
 
-
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.horizontalLayout = QHBoxLayout()
@@ -68,12 +68,12 @@ class Ui_GameStartDialog(object):
         sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
         self.label_2.setSizePolicy(sizePolicy)
         self.label_2.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
+                                   "  font-family: Inter,sans-serif;\n"
+                                   "  font-size: 24px;\n"
+                                   "  align-items: center;\n"
+                                   "  border: 2px solid #111;\n"
+                                   "  border-radius: 8px;\n"
+                                   "}")
 
         self.horizontalLayout.addWidget(self.label_2)
 
@@ -84,7 +84,6 @@ class Ui_GameStartDialog(object):
 
         self.horizontalLayout.addWidget(self.spiders_num_input)
 
-
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.horizontalLayout_2 = QHBoxLayout()
@@ -94,12 +93,12 @@ class Ui_GameStartDialog(object):
         sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
         self.label_3.setSizePolicy(sizePolicy)
         self.label_3.setStyleSheet(u"QLabel{\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 24px;\n"
-"  align-items: center;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"}")
+                                   "  font-family: Inter,sans-serif;\n"
+                                   "  font-size: 24px;\n"
+                                   "  align-items: center;\n"
+                                   "  border: 2px solid #111;\n"
+                                   "  border-radius: 8px;\n"
+                                   "}")
 
         self.horizontalLayout_2.addWidget(self.label_3)
 
@@ -110,84 +109,162 @@ class Ui_GameStartDialog(object):
 
         self.horizontalLayout_2.addWidget(self.apples_num_input)
 
-
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
-
         self.verticalLayout_2.addLayout(self.verticalLayout)
+
+        self.widget = QWidget(GameStartDialog)
+        self.widget.setObjectName(u"widget")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy2)
+        self.horizontalLayout_4 = QHBoxLayout(self.widget)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.import_ontology_button_agent_settings = QPushButton(self.widget)
+        self.import_ontology_button_agent_settings.setObjectName(u"import_ontology_button_agent_settings")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.import_ontology_button_agent_settings.sizePolicy().hasHeightForWidth())
+        self.import_ontology_button_agent_settings.setSizePolicy(sizePolicy3)
+        self.import_ontology_button_agent_settings.setMaximumSize(QSize(16777215, 40))
+        self.import_ontology_button_agent_settings.setStyleSheet(u"QPushButton {\n"
+                                                                 "  align-items: center;\n"
+                                                                 "  background-color: #c2fab1;\n"
+                                                                 "  border: 2px solid #111;\n"
+                                                                 "  border-radius: 8px;\n"
+                                                                 "  box-sizing: border-box;\n"
+                                                                 "  color: #111;\n"
+                                                                 "  cursor: pointer;\n"
+                                                                 "  display: flex;\n"
+                                                                 "  font-family: Inter,sans-serif;\n"
+                                                                 "  font-size: 16px;\n"
+                                                                 "  height: 100px;\n"
+                                                                 "  justify-content: center;\n"
+                                                                 "  padding: 0 25px;\n"
+                                                                 "  position: relative;\n"
+                                                                 "  text-align: center;\n"
+                                                                 "  text-decoration: none;\n"
+                                                                 "  user-select: none;\n"
+                                                                 "  -webkit-user-select: none;\n"
+                                                                 "  touch-action: manipulation;\n"
+                                                                 "}\n"
+                                                                 "\n"
+                                                                 "QPushButton:after {\n"
+                                                                 "  background-color: #111;\n"
+                                                                 "  border-radius: 8px;\n"
+                                                                 "  content: \"\";\n"
+                                                                 "  display: block;\n"
+                                                                 "  height:100px;\n"
+                                                                 "  left: 0;\n"
+                                                                 "  width: 100%;\n"
+                                                                 "  position: absolute;\n"
+                                                                 "  top: -2px;\n"
+                                                                 "  transform: translate(8px, 8px);\n"
+                                                                 "  transition: transform .2s ease-out;\n"
+                                                                 "  z-index: -1;\n"
+                                                                 "}\n"
+                                                                 "\n"
+                                                                 "QPushButton:hover:after {\n"
+                                                                 "  transform: translate(0, 0);\n"
+                                                                 "}\n"
+                                                                 "\n"
+                                                                 "QPushButton:active {\n"
+                                                                 "  background-color: #c2fab1;\n"
+                                                                 "  outline: 0;\n"
+                                                                 ""
+                                                                 "}\n"
+                                                                 "\n"
+                                                                 "QPushButton:hover {\n"
+                                                                 "  outline: 0;\n"
+                                                                 "}\n"
+                                                                 "\n"
+                                                                 "@media (min-width: 768px) {\n"
+                                                                 "  QPushButton {\n"
+                                                                 "    padding: 0 40px;\n"
+                                                                 "  }\n"
+                                                                 "}")
+
+        self.horizontalLayout_4.addWidget(self.import_ontology_button_agent_settings)
+
+        self.verticalLayout_2.addWidget(self.widget)
 
         self.buttonBox = QDialogButtonBox(GameStartDialog)
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setStyleSheet(u"QPushButton {\n"
-"  align-items: center;\n"
-"  background-color: #c2fab1;\n"
-"  border: 2px solid #111;\n"
-"  border-radius: 8px;\n"
-"  box-sizing: border-box;\n"
-"  color: #111;\n"
-"  cursor: pointer;\n"
-"  display: flex;\n"
-"  font-family: Inter,sans-serif;\n"
-"  font-size: 16px;\n"
-"  justify-content: center;\n"
-"  padding: 0 25px;\n"
-"  position: relative;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  user-select: none;\n"
-"  -webkit-user-select: none;\n"
-"  touch-action: manipulation;\n"
-"}\n"
-"\n"
-"QPushButton:after {\n"
-"  background-color: #111;\n"
-"  border-radius: 8px;\n"
-"  content: \"\";\n"
-"  display: block;\n"
-"  left: 0;\n"
-"  position: absolute;\n"
-"  top: -2px;\n"
-"  transform: translate(8px, 8px);\n"
-"  transition: transform .2s ease-out;\n"
-"  z-index: -1;\n"
-"}\n"
-"\n"
-"QPushButton:hover:after {\n"
-"  transform: translate(0, 0);\n"
-"}\n"
-"\n"
-"QPushButton:active {\n"
-"  background-color: #c2fab1;\n"
-"  outline: 0;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"  outline: 0;\n"
-"}\n"
-""
-                        "\n"
-"@media (min-width: 768px) {\n"
-"  QPushButton {\n"
-"    padding: 0 40px;\n"
-"  }\n"
-"}")
+                                     "  align-items: center;\n"
+                                     "  background-color: #c2fab1;\n"
+                                     "  border: 2px solid #111;\n"
+                                     "  border-radius: 8px;\n"
+                                     "  box-sizing: border-box;\n"
+                                     "  color: #111;\n"
+                                     "  cursor: pointer;\n"
+                                     "  display: flex;\n"
+                                     "  font-family: Inter,sans-serif;\n"
+                                     "  font-size: 16px;\n"
+                                     "  justify-content: center;\n"
+                                     "  padding: 0 25px;\n"
+                                     "  position: relative;\n"
+                                     "  text-align: center;\n"
+                                     "  text-decoration: none;\n"
+                                     "  user-select: none;\n"
+                                     "  -webkit-user-select: none;\n"
+                                     "  touch-action: manipulation;\n"
+                                     "}\n"
+                                     "\n"
+                                     "QPushButton:after {\n"
+                                     "  background-color: #111;\n"
+                                     "  border-radius: 8px;\n"
+                                     "  content: \"\";\n"
+                                     "  display: block;\n"
+                                     "  left: 0;\n"
+                                     "  position: absolute;\n"
+                                     "  top: -2px;\n"
+                                     "  transform: translate(8px, 8px);\n"
+                                     "  transition: transform .2s ease-out;\n"
+                                     "  z-index: -1;\n"
+                                     "}\n"
+                                     "\n"
+                                     "QPushButton:hover:after {\n"
+                                     "  transform: translate(0, 0);\n"
+                                     "}\n"
+                                     "\n"
+                                     "QPushButton:active {\n"
+                                     "  background-color: #c2fab1;\n"
+                                     "  outline: 0;\n"
+                                     "}\n"
+                                     "\n"
+                                     "QPushButton:hover {\n"
+                                     "  outline: 0;\n"
+                                     "}\n"
+                                     ""
+                                     "\n"
+                                     "@media (min-width: 768px) {\n"
+                                     "  QPushButton {\n"
+                                     "    padding: 0 40px;\n"
+                                     "  }\n"
+                                     "}")
+        self.buttonBox.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
 
         self.verticalLayout_2.addWidget(self.buttonBox)
 
-
-        self.retranslateStartGameUi(GameStartDialog)
+        self.retranslateStartGameDialogUi(GameStartDialog)
         self.buttonBox.accepted.connect(GameStartDialog.accept)
         self.buttonBox.rejected.connect(GameStartDialog.reject)
 
         QMetaObject.connectSlotsByName(GameStartDialog)
+
     # setupUi
 
-    def retranslateStartGameUi(self, GameStartDialog):
+    def retranslateStartGameDialogUi(self, GameStartDialog):
         GameStartDialog.setWindowTitle(QCoreApplication.translate("GameStartDialog", u"Dialog", None))
         self.label.setText(QCoreApplication.translate("GameStartDialog", u"Starting number of ants", None))
         self.label_2.setText(QCoreApplication.translate("GameStartDialog", u"Starting number of spiders", None))
         self.label_3.setText(QCoreApplication.translate("GameStartDialog", u"Starting number of apples", None))
+        self.import_ontology_button_agent_settings.setText(
+            QCoreApplication.translate("GameStartDialog", u"Import ontology", None))
     # retranslateUi
-

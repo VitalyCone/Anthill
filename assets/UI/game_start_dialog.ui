@@ -139,6 +139,94 @@
     </layout>
    </item>
    <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="import_ontology_button_agent_settings">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+  align-items: center;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 100px;
+  justify-content: center;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+QPushButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: &quot;&quot;;
+  display: block;
+  height:100px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+QPushButton:hover:after {
+  transform: translate(0, 0);
+}
+
+QPushButton:active {
+  background-color: #c2fab1;
+  outline: 0;
+}
+
+QPushButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  QPushButton {
+    padding: 0 40px;
+  }
+}</string>
+        </property>
+        <property name="text">
+         <string>Import ontology</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="styleSheet">
       <string notr="true">QPushButton {
@@ -193,6 +281,9 @@ QPushButton:hover {
     padding: 0 40px;
   }
 }</string>
+     </property>
+     <property name="locale">
+      <locale language="English" country="UnitedStates"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

@@ -13,7 +13,7 @@ class EntityBase(ABC):
     """
 
     def __init__(self):
-        self.name = 'Базовая сущность'
+        self.name = 'Base entity'
         self.name = __class__.__name__
         self.version = 0
         self.uri = None
@@ -51,8 +51,12 @@ class EntityBase(ABC):
         self.searchState = None
         self.removed = []
         self.prey = None
-        logging.info(f'Объект {self.uri} был успешно инициализирован')
-        all_update(f'Объект {self.uri} был успешно инициализирован')
+        logging.info(
+            f'Object {self.uri} was successfully initialized'
+        )
+        all_update(
+            f'Object {self.uri} was successfully initialized'
+        )
         path = None
         self.graphics_entity = None
 
@@ -83,8 +87,8 @@ class EntityBase(ABC):
         :return:
         """
         if agents:
-            logging.info(f'В сцену была добавлена информация от других агентов: {agents}')
-            all_update(f'В сцену была добавлена информация от других агентов: {agents}')
+            logging.info(f'Information from other agents has been added to the scene: {agents}')
+            all_update(f'Information from other agents has been added to the scene: {agents}')
         self.scene += agents
         self.ants += self.get_specific_entities(self.scene, "Ant")
         self.apples += self.get_specific_entities(self.scene, "Apple")
@@ -99,8 +103,8 @@ class EntityBase(ABC):
         self.removed = []
         self.update_scene(scene)
 
-        logging.info(f"{self.uri} делает ход!")
-        all_update(f"{self} делает ход!")
+        logging.info(f"{self.uri} making move!")
+        all_update(f"{self} making move!")
 
     def die(self):
         """
@@ -109,8 +113,8 @@ class EntityBase(ABC):
         """
         self.status = 'dead'
         self.removed.append([self.get_uri(), self.version])
-        logging.info(f'{self} умер')
-        all_update(f'{self} умер')
+        logging.info(f'{self} dead')
+        all_update(f'{self} dead')
 
     def live(self, scene):
         """
@@ -119,8 +123,8 @@ class EntityBase(ABC):
         :return killed:
         """
         killed = self.move(scene)
-        logging.info(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
-        all_update(f'Объект {self.uri} сделал ход, изменений в сцене: {len(killed)}')
+        logging.info(f'Object {self.uri} made move, changes in the scene: {len(killed)}')
+        all_update(f'Object {self.uri} made move, changes in the scene: {len(killed)}')
         return killed
 
     @staticmethod

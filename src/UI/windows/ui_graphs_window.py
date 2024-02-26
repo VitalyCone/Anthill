@@ -29,7 +29,7 @@ class Ui_GraphsWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setMinimumSize(QSize(0, 862))
+        self.centralwidget.setMinimumSize(QSize(0, 600))
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.widget = QWidget(self.centralwidget)

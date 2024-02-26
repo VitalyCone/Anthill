@@ -14,7 +14,7 @@ class Apple(EntityBase):
     """
     Класс, представляющий сущность яблока.
     """
-    def __init__(self, anthill, _id='0'):
+    def __init__(self, uri='0'):
         """
         :args:
         anthill: муравейник, к которому принадлежит яблоко.
@@ -23,7 +23,7 @@ class Apple(EntityBase):
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
-        self.uri = self.name + str(_id)
+        self.uri = uri
         self.status = 'alive'
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.r = 500
@@ -34,20 +34,22 @@ class Apple(EntityBase):
         self.scene = None
         self.apples = None
         self.energy_consumption = 0
-        self.anthill = anthill
         self.ants = None
         self.spiders = None
-        self.distance = ((self.anthill.geo[0] - self.geo[0]) ** 2 + (self.anthill.geo[1] - self.geo[1]) ** 2) ** 0.5
         self.weight = 1
         self.energy = self.weight*10
         self.speed = 0
         self.inertiaState = InertiaState(self)
-        path = str(os.path.abspath('../../assets/icons/apple.png'))
+        path = str(os.path.abspath('assets/icons/apple.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
-        logging.info(f'Объект {self.uri} был успешно инициализирован')
-        all_update(f'Объект {self.uri} был успешно инициализирован')
+        logging.info(
+            f'Object {self.uri} was successfully initialized'
+        )
+        all_update(
+            f'Object {self.uri} was successfully initialized'
+        )
 
     def die(self) -> None:
         """

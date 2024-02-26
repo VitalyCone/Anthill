@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'game.ui'
+## Form generated from reading UI file 'gamepbIRnp.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -79,7 +79,7 @@ class Ui_GameWindow(object):
 "  transform: translate(0, 0);\n"
 "}\n"
 "\n"
-"QPushButton:hover {\n"
+"QPushButton:focus {\n"
 "  background-color: #51b533;\n"
 "  outline: 0;\n"
 "}\n"
@@ -138,7 +138,7 @@ class Ui_GameWindow(object):
 "  transform: translate(0, 0);\n"
 "}\n"
 "\n"
-"QPushButton:hover {\n"
+"QPushButton:focus {\n"
 "  background-color: #51b533;\n"
 "  outline: 0;\n"
 "}\n"
@@ -156,6 +156,66 @@ class Ui_GameWindow(object):
 
         self.horizontalLayout.addWidget(self.restart_system)
 
+        self.export_ontology_button = QPushButton(self.centralwidget)
+        self.export_ontology_button.setObjectName(u"export_ontology_button")
+        self.export_ontology_button.setMinimumSize(QSize(0, 40))
+        self.export_ontology_button.setStyleSheet(u"QPushButton {\n"
+"  align-items: center;\n"
+"  background-color: #c2fab1;\n"
+"  border: 2px solid #111;\n"
+"  border-radius: 8px;\n"
+"  box-sizing: border-box;\n"
+"  color: #111;\n"
+"  cursor: pointer;\n"
+"  display: flex;\n"
+"  font-family: Inter,sans-serif;\n"
+"  font-size: 14px;\n"
+"  justify-content: center;\n"
+"  padding: 0 25px;\n"
+"  position: relative;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"  user-select: none;\n"
+"  -webkit-user-select: none;\n"
+"  touch-action: manipulation;\n"
+"}\n"
+"\n"
+"QPushButton:after {\n"
+"  background-color: #111;\n"
+"  border-radius: 8px;\n"
+"  content: \"\";\n"
+"  display: block;\n"
+"  left: 0;\n"
+"  position: absolute;\n"
+"  top: -2px;\n"
+"  transform: translate(8px, 8px);\n"
+"  transition: transform .2s ease-out;\n"
+"  z-index: -1;\n"
+"}\n"
+"\n"
+"QPushButton:hover:after {\n"
+"  transform: translate(0, 0);\n"
+"}\n"
+"\n"
+"QPushButton:focus {\n"
+"  background-color: #51b533;\n"
+"  outline: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"  outline: 0;\n"
+"}\n"
+""
+                        "\n"
+"@media (min-width: 768px) {\n"
+"  QPushButton {\n"
+"    padding: 0 40px;\n"
+"  }\n"
+"}")
+        self.export_ontology_button.setText(u"Export ontology")
+
+        self.horizontalLayout.addWidget(self.export_ontology_button)
+
         self.mas_on_of = QPushButton(self.centralwidget)
         self.mas_on_of.setObjectName(u"mas_on_of")
         self.mas_on_of.setMinimumSize(QSize(0, 40))
@@ -169,7 +229,7 @@ class Ui_GameWindow(object):
 "  cursor: pointer;\n"
 "  display: flex;\n"
 "  font-family: Inter,sans-serif;\n"
-"  font-size: 16px;\n"
+"  font-size: 12px;\n"
 "  justify-content: center;\n"
 "  padding: 0 25px;\n"
 "  position: relative;\n"
@@ -197,7 +257,7 @@ class Ui_GameWindow(object):
 "  transform: translate(0, 0);\n"
 "}\n"
 "\n"
-"QPushButton:hover {\n"
+"QPushButton:focus {\n"
 "  background-color: #51b533;\n"
 "  outline: 0;\n"
 "}\n"
@@ -256,7 +316,7 @@ class Ui_GameWindow(object):
 "  transform: translate(0, 0);\n"
 "}\n"
 "\n"
-"QPushButton:hover {\n"
+"QPushButton:focus {\n"
 "  background-color: #51b533;\n"
 "  outline: 0;\n"
 "}\n"
@@ -288,7 +348,7 @@ class Ui_GameWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.return_button_game.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.restart_system.setText(QCoreApplication.translate("MainWindow", u"Restart", None))
-        self.mas_on_of.setText(QCoreApplication.translate("MainWindow", u"Negotiations: on", None))
+        self.mas_on_of.setText(QCoreApplication.translate("MainWindow", u"Collective intelligence: on", None))
         self.pause_button.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
     # retranslateUi
 

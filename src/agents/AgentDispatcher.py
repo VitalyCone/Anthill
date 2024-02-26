@@ -49,7 +49,7 @@ class AgentDispatcher(AgentBase):
 
     def __init__(self, scene):
         super().__init__()
-        self.name = 'Диспетчер агентов'
+        self.name = 'Agent Dispatcher'
         self.statisticsalfa = StatisticsAlfa(scene)
         self.actor_system = ActorSystem()
         self.reference_book = ReferenceBook()
@@ -90,7 +90,7 @@ class AgentDispatcher(AgentBase):
         """
         self.n += 1
         if self.n == self.gap:
-            apple = Apple(self.scene.get_entities_by_type('Anthill')[0], count_id('apple'))
+            apple = Apple(count_id('apple'))
             self.window.graph_scene.addItem(apple.graphics_entity)
             apple.graphics_entity.graph_scene = self.window.graph_scene
             Denotations.uris['apple'].append(apple.uri)
@@ -103,21 +103,20 @@ class AgentDispatcher(AgentBase):
         """
         self.spider_n += 1
         if self.spider_n == self.spider_gap:
-            for i in range(round(len(self.scene.get_entities_by_type('Spider'))/3) + 1):
-                spider = Spider(self.scene.get_entities_by_type('Spider') + self.scene.get_entities_by_type('Apple'),
-                                count_id('spider'))
+            for i in range(round(len(self.scene.get_entities_by_type('Spider'))/6) + 1):
+                spider = Spider(count_id('spider'))
                 self.window.graph_scene.addItem(spider.graphics_entity)
                 spider.graphics_entity.graph_scene = self.window.graph_scene
                 Denotations.uris['spider'].append(spider.uri)
                 self.add_entity(spider)
             self.spider_n = 0
 
-    def create_ant(self):
+    def create_ant(self, anthill):
         """
         Создает яблоко рандомно каждые n тиков
         """
-        ant = Ant(self.scene.get_entities_by_type('Apple'), self.scene.get_entities_by_type('Anthill')[0],
-                  count_id('ant'))
+        ant = Ant(anthill,
+                  'Ant' + str(count_id('ant')))
         self.window.graph_scene.addItem(ant.graphics_entity)
         ant.graphics_entity.graph_scene = self.window.graph_scene
         Denotations.uris['ant'].append(ant.uri)
@@ -150,8 +149,8 @@ class AgentDispatcher(AgentBase):
         init_data = {'dispatcher': self, 'scene': self.scene, 'entity': game_entity}
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
-        logging.info(f'{agent} сущecтва {game_entity} был создан')
-        all_update(f'{agent} сущecтва {game_entity} был создан')
+        logging.info(f'{agent} of entity {game_entity} was created')
+        all_update(f'{agent} of entity {game_entity} was created')
         self.game_address = agent
 
     def add_entity(self, entity):
@@ -163,8 +162,8 @@ class AgentDispatcher(AgentBase):
         entity_type = entity.name
         self.scene.entities[entity_type].append(entity)
         agent_type = TYPES_AGENTS.get(entity_type)
-        logging.info(f'{entity} был добавлен в сцену')
-        all_update(f'{entity} был добавлен в сцену')
+        logging.info(f'{entity} added to scene')
+        all_update(f'{entity} added to scene')
         if agent_type:
             self.create_agent(agent_type, entity)
             return True
@@ -182,8 +181,8 @@ class AgentDispatcher(AgentBase):
         init_data = {'dispatcher': self, 'scene': self.scene, 'entity': entity}
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
-        logging.info(f'{agent} сущecтва {entity} был создан')
-        all_update(f'{agent} сущecтва {entity} был создан')
+        logging.info(f'{agent} of entity {entity} was created')
+        all_update(f'{agent} of entity {entity} was created')
         return agent
 
     def receiveMessage(self, msg, sender):
@@ -193,8 +192,8 @@ class AgentDispatcher(AgentBase):
         :param sender:
         :return:
         """
-        logging.debug('%s получил сообщение: %s', self.name, msg)
-        debug_update(f'{self.name} получил сообщение: {msg}')
+        logging.debug('%s received message: %s', self.name, msg)
+        debug_update(f'{self.name} received message: {msg}')
 
         if isinstance(msg, tuple):
 

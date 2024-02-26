@@ -13,15 +13,15 @@ from src.entitites.BaseEntity import EntityBase
 
 
 class Anthill(EntityBase):
-    def __init__(self, del_ants, id='0'):
+    def __init__(self, uri='0'):
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.status = 'alive'
-        self.uri = self.name + str(id)
+        self.uri = uri
         self.r = 500
         self.agent = None
-        self.ants = del_ants
+        self.ants = None
         self.energy = 50
         self.last_energy = self.energy
         self.energy_consumption = 0.005
@@ -50,9 +50,13 @@ class Anthill(EntityBase):
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
-        logging.info(f'Объект {self.uri} был успешно инициализирован')
-        all_update(f'Объект {self.uri} был успешно инициализирован')
-        path = str(os.path.abspath('../../assets/icons/anthill.png'))
+        logging.info(
+            f'Object {self.uri} was successfully initialized'
+        )
+        all_update(
+            f'Object {self.uri} was successfully initialized'
+        )
+        path = str(os.path.abspath('assets/icons/anthill.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -73,7 +77,7 @@ class Anthill(EntityBase):
         :return:
         """
         super().move(scene)
-        self.spawnState.move(self)
+        self.spawnState.move(self, False)
         self.growthState.move(self)
 
         self.tic += 1

@@ -12,18 +12,20 @@ from src.UI.forms.StartGameDialog import StartGameDialog
 from src.UI.windows.ui_agent_settings_window import Ui_AgentSettingsWindow
 from src.UI.windows.ui_game_window import Ui_GameWindow
 from src.UI.windows.ui_graphs_window import Ui_GraphsWindow
+from src.UI.windows.ui_help_window import Ui_HelpWindow
 from src.UI.windows.ui_main_window import Ui_MainWindow
 from src.UI.windows.ui_mas_info_window import Ui_MasInfoWindow
 from src.UI.windows.ui_settings_window import Ui_SettingsWindow
 from src.UI.windows.ui_system_settings_window import Ui_SystemSettingsWindow
 from src.agents import AgentDispatcher
 from src.utils.Export.Export import export_in_excel
+from src.utils.ontology_utils.ontology_utils import import_ontology_model, OntologyModel, export_ontology_model
 from src.utils.statistics import Statistics
 from src.utils.statistics.Statistics import write_logs, DataStatistics, Config
 
 
 class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui_GameWindow,
-               Ui_SettingsWindow, Ui_AgentSettingsWindow, Ui_SystemSettingsWindow):
+               Ui_SettingsWindow, Ui_AgentSettingsWindow, Ui_SystemSettingsWindow, Ui_HelpWindow):
     """
     Класс главного окна приложения. Отрисовки макетов и обработки событий.
     """
@@ -85,6 +87,11 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             self.mas_on_of.setText("Collective intelligence: on")
             self.dispatcher.negotiations_on = True
 
+    def export_model(self):
+        AgentDispatcher.PAUSE = True
+        export_ontology_model(self.scene)
+        AgentDispatcher.PAUSE = False
+
     def show_game(self):
         """
         Создает макет самой игры
@@ -93,9 +100,9 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.graph_scene = scene
         if len(self.scene.entities) == 0:
             start_game_dialog = StartGameDialog(self.dispatcher, self.scene,
-                                              1, self.start_apples_num,
-                                              self.start_spiders_num,
-                                              self.start_ants_num, self.entities_settings)
+                                          1, self.start_apples_num,
+                                          self.start_spiders_num,
+                                          self.start_ants_num, self.entities_settings)
             self.start_apples_num = start_game_dialog.planner.apples_num
             self.start_spiders_num = start_game_dialog.planner.spdr_num
             self.start_ants_num = start_game_dialog.planner.ants_num
@@ -106,6 +113,9 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                 self.pause_button.clicked.connect(self.set_on_pause)
                 self.restart_system.clicked.connect(lambda: self.restart_game(start_game_dialog))
                 self.mas_on_of.clicked.connect(self.on_of_negotiations)
+
+                self.export_ontology_button.clicked.connect(self.export_model)
+
                 if self.dispatcher.negotiations_on:
                     self.mas_on_of.setText("Collective intelligence: on")
                 else:
@@ -130,9 +140,9 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
                                               self.start_ants_num, self.entities_settings)))
             self.mas_on_of.clicked.connect(self.on_of_negotiations)
             if self.dispatcher.negotiations_on:
-                self.mas_on_of.setText("Negotiations: on")
+                self.mas_on_of.setText("Collective intelligence: on")
             else:
-                self.mas_on_of.setText("Negotiations: off")
+                self.mas_on_of.setText("Collective intelligence: off")
 
             board = QGraphicsView()
             board.setScene(scene)
@@ -279,6 +289,8 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.system_settings.clicked.connect(self.show_system_settings)
         self.return_button_settings.clicked.connect(self.show_menu)
 
+        self.import_ontology_button.clicked.connect(import_ontology_model)
+
         self.show()
 
     def show_menu(self):
@@ -294,9 +306,17 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.exit_button.clicked.connect(self.close_game)
         self.graph_button.clicked.connect(self.show_graphs)
         self.start_button.clicked.connect(self.show_game)
+        self.help_button.clicked.connect(self.show_help)
 
         path = str(os.path.abspath('assets/images/ants_img.jpg'))
         self.image_label.setPixmap(QPixmap(path))
+
+        self.show()
+
+    def show_help(self):
+        self.setupHelpUi(self)
+
+        self.return_button_help.clicked.connect(self.show_menu)
 
         self.show()
 

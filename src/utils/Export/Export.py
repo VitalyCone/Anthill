@@ -27,27 +27,29 @@ def export_in_excel(data):
     
     """
     name = 'Данные за ' + str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M')) + '.xlsx'
-    n = len(data['Номер тика'])
+    n = len(data['Number of tic'])
     not_last_not_filled_cell = None
     k = 0
     data_1 = {
-        'Номер тика': data.get('Номер тика'),
-        'Средние значения энергии всех муравьев':
-            data.get('Средние значения энергии всех муравьев')[0:len(data.get('Номер тика'))],
-        'Суммарные значения энергии муравьев':
-            data.get('Суммарные значения энергии муравьев')[0:len(data.get('Номер тика'))],
-        'Средние значения энергии пауков':
-            data.get('Средние значения энергии пауков')[0:len(data.get('Номер тика'))],
-        'Суммарные значения энергии пауков':
-            data.get('Суммарные значения энергии пауков')[0:len(data.get('Номер тика'))],
-        'Значения энергии муравейника':
-            data.get('Значения энергии муравейника')[0:len(data.get('Номер тика'))]
+        'Number of tic': data.get('Number of tic')[0:n-1],
+        'Average energy of ant':
+            data.get('Average energy of ant')[0:len(data.get('Number of tic')) - 1],
+        'Accumulated energy of ants':
+            data.get('Accumulated energy of ants')[0:len(data.get('Number of tic')) - 1],
+        'Average energy of spider':
+            data.get('Average energy of spider')[0:len(data.get('Number of tic')) - 1],
+        'Accumulated energy of spiders':
+            data.get('Accumulated energy of spiders')[0:len(data.get('Number of tic')) - 1],
+        'Energy of anthill':
+            data.get('Energy of anthill')[0:len(data.get('Number of tic')) - 1],
+        'Number of messages':
+            data.get('Number of messages')[0:len(data.get('Number of tic')) - 1]
     }
     df = ps.DataFrame(data_1)
 
-    df.to_excel('../../export/' + name, index=False)
+    df.to_excel('export/' + name, index=False)
 
-    workbook = openpyxl.load_workbook('../../export/' + name)
+    workbook = openpyxl.load_workbook('export/' + name)
     worksheet = workbook.active
 
     for cell in worksheet.iter_cols(min_row=1, max_row=1, min_col=1,
@@ -71,7 +73,7 @@ def export_in_excel(data):
 
     # График первый
     chart = LineChart()
-    chart.title = "График средней энергии пауков и муравьев"
+    chart.title = "Average energy of ant and spiders graph"
     chart.x_axis.title = "Tic"
     chart.y_axis.title = "Energy"
 
@@ -91,7 +93,7 @@ def export_in_excel(data):
     num += 20
 
     chart = LineChart()
-    chart.title = "График суммарной энергии пауков и муравьев"
+    chart.title = "Accumulated energy of ants and spiders graph"
     chart.x_axis.title = "Tic"
     chart.y_axis.title = "Energy"
 
@@ -111,7 +113,7 @@ def export_in_excel(data):
     num += 20
 
     chart = LineChart()
-    chart.title = "График энергии муравейника"
+    chart.title = "Graph of energy of anthill"
     chart.x_axis.title = "Tic"
     chart.y_axis.title = "Energy"
 
@@ -130,7 +132,7 @@ def export_in_excel(data):
     num += 20
 
     chart = LineChart()
-    chart.title = "График количества сообщений"
+    chart.title = "Graph of number of tic"
     chart.x_axis.title = "Tic"
     chart.y_axis.title = "Messages"
 
@@ -145,5 +147,5 @@ def export_in_excel(data):
     worksheet.add_chart(chart, cell_name)
 
     # Сохранение изменений
-    workbook.save('../../export/' + name)
+    workbook.save('export/' + name)
 

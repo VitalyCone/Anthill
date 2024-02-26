@@ -15,7 +15,7 @@ class AgentBase(ABC, Actor):
     """
 
     def __init__(self):
-        self.name = 'Базовый агент'
+        self.name = 'Base agent'
         super().__init__()
         self.handlers = {}
         self.scene = None
@@ -39,8 +39,8 @@ class AgentBase(ABC, Actor):
             for spider in spiders:
                 message = (MessageType.SHARE_INFORMATION, ants)
                 spider_address = self.dispatcher.reference_book.get_address(spider)
-                logging.info(f'{self} поделился информацией с {spider_address}')
-                all_update(f'{self} поделился информацией с {spider_address}')
+                logging.info(f'{self} shared info with {spider_address}')
+                all_update(f'{self} shared info with {spider_address}')
                 self.send(spider_address, message)
 
     def handle_share_information(self, message, sender):
@@ -50,8 +50,8 @@ class AgentBase(ABC, Actor):
         :param sender:
         :return:
         """
-        logging.info(f'Получена информация от агента {sender}')
-        all_update(f'Получена информация от агента {sender}')
+        logging.info(f'Information received from agent {sender}')
+        all_update(f'Information received from agent {sender}')
         self.entity.process_information(message[1])
 
     def subscribe(self, msg_type: MessageType, handler):
@@ -62,8 +62,8 @@ class AgentBase(ABC, Actor):
         :return:
         """
         if msg_type in self.handlers:
-            logging.warning('Повторная подписка на сообщение: %s', msg_type)
-            all_update(f'Повторная подписка на сообщение: {msg_type}')
+            logging.warning('Resubscribe to message: %s', msg_type)
+            all_update(f'Resubscribe to message: {msg_type}')
         self.handlers[msg_type] = handler
 
     def handle_deleted(self, msg, sender):
@@ -72,8 +72,8 @@ class AgentBase(ABC, Actor):
         :param sender:
         :return:
         """
-        logging.info(f'{self} получил сообщение {msg}, от: {sender}')
-        all_update(f'{self} получил сообщение {msg}, от: {sender}')
+        logging.info(f'{self} received message {msg} from: {sender}')
+        all_update(f'{self} received message {msg} from: {sender}')
 
     def receiveMessage(self, msg, sender):
         """Обрабатывает сообщения - запускает их обработку в зависимости от типа.
@@ -81,11 +81,11 @@ class AgentBase(ABC, Actor):
         :param sender:
         :return:
         """
-        logging.debug('%s получил сообщение: %s', self.name, msg)
-        debug_update(f'{self.name} получил сообщение: {msg}')
+        logging.debug('%s received message: %s', self.name, msg)
+        debug_update(f'{self.name} received messageе: {msg}')
         if isinstance(msg, ActorExitRequest):
-            logging.info(f'{self} получил сообщение {msg} - ActorExitRequest')
-            all_update(f'{self} получил сообщение {msg} - ActorExitRequest')
+            logging.info(f'{self} received message {msg} - ActorExitRequest')
+            all_update(f'{self} received message {msg} - ActorExitRequest')
             self.handle_deleted(msg, sender)
             return
 
@@ -100,11 +100,11 @@ class AgentBase(ABC, Actor):
                     logging.error(ex)
                     all_update(traceback.format_exc())
             else:
-                logging.warning('%s Отсутствует подписка на сообщение: %s', self.name, message_type)
-                all_update(f'{self.name} Отсутствует подписка на сообщение: {message_type}')
+                logging.warning('%s Message not subscribed: %s', self.name, message_type)
+                all_update(f'{self.name} Message not subscribed: {message_type}')
         else:
-            logging.error('%s Неверный формат сообщения: %s', self.name, msg)
-            all_update(f'{self.name} Неверный формат сообщения: {msg}')
+            logging.error('%s Invalid message format: %s', self.name, msg)
+            all_update(f'{self.name} Invalid message format: {msg}')
             super().receiveMessage(msg, sender)
 
     def __str__(self):
@@ -122,8 +122,8 @@ class AgentBase(ABC, Actor):
         self.entity = message[1].get('entity')
         self.entity.agent = self
         self.name = self.name + ' ' + self.entity.name
-        logging.info(f'{self} проинициализирован')
-        all_update(f'{self} проинициализирован')
+        logging.info(f'{self} initialized')
+        all_update(f'{self} initialized')
 
     def handle_scene_response(self, message, sender):
         """
@@ -132,8 +132,8 @@ class AgentBase(ABC, Actor):
         :param sender:
         :return:
         """
-        logging.info(f'{self}: получена сцена от {sender}')
-        all_update(f'{self}: получена сцена от {sender}')
+        logging.info(f'{self}: scene received from {sender}')
+        all_update(f'{self}: scene received from {sender}')
         scene = message[1]
         killed = self.entity.live(scene)
         if killed:
@@ -148,8 +148,8 @@ class AgentBase(ABC, Actor):
         :param sender:
         :return:
         """
-        logging.info(f'{self}: получен {message} от {sender}')
-        all_update(f'{self}: получен {message} от {sender}')
+        logging.info(f'{self}: received {message} from {sender}')
+        all_update(f'{self}: received {message} from {sender}')
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)

@@ -17,7 +17,7 @@ class SceneAgent(AgentBase):
         # Сцена хранит массив из сущностей
         super().__init__()
         self.entity: Scene
-        self.name = 'Агент сцены'
+        self.name = 'Scene agent'
         self.subscribe(MessageType.SCENE_REQUEST, self.handle_scene_request_message)
         self.subscribe(MessageType.ENTITY_REMOVE_REQUEST, self.handle_entity_remove_request)
         self.subscribe(MessageType.CREATE_GROUP_AGENT, self.handle_create_group_agent)
@@ -25,8 +25,8 @@ class SceneAgent(AgentBase):
     def handle_create_group_agent(self, message, sender):
         group = Group(message[1][1].scene, count_id("group"), message[1][0], message[1][1])
         Denotations.uris['group'].append(group.uri)
-        logging.info(f"Группа {group} была создана")
-        all_update(f"Группа {group} была создана")
+        logging.info(f"Group {group} was created")
+        all_update(f"Group {group} was created")
         self.dispatcher.add_entity(group)
 
     def handle_scene_request_message(self, message, sender):
@@ -36,8 +36,8 @@ class SceneAgent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'{self}: получен запрос сцены от {sender}')
-        all_update(f'{self}: получен запрос сцены от {sender}')
+        logging.info(f'{self}: request received from scene {sender}')
+        all_update(f'{self}: request received from scene {sender}')
         entities_in_radius = []
         geo = message[1][0]
         radius = message[1][1]
@@ -62,5 +62,5 @@ class SceneAgent(AgentBase):
             if entity:
                 # if self.entity.get_entity_by_uri(uri).version == version:
                 self.entity.remove_entity_by_uri(uri)
-                logging.info(f'{uri} был(а) удален(а) из сцены агентом {sender}')
-                all_update(f'{uri} был(а) удален(а) из сцены агентом {sender}')
+                logging.info(f'{uri} was deleted from scene by agent: {sender}')
+                all_update(f'{uri} was deleted from scene by agent: {sender}')

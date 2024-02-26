@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1189</width>
-    <height>785</height>
+    <width>682</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,6 +162,73 @@ QPushButton:hover {
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="export_ontology_button">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+  align-items: center;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 14px;
+  justify-content: center;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+QPushButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: &quot;&quot;;
+  display: block;
+  left: 0;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+QPushButton:hover:after {
+  transform: translate(0, 0);
+}
+
+QPushButton:focus {
+  background-color: #51b533;
+  outline: 0;
+}
+
+QPushButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  QPushButton {
+    padding: 0 40px;
+  }
+}</string>
+        </property>
+        <property name="text">
+         <string notr="true">Export ontology</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="mas_on_of">
         <property name="minimumSize">
          <size>
@@ -180,7 +247,7 @@ QPushButton:hover {
   cursor: pointer;
   display: flex;
   font-family: Inter,sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   justify-content: center;
   padding: 0 25px;
   position: relative;
@@ -224,7 +291,7 @@ QPushButton:hover {
 }</string>
         </property>
         <property name="text">
-         <string>MAS: on</string>
+         <string>Collective intelligence: on</string>
         </property>
        </widget>
       </item>
