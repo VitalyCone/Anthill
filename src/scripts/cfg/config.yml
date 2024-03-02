@@ -7,10 +7,10 @@ system:
   apple_num: 5
 
 ant:
-  speed: 1
+  speed: 2.25
   radius: 70
 
 spider:
-  speed: 1.5
+  speed: 2.5
   radius: 70
 

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HelpWindow</class>
+ <widget class="QMainWindow" name="HelpWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1741</width>
+    <height>1207</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::WheelFocus</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-1885</y>
+         <width>1700</width>
+         <height>3034</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::WheelFocus</enum>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:16pt; font-weight:700;&quot;&gt;Educational &amp;amp; Research Game for Studying Emergent Intelligence&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:16pt; font-weight:700;&quot;&gt;&amp;quot;Ants VS Spiders&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:16pt; font-weight:700;&quot;&gt;Find out, when Collective Intelligence wins!&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;1. Objective&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The objective of Educational Game is to provide users with opportunity for experimentally study the theory of Emergent Intelligence (EI) – new area of Collective Intelligence of open self-organized systems, based on non-equilibrium thermodynamics. &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The game is based on ontologies and multi-agent technology and makes possible to implement and compare the results of individual and collective coordinated decision-making both in terms of the movement and delivery of relatively large heavy food by ants to the anthill, exceeding their individual capabilities, and collective confrontation for protection from spiders with more powerful capabilities – to demonstrate that Collective Intelligence wins. &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The game is intended for software engineers, researchers, PhD, students and schoolchildren, who study collective AI programming. &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;2. Application&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The developed system can be used both in computer science classes in high school and in first years of university, for example, in the courses of “Artificial Intelligence”, “Software Engineering”, etc.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;At the moment system can be applied on stage 1 and stage 2 is under development.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The developed system is designed as open system and can be provided to partners and end-users as a digital platform with open source code for joint developments.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;3. The world of Ants and Spiders&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The world of software agents was created to model the simplest digital ecosystem with colonies of ants and spiders, which show the competition and cooperation as in any natural ecosystem.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;How the world of ants and spiders works:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• The anthill gives birth to ants based on the food supply (apples) available in them.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Ants are born and go out in search of food.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Ants spend their energy moving and when they don’t find food, they die.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• If an ant finds food, it looks at its size (weight).&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Large food can only be carried by a few ants.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Food gives vitality to the ant, but its main goal is to deliver maximum food to the anthill.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• To move large amounts of food, the ant assembles a team.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• When choosing which team to be on, the ant focuses on the maximum result for its anthill.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Similarly, spiders are constantly being born, looking for ants for their food.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Not finding ants, some of the spiders die.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• Ants can also form teams to protect themselves from spiders.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• The ant joins the team to protect against the spider where the maximum result is planned, i.e. What is most valued is defeating the biggest (terrible) spider.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• If an ant leaves a team to join another, he coordinates his decision with the previous team so that it can find a replacement for him.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• If the number of spiders decreases, the ant colony increases (and vice versa).&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;• And all these processes are continuously repeated until one of the colonies wins.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The main objective of the system is to show that collective consensus decision-making by agents significantly outperforms their individual decision-making. &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The system's capabilities show that collective interaction allows you to achieve higher results and win the game even where the physical attributes of entities are significantly weaker than the enemy.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The proposed collection tasks for experiments show that the more collective decisions are made by ants, the longer their colonies live and prosper and, conversely, the more they act separately, individually (one at a time), the sooner they die.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;4. Functionality of main menu &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;The main menu is presented on the top line of the screen and is always available for use; pressing any key or clicking the mouse stops the simulation:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Settings &lt;/span&gt;– setting parameters for simulation &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Spiders Settings&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Radius - &lt;/span&gt;allows the user to change the vision radius of the spiders (min: 0, max: 1000) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Speed - &lt;/span&gt;allows the user to change the speed of the spiders (min: 0, max: 50) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Return &lt;/span&gt;– exit submenu with no changes &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Apply&lt;/span&gt; – apply changes &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Ants Settings&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Radius- &lt;/span&gt;allows the user to change the vision radius of the ants (min: 0, max: 1000) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Speed - &lt;/span&gt;allows the user to change the speed of the ants (min: 0, max: 50) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Return&lt;/span&gt; – exit submenu with no changes &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Apply&lt;/span&gt; – apply changes &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;System Settings&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Time gap between apple spawns – &lt;/span&gt;allows the user to change the frequency of adding apples (min: 10, max: 1000) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Gap between spider spawn -&lt;/span&gt; allows the user to change the frequency of adding spiders (min: 10, max: 1000) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Start number of ants -&lt;/span&gt; allows the user to change start number of ants (min: 0, max: 100) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Start number of spiders -&lt;/span&gt; allows the user to change start number of spiders (min: 0, max: 100) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Start number of apples -&lt;/span&gt; allows the user to change start number of apples (min: 0, max: 100) &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Return &lt;/span&gt;– exit submenu with no changes &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Wingdings';&quot;&gt;§&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Apply &lt;/span&gt;– apply changes &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Back&lt;/span&gt;- exit submenu &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Start/ Continue &lt;/span&gt;– starts and continue the simulation process for a generated scene based on game settings. Display actual game process &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Back – return to menu &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Restart – restart simulation &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Collective intelligence: on/off – on or off collective intelligence &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Pause – set game on pause or resume it &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Decision making log&lt;/span&gt; – log of MAS decisions &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Results &lt;/span&gt;– display of modeling results and graphs of changes in the main parameters of the states of the game world &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Graph of accumulated energy of ants &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Graph of accumulated energy of spiders &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Graph of energy of anthill &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;Graph of the number of system messages per time tick &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Back&lt;/span&gt; - exit submenu &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New';&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Download Graphs &lt;/span&gt;– download results as .xlsx file &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Help&lt;/span&gt; – explains and shows all the features of the game &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Exit &lt;/span&gt;– exit system &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;5. Collection of tasks for Stage 1&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Explores predefined downloadable examples of scenes of the digital world of spiders and ants to build important dependencies:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;How does the speed of ants and spiders affect the results of the system;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;How does the vision radius of ants and spiders affect the results of the system;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;How does the energy consumption of an ant and a spider affect the results of the system;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Complicate the process of making collective decisions of ants to evaluate their impact on the results of the system:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Ants act purely individually, without any collective interaction;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Ants gather in teams to bring large amounts of food together;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Ants form a team to fight spiders;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Create conditions under which ants win;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Create conditions under which spiders win;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Create conditions where a balance is established between ants and spiders;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Create conditions where the number of ants and spiders oscillates rhythmically;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Show and explain other interesting phenomena you discovered.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;6. Prospects&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The system is under development now but is intended for step-by-step way application at the following levels: &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;Stage 1&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New'; font-weight:700;&quot;&gt; – &lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;obtaining a first understanding of multi-agent systems and studying the processes of self-organization in complex systems such as natural ecosystems, in which processes of competition and cooperation of participants are observed;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;Stage 2 &lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;– obtaining a first understanding of ontologies that help build formalized knowledge models of domain areas and use the ontologies for setting up and developing multi-agent systems;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;Stage 3&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;– studying the basics of multi-agent programming and expanding the world of the proposed system through the introduction of new proprietary software agents of the participants and protocols for their interaction;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol';&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;Stage 4&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;– study and development of models and methods for collective decision-making of agents to achieve a state of “competitive equilibrium” (consensus).&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt; font-weight:700;&quot;&gt;7. Technical requirements&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Below is a list of recommended application server hardware and software requirements:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;RAM: 8 GB or more;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Python 3 with installed libraries:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Pygame&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Thespian&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:12pt;&quot;&gt;o&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Matplotlib&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;processor: 4 x 2.4 GHz and higher;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;Below is a list of recommended application client hardware and software requirements:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:12pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman','serif'; font-size:12pt;&quot;&gt;RAM: 4 GB or more;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::AutoText</enum>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="indent">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="return_button_help">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+  align-items: left;
+  background-color: #c2fab1;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 100px;
+  line-height: 300px;
+  max-width: 300%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}</string>
+      </property>
+      <property name="text">
+       <string>Return</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

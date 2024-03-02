@@ -27,7 +27,7 @@ class Graph:
         fig = Figure()
         ax = fig.add_subplot(111)
 
-        ax.plot(x_values[-60:], y_values[-60:], marker=',', linestyle='-')
+        ax.plot(x_values[-100:], y_values[-100:], marker=',', linestyle='-')
         ax.set_title(self.y_name)
         ax.hold = False
         return fig

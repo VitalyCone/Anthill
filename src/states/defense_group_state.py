@@ -23,6 +23,7 @@ class DefenseGroupState(State):
                 # self.agent.group.entities.append(self.agent)
             else:
                 self.agent.agent.create_group(self.agent.prey, self.agent)
+                self.agent.prey = None
 
     def move(self, agent):
         """
@@ -38,7 +39,7 @@ class DefenseGroupState(State):
         if self.agent.prey and self.agent.prey.name in self.agent.defensible_enemies:
             self.agent.set_vector_to_object(self.agent.prey)
             if not self.agent.attack:
-                if self.agent == agent.group.leader:
+                if self.agent == self.agent.group.leader:
                     self.agent.u_trig[0] = -self.agent.u_trig[0]
                     self.agent.u_trig[1] = -self.agent.u_trig[1]
                 else:

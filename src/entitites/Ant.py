@@ -33,7 +33,7 @@ class Ant(EntityBase):
         # Сопротивление пауку
         self.charachter = random.randint(0, 1)  # Характер. 0 - трусливый, 1 - доблестный
         self.u = 0  # Случайный угол по x
-        self.speed = 0.8
+        self.speed = 2
         self.r = 70
         self.energy_consumption = 0.001
         self.attack = False
@@ -73,7 +73,7 @@ class Ant(EntityBase):
         all_update(
             f'Object {self.uri} was successfully initialized'
                    )
-        path = str(os.path.abspath('assets/icons/ant.png'))
+        path = str(os.path.abspath('../../assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

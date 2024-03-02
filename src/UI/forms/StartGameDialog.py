@@ -16,8 +16,8 @@ class StartGameDialog(QDialog, Ui_GameStartDialog, Ui_SimpleDiag):
         super().__init__()
         self.show_model = False
         self.use_onto_model = OntologyModel.ontology_model is not None
+        self.entities_settings = entities_settings
         if not self.use_onto_model:
-            self.entities_settings = entities_settings
 
             self.planner = Planner(dispatcher, scene, anthill_num, apples_num, spdr_num, ants_num,
                                    self.entities_settings)
@@ -30,6 +30,8 @@ class StartGameDialog(QDialog, Ui_GameStartDialog, Ui_SimpleDiag):
             self.spiders_num_input.setText(str(spdr_num))
             self.apples_num_input.setText(str(apples_num))
         else:
+            self.planner = Planner(dispatcher, scene, anthill_num, apples_num, spdr_num, ants_num,
+                                   self.entities_settings)
             self.setupUi(self)
             label = QLabel()
             label.setText(
@@ -54,6 +56,13 @@ class StartGameDialog(QDialog, Ui_GameStartDialog, Ui_SimpleDiag):
         super().accept()
         self.close()
         if self.use_onto_model:
+            try:
+                self.planner.set_start_nums(self.planner.anthill_num,
+                                        int(self.apples_num_input.text()),
+                                        int(self.spiders_num_input.text()),
+                                        int(self.ants_num_input.text()))
+            except Exception:
+                pass
             self.planner.start_system_with_onto_model()
             self.show_model = True
         else:

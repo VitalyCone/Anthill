@@ -10,7 +10,8 @@ class Group:
         self.scene = scene
         self.version = 0
         self.leader = leader
-        leader.group = self
+        self.leader.group = self
+        self.leader.aim = aim
         self.agent = None
         self.aim = aim
         self.r = leader.r

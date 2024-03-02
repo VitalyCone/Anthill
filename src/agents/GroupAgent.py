@@ -49,14 +49,15 @@ class GroupAgent(AgentBase):
         for entity in self.entity.entities:
             if entity.status == 'dead':
                 self.entity.entities.remove(entity)
-        if self.entity.aim.status == 'dead' or self.entity.leader.status == 'dead':
+        if (self.entity.aim.status == 'dead' or self.entity.leader.status == 'dead'
+                or not self.dispatcher.negotiations_on):
             self.remove_group()
         entities_ready_attack = []
         for entity in self.entity.entities:
             if entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack:
                 entities_ready_attack.append(entity)
         if (self.entity.aim.name == 'Spider'
-                and len(entities_ready_attack) > 5):
+                and len(entities_ready_attack) > self.entity.aim.energy/self.entity.leader.damage):
             for entity in self.entity.entities:
                 address = self.dispatcher.reference_book.get_address(entity)
                 msg = (MessageType.ATTACK_REQUEST, True)

@@ -34,7 +34,7 @@ class Spider(EntityBase):
         self.uri = uri
         self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.status = 'alive'
-        self.speed = 0.9
+        self.speed = 2.25
         self.u = 0.57
         self.agent = None
         self.sended_objects = []
@@ -59,7 +59,7 @@ class Spider(EntityBase):
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.hunt_state = HuntState(self)
         self.removed = []
-        path = str(os.path.abspath('assets/icons/spider.png'))
+        path = str(os.path.abspath('../../assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
@@ -118,7 +118,8 @@ class Spider(EntityBase):
         """
         
         self.prey.die()
-        self.energy += self.prey.energy
+        if self.energy < 2:
+            self.energy += self.prey.energy
         self.removed.append([self.prey.get_uri(), self.prey.version])
         self.prey = None
         logging.info(f'{self.prey} was killed {self}')

@@ -103,8 +103,9 @@ class AgentDispatcher(AgentBase):
         """
         self.spider_n += 1
         if self.spider_n == self.spider_gap:
-            for i in range(round(len(self.scene.get_entities_by_type('Spider'))/6) + 1):
+            for i in range(round(len(self.scene.get_entities_by_type('Spider'))/10) + 1):
                 spider = Spider(count_id('spider'))
+                spider.speed = Config.dataset['spider']['speed']
                 self.window.graph_scene.addItem(spider.graphics_entity)
                 spider.graphics_entity.graph_scene = self.window.graph_scene
                 Denotations.uris['spider'].append(spider.uri)
@@ -117,6 +118,7 @@ class AgentDispatcher(AgentBase):
         """
         ant = Ant(anthill,
                   'Ant' + str(count_id('ant')))
+        ant.speed = Config.dataset['ant']['speed']
         self.window.graph_scene.addItem(ant.graphics_entity)
         ant.graphics_entity.graph_scene = self.window.graph_scene
         Denotations.uris['ant'].append(ant.uri)

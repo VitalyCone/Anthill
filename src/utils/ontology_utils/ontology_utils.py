@@ -18,18 +18,21 @@ def import_ontology_model():
     обновляя данные в dataclass OntologyModel -
     создает dict с параметрами каждой сущности
     """
-    onto_manager = OntologyManager()
-    spiders = onto_manager.get_spiders()
-    anthills = onto_manager.get_anthills()
-    ants = onto_manager.get_ants()
-    apples = onto_manager.get_apples()
-    OntologyModel.ontology_model = {
-        "Ant": ants,
-        "Spider": spiders,
-        "Apple": apples,
-        "Anthill": anthills
-    }
-    simple_diag = SimpleDiag("Ontology model " + onto_manager.ontology_uri + " successfully imported")
+    try:
+        onto_manager = OntologyManager()
+        spiders = onto_manager.get_spiders()
+        anthills = onto_manager.get_anthills()
+        ants = onto_manager.get_ants()
+        apples = onto_manager.get_apples()
+        OntologyModel.ontology_model = {
+            "Ant": ants,
+            "Spider": spiders,
+            "Apple": apples,
+            "Anthill": anthills
+        }
+        simple_diag = SimpleDiag("Ontology model " + onto_manager.ontology_uri + " successfully imported")
+    except Exception:
+        pass
 
 
 def form_anthill_dict(anthill):
@@ -116,16 +119,16 @@ def export_ontology_model(scene):
     Экспортирует текущие параметры игры в СУЗ модели игры Ants vs Spiders
     :param scene:
     """
-    onto_manager = OntologyManager()
-
-    ants = scene.get_entities_by_type("Ant")
-    anthills = scene.get_entities_by_type("Anthill")
-    spiders = scene.get_entities_by_type("Spider")
-    apples = scene.get_entities_by_type("Apple")
-
-    anthill_responces = [onto_manager.create_anthill(form_anthill_dict(anthill)) for anthill in anthills]
-    apple_responces = [onto_manager.create_apple(form_apple_dict(apple)) for apple in apples]
-    spider_responces = [onto_manager.create_spider(form_spider_dict(spider)) for spider in spiders]
-    ant_responces = [onto_manager.create_ant(form_ant_dict(ant)) for ant in ants]
-
-    simple_diag = SimpleDiag("Ontology model successfully exported to model: " + onto_manager.ontology_uri)
+    # onto_manager = OntologyManager()
+    #
+    # ants = scene.get_entities_by_type("Ant")
+    # anthills = scene.get_entities_by_type("Anthill")
+    # spiders = scene.get_entities_by_type("Spider")
+    # apples = scene.get_entities_by_type("Apple")
+    #
+    # anthill_responces = [onto_manager.create_anthill(form_anthill_dict(anthill)) for anthill in anthills]
+    # apple_responces = [onto_manager.create_apple(form_apple_dict(apple)) for apple in apples]
+    # spider_responces = [onto_manager.create_spider(form_spider_dict(spider)) for spider in spiders]
+    # ant_responces = [onto_manager.create_ant(form_ant_dict(ant)) for ant in ants]
+    #
+    # simple_diag = SimpleDiag("Ontology model successfully exported to model: " + onto_manager.ontology_uri)
