@@ -22,6 +22,9 @@ class GroupAgent(AgentBase):
 
     def handle_invite_response(self, message, sender):
         if message[1][0]:
+            # if self.entity.aim.name == 'Spider':
+            #     if len(self.entity.entities) * self.entity.leader.damage >= self.entity.aim.energy:
+            #         return
             logging.info(
                 f'Agent {sender} was successfully added to the group {self.entity.uri}'
             )
@@ -30,6 +33,7 @@ class GroupAgent(AgentBase):
             )
             self.entity.entities.append(message[1][1])
             message[1][1].group = self.entity
+            message[1][1].prey = self.entity.aim
         else:
             logging.info(f'Failed to add {sender} to group {self}')
             all_update(f'Failed to add {sender} to group {self}')
@@ -80,6 +84,16 @@ class GroupAgent(AgentBase):
 
     def send_invite_message(self):
         if self.dispatcher.negotiations_on:
+            if self.entity.aim.name == 'Spider':
+                if len(self.entity.entities)*self.entity.leader.damage >= self.entity.aim.energy:
+                    ants = self.entity.get_ants(self.entity.scene)
+                    for ant in ants:
+                        if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
+                            break
+                        if ant not in self.entity.entities:
+                            address = self.dispatcher.reference_book.get_address(ant)
+                            msg = (MessageType.INVITE_REQUEST, self.entity.aim)
+                            self.send(address, msg)
             if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
                 return
             ants = self.entity.get_ants(self.entity.scene)

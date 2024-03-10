@@ -1,3 +1,2 @@
 # Anthill
-Муравейник
-или нет
+To start game run src/scripts/main.py or /main.py

@@ -30,21 +30,29 @@ def export_in_excel(data):
     n = len(data['Number of tic'])
     not_last_not_filled_cell = None
     k = 0
+
     data_1 = {
         'Number of tic': data.get('Number of tic')[0:n-1],
         'Average energy of ant':
-            data.get('Average energy of ant')[0:len(data.get('Number of tic')) - 1],
+            data.get('Average energy of ant')[0:n-1],
         'Accumulated energy of ants':
-            data.get('Accumulated energy of ants')[0:len(data.get('Number of tic')) - 1],
+            data.get('Accumulated energy of ants')[0:n-1],
         'Average energy of spider':
-            data.get('Average energy of spider')[0:len(data.get('Number of tic')) - 1],
+            data.get('Average energy of spider')[0:n-1],
         'Accumulated energy of spiders':
-            data.get('Accumulated energy of spiders')[0:len(data.get('Number of tic')) - 1],
+            data.get('Accumulated energy of spiders')[0:n-1],
         'Energy of anthill':
-            data.get('Energy of anthill')[0:len(data.get('Number of tic')) - 1],
+            data.get('Energy of anthill')[0:n-1],
         'Number of messages':
-            data.get('Number of messages')[0:len(data.get('Number of tic')) - 1]
+            data.get('Number of messages')[0:n-1],
+        'Number of ants':
+            data.get('Number of ants')[0:n-1],
+        'Number of spiders':
+            data.get('Number of spiders')[0:n-1],
+        'Number of apples':
+            data.get('Number of apples')[0:n-1]
     }
+
     df = ps.DataFrame(data_1)
 
     df.to_excel('export/' + name, index=False)
@@ -132,12 +140,66 @@ def export_in_excel(data):
     num += 20
 
     chart = LineChart()
-    chart.title = "Graph of number of tic"
+    chart.title = "Graph of number of messages"
     chart.x_axis.title = "Tic"
     chart.y_axis.title = "Messages"
 
     # Добавление данных на график
     ref_y_1 = Reference(worksheet, min_col=7, min_row=1, max_col=7, max_row=n + 1)
+    ref_x = Reference(worksheet, min_col=1, min_row=2, max_row=n + 1)
+    chart.add_data(ref_y_1, titles_from_data=True)
+    chart.set_categories(ref_x)
+    cell_name = not_last_not_filled_cell.column_letter + str(num)
+    chart.width = 23
+    chart.height = 10
+    worksheet.add_chart(chart, cell_name)
+
+    # График кол-ва муравьев
+    num += 20
+
+    chart = LineChart()
+    chart.title = "Graph of number ants"
+    chart.x_axis.title = "Tic"
+    chart.y_axis.title = "Number of ants"
+
+    # Добавление данных на график
+    ref_y_1 = Reference(worksheet, min_col=8, min_row=1, max_col=8, max_row=n + 1)
+    ref_x = Reference(worksheet, min_col=1, min_row=2, max_row=n + 1)
+    chart.add_data(ref_y_1, titles_from_data=True)
+    chart.set_categories(ref_x)
+    cell_name = not_last_not_filled_cell.column_letter + str(num)
+    chart.width = 23
+    chart.height = 10
+    worksheet.add_chart(chart, cell_name)
+
+    # График кол-ва пауков
+    num += 20
+
+    chart = LineChart()
+    chart.title = "Graph of number spiders"
+    chart.x_axis.title = "Tic"
+    chart.y_axis.title = "Number of spiders"
+
+    # Добавление данных на график
+    ref_y_1 = Reference(worksheet, min_col=9, min_row=1, max_col=9, max_row=n + 1)
+    ref_x = Reference(worksheet, min_col=1, min_row=2, max_row=n + 1)
+    chart.add_data(ref_y_1, titles_from_data=True)
+    chart.set_categories(ref_x)
+    cell_name = not_last_not_filled_cell.column_letter + str(num)
+    chart.width = 23
+    chart.height = 10
+    worksheet.add_chart(chart, cell_name)
+
+    # График кол-ва яблок
+    num += 20
+
+    chart = LineChart()
+    chart.title = "Graph of number apples"
+    chart.x_axis.title = "Tic"
+    chart.y_axis.title = "Number of apples"
+
+    # Добавление данных на график
+    ref_y_1 = Reference(worksheet, min_col=10, min_row=1, max_col=10, max_row=n + 1)
     ref_x = Reference(worksheet, min_col=1, min_row=2, max_row=n + 1)
     chart.add_data(ref_y_1, titles_from_data=True)
     chart.set_categories(ref_x)

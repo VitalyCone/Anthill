@@ -20,7 +20,7 @@ class Spider(EntityBase):
     """
     Класс, представляющий сущность паука.
     """
-    def __init__(self, uri='0'):
+    def __init__(self, uri='0', geo=None):
         """
         :args:
         scene: общая сцена объектов.
@@ -32,7 +32,9 @@ class Spider(EntityBase):
         # в каждом классе определил переменную-имя класса,
         # чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
         self.uri = uri
-        self.geo = [random.randint(10, 490), random.randint(10, 490)]
+        self.geo = geo
+        if not self.geo:
+            self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.status = 'alive'
         self.speed = 2.25
         self.u = 0.57

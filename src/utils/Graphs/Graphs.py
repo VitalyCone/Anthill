@@ -26,8 +26,10 @@ class Graph:
 
         fig = Figure()
         ax = fig.add_subplot(111)
-
-        ax.plot(x_values[-100:], y_values[-100:], marker=',', linestyle='-')
+        if len(x_values) > len(y_values) and len(y_values) < 100:
+            ax.plot(x_values[-len(y_values):], y_values, marker=',', linestyle='-')
+        else:
+            ax.plot(x_values[-100:], y_values[-100:], marker=',', linestyle='-')
         ax.set_title(self.y_name)
         ax.hold = False
         return fig

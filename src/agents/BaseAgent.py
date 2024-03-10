@@ -24,35 +24,6 @@ class AgentBase(ABC, Actor):
         self.subscribe(MessageType.INIT_MESSAGE, self.handle_init_message)
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
-        self.subscribe(MessageType.INVITE_REQUEST, self.handle_invite_request)
-        self.subscribe(MessageType.ATTACK_REQUEST, self.handle_attack_request)
-        self.subscribe(MessageType.SHARE_INFORMATION, self.handle_share_information)
-
-    def send_information(self, spiders, ants):
-        """
-        Отправление информации другим паукам
-        :param spiders:
-        :param ants:
-        :return:
-        """
-        if self.dispatcher.negotiations_on:
-            for spider in spiders:
-                message = (MessageType.SHARE_INFORMATION, ants)
-                spider_address = self.dispatcher.reference_book.get_address(spider)
-                logging.info(f'{self} shared info with {spider_address}')
-                all_update(f'{self} shared info with {spider_address}')
-                self.send(spider_address, message)
-
-    def handle_share_information(self, message, sender):
-        """
-        Обработка переданной информации о муравьях от других пауков
-        :param message:
-        :param sender:
-        :return:
-        """
-        logging.info(f'Information received from agent {sender}')
-        all_update(f'Information received from agent {sender}')
-        self.entity.process_information(message[1])
 
     def subscribe(self, msg_type: MessageType, handler):
         """
@@ -153,37 +124,3 @@ class AgentBase(ABC, Actor):
         scene_request_msg = (MessageType.SCENE_REQUEST, (self.entity.geo, self.entity.r))
         courier_address = self.dispatcher.reference_book.get_address(self.scene)
         self.send(courier_address, scene_request_msg)
-
-    def handle_attack_request(self, message, sender):
-        """
-        Обработка запроса на атаку агента
-        :param message:
-        :param sender:
-        :return:
-        """
-        self.entity.attack = message[1]
-
-    def handle_invite_request(self, message, sender):
-        """
-        Обработка приглашения в группу
-        :param message:
-        :param sender:
-        :return:
-        """
-        if self.entity.prey is None or self.entity.prey.energy <= message[1].energy:
-            self.entity.prey = message[1]
-            msg = (MessageType.INVITE_RESPONSE, (True, self.entity))
-        else:
-            msg = (MessageType.INVITE_RESPONSE, (False, None))
-        self.send(sender, msg)
-
-    def create_group(self, aim, leader):
-        """
-        Отправка сообщений о созданиии группы
-        :param aim:
-        :param leader:
-        :return:
-        """
-        scene_request_msg = (MessageType.CREATE_GROUP_AGENT, (aim, leader))
-        address = self.dispatcher.reference_book.get_address(self.scene)
-        self.send(address, scene_request_msg)

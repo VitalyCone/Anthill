@@ -5,7 +5,7 @@ from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
 from src.scene.Scene import Scene
 from src.utils.ontology_utils.ontology_utils import OntologyModel
-from src.utils.statistics.Statistics import Denotations, count_id, null_uris
+from src.utils.statistics.Statistics import Denotations, count_id, null_uris, Config
 
 
 class Planner:
@@ -23,28 +23,37 @@ class Planner:
         """
         """
         self.dispatcher.create_scene_agent(self.scene)
+        game = OntologyModel.ontology_model["Game"]
         ants = OntologyModel.ontology_model["Ant"]
         spiders = OntologyModel.ontology_model["Spider"]
         apples = OntologyModel.ontology_model["Apple"]
         anthills = OntologyModel.ontology_model["Anthill"]
+        self.set_game_settings(game)
         self.import_anthills(anthills)
         self.import_ants(ants)
         self.import_spiders(spiders)
         self.import_apples(apples)
 
+    def set_game_settings(self, game):
+        self.dispatcher.max_ants_num = game['data']['MaxAntNum']['value']
+        self.dispatcher.max_spiders_num = game['data']['MaxSpiderNum']['value']
+        self.dispatcher.max_apples_num = game['data']['MaxAppleNum']['value']
+        self.dispatcher.generation = game['data']['Generation']['value']
+        self.dispatcher.spider_gap = game['data']['SpiderSpawnGap']['value']
+        self.dispatcher.gap = game['data']['AppleSpawnGap']['value']
+
     def import_apples(self, apples):
         for apple_dict in apples:
             uri = apple_dict['data']['label']['value']
-            geo = [int(x) for x in str(apple_dict['data']['Geoposition']['value']).split(', ')]
+            geo = [float(x) for x in str(apple_dict['data']['Geoposition']['value']).split(', ')]
             energy_cons = apple_dict['data']['EnergyConsumption']['value']
             energy = apple_dict['data']['Energy']['value']
             speed = apple_dict['data']['MovementSpeed']['value']
             weight = apple_dict['data']['Weight']['value']
-            apple = Apple(uri)
+            apple = Apple(uri, geo)
             apple.energy = energy
             apple.energy_consumption = energy_cons
             apple.speed = speed
-            apple.geo = geo
             apple.weight = weight
             Denotations.uris['apple'].append(apple.uri)
             self.dispatcher.add_entity(apple)
@@ -52,14 +61,13 @@ class Planner:
     def import_spiders(self, spiders):
         for spider_dict in spiders:
             uri = spider_dict['data']['label']['value']
-            geo = [int(x) for x in str(spider_dict['data']['Geoposition']['value']).split(', ')]
+            geo = [float(x) for x in str(spider_dict['data']['Geoposition']['value']).split(', ')]
             energy_cons = spider_dict['data']['EnergyConsumption']['value']
             energy = spider_dict['data']['Energy']['value']
             speed = spider_dict['data']['MovementSpeed']['value']
-            spider = Spider(uri)
+            spider = Spider(uri, geo)
             spider.r = self.entities_settings["Spider"]["radius"]
             spider.speed = speed
-            spider.geo = geo
             spider.energy_consumption = energy_cons
             spider.energy = energy
             Denotations.uris['spider'].append(spider.uri)
@@ -68,7 +76,7 @@ class Planner:
     def import_anthills(self, anthills):
         for anthill_dict in anthills:
             uri = anthill_dict['data']['label']['value']
-            geo = [int(x) for x in str(anthill_dict['data']['Geoposition']['value']).split(', ')]
+            geo = [float(x) for x in str(anthill_dict['data']['Geoposition']['value']).split(', ')]
             energy_cons = anthill_dict['data']['EnergyConsumption']['value']
             energy = anthill_dict['data']['Energy']['value']
             anthill = Anthill(uri)
@@ -81,25 +89,33 @@ class Planner:
     def import_ants(self, ants):
         for ant_dict in ants:
             uri = ant_dict['data']['label']['value']
-            geo = [int(x) for x in str(ant_dict['data']['Geoposition']['value']).split(', ')]
+            geo = [float(x) for x in str(ant_dict['data']['Geoposition']['value']).split(', ')]
             energy_cons = ant_dict['data']['EnergyConsumption']['value']
             energy = ant_dict['data']['Energy']['value']
             weight = ant_dict['data']['Weight']['value']
             speed = ant_dict['data']['MovementSpeed']['value']
             anthill = self.scene.get_entity_by_uri(ant_dict['data']['LivingIn']['value']['label'])
             ant = Ant(anthill,
-                      uri)
+                      uri, geo)
             ant.r = self.entities_settings["Ant"]["radius"]
             ant.speed = speed
             ant.weight = weight
             ant.energy = energy
             ant.energy_consumption = energy_cons
-            ant.geo = geo
             Denotations.uris['ant'].append(ant.uri)
             self.dispatcher.add_entity(ant)
 
     def start_system(self):
         self.dispatcher.create_scene_agent(self.scene)
+
+        self.dispatcher.gap = Config.dataset['system']['apple_spawn_time']
+        self.dispatcher.spider_gap = Config.dataset['system']['spider_spawn_time']
+        self.dispatcher.generation = Config.dataset['system']['generation']
+
+        self.dispatcher.max_spiders_num = Config.dataset['system']['max_spiders_num']
+        self.dispatcher.max_ants_num = Config.dataset['system']['max_ants_num']
+        self.dispatcher.max_apples_num = Config.dataset['system']['max_apples_num']
+
         for i in range(self.anthill_num):
             anthill = Anthill("Anthill" + str(count_id('anthill')))
             Denotations.uris['anthill'].append(anthill.uri)

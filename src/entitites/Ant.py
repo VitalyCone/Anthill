@@ -17,32 +17,21 @@ from src.entitites.BaseEntity import EntityBase
 
 class Ant(EntityBase):
 
-    def __init__(self, anthill, uri='0'):
+    def __init__(self, anthill, uri='0', geo=None):
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.uri = uri
         self.status = 'alive'
-        self.geo = [random.randint(10, 490), random.randint(10, 490)]  # [50,344]
-        self.isready = False
+        self.geo = geo
+        if not self.geo:
+            self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.agent = None
-        self.state = [0, 0]  # Параметр, содержащий состояние state[0] и объект, связанный с состоянием state[1]
-        # state[0] = 0 - в поиске яблока, 1 - нашел яблоко, тащит в муравейник,
-        # 2 - атакует паук, нужно вместе его забороть, 3 - конец игры. нужно идти с муравейнику.
-        # 4 - Убегает от паука, поскольку рядом нет товарищей/не способны оказать должное
-        # Сопротивление пауку
-        self.charachter = random.randint(0, 1)  # Характер. 0 - трусливый, 1 - доблестный
         self.u = 0  # Случайный угол по x
         self.speed = 2
         self.r = 70
         self.energy_consumption = 0.001
         self.attack = False
-        if self.charachter == 0:  # Если трус, то выше скорость, но ниже радиус обзора
-            self.speed = 0.5
-            self.r = 50
-        elif self.charachter == 1:  # Если доблестный, то наоборот
-            self.speed = 0.3  # Скорость муравья
-            self.r = 70  # Радиус зрения муравья
         self.intravel = False
         self.damage = 0.4
         self.power = 1500

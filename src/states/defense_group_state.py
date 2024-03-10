@@ -19,8 +19,8 @@ class DefenseGroupState(State):
             self.agent.prey = max(preys, key=lambda x: x.energy)
             if self.agent.prey in groups_preys:
                 self.agent.group = groups[groups_preys.index(self.agent.prey)]
+                self.agent.prey = None
                 self.agent.agent.connect_to_group(self.agent.group.uri)
-                # self.agent.group.entities.append(self.agent)
             else:
                 self.agent.agent.create_group(self.agent.prey, self.agent)
                 self.agent.prey = None
@@ -36,7 +36,7 @@ class DefenseGroupState(State):
         if not self.agent.prey:
             self.try_to_choose_prey()
 
-        if self.agent.prey and self.agent.prey.name in self.agent.defensible_enemies:
+        if self.agent.prey and self.agent.group and self.agent.prey.name in self.agent.defensible_enemies:
             self.agent.set_vector_to_object(self.agent.prey)
             if not self.agent.attack:
                 if self.agent == self.agent.group.leader:
@@ -46,6 +46,9 @@ class DefenseGroupState(State):
                     self.agent.set_vector_to_object(self.agent.group.leader)
             else:
                 self.agent.set_vector_to_object(self.agent.prey)
+
+                if self.agent.prey.speed == 0:
+                    self.agent.group.aim.status = 'dead'
 
             self.agent.set_u()
 

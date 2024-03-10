@@ -64,6 +64,7 @@ class StartGameDialog(QDialog, Ui_GameStartDialog, Ui_SimpleDiag):
             except Exception:
                 pass
             self.planner.start_system_with_onto_model()
+            self.use_onto_model = OntologyModel.ontology_model = None
             self.show_model = True
         else:
             self.planner.set_start_nums(self.planner.anthill_num,

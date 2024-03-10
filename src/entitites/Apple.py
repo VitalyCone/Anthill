@@ -14,7 +14,7 @@ class Apple(EntityBase):
     """
     Класс, представляющий сущность яблока.
     """
-    def __init__(self, uri='0'):
+    def __init__(self, uri='0', geo=None):
         """
         :args:
         anthill: муравейник, к которому принадлежит яблоко.
@@ -25,7 +25,9 @@ class Apple(EntityBase):
         self.name = __class__.__name__
         self.uri = uri
         self.status = 'alive'
-        self.geo = [random.randint(10, 490), random.randint(10, 490)]
+        self.geo = geo
+        if not self.geo:
+            self.geo = [random.randint(10, 490), random.randint(10, 490)]
         self.r = 500
         self.u = 0
         self.u_trig = [math.sin(self.u), math.cos(self.u)]
@@ -70,10 +72,11 @@ class Apple(EntityBase):
         super().move(scene)
         self.ants = sorted(self.ants, key=lambda x: x.get_distance(self))
         self.inertiaState.move(self)
-        distance = self.get_distance(self.ants[0].anthill)
-        if distance <= 20:
-            self.die()
-            self.removed.append([self.get_uri(), self.version])
+        if len(self.ants) != 0:
+            distance = self.get_distance(self.ants[0].anthill)
+            if distance <= 20:
+                self.die()
+                self.removed.append([self.get_uri(), self.version])
         self.run()
         return self.removed
 

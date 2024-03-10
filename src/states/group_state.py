@@ -18,10 +18,12 @@ class GroupState(State):
             self.agent.prey = max(preys, key=lambda x: x.energy)
             if self.agent.prey in groups_preys:
                 self.agent.group = groups[groups_preys.index(self.agent.prey)]
+                self.agent.prey = None
                 self.agent.agent.connect_to_group(self.agent.group.uri)
                 # self.agent.group.entities.append(self.agent)
             else:
                 self.agent.agent.create_group(self.agent.prey, self.agent)
+                self.agent.prey = None
 
     def move(self, agent):
         """
@@ -36,9 +38,14 @@ class GroupState(State):
 
         if self.agent.prey and self.agent.prey.name in self.agent.group_preys:
             if self.agent.get_distance(self.agent.prey) >= self.agent.speed:
+
                 self.agent.set_vector_to_object(self.agent.prey)
             else:
                 self.agent.set_vector_to_object(self.agent.anthill)
+
+                if self.agent.prey.speed == 0:
+                    self.agent.prey = None
+                    self.agent.group = None
 
             self.agent.set_u()
 

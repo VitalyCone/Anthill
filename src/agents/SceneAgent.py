@@ -20,14 +20,6 @@ class SceneAgent(AgentBase):
         self.name = 'Scene agent'
         self.subscribe(MessageType.SCENE_REQUEST, self.handle_scene_request_message)
         self.subscribe(MessageType.ENTITY_REMOVE_REQUEST, self.handle_entity_remove_request)
-        self.subscribe(MessageType.CREATE_GROUP_AGENT, self.handle_create_group_agent)
-
-    def handle_create_group_agent(self, message, sender):
-        group = Group(message[1][1].scene, count_id("group"), message[1][0], message[1][1])
-        Denotations.uris['group'].append(group.uri)
-        logging.info(f"Group {group} was created")
-        all_update(f"Group {group} was created")
-        self.dispatcher.add_entity(group)
 
     def handle_scene_request_message(self, message, sender):
         """

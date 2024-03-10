@@ -24,11 +24,13 @@ def import_ontology_model():
         anthills = onto_manager.get_anthills()
         ants = onto_manager.get_ants()
         apples = onto_manager.get_apples()
+        game = onto_manager.get_system()[0]
         OntologyModel.ontology_model = {
             "Ant": ants,
             "Spider": spiders,
             "Apple": apples,
-            "Anthill": anthills
+            "Anthill": anthills,
+            "Game": game
         }
         simple_diag = SimpleDiag("Ontology model " + onto_manager.ontology_uri + " successfully imported")
     except Exception:
@@ -42,7 +44,7 @@ def form_anthill_dict(anthill):
     :return anthill_dict: dict
     """
     anthill_dict = {
-        "uri": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + anthill.uri,
         "label": anthill.uri,
         "Weight": anthill.weight,
         "Geoposition": ", ".join(str(geo) for geo in anthill.geo),
@@ -60,7 +62,7 @@ def form_spider_dict(spider):
     :return spider_dict: dict
     """
     spider_dict = {
-        "uri": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + spider.uri,
         "label": spider.uri,
         "Weight": spider.weight,
         "Geoposition": ", ".join(str(geo) for geo in spider.geo),
@@ -79,7 +81,7 @@ def form_apple_dict(apple):
     :return apple_dict: dict
     """
     apple_dict = {
-        "uri": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + apple.uri,
         "label": apple.uri,
         "Weight": apple.weight,
         "Geoposition": ", ".join(str(geo) for geo in apple.geo),
@@ -97,7 +99,7 @@ def form_ant_dict(ant):
     :return ant_dict: dict
     """
     ant_dict = {
-        "uri": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + ant.uri,
         "label": ant.uri,
         "Weight": ant.weight,
         "Geoposition": ", ".join(str(geo) for geo in ant.geo),
@@ -107,7 +109,7 @@ def form_ant_dict(ant):
         "VisionRadius": ant.r,
         "LivingIn":
             {
-                "uri": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+                "uri": "http://www.kg.ru/ants_versus_spiders_v2#Anthill" + ant.anthill.uri,
                 "label": ant.anthill.uri
             }
     }
@@ -119,16 +121,16 @@ def export_ontology_model(scene):
     Экспортирует текущие параметры игры в СУЗ модели игры Ants vs Spiders
     :param scene:
     """
-    # onto_manager = OntologyManager()
-    #
-    # ants = scene.get_entities_by_type("Ant")
-    # anthills = scene.get_entities_by_type("Anthill")
-    # spiders = scene.get_entities_by_type("Spider")
-    # apples = scene.get_entities_by_type("Apple")
-    #
-    # anthill_responces = [onto_manager.create_anthill(form_anthill_dict(anthill)) for anthill in anthills]
-    # apple_responces = [onto_manager.create_apple(form_apple_dict(apple)) for apple in apples]
-    # spider_responces = [onto_manager.create_spider(form_spider_dict(spider)) for spider in spiders]
-    # ant_responces = [onto_manager.create_ant(form_ant_dict(ant)) for ant in ants]
-    #
-    # simple_diag = SimpleDiag("Ontology model successfully exported to model: " + onto_manager.ontology_uri)
+    onto_manager = OntologyManager()
+
+    ants = scene.get_entities_by_type("Ant")
+    anthills = scene.get_entities_by_type("Anthill")
+    spiders = scene.get_entities_by_type("Spider")
+    apples = scene.get_entities_by_type("Apple")
+
+    anthill_responces = [onto_manager.create_anthill(form_anthill_dict(anthill)) for anthill in anthills]
+    apple_responces = [onto_manager.create_apple(form_apple_dict(apple)) for apple in apples]
+    spider_responces = [onto_manager.create_spider(form_spider_dict(spider)) for spider in spiders]
+    ant_responces = [onto_manager.create_ant(form_ant_dict(ant)) for ant in ants]
+
+    simple_diag = SimpleDiag("Ontology model successfully exported to model: " + onto_manager.ontology_uri)

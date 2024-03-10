@@ -11,7 +11,7 @@ class Group:
         self.version = 0
         self.leader = leader
         self.leader.group = self
-        self.leader.aim = aim
+        self.leader.prey = aim
         self.agent = None
         self.aim = aim
         self.r = leader.r

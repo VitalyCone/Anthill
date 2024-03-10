@@ -67,6 +67,14 @@ class OntologyManager:
             "http://www.kg.ru/ants_versus_spiders_v2#Anthill"
         )
 
+    def get_system(self):
+        """
+        Метод, возвращающий мир игры и его параметры
+        """
+        return self.__get_entities_list(
+            "http://www.kg.ru/ants_versus_spiders_v2#game_world"
+        )
+
     def __create_entity(
         self, uri: str, label: str, properties: dict, data: dict, entity_type: str
     ):

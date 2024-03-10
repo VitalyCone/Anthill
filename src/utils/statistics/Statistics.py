@@ -125,8 +125,10 @@ class StatisticsAlfa:
         self.c = []
         self.d = []
         self.e = []
-        self.f = []
-
+        self.f = [0]
+        self.g = []
+        self.h = []
+        self.i = []
 
         DataStatistics.data = {
             'Number of tic': self.teak,
@@ -135,7 +137,10 @@ class StatisticsAlfa:
             'Average energy of spider': self.c,
             'Accumulated energy of spiders': self.d,
             'Energy of anthill': self.e,
-            'Number of messages': self.f
+            'Number of messages': self.f,
+            'Number of ants': self.g,
+            'Number of spiders': self.h,
+            'Number of apples': self.i
         }
 
     def move(self):
@@ -149,8 +154,9 @@ class StatisticsAlfa:
             else:
                 energy = 0
             if agent == 'Ant':
+                self.g.append(len(entities))
                 if energy == 0:
-                    self.a.append(0)
+                    self.b.append(0)
                 else:
                     try:
                         self.a.append(energy / len(entities))
@@ -158,8 +164,9 @@ class StatisticsAlfa:
                         self.a.append(0)
                     self.b.append(energy)
             elif agent == 'Spider':
+                self.h.append(len(entities))
                 if energy == 0:
-                    self.a.append(0)
+                    self.d.append(0)
                 else:
                     try:
                         self.c.append(energy / len(entities))
@@ -167,5 +174,6 @@ class StatisticsAlfa:
                         self.c.append(0)
                     self.d.append(energy)
             elif agent == 'Anthill':
+                self.i.append(len(entities))
                 self.e.append(energy)
         self.teak.append(len(self.teak))
