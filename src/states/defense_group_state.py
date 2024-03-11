@@ -47,9 +47,6 @@ class DefenseGroupState(State):
             else:
                 self.agent.set_vector_to_object(self.agent.prey)
 
-                if self.agent.prey.speed == 0:
-                    self.agent.group.aim.status = 'dead'
-
             self.agent.set_u()
 
         return self.agent.scene

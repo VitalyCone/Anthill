@@ -21,7 +21,7 @@ class Ant(EntityBase):
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
-        self.uri = uri
+        self.uri = self.name + str(uri)
         self.status = 'alive'
         self.geo = geo
         if not self.geo:
@@ -30,7 +30,7 @@ class Ant(EntityBase):
         self.u = 0  # Случайный угол по x
         self.speed = 2
         self.r = 70
-        self.energy_consumption = 0.001
+        self.energy_consumption = 0
         self.attack = False
         self.intravel = False
         self.damage = 0.4
@@ -104,40 +104,6 @@ class Ant(EntityBase):
             self.die()
         self.run()
         return self.removed
-
-    def choose_prey(self):
-        """
-        Выбор жертвы
-        """
-        groups = self.get_specific_entities(self.scene, "Group")
-        spider_groups = [group for group in groups if group.aim.name == "Spider"]
-        apple_groups = [group for group in groups if group.aim.name == "Apple"]
-        # if len(spider_groups) > 0:
-        #     best_group = max(spider_groups, key=lambda x: x.aim.energy)
-        #     self.group = best_group
-        #     self.group.entities.append(self)
-        #     return best_group.aim
-        if len(self.spiders) > 0:
-            best_prey = self.spiders[0]
-            for spider in self.spiders:
-                if spider.energy > best_prey.energy:
-                    best_prey = spider
-            self.prey = best_prey
-            self.agent.create_group(self.prey, self)
-            return best_prey
-        # elif len(apple_groups) > 0:
-        #     best_group = max(apple_groups, key=lambda x: x.aim.energy)
-        #     self.group = best_group
-        #     self.group.entities.append(self)
-        #     return best_group.aim
-        elif len(self.apples) > 0:
-            best_prey = self.apples[0]
-            for apple in self.apples:
-                if apple.energy > best_prey.energy:
-                    best_prey = apple
-            self.prey = best_prey
-            self.agent.create_group(self.prey, self)
-            return best_prey
 
     def set_u(self):
         """

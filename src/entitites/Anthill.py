@@ -18,7 +18,7 @@ class Anthill(EntityBase):
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.status = 'alive'
-        self.uri = uri
+        self.uri = self.name + str(uri)
         self.r = 500
         self.agent = None
         self.ants = None

@@ -43,10 +43,6 @@ class GroupState(State):
             else:
                 self.agent.set_vector_to_object(self.agent.anthill)
 
-                if self.agent.prey.speed == 0:
-                    self.agent.prey = None
-                    self.agent.group = None
-
             self.agent.set_u()
 
         return self.agent.scene

@@ -23,7 +23,7 @@ class Apple(EntityBase):
         super().__init__()
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
-        self.uri = uri
+        self.uri = self.name + str(uri)
         self.status = 'alive'
         self.geo = geo
         if not self.geo:
@@ -76,7 +76,6 @@ class Apple(EntityBase):
             distance = self.get_distance(self.ants[0].anthill)
             if distance <= 20:
                 self.die()
-                self.removed.append([self.get_uri(), self.version])
         self.run()
         return self.removed
 

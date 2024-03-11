@@ -58,7 +58,8 @@ class GroupAgent(AgentBase):
             self.remove_group()
         entities_ready_attack = []
         for entity in self.entity.entities:
-            if entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack:
+            if (entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack
+                    and self.entity.aim.name == 'Spider'):
                 entities_ready_attack.append(entity)
         if (self.entity.aim.name == 'Spider'
                 and len(entities_ready_attack) > self.entity.aim.energy/self.entity.leader.damage):
@@ -84,16 +85,16 @@ class GroupAgent(AgentBase):
 
     def send_invite_message(self):
         if self.dispatcher.negotiations_on:
-            if self.entity.aim.name == 'Spider':
-                if len(self.entity.entities)*self.entity.leader.damage >= self.entity.aim.energy:
-                    ants = self.entity.get_ants(self.entity.scene)
-                    for ant in ants:
-                        if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
-                            break
-                        if ant not in self.entity.entities:
-                            address = self.dispatcher.reference_book.get_address(ant)
-                            msg = (MessageType.INVITE_REQUEST, self.entity.aim)
-                            self.send(address, msg)
+            # if self.entity.aim.name == 'Spider':
+            #     if len(self.entity.entities)*self.entity.leader.damage >= self.entity.aim.energy:
+            #         ants = self.entity.get_ants(self.entity.scene)
+            #         for ant in ants:
+            #             if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
+            #                 break
+            #             if ant not in self.entity.entities:
+            #                 address = self.dispatcher.reference_book.get_address(ant)
+            #                 msg = (MessageType.INVITE_REQUEST, self.entity.aim)
+            #                 self.send(address, msg)
             if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
                 return
             ants = self.entity.get_ants(self.entity.scene)

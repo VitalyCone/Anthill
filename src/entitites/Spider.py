@@ -31,7 +31,7 @@ class Spider(EntityBase):
         self.name = __class__.__name__
         # в каждом классе определил переменную-имя класса,
         # чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
-        self.uri = uri
+        self.uri = self.name + str(uri)
         self.geo = geo
         if not self.geo:
             self.geo = [random.randint(10, 490), random.randint(10, 490)]
@@ -40,7 +40,7 @@ class Spider(EntityBase):
         self.u = 0.57
         self.agent = None
         self.sended_objects = []
-        self.energy_consumption = 0.005
+        self.energy_consumption = 0
         # random.uniform(0, 2 * math.pi)
         self.r = 70  # радиус обзора паука
         self.energy = 1  # энергия муравья/паука, пока что у всех она -- 1
@@ -118,7 +118,8 @@ class Spider(EntityBase):
 
         :return:
         """
-        
+        if self.prey.name == 'Apple':
+            pass
         self.prey.die()
         if self.energy < 2:
             self.energy += self.prey.energy

@@ -2,7 +2,7 @@ import json
 import logging
 import requests
 
-import data.properties as default_properties
+import OntologyManager.data.properties as default_properties
 
 
 class OntologyManager:

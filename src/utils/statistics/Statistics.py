@@ -100,9 +100,7 @@ def debug_update(log):
 
 
 def all_update(log):
-    if len(DataStatistics.data.get('Number of messages')) < len(DataStatistics.data.get('Number of tic')):
-        DataStatistics.data.get('Number of messages').append(1)
-    elif len(DataStatistics.data.get('Number of messages')) > 0:
+    if len(DataStatistics.data.get('Number of messages')) > 0:
         DataStatistics.data.get('Number of messages')[
             len(DataStatistics.data.get('Number of messages')) - 1] += 1
     n = str(datetime.datetime.today().strftime('%Y.%m.%d-%H_%M_%S'))
@@ -125,7 +123,7 @@ class StatisticsAlfa:
         self.c = []
         self.d = []
         self.e = []
-        self.f = [0]
+        self.f = []
         self.g = []
         self.h = []
         self.i = []
@@ -177,3 +175,4 @@ class StatisticsAlfa:
                 self.i.append(len(entities))
                 self.e.append(energy)
         self.teak.append(len(self.teak))
+        self.f.append(0)
