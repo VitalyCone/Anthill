@@ -89,7 +89,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
 
     def export_model(self):
         AgentDispatcher.PAUSE = True
-        export_ontology_model(self.scene)
+        export_ontology_model(self.dispatcher)
         AgentDispatcher.PAUSE = False
 
     def show_game(self):

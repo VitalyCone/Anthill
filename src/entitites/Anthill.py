@@ -18,7 +18,7 @@ class Anthill(EntityBase):
         MODULE_PATH = importlib.resources.files("assets")
         self.name = __class__.__name__
         self.status = 'alive'
-        self.uri = self.name + str(uri)
+        self.uri = str(uri)
         self.r = 500
         self.agent = None
         self.ants = None
@@ -56,7 +56,7 @@ class Anthill(EntityBase):
         all_update(
             f'Object {self.uri} was successfully initialized'
         )
-        path = str(os.path.abspath('../../assets/icons/anthill.png'))
+        path = str(os.path.abspath('assets/icons/anthill.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

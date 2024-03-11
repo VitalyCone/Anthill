@@ -37,6 +37,26 @@ def import_ontology_model():
         pass
 
 
+def form_system_dict(dispatcher):
+    """
+    Создает dict мира игры для экспорта модели, на основе параметров
+    :param dispatcher: AgentDispatcher
+    :return system_dict: dict
+    """
+    system_dict = {
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + "GameWorld",
+        "label": "Мир Игры",
+        "AntSpawnGap": 100,
+        "AppleSpawnGap": dispatcher.gap,
+        "SpiderSpawnGap": dispatcher.spider_gap,
+        "MaxAntNum": dispatcher.max_ants_num,
+        "MaxAppleNum": dispatcher.max_apples_num,
+        "MaxSpiderNum": dispatcher.max_spiders_num,
+        "Generation": dispatcher.generation
+    }
+    return system_dict
+
+
 def form_anthill_dict(anthill):
     """
     Создает dict муравейника для экспорта модели
@@ -47,7 +67,7 @@ def form_anthill_dict(anthill):
         "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + anthill.uri,
         "label": anthill.uri,
         "Weight": anthill.weight,
-        "Geoposition": ", ".join(str(geo) for geo in anthill.geo),
+        "Geoposition": ", ".join([str(geo) for geo in anthill.geo]),
         "Energy": anthill.energy,
         "MovementSpeed": anthill.speed,
         "EnergyConsumption": anthill.energy_consumption
@@ -65,7 +85,7 @@ def form_spider_dict(spider):
         "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + spider.uri,
         "label": spider.uri,
         "Weight": spider.weight,
-        "Geoposition": ", ".join(str(geo) for geo in spider.geo),
+        "Geoposition": ", ".join([str(geo) for geo in spider.geo]),
         "Energy": spider.energy,
         "MovementSpeed": spider.speed,
         "EnergyConsumption": spider.energy_consumption,
@@ -84,7 +104,7 @@ def form_apple_dict(apple):
         "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + apple.uri,
         "label": apple.uri,
         "Weight": apple.weight,
-        "Geoposition": ", ".join(str(geo) for geo in apple.geo),
+        "Geoposition": ", ".join([str(geo) for geo in apple.geo]),
         "Energy": apple.energy,
         "MovementSpeed": apple.speed,
         "EnergyConsumption": apple.energy_consumption
@@ -102,26 +122,30 @@ def form_ant_dict(ant):
         "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + ant.uri,
         "label": ant.uri,
         "Weight": ant.weight,
-        "Geoposition": ", ".join(str(geo) for geo in ant.geo),
+        "Geoposition": ", ".join([str(geo) for geo in ant.geo]),
         "Energy": ant.energy,
         "MovementSpeed": ant.speed,
         "EnergyConsumption": ant.energy_consumption,
         "VisionRadius": ant.r,
         "LivingIn":
             {
-                "uri": "http://www.kg.ru/ants_versus_spiders_v2#Anthill" + ant.anthill.uri,
+                "uri": "http://www.kg.ru/ants_versus_spiders_v2#" + ant.anthill.uri,
                 "label": ant.anthill.uri
             }
     }
     return ant_dict
 
 
-def export_ontology_model(scene):
+def export_ontology_model(dispatcher):
     """
     Экспортирует текущие параметры игры в СУЗ модели игры Ants vs Spiders
-    :param scene:
+    :param dispatcher:
     """
+
+    scene = dispatcher.scene
     onto_manager = OntologyManager()
+
+    onto_manager.clear_ontology()
 
     ants = scene.get_entities_by_type("Ant")
     anthills = scene.get_entities_by_type("Anthill")
@@ -132,5 +156,6 @@ def export_ontology_model(scene):
     apple_responces = [onto_manager.create_apple(form_apple_dict(apple)) for apple in apples]
     spider_responces = [onto_manager.create_spider(form_spider_dict(spider)) for spider in spiders]
     ant_responces = [onto_manager.create_ant(form_ant_dict(ant)) for ant in ants]
+    system_responces = onto_manager.create_system(form_system_dict(dispatcher))
 
     simple_diag = SimpleDiag("Ontology model successfully exported to model: " + onto_manager.ontology_uri)
