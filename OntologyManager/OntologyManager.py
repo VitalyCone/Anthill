@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 
@@ -91,7 +92,7 @@ class OntologyManager:
         except Exception as ex:
             logging.error("Exception was handled %s, url: %s", ex, request_url)
 
-    def create_system(self, attributes: dict) -> None:
+    def create_system(self, attributes: dict):
         """
         Метод для создания объекта игры. Содержимое attributes:
         {
@@ -212,13 +213,9 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info(
-                "Ant %s was successfully added to ontology model.",
-                uri)
+            logging.info("Ant %s was successfully added to ontology model.", uri)
         else:
-            logging.error(
-                "Error was received when adding ant %s.",
-                uri)
+            logging.error("Error was received when adding ant %s.", uri)
 
     def create_anthill(self, attributes: dict):
         """
@@ -263,13 +260,9 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info(
-                "Anthill %s was successfully added to ontology model.",
-                uri)
+            logging.info("Anthill %s was successfully added to ontology model.", uri)
         else:
-            logging.error(
-                "Error was received when adding anthill %s.",
-                uri)
+            logging.error("Error was received when adding anthill %s.", uri)
 
     def create_spider(self, attributes: dict):
         """
@@ -317,13 +310,9 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info(
-                "Spider %s was successfully added to ontology model.",
-                uri)
+            logging.info("Spider %s was successfully added to ontology model.", uri)
         else:
-            logging.error(
-                "Error was received when adding spider %s.",
-                uri)
+            logging.error("Error was received when adding spider %s.", uri)
 
     def create_apple(self, attributes: dict):
         """
@@ -368,10 +357,26 @@ class OntologyManager:
         )
 
         if response.ok:
-            logging.info(
-                "Apple %s was successfully added to ontology model.",
-                uri)
+            logging.info("Apple %s was successfully added to ontology model.", uri)
         else:
-            logging.error(
-                "Error was received when adding apple %s.",
-                uri)
+            logging.error("Error was received when adding apple %s.", uri)
+
+    def clear_ontology(self):
+        """
+        Метод для очистки модели от сущностей.
+        """
+        export_url = self.kms_url + "/api/export"
+        delete_entity_url = self.kms_url + "/api/entities"
+        data = {"ontologyUri": self.ontology_uri}
+
+        response = self.session.get(export_url, params=data)
+        ontology_info = json.loads(response.text)
+
+        entities = ontology_info["entities"]
+
+        data_for_delete = {
+            "ontologyUri": self.ontology_uri,
+        }
+        for entity in entities:
+            data_for_delete["entityUri"] = entity["uri"]
+            self.session.delete(delete_entity_url, json=data_for_delete)
