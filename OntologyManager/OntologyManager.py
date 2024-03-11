@@ -91,7 +91,7 @@ class OntologyManager:
         except Exception as ex:
             logging.error("Exception was handled %s, url: %s", ex, request_url)
 
-    def create_game_world(self, attributes: dict) -> None:
+    def create_system(self, attributes: dict) -> None:
         """
         Метод для создания объекта игры. Содержимое attributes:
         {
