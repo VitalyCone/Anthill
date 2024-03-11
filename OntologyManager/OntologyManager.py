@@ -1,7 +1,7 @@
 import logging
 import requests
 
-import OntologyManager.data.properties as default_properties
+import data.properties as default_properties
 
 
 class OntologyManager:
@@ -90,6 +90,62 @@ class OntologyManager:
             return response
         except Exception as ex:
             logging.error("Exception was handled %s, url: %s", ex, request_url)
+
+    def create_game_world(self, attributes: dict) -> None:
+        """
+        Метод для создания объекта игры. Содержимое attributes:
+        {
+        uri: str,
+        label: str,
+        AntSpawnGap: float | int,
+        AppleSpawnGap: float | int,
+        SpiderSpawnGap: float | int,
+        MaxAntNum: float | int,
+        MaxAppleNum: float | int,
+        MaxSpiderNum: float | int,
+        Generation: bool
+        }
+        """
+        properties = default_properties.game_world_properties
+        entity_type = "http://www.kg.ru/ants_versus_spiders_v2#game_world"
+
+        uri = attributes.get("uri")
+        label = attributes.get("label")
+        ant_spawn_gap = attributes.get("AntSpawnGap")
+        apple_spawn_gap = attributes.get("AppleSpawnGap")
+        spider_spawn_gap = attributes.get("SpiderSpawnGap")
+        max_ant_num = attributes.get("MaxAntNum")
+        max_apple_num = attributes.get("MaxAppleNum")
+        max_spider_num = attributes.get("MaxSpiderNum")
+        generation = attributes.get("Generation")
+
+        if not generation:
+            generation = ""
+
+        data = {
+            "uri": {"value": uri},
+            "label": {"value": label},
+            "AntSpawnGap": {"value": ant_spawn_gap},
+            "AppleSpawnGap": {"value": apple_spawn_gap},
+            "SpiderSpawnGap": {"value": spider_spawn_gap},
+            "MaxAntNum": {"value": max_ant_num},
+            "MaxAppleNum": {"value": max_apple_num},
+            "MaxSpiderNum": {"value": max_spider_num},
+            "Generation": {"value": generation},
+        }
+
+        response = self.__create_entity(
+            uri=uri,
+            label="Мир Игры",
+            properties=properties,
+            data=data,
+            entity_type=entity_type,
+        )
+
+        if response.ok:
+            logging.info("Game world %s was successfully added to ontology model.", uri)
+        else:
+            logging.error("Error was received when adding ant %s.", uri)
 
     def create_ant(self, attributes: dict):
         """
@@ -217,8 +273,8 @@ class OntologyManager:
 
     def create_spider(self, attributes: dict):
         """
-        {
         Метод для создания нового паука. Содержимое attributes:
+        {
         uri: str,
         label: str,
         Weight: float | int,
@@ -319,18 +375,3 @@ class OntologyManager:
             logging.error(
                 "Error was received when adding apple %s.",
                 uri)
-
-
-# spider_attributes = {
-#     "uri": "http://www.kg.ru/ants_vs_spiders_model#Spider1",
-#     "label": "Паук 1",
-#     "Weight": 10,
-#     "Geoposition": "10 10",
-#     "EnergyConsumption": 1,
-#     "MovementSpeed": 1,
-#     "Energy": 1,
-#     "VisionRadius": 1,
-# }
-
-# manager = OntologyManager()
-# manager.create_spider(spider_attributes)

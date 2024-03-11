@@ -1,1 +1,1800 @@
-{ "ontologyInfo" : { "uri" : "http://www.kg.ru/ants_versus_spiders_v2", "ontologyUri" : null, "label" : "Онтология Ants vs Spiders", "type" : "Ontology", "imports" : [], "dependencies" : [{ "uri" : "http://www.kg.ru/SmartOntologyEditor", "ontologyUri" : null, "label" : "Smart Ontology Editor" }], "number" : 6, "hidden" : false }, "entities" : [{ "uri" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Физический объект" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Физический объект" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Weight" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Вес" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }], "label" : "Вес" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Скорость передвижения" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Скорость передвижения" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Живое существо" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Живое существо" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Растение" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Plant" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Растение" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Местоположение" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }], "label" : "Местоположение" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Расход энергии" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Расход энергии" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Энергия" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Energy" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Энергия" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Радиус обзора" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Радиус обзора" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Яблоко" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Apple" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Яблоко" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Animal" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Животное" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Животное" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Insect" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Насекомое" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Насекомое" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Членистоногое" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Членистоногое" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Spider" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Паук" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Паук" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Ant" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Муравей" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Муравей" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Гнездо" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Nest" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Гнездо" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Муравейник" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Муравейник" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#LivingIn", "type" : "http://www.kg.ru/SmartOntologyEditor#Relation", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Живёт в" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#LivingIn" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "value" : null }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "value" : null }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isComposition", "value" : null }], "label" : "Живёт в" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Базовая задача" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Базовая задача" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#RefersTo", "type" : "http://www.kg.ru/SmartOntologyEditor#Relation", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#RefersTo" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Входит в" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isComposition", "value" : null }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "value" : null }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "value" : null }], "label" : "Входит в" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Пользовательский процесс" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Пользовательский процесс" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor", "type" : "http://www.kg.ru/SmartOntologyEditor#Relation", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Следует за" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "value" : null }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "value" : null }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isComposition", "value" : null }], "label" : "Следует за" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#Class", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#game_world" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Мир Игры" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Мир Игры" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#Generation", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Генерация" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#Generation" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Генерация" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Промежуток между появлением муравьев" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Промежуток между появлением муравьев" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Промежуток между появлением пауков" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Промежуток между появлением пауков" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Промежуток между появлением яблок" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Промежуток между появлением яблок" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Максимальное кол-во муравьев" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Максимальное кол-во муравьев" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Максимальное кол-во пауков" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Максимальное кол-во пауков" }, { "uri" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum", "type" : "http://www.kg.ru/SmartOntologyEditor#Attribute", "ontologyUri" : "http://www.kg.ru/ants_versus_spiders_v2", "properties" : [{ "name" : "http://www.kg.ru/SmartOntologyEditor#withUnit", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.w3.org/2000/01/rdf-schema#label", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "Максимальное кол-во яблок" }, { "name" : "http://www.kg.ru/SmartOntologyEditor#isRequired", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#array", "type" : "http://www.w3.org:80/2001/XMLSchema#boolean", "value" : false }, { "name" : "http://www.kg.ru/SmartOntologyEditor#uri", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum" }, { "name" : "http://www.w3.org/2000/01/rdf-schema#comment", "type" : "http://www.w3.org:80/2001/XMLSchema#string", "value" : "" }], "label" : "Максимальное кол-во яблок" }], "links" : [{ "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/SmartOntologyEditor#Entity", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#decimal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#decimal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#decimal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#decimal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#decimal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#string", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Plant", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Apple", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Animal", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Nest", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Weight", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Energy", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Geoposition", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingIn", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingIn", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Anthill", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#relations", "object" : "http://www.kg.ru/ants_versus_spiders_v2#LivingIn", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/SmartOntologyEditor#Entity", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#RefersTo", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/SmartOntologyEditor#Entity", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#RefersTo", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "type" : "http://www.kg.ru/SmartOntologyEditor#relations", "object" : "http://www.kg.ru/ants_versus_spiders_v2#RefersTo", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#BaseTask", "type" : "http://www.kg.ru/SmartOntologyEditor#relations", "object" : "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Ant", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Insect", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Spider", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Arthropod", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#integer", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#integer", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#integer", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Generation", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#Generation", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#boolean", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#integer", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#integer", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap", "type" : "http://www.w3.org/2000/01/rdf-schema#domain", "object" : "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap", "type" : "http://www.w3.org/2000/01/rdf-schema#range", "object" : "http://www.w3.org/2001/XMLSchema#integer", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#Generation", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.w3.org/2000/01/rdf-schema#subClassOf", "object" : "http://www.kg.ru/SmartOntologyEditor#Object", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.kg.ru/SmartOntologyEditor#uri", "properties" : [] }, { "subject" : "http://www.kg.ru/ants_versus_spiders_v2#game_world", "type" : "http://www.kg.ru/SmartOntologyEditor#attributes", "object" : "http://www.w3.org/2000/01/rdf-schema#label", "properties" : [] }], "queries" : [], "flowcharts" : [] }
+{
+  "ontologyInfo": {
+    "uri": "http://www.kg.ru/ants_versus_spiders_v2",
+    "ontologyUri": null,
+    "label": "Онтология Ants vs Spiders",
+    "type": "Ontology",
+    "imports": [],
+    "dependencies": [
+      {
+        "uri": "http://www.kg.ru/SmartOntologyEditor",
+        "ontologyUri": null,
+        "label": "Smart Ontology Editor"
+      }
+    ],
+    "number": 6,
+    "hidden": false
+  },
+  "entities": [
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Физический объект"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Физический объект"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Weight"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Вес"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        }
+      ],
+      "label": "Вес"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Скорость передвижения"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Скорость передвижения"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Живое существо"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Живое существо"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Растение"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Plant"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Растение"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Местоположение"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        }
+      ],
+      "label": "Местоположение"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Расход энергии"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Расход энергии"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Энергия"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Energy"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Энергия"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Радиус обзора"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Радиус обзора"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Яблоко"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Apple"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Яблоко"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Animal"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Животное"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Животное"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Insect"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Насекомое"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Насекомое"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Членистоногое"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Членистоногое"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Spider"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Паук"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Паук"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Ant"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Муравей"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Муравей"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Гнездо"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Nest"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Гнездо"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Муравейник"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Anthill"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Муравейник"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#LivingIn",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Relation",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Живёт в"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#LivingIn"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "value": null
+        },
+        { "name": "http://www.kg.ru/SmartOntologyEditor#array", "value": null },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isComposition",
+          "value": null
+        }
+      ],
+      "label": "Живёт в"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Базовая задача"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Базовая задача"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#RefersTo",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Relation",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#RefersTo"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Входит в"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isComposition",
+          "value": null
+        },
+        { "name": "http://www.kg.ru/SmartOntologyEditor#array", "value": null },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "value": null
+        }
+      ],
+      "label": "Входит в"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Пользовательский процесс"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Пользовательский процесс"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Relation",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Следует за"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "value": null
+        },
+        { "name": "http://www.kg.ru/SmartOntologyEditor#array", "value": null },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isComposition",
+          "value": null
+        }
+      ],
+      "label": "Следует за"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Class",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#game_world"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Мир Игры"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Мир Игры"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#Generation",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Генерация"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#Generation"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Генерация"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Промежуток между появлением муравьев"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Промежуток между появлением муравьев"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Промежуток между появлением пауков"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Промежуток между появлением пауков"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Промежуток между появлением яблок"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Промежуток между появлением яблок"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Максимальное кол-во муравьев"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Максимальное кол-во муравьев"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Максимальное кол-во пауков"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Максимальное кол-во пауков"
+    },
+    {
+      "uri": "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum",
+      "type": "http://www.kg.ru/SmartOntologyEditor#Attribute",
+      "ontologyUri": "http://www.kg.ru/ants_versus_spiders_v2",
+      "properties": [
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#withUnit",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#label",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "Максимальное кол-во яблок"
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#isRequired",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#array",
+          "type": "http://www.w3.org:80/2001/XMLSchema#boolean",
+          "value": false
+        },
+        {
+          "name": "http://www.kg.ru/SmartOntologyEditor#uri",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum"
+        },
+        {
+          "name": "http://www.w3.org/2000/01/rdf-schema#comment",
+          "type": "http://www.w3.org:80/2001/XMLSchema#string",
+          "value": ""
+        }
+      ],
+      "label": "Максимальное кол-во яблок"
+    }
+  ],
+  "links": [
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/SmartOntologyEditor#Entity",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#decimal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#decimal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#decimal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#decimal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#decimal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#string",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Plant",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Apple",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Animal",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Nest",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Weight",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#EnergyConsumption",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Energy",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MovementSpeed",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Geoposition",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingIn",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingIn",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Anthill",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#relations",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#LivingIn",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/SmartOntologyEditor#Entity",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#RefersTo",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/SmartOntologyEditor#Entity",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#RefersTo",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#CustomProcess",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "type": "http://www.kg.ru/SmartOntologyEditor#relations",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#RefersTo",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#BaseTask",
+      "type": "http://www.kg.ru/SmartOntologyEditor#relations",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#FollowsFor",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#LivingEntity",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Ant",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Insect",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Spider",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Arthropod",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#VisionRadius",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Generation",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#Generation",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#boolean",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap",
+      "type": "http://www.w3.org/2000/01/rdf-schema#domain",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#PhysicalObject",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap",
+      "type": "http://www.w3.org/2000/01/rdf-schema#range",
+      "object": "http://www.w3.org/2001/XMLSchema#integer",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MaxAntNum",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MaxSpiderNum",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#MaxAppleNum",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#Generation",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#AntSpawnGap",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#SpiderSpawnGap",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/ants_versus_spiders_v2#AppleSpawnGap",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "object": "http://www.kg.ru/SmartOntologyEditor#Object",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.kg.ru/SmartOntologyEditor#uri",
+      "properties": []
+    },
+    {
+      "subject": "http://www.kg.ru/ants_versus_spiders_v2#game_world",
+      "type": "http://www.kg.ru/SmartOntologyEditor#attributes",
+      "object": "http://www.w3.org/2000/01/rdf-schema#label",
+      "properties": []
+    }
+  ],
+  "queries": [],
+  "flowcharts": []
+}

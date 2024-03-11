@@ -1,0 +1,22 @@
+{
+  "ontologyInfo": {
+    "uri": "http://www.kg.ru/ants_vs_spiders_model",
+    "ontologyUri": null,
+    "label": "Модель AVS",
+    "type": "Model",
+    "imports": [],
+    "dependencies": [
+      {
+        "uri": "http://www.kg.ru/ants_versus_spiders_v2",
+        "ontologyUri": null,
+        "label": "Онтология Ants vs Spiders"
+      }
+    ],
+    "number": 1,
+    "hidden": false
+  },
+  "entities": [],
+  "links": [],
+  "queries": [],
+  "flowcharts": []
+}
