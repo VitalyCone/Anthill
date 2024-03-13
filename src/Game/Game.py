@@ -178,11 +178,11 @@
 #             else:
 #                 self.display.blit(back_to_game, (0, 0))
 #
-#             #Кнопка download to exel
-#             download_to_exel = pygame.font.SysFont('broadway', 15).render("download to exel", True, 'Black')
+#             #Кнопка download to export
+#             download_to_exel = pygame.font.SysFont('broadway', 15).render("download to export", True, 'Black')
 #             if self.download_bot:
 #                 if download_to_exel.get_rect(topleft = (0,25)).collidepoint(mouse):
-#                     self.display.blit(pygame.font.SysFont('broadway', 15,bold='True',italic='True').render("download to exel", True, 'black'),(0,25))
+#                     self.display.blit(pygame.font.SysFont('broadway', 15,bold='True',italic='True').render("download to export", True, 'black'),(0,25))
 #                     if pygame.mouse.get_pressed()[0]:
 #                         self.save_graphics()
 #                 else:

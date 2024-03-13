@@ -62,7 +62,7 @@ class Ant(EntityBase):
         all_update(
             f'Object {self.uri} was successfully initialized'
                    )
-        path = str(os.path.abspath('assets/icons/ant.png'))
+        path = str(os.path.abspath('../../assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
