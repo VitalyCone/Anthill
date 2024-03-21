@@ -86,27 +86,58 @@ class Spider:
         self.geo = [random.randint(10,990),random.randint(10,990)]
         self.speed = input_spdr_speed
         self.my_ant = None
+        self.scene = None
+        self.ants = None
+        self.spiders = None
         
     
     def body(self):
         return pygame.Rect(self.geo[0],self.geo[1],15,15)
 
+    def get_ants(self, scene):  # метод, возвращающий всех муравьев в зоне обзора
+        ants = []
+        for ant in scene:
+            if ant.name == 'Ant':
+                ants.append(ant)
+        return ants
+
+    def get_spiders(self, scene):  # метод, возвращающий всех пауков в зоне обзора
+        spiders = []
+        for spider in scene:
+            if spider.name == 'Spider':
+                spiders.append(spider)
+        return spiders
+
     def move(self):
+        """
+        Реализация хода паука
+        :param scene: list
+        :return scene: list
+        """
+        # self.scene = scene  # переопределение собственной сцены
+        # self.ants = self.get_ants(self.scene)
+        # self.spiders = self.get_spiders(self.scene)
+
+        # нахождение ближайшего муравья
         self.my_ant = self.closest_ant()
-        
+
         if self.my_ant:
+            # если ближайший муравей существует - определение расстояния до него
             distance = ((self.my_ant.geo[0]-self.geo[0])**2 + (self.my_ant.geo[1]-self.geo[1])**2)**0.5
 
+            # если муравей находится близко к пауку - паук съедает муравья
             if distance <= 10 and not self.my_ant.isready:
                 self.my_ant.die(self.my_ant)
 
+            # построение вектора до муравья
             try:
                 vector = ((self.my_ant.geo[0]-self.geo[0])/distance,(self.my_ant.geo[1]-self.geo[1])/distance)
-            except:
+            except ZeroDivisionError:
                 vector = (0,0)
 
-            self.geo[0]+=vector[0]*self.speed
-            self.geo[1]+=vector[1]*self.speed
+            # перемещение в сторону муравья
+            self.geo[0] += vector[0]*self.speed
+            self.geo[1] += vector[1]*self.speed
     
     def closest_ant(self):
         dl = sorted([[((abs(round(ant.geo[0]-self.geo[0])**2 + (ant.geo[1]-self.geo[1])**2)**0.5)),ant] for ant in ants if not ant.isready],key=lambda x: x[0])

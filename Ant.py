@@ -56,47 +56,59 @@ class Ant:
             return dl[0][1]
 
     def move(self, scene):
+        # получаем сцену и создаем сцену отдельно по каждому типу организмов игры
         self.scene = scene
         self.apples = self.get_apples(self.scene)
         self.ants = self.get_ants(self.scene)
         self.spiders = self.get_spiders(self.scene)
 
-        
-        run = self.run_away_from_spiders()
+        # проверяем на наличие паука в радиусе агента
+        spider_in_radius = self.run_away_from_spiders()
 
-        if run:
-            my_apple = run[1]
-        elif not self.anthill.exit:
-            my_apple = self.closest_apple()
-        else:
-            my_apple = self.anthill
+        if spider_in_radius:  # если паук есть в радиусе агента
+            aim = spider_in_radius[1]  # то он назначается основной целью
+        elif not self.anthill.exit:  # если есть доступные яблоки
+            aim = self.closest_apple()  # выбирается ближайшее
+        else:  # если больше нет доступных яблок, то
+            aim = self.anthill  # игра заканчивается
 
-        if my_apple:
-            distance = ((my_apple.geo[0]-self.geo[0])**2 + (my_apple.geo[1]-self.geo[1])**2)**0.5
-            
+        if aim:
+            distance = ((aim.geo[0]-self.geo[0])**2 + (aim.geo[1]-self.geo[1])**2)**0.5
             if distance <= 5:
-                if my_apple.name == 'Apple':
+
+                # если муравей находится в 5 единицах от яблока-цели, тогда он толкает его в сторону муравейника
+                if aim.name == 'Apple':
                     self.intravel = True
-                    my_apple.travelset.add(self)
-                    self.scene = my_apple.move(self.scene)
+                    # добавляет себя в массив яблока, хранящий информацию о всех перетаскиваемых его муравьев
+                    aim.travelset.add(self)
+                    # дает ход яблоку-цели, реализуя перемещение яблока
+                    self.scene = aim.move(self.scene)
                     for apple in self.apples:
-                        if apple!=my_apple and self in apple.travelset:
+                        if apple != aim and self in apple.travelset:
                             apple.travelset.remove(self)
 
-                if my_apple.name == 'Anthill':
+                # если муравей в близи муравейника после победы в игре, тогда муравей пропадает
+                if aim.name == 'Anthill':
                     self.isready = True
-            try:
-                vector = ((my_apple.geo[0]-self.geo[0])/distance,(my_apple.geo[1]-self.geo[1])/distance)
-            except:
-                vector = (0,0)
 
-            if not run:
-                self.geo[0]+=vector[0]*self.speed
-                self.geo[1]+=vector[1]*self.speed
+            # если муравей далеко от цели, тогда он строит вектор, по которой идет к ней
+            try:
+
+                vector = ((aim.geo[0]-self.geo[0])/distance, (aim.geo[1]-self.geo[1])/distance)
+            except ZeroDivisionError:
+                vector = (0, 0)
+
+            if not spider_in_radius:
+                # если цель - не паук, то муравей приближается к ней
+                self.geo[0] += vector[0]*self.speed
+                self.geo[1] += vector[1]*self.speed
 
             else:
-                self.geo[0]-=vector[0]*self.speed
-                self.geo[1]-=vector[1]*self.speed
+                # если цель - паук, то муравей уходит от нее
+                self.geo[0] -= vector[0]*self.speed
+                self.geo[1] -= vector[1]*self.speed
+
+        # возврат сцены с измененными сущностями
         return self.scene
 
     def run_away_from_spiders(self):

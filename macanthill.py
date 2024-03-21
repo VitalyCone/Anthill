@@ -92,13 +92,13 @@ while running:
         display.blit(anthill_write,(10,810)) 
 
         for ant_index, ant in enumerate(ants):
-            scene = ant.move(ants + spiders + apples) #теперь в параметрах, при ходе, каждому агенту передается сцена(массив из объектов-агентов)
-            modify_scene(scene)   #изменение сцены, после хода агента                      #(добавить муравейник)
+            scene = ant.move(ants + spiders + apples)  # перебираем всех муравьев
+            modify_scene(scene)   # изменение сцены, после хода агента
             pygame.draw.rect(display, 'Black', ant.body())
         
         for spider_index, spider in enumerate(spiders):
-            scene = spider.move(ants + spiders + apples) #то же самое, что и в коде ходов муравьев
-            modify_scene(scene)
+            scene = spider.move(ants + spiders + apples)  # перебираем всех пауков
+            modify_scene(scene)  # изменение сцены, после хода агента
             spider.run()
             pygame.draw.rect(display, 'Brown', spider.body())
                 

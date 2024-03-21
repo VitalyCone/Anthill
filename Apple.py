@@ -56,23 +56,36 @@ class Apple:
         return spiders
 
     def move(self, scene):
-        self.scene = scene
-        self.apples = self.get_apples(self.scene)  #диспетчер переопределяет сцену
+        """
+        Реализация метода хода яблока
+        :param scene: list
+        :return scene: list
+        """
+        self.scene = scene  # переопределение собственной сцены
+        self.apples = self.get_apples(self.scene)
         self.ants = self.get_ants(self.scene)
         self.spiders = self.get_spiders(self.scene)
         self.anthill = self.get_anthill(self.scene)
 
+        # расчет дистанции до муравейника
         distance = ((self.anthill.geo[0]-self.geo[0])**2 + (self.anthill.geo[1]-self.geo[1])**2)**0.5
+
+        # расчет скорости по количеству муравьев, которые перемещают это яблоко
         speed = self.find_travel_speed()
 
+        # построение вектора до муравейника
         try:
-            vector = ((self.anthill.geo[0]-self.geo[0])/distance,(self.anthill.geo[1]-self.geo[1])/distance)
-        except:
-            vector = (0,0)
-        
+            vector = ((self.anthill.geo[0]-self.geo[0])/distance, (self.anthill.geo[1]-self.geo[1])/distance)
+        except ZeroDivisionError:
+            vector = (0, 0)
+
+        # если яблоко донесли до муравейника - оно удаляется из игры
         if distance <= 5:
             self.apples.remove(self)
 
-        self.geo[0]+=vector[0]*speed
-        self.geo[1]+=vector[1]*speed
+        # перемещение яблока в сторону муравейника
+        self.geo[0] += vector[0]*speed
+        self.geo[1] += vector[1]*speed
+
+        # возвращение обновленной сцены
         return self.apples + self.ants + self.spiders + [self.anthill]
