@@ -56,7 +56,7 @@ def setConfig(config_file_path='config.yml'):
     """
     with open(config_file_path, 'r') as config_file:
         config_data = yaml.safe_load(config_file)
-    Config.dataset = config_data
+        Config.dataset = config_data
 
 
 def setLocal(local_file_path='localization.yml'):

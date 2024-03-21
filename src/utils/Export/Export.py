@@ -55,9 +55,9 @@ def export_in_excel(data):
 
     df = ps.DataFrame(data_1)
 
-    df.to_excel('export/' + name, index=False)
+    df.to_excel('../../export/' + name, index=False)
 
-    workbook = openpyxl.load_workbook('export/' + name)
+    workbook = openpyxl.load_workbook('../../export/' + name)
     worksheet = workbook.active
 
     for cell in worksheet.iter_cols(min_row=1, max_row=1, min_col=1,
@@ -209,5 +209,5 @@ def export_in_excel(data):
     worksheet.add_chart(chart, cell_name)
 
     # Сохранение изменений
-    workbook.save('export/' + name)
+    workbook.save('../../export/' + name)
 

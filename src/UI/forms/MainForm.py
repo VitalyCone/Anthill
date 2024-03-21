@@ -4,6 +4,10 @@ import threading
 import time
 from copy import copy
 
+"""
+Содержит класс главного окна приложения
+"""
+
 from PySide6.QtCore import QTimer, QSize, Qt, QThread
 from PySide6.QtGui import QColor, QPixmap, QMovie
 from PySide6.QtWidgets import QMainWindow, QApplication, QGraphicsScene, QGraphicsView, QVBoxLayout, QLabel, QDialog
@@ -331,6 +335,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.label_2.setText(Localization.dataset["UI"]["main_menu"]["sub_header"][self.locale])
 
         path = str(os.path.abspath('assets/images/ants_img.jpg'))
+        path = str(os.path.abspath('../../assets/images/ants_img.jpg'))
         self.image_label.setPixmap(QPixmap(path))
 
         self.show()
