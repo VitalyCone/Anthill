@@ -12,7 +12,7 @@ from src.entitites.Anthill import Anthill
 from src.entitites.Apple import Apple
 from src.entitites.Spider import Spider
 from src.scene.Scene import Scene
-from src.utils.statistics.Statistics import setConfig
+from src.utils.statistics.Statistics import setConfig, setLocal
 from src.UI.forms.MainForm import MainForm
 
 from threading import Thread
@@ -20,6 +20,7 @@ from threading import Thread
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 setConfig('src/scripts/cfg/config.yml')
+setLocal('src/scripts/cfg/localization.yml')
 scene = Scene()
 agent_dispatcher = AgentDispatcher(scene)
 # Инициализация игры

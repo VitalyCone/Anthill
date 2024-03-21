@@ -7,16 +7,18 @@ from src.agents.AgentDispatcher import AgentDispatcher
 from src.agents import AgentDispatcher
 from src.scene.Scene import Scene
 from src.utils.ontology_utils.ontology_utils import OntologyModel, import_ontology_model
+from src.utils.statistics.Statistics import Localization
 
 
 class StartGameDialog(QDialog, Ui_GameStartDialog, Ui_SimpleDiag):
 
     def __init__(self, dispatcher: AgentDispatcher, scene: Scene,
-                 anthill_num: int, apples_num: int, spdr_num: int, ants_num: int, entities_settings: dict):
+                 anthill_num: int, apples_num: int, spdr_num: int, ants_num: int, entities_settings: dict, locale: str):
         super().__init__()
         self.show_model = False
         self.use_onto_model = OntologyModel.ontology_model is not None
         self.entities_settings = entities_settings
+        self.locale = locale
         if not self.use_onto_model:
 
             self.planner = Planner(dispatcher, scene, anthill_num, apples_num, spdr_num, ants_num,
@@ -39,6 +41,10 @@ class StartGameDialog(QDialog, Ui_GameStartDialog, Ui_SimpleDiag):
             vbox = QVBoxLayout()
             vbox.addWidget(label)
             self.setLayout(vbox)
+        self.label.setText(Localization.dataset["UI"]["game"]["dialog"]["starting_num_ants"][self.locale])
+        self.label_2.setText(Localization.dataset["UI"]["game"]["dialog"]["starting_num_spiders"][self.locale])
+        self.label_3.setText(Localization.dataset["UI"]["game"]["dialog"]["starting_num_apples"][self.locale])
+        self.import_ontology_button_agent_settings.setText(Localization.dataset["UI"]["game"]["dialog"]["import_ontology"][self.locale])
 
         self.show()
         self.exec()

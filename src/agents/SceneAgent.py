@@ -5,7 +5,7 @@ from src.entitites.Group import Group
 
 from src.utils.Messages.Messages import MessageType
 from src.scene.Scene import Scene
-from src.utils.statistics.Statistics import all_update, debug_update, count_id, Denotations
+from src.utils.statistics.Statistics import all_update, debug_update, count_id, Denotations, Localization, Config
 
 
 class SceneAgent(AgentBase):
@@ -18,6 +18,7 @@ class SceneAgent(AgentBase):
         super().__init__()
         self.entity: Scene
         self.name = 'Scene agent'
+        self.locale = Config.dataset["locale"]
         self.subscribe(MessageType.SCENE_REQUEST, self.handle_scene_request_message)
         self.subscribe(MessageType.ENTITY_REMOVE_REQUEST, self.handle_entity_remove_request)
 
@@ -28,8 +29,10 @@ class SceneAgent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'{self}: request received from scene {sender}')
-        all_update(f'{self}: request received from scene {sender}')
+        log_data = Localization.dataset["scene_agent"]["handle_request_scene_msg"][self.locale].format(
+            self=self.name, sender=sender)
+        logging.info(log_data)
+        all_update(log_data)
         entities_in_radius = []
         geo = message[1][0]
         radius = message[1][1]
@@ -53,6 +56,8 @@ class SceneAgent(AgentBase):
             entity = self.entity.get_entity_by_uri(uri)
             if entity:
                 # if self.entity.get_entity_by_uri(uri).version == version:
+                log_data = Localization.dataset["scene_agent"]["handle_entity_remove_request_msg"][self.locale].format(
+                    uri=uri, sender=sender)
                 self.entity.remove_entity_by_uri(uri)
-                logging.info(f'{uri} was deleted from scene by agent: {sender}')
-                all_update(f'{uri} was deleted from scene by agent: {sender}')
+                logging.info(log_data)
+                all_update(log_data)

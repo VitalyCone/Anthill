@@ -4,7 +4,7 @@ import logging
 from src.agents.BaseAgent import AgentBase
 from src.utils.Messages.Messages import MessageType
 from src.entitites.Group import Group
-from src.utils.statistics.Statistics import all_update
+from src.utils.statistics.Statistics import all_update, Config
 
 
 class GroupAgent(AgentBase):
@@ -16,6 +16,7 @@ class GroupAgent(AgentBase):
         super().__init__()
         self.entity: Group
         self.name = 'Group agent'
+        self.locale = Config.dataset["locale"]
         self.subscribe(MessageType.GIVE_CONTROL, self.handle_give_control)
         self.subscribe(MessageType.SCENE_RESPONSE, self.handle_scene_response)
         self.subscribe(MessageType.INVITE_RESPONSE, self.handle_invite_response)

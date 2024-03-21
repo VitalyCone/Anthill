@@ -8,7 +8,7 @@ from thespian.actors import Actor, ActorExitRequest
 from src.agents.BaseAgent import AgentBase
 from src.entitites import BaseEntity
 from src.utils.Messages.Messages import MessageType
-from src.utils.statistics.Statistics import all_update, debug_update
+from src.utils.statistics.Statistics import all_update, debug_update, Localization, Config
 
 
 class Agent(AgentBase):
@@ -20,6 +20,7 @@ class Agent(AgentBase):
         super().__init__()
         self.name = 'Agent'
         self.entity: BaseEntity
+        self.locale = Config.dataset["locale"]
         self.subscribe(MessageType.INVITE_REQUEST, self.handle_invite_request)
         self.subscribe(MessageType.ATTACK_REQUEST, self.handle_attack_request)
         self.subscribe(MessageType.SHARE_INFORMATION, self.handle_share_information)
@@ -35,8 +36,10 @@ class Agent(AgentBase):
             for spider in spiders:
                 message = (MessageType.SHARE_INFORMATION, ants)
                 spider_address = self.dispatcher.reference_book.get_address(spider)
-                logging.info(f'{self} shared information with {spider_address}')
-                all_update(f'{self} shared information with {spider_address}')
+                log_data = Localization.dataset["agent"]["send_info_msg"][self.locale].format(
+                    self=self, spider_address=spider_address)
+                logging.info(log_data)
+                all_update(log_data)
                 self.send(spider_address, message)
 
     def handle_share_information(self, message, sender):
@@ -46,8 +49,9 @@ class Agent(AgentBase):
         :param sender:
         :return:
         """
-        logging.info(f'Info received from agent {sender}')
-        all_update(f'Info received from agent{sender}')
+        log_data = Localization.dataset["agent"]["handle_share_info_msg"][self.locale].format(sender=sender)
+        logging.info(log_data)
+        all_update(log_data)
         self.entity.process_information(message[1])
 
     def handle_attack_request(self, message, sender):
@@ -57,6 +61,9 @@ class Agent(AgentBase):
         :param sender:
         :return:
         """
+        log_data = Localization.dataset["agent"]["handle_attack_request_msg"][self.locale].format(self=self)
+        logging.info(log_data)
+        all_update(log_data)
         self.entity.attack = message[1]
 
     def handle_invite_request(self, message, sender):

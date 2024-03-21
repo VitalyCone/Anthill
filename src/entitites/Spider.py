@@ -61,18 +61,11 @@ class Spider(EntityBase):
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.hunt_state = HuntState(self)
         self.removed = []
-        path = str(os.path.abspath('assets/icons/spider.png'))
+        path = str(os.path.abspath('/../../assets/icons/spider.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)
         self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
-
-        logging.info(
-            f'Object {self.uri} was successfully initialized'
-        )
-        all_update(
-            f'Object {self.uri} was successfully initialized'
-        )
 
     def agent_in_radius(self, agent: Ant) -> bool:
         """
@@ -125,8 +118,8 @@ class Spider(EntityBase):
             self.energy += self.prey.energy
         self.removed.append([self.prey.get_uri(), self.prey.version])
         self.prey = None
-        logging.info(f'{self.prey} was killed {self}')
-        all_update(f'{self.prey} was killed {self}')
+        # logging.info(f'{self.prey} was killed {self}')
+        # all_update(f'{self.prey} was killed {self}')
 
     def move(self, scene) -> list:
         """

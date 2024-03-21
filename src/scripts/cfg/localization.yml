@@ -1,0 +1,172 @@
+agent_base:
+  subscribe_msg:
+    ru: "Повторная подписка на сообщение: {msg_type}"
+    en: "Resubscribe to message: {msg_type}"
+  handle_deleted:
+    ru: "{self} получил сообщение {msg} от: {sender}"
+    en: "{self} received message {msg} from: {sender}"
+  receive_msg:
+    ru: "{name} получил сообщение: {msg}"
+    en: "{name} received message: {msg}"
+  receive_actor_exit_request:
+    ru: "{self} получил сообщение {msg} - ActorExitRequest"
+    en: "{self} received message {msg} - ActorExitRequest"
+  message_not_subscribed:
+    ru: "{name} нет подписки на сообщение типа {message_type}"
+    en: "{name} Message not subscribed: {message_type}"
+  invalid_msg:
+    ru: "{name} Неверный формат сообщения: {msg}"
+    en: "{name} Invalid message format: {msg}"
+  initialization_msg:
+    ru: "{self} проинициализирован"
+    en: "{self} initialized"
+  handle_scene_response_msg:
+    ru: "{self}: получена сцена от {sender}"
+    en: "{self}: scene received from {sender}"
+  handle_give_control_msg:
+    ru: "{self}: получил сообщение {message} от {sender}"
+    en: "{self}: received {message} from {sender}"
+
+agent:
+  send_info_msg:
+    ru: "{self} поделился информацией с {spider_address}"
+    en: "{self} shared information with {spider_address}"
+  handle_share_info_msg:
+    ru: "Информация получена от {sender}"
+    en: "Info received from agent {sender}"
+  handle_attack_request_msg:
+    ru: "{self} присоединился к групповой атаке"
+    en: "{self} joined group attack"
+
+scene_agent:
+  handle_request_scene_msg:
+    ru: "{self}: получен запрос сцены от {sender}"
+    en: "{self}: request scene received from {sender}"
+  handle_entity_remove_request_msg:
+    ru: "{uri} был удален из сцены агентом {sender}"
+    en: "{uri} was deleted from scene by agent {sender}"
+
+agent_dispatcher:
+  create_group_msg:
+    ru: "Группа {group} была создана"
+    en: "Group {group} was created"
+  add_entity_msg:
+    ru: "{entity} был добавлен в сцену"
+    en: "{entity} added to scene"
+  create_agent_msg:
+    ru: "{agent} сущности {entity} был создан"
+    en: "{agent} of entity {entity} was created"
+
+UI:
+  exit:
+    ru: "Выйти"
+    en: "Exit"
+  back:
+    ru: "Назад"
+    en: "Back"
+  apply:
+    ru: "Принять"
+    en: "Apply"
+  return:
+    ru: "Вернуться"
+    en: "Return"
+  main_menu:
+    settings:
+      ru: "Настройки"
+      en: "Settings"
+    start_continue:
+      ru: "Начать/Продолжить"
+      en: "Start/Continue"
+    decision_making_log:
+      ru: "Журнал принятия решений"
+      en: "Decision making log"
+    results:
+      ru: "Результаты"
+      en: "Results"
+    help:
+      ru: "Помощь"
+      en: "Help"
+    header:
+      ru: <html><head/><body><p><span style=\" font-size:20pt; font-weight:700;\">Муравьи против Пауков</span></p></body></html>
+      en: <html><head/><body><p><span style=\" font-size:20pt; font-weight:700;\">Ants VS Spiders</span></p></body></html>
+    sub_header:
+      ru: <html><head/><body><p><span style=\" font-size:14pt;\">Курс Эмерджентного интеллекта</span></p><p><span style=\" font-size:10pt;\">Коллективный интеллект побеждает!</span></p></body></html>
+      en: <html><head/><body><p><span style=\" font-size:14pt;\">Training course on emergent intelligence</span></p><p><span style=\" font-size:10pt;\">Collective intelligence wins!</span></p></body></html>
+  game:
+    dialog:
+      starting_num_spiders:
+        ru: "Стартовое кол-во пауков"
+        en: "Starting number of spiders"
+      starting_num_ants:
+        ru: "Стартовое кол-во муравьев"
+        en: "Starting number of ants"
+      starting_num_apples:
+        ru: "Стартовое кол-во яблок"
+        en: "Starting number of apples"
+      import_ontology:
+        ru: "Импортировать онтологическую модель"
+        en: "Import ontology model"
+      ontology_import_msg:
+        ru: "Онтологическая модель {model} была успешна импортирована"
+        en: "Ontology model {model} successfully imported"
+      ontology_export_msg:
+        ru: "Онтологическая модель была успешно экспортирована в модель: {model}"
+        en: "Ontology model successfully exported to model: {model}"
+    restart:
+      ru: "Перезапустить"
+      en: "Restart"
+    export_ontology:
+      ru: "Экспортировать онто-модель"
+      en: "Export ontology model"
+    negotiations_on:
+      ru: "Коллективный интеллект: вкл."
+      en: "Collective intelligence: on"
+    negotiations_off:
+      ru: "Коллективный интеллект: выкл."
+      en: "Collective intelligence: off"
+    pause:
+      ru: "Пауза"
+      en: "Pause"
+  decision_making_log:
+    download:
+      ru: "Скачать информацию о МАС"
+      en: "Download MAS info"
+  results:
+    accumulated_energy_of_ants:
+      ru: "Суммарная энергия муравьев"
+      en: "Accumulated energy of ants"
+    accumulated_energy_of_spiders:
+      ru: "Суммарная энергия пауков"
+      en: "Accumulated energy of spiders"
+    energy_of_anthill:
+      ru: "Энергия муравейника"
+      en: "Energy of anthill"
+    number_of_messages:
+      ru: "Количество сообщений"
+      en: "Number of messages"
+    download_graphs:
+      ru: "Скачать графики"
+      en: "Download graphs"
+  settings:
+    radius:
+      ru: "Радиус"
+      en: "Radius"
+    speed:
+      ru: "Скорость"
+      en: "Speed"
+    spiders_settings:
+      ru: "Настройки паука"
+      en: "Spiders Settings"
+    ants_settings:
+      ru: "Настройки муравья"
+      en: "Ants Settings"
+    system_settings:
+      ru: "Системные настройки"
+      en: "System Settings"
+    apple_gap:
+      ru: "Разница во времени между появлением яблок"
+      en: "Apple spawn time gap"
+    spider_gap:
+      ru: "Разница во времени между появлением пауков"
+      en: "Spider spawn time gap"
+

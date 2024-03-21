@@ -56,13 +56,7 @@ class Ant(EntityBase):
         self.group_state = GroupState(self)
         self.defense_group_state = DefenseGroupState(self)
         self.prey = None
-        logging.info(
-            f'Object {self.uri} was successfully initialized'
-        )
-        all_update(
-            f'Object {self.uri} was successfully initialized'
-                   )
-        path = str(os.path.abspath('assets/icons/ant.png'))
+        path = str(os.path.abspath('/../../assets/icons/ant.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

@@ -1,3 +1,5 @@
+locale: "ru"
+
 system:
   generation: False
   apple_spawn_time: 100
@@ -17,4 +19,3 @@ ant:
 spider:
   speed: 2.5
   radius: 70
-

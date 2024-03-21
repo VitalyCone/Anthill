@@ -50,13 +50,7 @@ class Anthill(EntityBase):
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
-        logging.info(
-            f'Object {self.uri} was successfully initialized'
-        )
-        all_update(
-            f'Object {self.uri} was successfully initialized'
-        )
-        path = str(os.path.abspath('assets/icons/anthill.png'))
+        path = str(os.path.abspath('/../../assets/icons/anthill.png'))
         self.graphics_entity = GraphicsEntity(self.geo,
                                               path,
                                               self.u)

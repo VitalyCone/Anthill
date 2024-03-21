@@ -11,7 +11,7 @@ from src.agents.agent import Agent
 from src.entitites.Ant import Ant
 from src.entitites.Group import Group
 from src.entitites.Spider import Spider
-from src.utils.statistics.Statistics import StatisticsAlfa, Config
+from src.utils.statistics.Statistics import StatisticsAlfa, Config, Localization
 from src.agents.BaseAgent import AgentBase
 from src.agents.SceneAgent import SceneAgent
 from src.agents.GroupAgent import GroupAgent
@@ -61,7 +61,6 @@ class AgentDispatcher(AgentBase):
         self.max_apples_num = Config.dataset['system']['max_apples_num']
         self.kill = False
         self.window = None
-        self.subscribe(MessageType.GAME_RENDERING_RESPONSE, self.handle_game_rendering_response)
         self.game_address = None
 
         self.n = 0
@@ -69,20 +68,6 @@ class AgentDispatcher(AgentBase):
 
     def create_scene_agent(self, scene):
         self.create_agent(SceneAgent, scene)
-
-    def handle_game_rendering_response(self, message, sender):
-        """
-        Обработка ответа на сообщение о рендеринге игры
-        :return:
-        """
-        if message[1]:
-            logging.info(f'Ответ на сообщение о рендеринге игры от {sender}, игра на паузе')
-            all_update(f'Ответ на сообщение о рендеринге игры от {sender}, игра на паузе')
-
-        else:
-            logging.info(f'Ответ на сообщение о рендеринге игры от {sender}, планирование продолжается')
-            all_update(f'Ответ на сообщение о рендеринге игры от {sender}, планирование продолжается')
-        self.pause = message[1]
 
     def create_apple(self):
         """
@@ -132,8 +117,10 @@ class AgentDispatcher(AgentBase):
         aim = self.scene.get_entity_by_uri(aim.uri)
         group = Group(leader.scene, count_id("group"), aim, leader)
         Denotations.uris['group'].append(group.uri)
-        logging.info(f"Group {group} was created")
-        all_update(f"Group {group} was created")
+        log_data = Localization.dataset["agent_dispatcher"]["create_group_msg"][self.locale].format(
+            group=group)
+        logging.info(log_data)
+        all_update(log_data)
         self.add_entity(group)
 
     def run_planning(self):
@@ -163,8 +150,10 @@ class AgentDispatcher(AgentBase):
         entity_type = entity.name
         self.scene.entities[entity_type].append(entity)
         agent_type = TYPES_AGENTS.get(entity_type)
-        logging.info(f'{entity} added to scene')
-        all_update(f'{entity} added to scene')
+        log_data = Localization.dataset["agent_dispatcher"]["add_entity_msg"][self.locale].format(
+            entity=entity)
+        logging.info(log_data)
+        all_update(log_data)
         if agent_type:
             self.create_agent(agent_type, entity)
             return True
@@ -182,6 +171,8 @@ class AgentDispatcher(AgentBase):
         init_data = {'dispatcher': self, 'scene': self.scene, 'entity': entity}
         init_message = (MessageType.INIT_MESSAGE, init_data)
         self.actor_system.tell(agent, init_message)
-        logging.info(f'{agent} of entity {entity} was created')
-        all_update(f'{agent} of entity {entity} was created')
+        log_data = Localization.dataset["agent_dispatcher"]["create_agent_msg"][self.locale].format(
+            agent=agent, entity=entity)
+        logging.info(log_data)
+        all_update(log_data)
         return agent

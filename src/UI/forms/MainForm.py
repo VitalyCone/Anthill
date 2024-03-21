@@ -21,7 +21,7 @@ from src.agents import AgentDispatcher
 from src.utils.Export.Export import export_in_excel
 from src.utils.ontology_utils.ontology_utils import import_ontology_model, OntologyModel, export_ontology_model
 from src.utils.statistics import Statistics
-from src.utils.statistics.Statistics import write_logs, DataStatistics, Config
+from src.utils.statistics.Statistics import write_logs, DataStatistics, Config, Localization
 
 
 class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui_GameWindow,
@@ -36,6 +36,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.app = app
         self.dispatcher = dispatcher
         self.scene = scene
+        self.locale = Config.dataset['locale']
         self.show_menu()
 
         self.entities_settings = {
@@ -81,10 +82,10 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
 
     def on_of_negotiations(self):
         if self.dispatcher.negotiations_on:
-            self.mas_on_of.setText("Collective intelligence: off")
+            self.mas_on_of.setText(Localization.dataset["UI"]["game"]["negotiations_off"][self.locale])
             self.dispatcher.negotiations_on = False
         else:
-            self.mas_on_of.setText("Collective intelligence: on")
+            self.mas_on_of.setText(Localization.dataset["UI"]["game"]["negotiations_on"][self.locale])
             self.dispatcher.negotiations_on = True
 
     def export_model(self):
@@ -102,7 +103,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             start_game_dialog = StartGameDialog(self.dispatcher, self.scene,
                                           1, self.start_apples_num,
                                           self.start_spiders_num,
-                                          self.start_ants_num, self.entities_settings)
+                                          self.start_ants_num, self.entities_settings, self.locale)
             self.start_apples_num = start_game_dialog.planner.apples_num
             self.start_spiders_num = start_game_dialog.planner.spdr_num
             self.start_ants_num = start_game_dialog.planner.ants_num
@@ -116,10 +117,15 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
 
                 self.export_ontology_button.clicked.connect(self.export_model)
 
+                self.pause_button.setText(Localization.dataset["UI"]["game"]["pause"][self.locale])
+                self.restart_system.setText(Localization.dataset["UI"]["game"]["restart"][self.locale])
+                self.export_ontology_button.setText(Localization.dataset["UI"]["game"]["export_ontology"][self.locale])
+                self.return_button_game.setText(Localization.dataset["UI"]["return"][self.locale])
+
                 if self.dispatcher.negotiations_on:
-                    self.mas_on_of.setText("Collective intelligence: on")
+                    self.mas_on_of.setText(Localization.dataset["UI"]["game"]["negotiations_on"][self.locale])
                 else:
-                    self.mas_on_of.setText("Collective intelligence: off")
+                    self.mas_on_of.setText(Localization.dataset["UI"]["game"]["negotiations_off"][self.locale])
                 board = QGraphicsView()
                 board.setScene(scene)
                 board.setBackgroundBrush(QColor("#c2fab1"))
@@ -137,12 +143,19 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
             self.restart_system.clicked.connect(lambda: self.restart_game(StartGameDialog(self.dispatcher, self.scene,
                                               1, self.start_apples_num,
                                               self.start_spiders_num,
-                                              self.start_ants_num, self.entities_settings)))
+                                              self.start_ants_num, self.entities_settings, self.locale)))
             self.mas_on_of.clicked.connect(self.on_of_negotiations)
+            self.export_ontology_button.clicked.connect(self.export_model)
+
+            self.pause_button.setText(Localization.dataset["UI"]["game"]["pause"][self.locale])
+            self.restart_system.setText(Localization.dataset["UI"]["game"]["restart"][self.locale])
+            self.export_ontology_button.setText(Localization.dataset["UI"]["game"]["export_ontology"][self.locale])
+            self.return_button_game.setText(Localization.dataset["UI"]["return"][self.locale])
+
             if self.dispatcher.negotiations_on:
-                self.mas_on_of.setText("Collective intelligence: on")
+                self.mas_on_of.setText(Localization.dataset["UI"]["game"]["negotiations_on"][self.locale])
             else:
-                self.mas_on_of.setText("Collective intelligence: off")
+                self.mas_on_of.setText(Localization.dataset["UI"]["game"]["negotiations_off"][self.locale])
 
             board = QGraphicsView()
             board.setScene(scene)
@@ -307,6 +320,15 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         self.graph_button.clicked.connect(self.show_graphs)
         self.start_button.clicked.connect(self.show_game)
         self.help_button.clicked.connect(self.show_help)
+
+        self.settings_button.setText(Localization.dataset["UI"]["main_menu"]["settings"][self.locale])
+        self.mas_info_button.setText(Localization.dataset["UI"]["main_menu"]["decision_making_log"][self.locale])
+        self.exit_button.setText(Localization.dataset["UI"]["exit"][self.locale])
+        self.graph_button.setText(Localization.dataset["UI"]["main_menu"]["results"][self.locale])
+        self.start_button.setText(Localization.dataset["UI"]["main_menu"]["start_continue"][self.locale])
+        self.help_button.setText(Localization.dataset["UI"]["main_menu"]["help"][self.locale])
+        # self.label.setText(Localization.dataset["UI"]["main_menu"]["header"][self.locale])
+        self.label_2.setText(Localization.dataset["UI"]["main_menu"]["sub_header"][self.locale])
 
         path = str(os.path.abspath('assets/images/ants_img.jpg'))
         self.image_label.setPixmap(QPixmap(path))

@@ -33,6 +33,11 @@ class Config:
     dataset = {}
 
 
+@dataclass
+class Localization:
+    dataset = {}
+
+
 def setConfig(config_file_path='config.yml'):
     """
     Функция по заданному пути открывает yml конфиг
@@ -52,6 +57,12 @@ def setConfig(config_file_path='config.yml'):
     with open(config_file_path, 'r') as config_file:
         config_data = yaml.safe_load(config_file)
     Config.dataset = config_data
+
+
+def setLocal(local_file_path='localization.yml'):
+    with open(local_file_path, 'r', encoding='utf8') as local_file:
+        local_data = yaml.safe_load(local_file)
+    Localization.dataset = local_data
 
 
 def null_uris():
@@ -142,7 +153,7 @@ class StatisticsAlfa:
         }
 
     def move(self):
-        i = ['Ant', 'Anthill', 'Spider']
+        i = ['Ant', 'Anthill', 'Spider', 'Apple']
         for agent in i:
             energy = 0
             entities = self.scene.get_entities_by_type(agent)
@@ -155,6 +166,7 @@ class StatisticsAlfa:
                 self.g.append(len(entities))
                 if energy == 0:
                     self.b.append(0)
+                    self.a.append(0)
                 else:
                     try:
                         self.a.append(energy / len(entities))
@@ -165,6 +177,7 @@ class StatisticsAlfa:
                 self.h.append(len(entities))
                 if energy == 0:
                     self.d.append(0)
+                    self.c.append(0)
                 else:
                     try:
                         self.c.append(energy / len(entities))
@@ -172,7 +185,8 @@ class StatisticsAlfa:
                         self.c.append(0)
                     self.d.append(energy)
             elif agent == 'Anthill':
-                self.i.append(len(entities))
                 self.e.append(energy)
+            elif agent == 'Apple':
+                self.i.append(len(entities))
         self.teak.append(len(self.teak))
         self.f.append(0)
