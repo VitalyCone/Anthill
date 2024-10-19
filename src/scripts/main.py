@@ -1,8 +1,8 @@
 import logging
 import sys
-from os import getcwd
+import os
 
-sys.path.append(getcwd()[:-11])  # настройка на клиенте
+sys.path.append(os.getcwd()[:-11])  # настройка на клиенте
 
 
 from PySide6.QtWidgets import QApplication
@@ -14,13 +14,14 @@ from src.entitites.Spider import Spider
 from src.scene.Scene import Scene
 from src.utils.statistics.Statistics import setConfig, setLocal
 from src.UI.forms.MainForm import MainForm
-
+from src.utils.path_util.path_util import resource_path
 from threading import Thread
 
 
+
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-setLocal('cfg/localization.yml')
-setConfig('cfg/config.yml')
+setLocal(resource_path('config/localization.yml'))
+setConfig(resource_path('config/config.yml'))
 scene = Scene()
 agent_dispatcher = AgentDispatcher(scene)
 # Инициализация игры

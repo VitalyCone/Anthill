@@ -10,12 +10,10 @@ class GraphicsEntity(QGraphicsItem):
     """
     Класс кастомного объекта QGraphics API
     """
-    def __init__(self, geo: list, sprite: str, rotation: float):
+    def __init__(self, geo: list, sprite: str):
         super().__init__()
         self.geo = geo
-        self.u = rotation
         self.setPos(copy(geo[0]), copy(geo[1]))
-        self.setRotation(degrees(copy(rotation)))
         self.sprite = QImage(sprite)
         self.graph_scene = None
         self.rect = QRectF(0, 0, 20, 20)

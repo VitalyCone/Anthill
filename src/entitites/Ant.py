@@ -13,6 +13,7 @@ from src.states.defense_group_state import DefenseGroupState
 from src.states.group_state import GroupState
 from src.utils.statistics.Statistics import all_update
 from src.entitites.BaseEntity import EntityBase
+from src.utils.path_util.path_util import resource_path
 
 
 class Ant(EntityBase):
@@ -56,10 +57,9 @@ class Ant(EntityBase):
         self.group_state = GroupState(self)
         self.defense_group_state = DefenseGroupState(self)
         self.prey = None
-        path = str(os.path.abspath('/../../assets/icons/ant.png'))
+        path = str(os.path.abspath(resource_path('assets/icons/ant.png')))
         self.graphics_entity = GraphicsEntity(self.geo,
-                                              path,
-                                              self.u)
+                                              path)
 
     @staticmethod
     def add_ant(scene, anthill):

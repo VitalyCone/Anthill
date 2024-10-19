@@ -14,8 +14,6 @@ class MessageType(Enum):
     SCENE_RESPONSE = 'Scene response'
     ENTITY_REMOVE_REQUEST = 'Entity remove request'
     SHARE_INFORMATION = 'Share information'
-    GAME_RENDERING_REQUEST = 'Запрос на отрисовку игрового поля'
-    GAME_RENDERING_RESPONSE = 'Ответ на запрос на отрисовку игрового поля'
     CREATE_GROUP_AGENT = 'Create group agent'
     INVITE_REQUEST = 'Invite request'
     INVITE_RESPONSE = 'Invite response'

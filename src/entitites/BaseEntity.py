@@ -109,8 +109,6 @@ class EntityBase(ABC):
         :return killed:
         """
         killed = self.move(scene)
-        # logging.info(f'Object {self.uri} made move, changes in the scene: {len(killed)}')
-        # all_update(f'Object {self.uri} made move, changes in the scene: {len(killed)}')
         return killed
 
     @staticmethod

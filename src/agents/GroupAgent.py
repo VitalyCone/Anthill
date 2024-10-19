@@ -48,27 +48,27 @@ class GroupAgent(AgentBase):
         """
         logging.info(f'{self}: received scene from {sender}')
         all_update(f'{self}: received scene from {sender}')
-        scene = message[1]
-        self.entity.scene = scene
+
         self.send_invite_message()
-        for entity in self.entity.entities:
-            if entity.status == 'dead':
-                self.entity.entities.remove(entity)
+
         if (self.entity.aim.status == 'dead' or self.entity.leader.status == 'dead'
                 or not self.dispatcher.negotiations_on):
             self.remove_group()
-        entities_ready_attack = []
-        for entity in self.entity.entities:
-            if (entity.get_distance(self.entity.leader) <= entity.speed and not entity.attack
-                    and self.entity.aim.name == 'Spider'):
-                entities_ready_attack.append(entity)
+
+        # entities_ready_attack = self.entity.get_attack_entities(message[1])
+        entities_ready_attack = self.entity.get_attack_entities()
+
         if (self.entity.aim.name == 'Spider'
                 and len(entities_ready_attack) > self.entity.aim.energy/self.entity.leader.damage):
-            for entity in self.entity.entities:
-                address = self.dispatcher.reference_book.get_address(entity)
-                msg = (MessageType.ATTACK_REQUEST, True)
-                self.send(address, msg)
+            self.send_attack_request()
+
         self.entity.make_damage()
+
+    def send_attack_request(self):
+        for entity in self.entity.entities:
+            address = self.dispatcher.reference_book.get_address(entity)
+            msg = (MessageType.ATTACK_REQUEST, True)
+            self.send(address, msg)
 
     def remove_group(self):
         if self.entity.aim.name == 'Apple':
@@ -86,16 +86,6 @@ class GroupAgent(AgentBase):
 
     def send_invite_message(self):
         if self.dispatcher.negotiations_on:
-            # if self.entity.aim.name == 'Spider':
-            #     if len(self.entity.entities)*self.entity.leader.damage >= self.entity.aim.energy:
-            #         ants = self.entity.get_ants(self.entity.scene)
-            #         for ant in ants:
-            #             if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
-            #                 break
-            #             if ant not in self.entity.entities:
-            #                 address = self.dispatcher.reference_book.get_address(ant)
-            #                 msg = (MessageType.INVITE_REQUEST, self.entity.aim)
-            #                 self.send(address, msg)
             if self.entity.aim.speed >= self.entity.leader.speed and self.entity.aim.name == 'Apple':
                 return
             ants = self.entity.get_ants(self.entity.scene)

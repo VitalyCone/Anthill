@@ -3,6 +3,7 @@ import os
 import threading
 import time
 from copy import copy
+from src.utils.path_util.path_util import resource_path
 
 """
 Содержит класс главного окна приложения
@@ -334,8 +335,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         # self.label.setText(Localization.dataset["UI"]["main_menu"]["header"][self.locale])
         self.label_2.setText(Localization.dataset["UI"]["main_menu"]["sub_header"][self.locale])
 
-        path = str(os.path.abspath('assets/images/ants_img.jpg'))
-        path = str(os.path.abspath('../../assets/images/ants_img.jpg'))
+        path = str(os.path.abspath(resource_path('assets/images/ants_img.jpg')))
         self.image_label.setPixmap(QPixmap(path))
 
         self.show()
@@ -365,7 +365,7 @@ class MainForm(QMainWindow, Ui_MainWindow, Ui_MasInfoWindow, Ui_GraphsWindow, Ui
         dialog = QDialog()
         vbox = QVBoxLayout()
         lbl = QLabel()
-        self.moviee = QMovie(os.path.abspath('assets/images/loader.gif'))
+        self.moviee = QMovie(os.path.abspath(resource_path('assets/images/loader.gif')))
         lbl.setMovie(self.moviee)
         self.moviee.start()
         vbox.addWidget(lbl)

@@ -14,6 +14,7 @@ from src.states.hunt_state import HuntState
 from src.utils.statistics.Statistics import all_update
 from src.entitites.BaseEntity import EntityBase
 from src.entitites.Ant import Ant
+from src.utils.path_util.path_util import resource_path
 
 
 class Spider(EntityBase):
@@ -61,10 +62,9 @@ class Spider(EntityBase):
         self.searchState = SearchState(self)    # создания экземпляра класса состояния поиска
         self.hunt_state = HuntState(self)
         self.removed = []
-        path = str(os.path.abspath('/../../assets/icons/spider.png'))
+        path = str(os.path.abspath(resource_path('assets/icons/spider.png')))
         self.graphics_entity = GraphicsEntity(self.geo,
-                                              path,
-                                              self.u)
+                                              path)
         self.graphics_entity.setRect(QRectF(0, 0, 30, 30))
 
     def agent_in_radius(self, agent: Ant) -> bool:

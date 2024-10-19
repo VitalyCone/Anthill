@@ -10,6 +10,7 @@ from src.states.SpawnState import SpawnState
 from src.states.GrowthState import GrowthState
 from src.utils.statistics.Statistics import all_update, Config
 from src.entitites.BaseEntity import EntityBase
+from src.utils.path_util.path_util import resource_path
 
 
 class Anthill(EntityBase):
@@ -50,10 +51,9 @@ class Anthill(EntityBase):
         # print(f'x={self.rect.x}, y={self.rect.y}, w={self.rect.w}, h={self.rect.h}','dddddddddddddd')
         # print(f'left={self.rect.left}, top={self.rect.top}, right={self.rect.right}, bottom={self.rect.bottom}','kkkkkkkk')
         # print(f'center={self.rect.center}')
-        path = str(os.path.abspath('/../../assets/icons/anthill.png'))
+        path = str(os.path.abspath(resource_path('assets/icons/anthill.png')))
         self.graphics_entity = GraphicsEntity(self.geo,
-                                              path,
-                                              self.u)
+                                              path)
         self.graphics_entity.setRect(QRectF(0, 0, self.long, self.height))
 
     def run(self):

@@ -8,6 +8,7 @@ from src.GraphicsEntity.GrapicsEntity import GraphicsEntity
 from src.states.InertiaState import InertiaState
 from src.utils.statistics.Statistics import all_update
 from src.entitites.BaseEntity import EntityBase
+from src.utils.path_util.path_util import resource_path
 
 
 class Apple(EntityBase):
@@ -42,10 +43,9 @@ class Apple(EntityBase):
         self.energy = self.weight*10
         self.speed = 0
         self.inertiaState = InertiaState(self)
-        path = str(os.path.abspath('/../../assets/icons/apple.png'))
+        path = str(os.path.abspath(resource_path('assets/icons/apple.png')))
         self.graphics_entity = GraphicsEntity(self.geo,
-                                              path,
-                                              self.u)
+                                              path)
 
     def die(self) -> None:
         """

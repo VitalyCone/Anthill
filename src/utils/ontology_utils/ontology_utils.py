@@ -20,11 +20,16 @@ def import_ontology_model():
     """
     try:
         onto_manager = OntologyManager()
-        spiders = onto_manager.get_spiders()
-        anthills = onto_manager.get_anthills()
-        ants = onto_manager.get_ants()
-        apples = onto_manager.get_apples()
-        game = onto_manager.get_system()[0]
+        game = onto_manager.get_system()
+        game_objects = [game_objects['value']['uri'] for game_objects in game['data']['Include']]
+        spiders = [spider_dict for spider_dict in onto_manager.get_spiders()
+                   if spider_dict['uri'] in game_objects]
+        anthills = [anthill_dict for anthill_dict in onto_manager.get_anthills()
+                    if anthill_dict['uri'] in game_objects]
+        ants = [ant_dict for ant_dict in onto_manager.get_ants()
+                if ant_dict['uri'] in game_objects]
+        apples = [apples_dict for apples_dict in onto_manager.get_apples()
+                  if apples_dict['uri'] in game_objects]
         OntologyModel.ontology_model = {
             "Ant": ants,
             "Spider": spiders,
@@ -33,7 +38,7 @@ def import_ontology_model():
             "Game": game
         }
         simple_diag = SimpleDiag("Ontology model " + onto_manager.ontology_uri + " successfully imported")
-    except Exception:
+    except ZeroDivisionError:
         pass
 
 

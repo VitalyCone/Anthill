@@ -74,7 +74,7 @@ class OntologyManager:
         """
         return self.__get_entities_list(
             "http://www.kg.ru/ants_versus_spiders_v2#game_world"
-        )
+        )[0]
 
     def __create_entity(
         self, uri: str, label: str, properties: dict, data: dict, entity_type: str
@@ -105,6 +105,7 @@ class OntologyManager:
         MaxAppleNum: float | int,
         MaxSpiderNum: float | int,
         Generation: bool
+        Include: list
         }
         """
         properties = default_properties.game_world_properties

@@ -4,8 +4,6 @@
 class Group:
     def __init__(self, scene, id='0', aim=None, leader=None):
         self.name = __class__.__name__
-        # в каждом классе определил переменную-имя класса
-        # , чтобы агентам не надо было импортровать друг друга, чтобы не появлялась circular import error
         self.uri = self.name + str(id)
         self.scene = scene
         self.version = 0
@@ -44,3 +42,26 @@ class Group:
             if self.aim.energy <= 0:
                 self.aim.die()
                 self.agent.kill_aim()
+
+    def update_scene(self, scene):
+        self.scene = scene
+
+    def get_attack_entities(self):
+        entities_ready_attack = []
+        for entity in self.entities:
+            if (entity.get_distance(self.leader) <= entity.speed and not entity.attack
+                    and self.aim.name == 'Spider'):
+                entities_ready_attack.append(entity)
+        return entities_ready_attack
+
+    def move(self, scene):
+        self.update_scene(scene)
+        for entity in self.entities:
+            if entity.status == 'dead':
+                self.entities.remove(entity)
+        entities_ready_attack = self.get_attack_entities()
+        return entities_ready_attack
+
+
+
+
